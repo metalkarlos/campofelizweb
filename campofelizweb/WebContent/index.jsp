@@ -1,1 +1,1 @@
-<% response.sendRedirect("./pages/login.jsf"); %>
+<% response.sendRedirect("./pages/home.jsf"); %>
