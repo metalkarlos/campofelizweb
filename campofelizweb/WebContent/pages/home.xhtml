@@ -3,14 +3,20 @@
 <ui:composition	 xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	template="../templates/default.xhtml">
 	
 	<ui:define name="title">Campo Feliz - Inicio</ui:define>
 
-	<ui:define name="side_page">
-		<ui:include src="../pages/home_side.xhtml"></ui:include>
-	</ui:define>
 	<ui:define name="content_page">
-		<ui:include src="../pages/home_content.xhtml"></ui:include>
+		<h:form id="form-contentpage">
+			<p style="text-align: justify;">
+				<span class="titulo">BIENVENIDO</span> a Campo Feliz el primer cementerio de mascotas en la ciudad de Guayaquil
+				a Campo Feliz el primer cementerio de mascotas en la ciudad de Guayaquil
+				a Campo Feliz el primer cementerio de mascotas en la ciudad de Guayaquil
+				a Campo Feliz el primer cementerio de mascotas en la ciudad de Guayaquil <a class="link" href="#">leer mas</a>
+			</p>
+		</h:form>
 	</ui:define>
 </ui:composition>
