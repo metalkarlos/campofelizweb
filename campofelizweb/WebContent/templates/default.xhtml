@@ -27,6 +27,9 @@
 	<h:outputStylesheet library="css" name="style.css" />
 	<h:outputStylesheet library="css" name="template.css" />
 	<h:outputStylesheet library="themes/smoothness" name="skin.css" />
+	<style type="text/css">
+        
+    </style>
 	<!-- Configuración del Calendario de la Agenda -->
 	<script type="text/javascript">
 			PrimeFaces.locales['es'] = {
@@ -114,14 +117,15 @@
 		<h1 class="logo">
 			<a href="home.jsf"> Cementerio de Mascotas Campo Feliz </a>
 		</h1>
-		<div class="fright">
+		<div>
 			<div class="header-meta">
 				<div class="col-img">
-					<h:graphicImage library="images" name="campofeliz.png"></h:graphicImage>
+					<span class="titulo-cementerio">Campo Feliz</span> <br/>
+					<span class="subtitulo-cementerio">El primer cementerio de mascotas en la ciudad de Guayaquil</span>	
 				</div>
 				<div class="col-elem">
-					Have a problem with your pet? <br></br> Call us now: <span
-						class="phone">1-800-123-1234</span>
+					Para mayor información <br></br> Llámanos: <span
+						class="phone">(04)6014815</span>
 				</div>
 			</div>
 			<div id='cssmenu'>
@@ -162,12 +166,11 @@
 			<article class="grid_6">
 			<div class="box-1">
 				<div class="inner">
-					<h3>Microchip implant</h3>
-					<p>Vivamus hendrerit mauris ut dui. gravida ut viverra lectus
-						tincidunt. Cras mattis tempor eros nec tristique.</p>
+					<h3 class="str-3">Exhumación</h3>
+					<p>Ofrecemos este servicio dentro de la ciudad de Guayaquil.</p>
 					<div class="btn-container">
 						<div class="button-box">
-							<a href="#" class="button">read more</a>
+							<a href="#" class="button">Leer más</a>
 						</div>
 					</div>
 				</div>
@@ -176,16 +179,11 @@
 			<article class="grid_6">
 			<div class="box-1">
 				<div class="inner">
-					<h3>Ultrasound</h3>
-					<p class="p0">
-						<strong class="str-1"> Vivamus hendrerit mauris ut dui
-							gravida ut viverra </strong>
-					</p>
-					<p>Cras mattis tempor eros nec tristique. Sed sed felis arcu,
-						vel vehicula augue. Maecenas faucibus sagittis. cursus.</p>
+					<h3 class="str-3">Cementerio</h3>
+					<p>Ofrecemos este servicio dentro de la ciudad de Guayaquil.</p>
 					<div class="btn-container">
 						<div class="button-box">
-							<a href="#" class="button">read more</a>
+							<a href="#" class="button">Leer más</a>
 						</div>
 					</div>
 				</div>
@@ -194,12 +192,11 @@
 			<article class="grid_6">
 			<div class="box-1">
 				<div class="inner">
-					<h3>Transport service</h3>
-					<p>Vivamus hendrerit mauris ut dui. gravida ut viverra lectus
-						tincidunt. Cras mattis tempor eros nec tristique.</p>
+					<h3 class="str-3">Cremación</h3>
+					<p>Ofrecemos este servicio dentro de la ciudad de Guayaquil.</p>
 					<div class="btn-container">
 						<div class="button-box">
-							<a href="#" class="button">read more</a>
+							<a href="#" class="button">Leer más</a>
 						</div>
 					</div>
 				</div>
@@ -208,16 +205,11 @@
 			<article class="grid_6">
 			<div class="box-1">
 				<div class="inner">
-					<h3>Vaccinations</h3>
-					<p class="p0">
-						<strong class="str-1"> Vivamus hendrerit mauris ut
-							gravida ut viverra </strong>
-					</p>
-					<p>Cras mattis tempor eros nec tristique. Sed sed felis arcu,
-						vel vehicula augue.</p>
+					<h3 class="str-3">Sala de Velación</h3>
+					<p>Ofrecemos este servicio dentro de la ciudad de Guayaquil.</p>
 					<div class="btn-container">
 						<div class="button-box">
-							<a href="#" class="button">read more</a>
+							<a href="#" class="button">Leer más</a>
 						</div>
 					</div>
 				</div>
@@ -226,9 +218,25 @@
 			<div class="clear"></div>
 		</div>
 		<div class="indent-bot-1">
-			<ui:insert name="content_page">
-				<h1>En construcción...</h1>
-			</ui:insert>
+			<div class="left">
+				<h6 class="title ui-widget-header" style="border: 0px solid #aaaaaa;">Noticias</h6>
+				<p style="text-align:justify;">
+				>>Estuvimos en la feria ganadera.<br/>
+				>>Contamos con nuevos servicios.<br/>
+				>>El cuidado en nuestros perros.<br/>
+				>>Proximos eventos en los que estaremos participando.<br/>
+				>>Los gatos tan impredecibles.<br/>
+				>>Consejos para cuidar a nuestros consentidos.<br/>
+				</p>
+			</div>
+			<div class="center">
+				<ui:insert name="content_page">
+					<h1>En construcción...</h1>
+				</ui:insert>
+			</div>
+			<div class="right">
+				<h6 class="title ui-widget-header" style="border: 0px solid #aaaaaa;">Facebook</h6>
+			</div>
 		</div>
 	</div>
 	</section>
