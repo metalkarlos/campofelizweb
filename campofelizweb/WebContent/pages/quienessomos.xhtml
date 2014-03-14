@@ -12,15 +12,25 @@
 	<ui:define name="content_page">
 		<h:form id="form-contentpage" enctype="multipart/form-data">
 			<p:growl id="mensajes" showDetail="true" />
-			<div class="hr-border"></div>
-			<h3 class="title ui-widget-header ui-corner-all">Quienes Somos</h3>
-			<p:inputText size="235" value="#{quienesSomosBean.petinformacion.quienessomos}"></p:inputText>
-			<h3 class="title ui-widget-header ui-corner-all">Antecedentes</h3>
-			<p:inputText  size="235" value="#{quienesSomosBean.petinformacion.antecendentes}"></p:inputText>
-			<h3 class="title ui-widget-header ui-corner-all">Misión</h3>
-			<p:inputText  size="235" value="#{quienesSomosBean.petinformacion.mision}"></p:inputText>
-			<h3 class="title ui-widget-header ui-corner-all">Visión</h3>
-			<p:inputText size="235" value="#{quienesSomosBean.petinformacion.vision}"></p:inputText>
+			
+			<h6 class="title ui-widget-header" style="border: 0px solid #aaaaaa;">Quienes Somos</h6>
+			<p style="text-align:justify;">
+				#{quienesSomosBean.petinformacion.quienessomos};
+			</p>
+			<h6 class="title ui-widget-header" style="border: 0px solid #aaaaaa;">Antecedentes</h6>
+			<p style="text-align:justify;">
+				#{quienesSomosBean.petinformacion.antecendentes};
+			</p>
+			<h6 class="title ui-widget-header" style="border: 0px solid #aaaaaa;">Misión</h6>
+			<p style="text-align:justify;">
+				#{quienesSomosBean.petinformacion.mision};
+			</p>
+			
+			<h6 class="title ui-widget-header" style="border: 0px solid #aaaaaa;">Visión</h6>
+			<p style="text-align:justify;">
+				#{quienesSomosBean.petinformacion.vision};
+			</p>
+			
 		</h:form>
 	</ui:define>
 </ui:composition>
