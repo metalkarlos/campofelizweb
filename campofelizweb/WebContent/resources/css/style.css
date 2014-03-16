@@ -369,7 +369,7 @@ body header {background:url(../resources/images/header-bg.png) center 0 no-repea
 }
 .logo a {
 	position:absolute;
-	background: url(../resources/images/logo.jpg) no-repeat 0 0;
+	background: url(../resources/images/logo.png) no-repeat 0 0;
 	height:160px;
 	width:160px;
 	overflow:hidden;
@@ -378,17 +378,19 @@ body header {background:url(../resources/images/header-bg.png) center 0 no-repea
 }
 .header-meta {
 	text-align:right;
-	padding:50px 0 50px;
-	background: url(../resources/images/campo-feliz.jpg) no-repeat 0 0;
+	/*padding:50px 0 50px;*/
+	/*background: url(../resources/images/campo-feliz.jpg) no-repeat 0 0;*/
 }
 	.header-meta * {text-align:left;}
 .header-meta .col-img {
 	font-family: 'Felipa', cursive;
     display: inline-block;
-    width: 440px;
+    width: 456px;
+    height: 140px;
     text-align: left;
     line-height: 21px;
     vertical-align: middle;
+    background: url(../resources/images/campo-feliz.jpg) no-repeat 0 0;
 }
 .header-meta .col-img .titulo-cementerio {
 	font-size:60px;
