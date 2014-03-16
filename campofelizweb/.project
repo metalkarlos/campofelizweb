@@ -45,4 +45,11 @@
 		<nature>org.jboss.tools.jst.web.kb.kbnature</nature>
 		<nature>org.jboss.tools.cdi.core.cdinature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>lib</name>
+			<type>2</type>
+			<location>D:/Eclipse/GitRepository/campofelizweb/campofelizweb/WebContent/WEB-INF/lib</location>
+		</link>
+	</linkedResources>
 </projectDescription>

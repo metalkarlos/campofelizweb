@@ -258,19 +258,19 @@ p {padding-bottom:18px;}
 .indent-bot-1 {margin:0 0 33px 0;}
 /*LADOS*/
 .indent-bot-1 .left{
-	width:200px;
+	width:220px;
 	clear:left;
 	float:left;
 	text-align:center;
 }
 .indent-bot-1 .center{
-	width:540px;
+	width:500px;
 	float:left;
 	padding:0px 10px 0px 10px;
 	min-height: 500px;
 }
 .indent-bot-1 .right{
-	width:200px;
+	width:220px;
 	float:right;
 	text-align:center;
 }

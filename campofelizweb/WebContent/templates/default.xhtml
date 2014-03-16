@@ -28,7 +28,57 @@
 	<h:outputStylesheet library="css" name="template.css" />
 	<h:outputStylesheet library="themes/smoothness" name="skin.css" />
 	<style type="text/css">
-        
+        .box_title {   
+			margin-bottom:12px;
+			margin-left:0px;
+			margin-right:0px;
+			margin-top:2px;
+			padding-bottom:2px;
+			padding-left:2px;
+			padding-right:2px;
+			padding-top:2px;
+			border-bottom:1px solid #c8c8c8;/*linea al pie*/
+			line-height:19px;
+			height:30px;
+			overflow:hidden;	
+		}
+		.box_content{
+			text-align: justify;
+			padding: 0px 0px 20px 0px;
+		}
+		.otrocontainer_24 {
+			margin-left:auto;
+			margin-right:auto;
+			width:960px
+		}
+		/*----- boxes -----*/
+		.otrobox-1 {
+			background:#dcdcdc;
+			border-radius:7px;
+			box-shadow:1px 0 5px #bbb;
+			text-align:center;
+			padding:0 0 6px 0;
+			margin:0 0 16px 0;
+			position:relative;
+			z-index:2;
+		}
+		.otrobox-1 .inner {
+			border-radius:7px 7px 0 0;
+			background:url(../resources/images/box-1-bg.gif) no-repeat center 0 #fff;
+			padding:22px 25px 11px 25px;
+			position:relative;
+		}
+		.otrobox-1 .inner2 {
+			border-radius:7px 7px 0 0;
+			background:url(../resources/images/box-1-bg.gif) no-repeat center 0 #fff;
+			padding:22px 15px 11px 15px;
+			position:relative;
+		}
+		.otrobox-1 h6 {padding-bottom:10px;}
+		.guide-section-separator {
+			margin: 8px 15px 8px 4px;
+			border-bottom: 1px solid #e2e2e2;
+		}
     </style>
 	<!-- Configuración del Calendario de la Agenda -->
 	<script type="text/javascript">
@@ -215,17 +265,41 @@
 			</article>
 			<div class="clear"></div>
 		</div>
+	</div>
+	<div class="otrocontainer_24">
 		<div class="indent-bot-1">
 			<div class="left">
-				<h6 class="title ui-widget-header" style="border: 0px solid #aaaaaa;">Noticias</h6>
-				<p style="text-align:justify;">
-				>>Estuvimos en la feria ganadera.<br/>
-				>>Contamos con nuevos servicios.<br/>
-				>>El cuidado en nuestros perros.<br/>
-				>>Proximos eventos en los que estaremos participando.<br/>
-				>>Los gatos tan impredecibles.<br/>
-				>>Consejos para cuidar a nuestros consentidos.<br/>
-				</p>
+				<div class="otrobox-1">
+					<div class="inner">
+						<div class="box_title">
+						<h6 class="title" style="border: 0px solid #aaaaaa;">Noticias</h6>
+						</div>
+						<div class="box_content">
+						<ul>
+							<li><a href="#">- Estuvimos en la feria ganadera.</a></li>
+							<li><a href="#">- Contamos con nuevos servicios.</a></li>
+							<li><a href="#">- El cuidado en nuestros perros.</a></li>
+							<li><a href="#">- Proximos eventos en los que estaremos participando.</a></li>
+							<li><a href="#">- Los gatos tan impredecibles.</a></li>
+							<li><a href="#">- Consejos para cuidar a nuestros consentidos.</a></li>
+						</ul>
+						</div>
+						
+						<div class="box_title">
+						<h6 class="title" style="border: 0px solid #aaaaaa;">Noticias</h6>
+						</div>
+						<div class="box_content">
+						<ul>
+							<li><a href="#">- Estuvimos en la feria ganadera.</a></li>
+							<li><a href="#">- Contamos con nuevos servicios.</a></li>
+							<li><a href="#">- El cuidado en nuestros perros.</a></li>
+							<li><a href="#">- Proximos eventos en los que estaremos participando.</a></li>
+							<li><a href="#">- Los gatos tan impredecibles.</a></li>
+							<li><a href="#">- Consejos para cuidar a nuestros consentidos.</a></li>
+						</ul>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="center">
 				<ui:insert name="content_page">
@@ -233,23 +307,24 @@
 				</ui:insert>
 			</div>
 			<div class="right">
-				<h6 class="title ui-widget-header" style="border: 0px solid #aaaaaa;">Facebook</h6>
+				<div class="otrobox-1">
+					<div class="inner2">
+						<div class="box_content">
+							<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FCampo-Feliz-Cementerio-de-Mascotas%2F257959247667793&amp;width=190&amp;height=280&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:190px; height:280px;" allowTransparency="true"></iframe>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+	<div class="clear"></div>
 	</section>
 	<!-- Footer -->
 	<footer>
 	<div class="copyright">
-		&copy; 2012 <strong class="footer-logo">Pet clinic</strong>
+		&copy; 2014 
 		<div>
-			<a rel="nofollow" href="http://www.templatemonster.com">Website
-				Template</a> by TemplateMonster.com
-		</div>
-		<div>
-			Plantillas web profesionales gratuitas <a
-				href="http://www.mejoresplantillasgratis.es" target="_blank">en
-				www.mejoresplantillasgratis.es</a>.
+			<a href="#">Diseño Web</a> por Fourth Dimension S.A.
 		</div>
 	</div>
 	<ul class="social-list">
