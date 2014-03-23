@@ -264,6 +264,12 @@ p {padding-bottom:18px;}
 	float:left;
 	text-align:center;
 }
+.indent-bot-1 .leftcontent{
+	width:660px;
+	float:left;
+	padding:0px 10px 0px 10px;
+	min-height: 500px;
+}
 .indent-bot-1 .center{
 	width:450px;
 	float:left;
@@ -271,7 +277,7 @@ p {padding-bottom:18px;}
 	min-height: 500px;
 }
 .indent-bot-1 .right{
-	width:280px;
+	/*width:280px;*/
 	float:right;
 	text-align:center;
 }
