@@ -39,8 +39,11 @@
 			padding-top:2px;
 			border-bottom:1px solid #c8c8c8;/*linea al pie*/
 			line-height:19px;
-			height:30px;
+			/*height:30px;*/
 			overflow:hidden;	
+		}
+		.title {
+			padding: 0px 0px 10px 0px;
 		}
 		.box_content{
 			text-align: justify;
@@ -70,14 +73,35 @@
 		}
 		.otrobox-1 .inner2 {
 			border-radius:7px 7px 0 0;
-			background:url(../resources/images/box-1-bg.gif) no-repeat center 0 #fff;
-			padding:22px 15px 11px 15px;
+			background:url(../resources/images/box-1-bg.gif) repeat-x center 0 #fff;
+			padding:22px 5px 11px;
 			position:relative;
+		}
+		.otrobox-1 .inner .box_content a{
+			text-decoration: none;
+			padding: 0px 0px 0px 15px;
+			background: url('../resources/images/bullet2.gif') no-repeat scroll left top transparent;
+			line-height: 20px;
 		}
 		.otrobox-1 h6 {padding-bottom:10px;}
 		.guide-section-separator {
 			margin: 8px 15px 8px 4px;
 			border-bottom: 1px solid #e2e2e2;
+		}
+		.slider-container2 {
+			position:relative;
+			z-index:1;
+			height:100%;
+			width:100%;
+			margin:0 auto;
+			padding:0 0 52px 0;
+		}
+		.slider-container2 .pic, .mp-slider {
+			border-radius:9px;
+			box-shadow:0 0 5px #d4d4d4;
+		}
+		.slider-container2 .mask {
+			border-radius:9px;
 		}
     </style>
 	<!-- Configuración del Calendario de la Agenda -->
@@ -178,7 +202,8 @@
 			</div>
 			<div id='cssmenu'>
 				<ul>
-					<li><a href='index.html'><span>Inicio</span></a></li>
+					<li><a href='#'><span>Inicio</span></a></li>
+					<li><a href='#'><span>Quienes <br>Somos </br></span></a></li>
 					<li class='has-sub'><a href='#'><span>Servicios</span></a>
 						<ul>
 							<li><a href='#'><span>Nuestros Servicios</span></a></li>
@@ -186,9 +211,9 @@
 							<li class='last'><a href='#'><span>Cotización</span></a></li>
 						</ul></li>
 					<li><a href='#'><span>Cementerio Virtual</span></a></li>
-					<li><a href='#'><span>Homenaje Póstumo</span></a></li>
+					<li><a href='#'><span>Homenaje <br>Póstumo </br></span></a></li>
 					<li><a href='#'><span>Cómo decir Adiós</span></a></li>
-					<li><a href='#'><span>Preguntas Frecuentes</span></a></li>
+					<li><a href='#'><span>Preguntas <br> Frecuentes </br></span></a></li>
 					<li class='last'><a href='#'><span>Contáctenos</span></a></li>
 				</ul>
 			</div>
@@ -272,32 +297,31 @@
 				<div class="otrobox-1">
 					<div class="inner">
 						<div class="box_title">
-						<h6 class="title" style="border: 0px solid #aaaaaa;">Noticias</h6>
+							<h2 class="title" style="border: 0px solid #aaaaaa;">Noticias</h2>
 						</div>
 						<div class="box_content">
 						<ul>
-							<li><a href="#">- Estuvimos en la feria ganadera.</a></li>
-							<li><a href="#">- Contamos con nuevos servicios.</a></li>
-							<li><a href="#">- El cuidado en nuestros perros.</a></li>
-							<li><a href="#">- Proximos eventos en los que estaremos participando.</a></li>
-							<li><a href="#">- Los gatos tan impredecibles.</a></li>
-							<li><a href="#">- Consejos para cuidar a nuestros consentidos.</a></li>
+							<li><a href="#">Estuvimos en la feria ganadera.</a></li>
+							<li><a href="#">Contamos con nuevos servicios.</a></li>
+							<li><a href="#">El cuidado en nuestros perros.</a></li>
+							<li><a href="#">Proximos eventos en los que estaremos participando.</a></li>
+							<li><a href="#">Los gatos tan impredecibles.</a></li>
+							<li><a href="#">Consejos para cuidar a nuestros consentidos.</a></li>
 						</ul>
 						</div>
 						
 						<div class="box_title">
-						<h6 class="title" style="border: 0px solid #aaaaaa;">Noticias</h6>
+							<h2 class="title" style="border: 0px solid #aaaaaa;">Homenaje</h2>
 						</div>
-						<div class="box_content">
-						<ul>
-							<li><a href="#">- Estuvimos en la feria ganadera.</a></li>
-							<li><a href="#">- Contamos con nuevos servicios.</a></li>
-							<li><a href="#">- El cuidado en nuestros perros.</a></li>
-							<li><a href="#">- Proximos eventos en los que estaremos participando.</a></li>
-							<li><a href="#">- Los gatos tan impredecibles.</a></li>
-							<li><a href="#">- Consejos para cuidar a nuestros consentidos.</a></li>
-						</ul>
-						</div>
+							<div class="slider-container2">
+								<div class="mp-slider">
+									<ul class="items">
+										<li><h:graphicImage library="images" name="1-1-12jpg.jpg" /></li>
+										<li><h:graphicImage library="images" name="1-4-7.jpg" /></li>
+										<li><h:graphicImage library="images" name="2-8-15.jpg" /></li>
+									</ul>
+								</div>
+							</div>
 					</div>
 				</div>
 			</div>
@@ -310,7 +334,7 @@
 				<div class="otrobox-1">
 					<div class="inner2">
 						<div class="box_content">
-							<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FCampo-Feliz-Cementerio-de-Mascotas%2F257959247667793&amp;width=190&amp;height=280&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:190px; height:280px;" allowTransparency="true"></iframe>
+							<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FCampo-Feliz-Cementerio-de-Mascotas%2F257959247667793&amp;width&amp;height=500&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=true&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:560px;" allowTransparency="true"></iframe>
 						</div>
 					</div>
 				</div>
@@ -321,6 +345,9 @@
 	</section>
 	<!-- Footer -->
 	<footer>
+	<div style="width: 950px; height: 114px; background: url(../resources/images/asd.jpg) no-repeat 0 0;">
+	</div>
+	
 	<div class="copyright">
 		&copy; 2014 
 		<div>

@@ -63,6 +63,7 @@ h3{font-size:27px; line-height:32px;}
 h4{font-size:24px; line-height:30px;}  
 h5{font-size:21px; line-height:26px;}
 h6{font-size:18px; line-height:22px;}
+h7{font-size:16px; line-height:20px;}
 
 h2 span {
 	color:#ec8f23;
@@ -258,19 +259,19 @@ p {padding-bottom:18px;}
 .indent-bot-1 {margin:0 0 33px 0;}
 /*LADOS*/
 .indent-bot-1 .left{
-	width:220px;
+	width:210px;
 	clear:left;
 	float:left;
 	text-align:center;
 }
 .indent-bot-1 .center{
-	width:500px;
+	width:450px;
 	float:left;
 	padding:0px 10px 0px 10px;
 	min-height: 500px;
 }
 .indent-bot-1 .right{
-	width:220px;
+	width:280px;
 	float:right;
 	text-align:center;
 }
@@ -322,7 +323,8 @@ p {padding-bottom:18px;}
 
 /*----- buttons & links -----*/
 a {
-	color:#ec8f23;
+	/*color:#ec8f23;*/
+	color:#7b7b7b;
 	text-decoration: underline;
 	cursor:pointer;
 }
@@ -615,7 +617,8 @@ footer {
 	background:url(../resources/images/list-1-border.gif) repeat-x 0 0;
 	color:#a7a7a7;
 	font-size:12px;
-	padding:35px 0;
+	/*padding:35px 0;*/
+	padding: 15px 0;
 	overflow:hidden;
 }
 footer a {color:#a7a7a7;}

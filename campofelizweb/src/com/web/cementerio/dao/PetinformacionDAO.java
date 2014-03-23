@@ -23,14 +23,7 @@ public class PetinformacionDAO {
 		return petinformacion;
 	}
 	
-	public List<Petinformacion> lisPetinformacion(Session session) throws Exception {
-		List<Petinformacion> lisPetinformacion = null;
-		
-		
-		
-		return lisPetinformacion;
-	}
-	
+
 	public void ingresarPetinformacion(Session session, Petinformacion petinformacion) throws Exception {
 		session.save(petinformacion);
 	}

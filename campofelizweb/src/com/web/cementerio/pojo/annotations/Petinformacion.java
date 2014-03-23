@@ -34,6 +34,8 @@ public class Petinformacion implements java.io.Serializable {
 	private String mision;
 	private String vision;
 	private String antecendentes;
+	private String fotoquienessomos;
+	private String fotoantecedentes;
 	private Date fecharegistro;
 	private String iplog;
 	private String tag;
@@ -51,7 +53,8 @@ public class Petinformacion implements java.io.Serializable {
 
 	public Petinformacion(int idinformacion, Setestado setestado,
 			Setusuario setusuario, String quienessomos, String mision,
-			String vision, String antecendentes, Date fecharegistro,
+			String vision, String antecendentes, String fotoantecedentes,
+			String fotoquienessomos,Date fecharegistro,
 			String iplog, String tag, Set<?> petfotoinformacions) {
 		this.idinformacion = idinformacion;
 		this.setestado = setestado;
@@ -64,6 +67,8 @@ public class Petinformacion implements java.io.Serializable {
 		this.iplog = iplog;
 		this.tag = tag;
 		this.petfotoinformacions = petfotoinformacions;
+		this.fotoantecedentes = fotoantecedentes;
+		this.fotoquienessomos = fotoquienessomos;
 	}
 
 	@Id
@@ -104,7 +109,16 @@ public class Petinformacion implements java.io.Serializable {
 	public void setQuienessomos(String quienessomos) {
 		this.quienessomos = quienessomos;
 	}
-
+	
+	@Column(name = "fotoquienessomos",nullable = false, length = 100)
+	public String getFotoquienessomos(){
+		return this.fotoquienessomos;
+	}
+	
+    public void setFotoquienessomos(String fotoquienessomos){
+    	this.fotoquienessomos = fotoquienessomos;
+    }
+	
 	@Column(name = "mision", length = 2000)
 	public String getMision() {
 		return this.mision;
@@ -132,6 +146,17 @@ public class Petinformacion implements java.io.Serializable {
 		this.antecendentes = antecendentes;
 	}
 
+	@Column (name = "fotoantecedentes",length = 100)
+	public String getFotoantecedentes(){
+		return this.fotoantecedentes;
+	}
+	
+	public void setFotoantecedentes(String fotoantecedentes){
+		this.fotoantecedentes = fotoantecedentes;
+	}
+	
+	
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecharegistro", nullable = false, length = 29)
 	public Date getFecharegistro() {
