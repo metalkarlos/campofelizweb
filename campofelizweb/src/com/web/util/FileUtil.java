@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import com.web.cementerio.global.Parametro;
+
 public class FileUtil {
 
 	public void createFile(String path, byte[] bfile) throws Exception {
@@ -88,6 +90,19 @@ public class FileUtil {
 		}
 		
 		return properties;
+	}
+	
+	public String getPropertyValue(String key) throws Exception {
+		String value = null;
+		
+		try {
+			Properties properties = getPropertiesFile(Parametro.PARAMETROS_PROPERTIES_PATH);
+			value = properties.getProperty(key);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+		
+		return value;
 	}
 	
 	public String getFileExtention(String fileName){
