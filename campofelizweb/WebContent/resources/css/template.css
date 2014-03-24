@@ -1,1 +1,8 @@
 @CHARSET "ISO-8859-1";
+.logoutfloat{
+	background-color: yellow;
+	position: fixed;
+	top: 0px;
+	z-index: 1000;
+	right: 0px;
+}
