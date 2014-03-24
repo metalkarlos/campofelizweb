@@ -159,7 +159,8 @@
 	</h:head>
 	
 	<h:body>
-	<h:form>
+	<h:form id="form-content">
+		<h:commandLink styleClass="logoutfloat" value="Salir [#{usuarioBean.username}]" action="#{usuarioBean.logout}" rendered="#{usuarioBean.autenticado}" />
 		<ui:debug hotkey="q" rendered="#{facesContext.application.projectStage == 'Development'}" />
 		<!-- Header -->
 		<header>
