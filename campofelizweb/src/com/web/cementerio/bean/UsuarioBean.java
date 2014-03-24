@@ -7,7 +7,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 
+import com.web.cementerio.bo.SetusuarioBO;
 import com.web.cementerio.global.Parametro;
+import com.web.cementerio.pojo.annotations.Setusuario;
 //import com.web.pet.pojo.annotations.Setusuario;
 //import com.web.pet.bo.SetusuarioBO;
 import com.web.util.FacesUtil;
@@ -23,7 +25,7 @@ public class UsuarioBean implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 5577462729566726719L;
-	//private Setusuario setUsuario;
+	private Setusuario setUsuario;
 	private String username;
 	private String password;
 	private String ip;
@@ -33,16 +35,16 @@ public class UsuarioBean implements Serializable{
 	public UsuarioBean(){
 		ip = new FacesUtil().getIp();
 		sid = new FacesUtil().getSid();
-		//setUsuario = new Setusuario();
+		setUsuario = new Setusuario();
 	}
 
-	/*public void setSetUsuario(Setusuario setUsuario) {
+	public void setSetUsuario(Setusuario setUsuario) {
 		this.setUsuario = setUsuario;
-	}*/
+	}
 
-	/*public Setusuario getSetUsuario() {
+	public Setusuario getSetUsuario() {
 		return setUsuario;
-	}*/
+	}
 
 	public void setUsername(String username) {
 		this.username = username;
@@ -76,9 +78,9 @@ public class UsuarioBean implements Serializable{
 		String strRedirect = null;
 		
 		try{
-			//setUsuario = new SetusuarioBO().getByUserPasswd(username, password);
+			setUsuario = new SetusuarioBO().getByUserPasswd(username, password);
 			
-			//if(setUsuario!=null && setUsuario.getIdusuario()>0){
+			if(setUsuario!=null && setUsuario.getIdusuario()>0){
 				autenticado = true;
 				FacesUtil facesUtil = new FacesUtil();
 				strRedirect = (String) facesUtil.getSessionBean("urlrequested");
@@ -90,9 +92,9 @@ public class UsuarioBean implements Serializable{
 					Properties parametrosProperties = fileUtil.getPropertiesFile(Parametro.PARAMETROS_PROPERTIES_PATH);
 					strRedirect = parametrosProperties.getProperty("home");
 				}
-			//}else{
-			//	new MessageUtil().showWarnMessage("Autenticación fallida","Usuario o Contraseña no existen.");
-			//}
+			}else{
+				new MessageUtil().showWarnMessage("Autenticación fallida","Usuario o Contraseña no existen.");
+			}
 		}catch(Exception re){
 			new MessageUtil().showFatalMessage("Esto es Vergonzoso!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
