@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+		<title>Administrador</title>
+		<style type="text/css">
+			body {
+				background-color: white;
+			}
+			.box-center {
+				width: 500px;
+				height: 400px;
+				border-radius:5px;
+				-moz-border-radius:5px;
+				-webkit-box-shadow: 0 0 30px 10px rgba(0,0,0,.1);
+				-moz-box-shadow: 0 0 30px 10px rgba(0,0,0,.1);
+				box-shadow: 0 0 30px 10px rgba(0,0,0,.1);
+				/*margin: 0 auto;*/
+				position:absolute;
+				top:50%;
+				left:50%;
+				margin-left: -250px;
+				margin-top: -205px;
+			}
+			.box-center h1 {
+				text-align: center;
+			}
+			.separator {
+				margin: 8px 15px 8px 4px;
+				border-bottom: 1px solid #e2e2e2;
+			}
+		</style>
+	</h:head>
+		
+	<h:body>
+		<h:form id="form-content">
+		<p:growl id="mensajes" showDetail="true" />
+		<div class="box-center">
+			<h1 class="separator">Login</h1>
+			<h:outputLabel value="Usuario:" for="txtusuario" />
+			<p:inputText id="txtusuario" value="#{usuarioBean.username}"></p:inputText>
+			
+			<h:outputLabel value="Clave:" for="txtclave" />
+			<p:password id="txtclave" value="#{usuarioBean.password}"></p:password>
+			
+			<p:commandButton id="btnentrar" value="Entrar" action="#{usuarioBean.login()}" update=":form-content:mensajes" ></p:commandButton>
+		</div>
+		</h:form>
+	</h:body>
+
+</html>
