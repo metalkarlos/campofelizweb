@@ -5,7 +5,6 @@ import java.util.Properties;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.inject.Named;
 
 import com.web.cementerio.bo.SetusuarioBO;
 import com.web.cementerio.global.Parametro;
@@ -17,7 +16,6 @@ import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
-@Named
 @SessionScoped
 public class UsuarioBean implements Serializable{
 	
@@ -82,16 +80,10 @@ public class UsuarioBean implements Serializable{
 			
 			if(setUsuario!=null && setUsuario.getIdusuario()>0){
 				autenticado = true;
-				FacesUtil facesUtil = new FacesUtil();
-				strRedirect = (String) facesUtil.getSessionBean("urlrequested");
 				
-				if(strRedirect != null && !strRedirect.isEmpty()){
-					facesUtil.removeSessionBean("urlrequested");
-				}else{
-					FileUtil fileUtil = new FileUtil();
-					Properties parametrosProperties = fileUtil.getPropertiesFile(Parametro.PARAMETROS_PROPERTIES_PATH);
-					strRedirect = parametrosProperties.getProperty("home");
-				}
+				FileUtil fileUtil = new FileUtil();
+				Properties parametrosProperties = fileUtil.getPropertiesFile(Parametro.PARAMETROS_PROPERTIES_PATH);
+				strRedirect = parametrosProperties.getProperty("home");
 			}else{
 				new MessageUtil().showWarnMessage("Autenticación fallida","Usuario o Contraseña no existen.");
 			}
@@ -109,12 +101,27 @@ public class UsuarioBean implements Serializable{
 			facesUtil.logout();
 			FileUtil fileUtil = new FileUtil();
 			Properties parametrosProperties = fileUtil.getPropertiesFile(Parametro.PARAMETROS_PROPERTIES_PATH);
-			String strLogin = parametrosProperties.getProperty("login");
+			String strLogin = parametrosProperties.getProperty("home");
 			facesUtil.redirect(strLogin);
 		}catch(RuntimeException re){
 			new MessageUtil().showFatalMessage("Esto es Vergonzoso!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 		return "";
+	}
+	
+	public String homePage(){
+		String homePage = null;
+		
+		try{
+			FileUtil fileUtil = new FileUtil();
+			homePage = fileUtil.getPropertyValue("home");
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Esto es Vergonzoso!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
+		
+		return homePage;
 	}
 	
 	public String redirect(){
