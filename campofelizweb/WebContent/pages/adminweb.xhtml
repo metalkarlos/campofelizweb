@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+		<title>Administrador</title>
+		<style type="text/css">
+			body {
+				background-color: white;
+				line-height: 1.4;
+			}
+			.separator {
+				margin: 8px 15px 8px 4px;
+				border-bottom: 1px solid #e2e2e2;
+			}
+			.header-logging{
+				/*padding: 15px 0;*/
+				text-shadow: 0 1px 0 #fff;
+				border-bottom: 1px solid #e5e5e5;
+				min-width: 1000px;
+				min-height: 50px;
+				/*font: 13px Helvetica, arial, freesans, clean, sans-serif;*/
+				font-size: 32px;
+				text-align: center;
+			}
+			.box-loggin{
+				width: 400px;
+				margin: 60px auto;
+			}
+			.box-loggin-header{
+				position: relative;
+				padding: 10px 20px;
+				margin: 0;
+				color: #fff;
+				text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+				background-color: #569e3d;
+				background-image: -moz-linear-gradient(#7f95a5, #6c8393);
+				background-image: -webkit-linear-gradient(#7f95a5, #6c8393);
+				background-image: linear-gradient(#7f95a5, #6c8393);
+				background-repeat: repeat-x;
+				border: 1px solid #6e8290;
+				border-bottom-color: #586873;
+				border-radius: 4px 4px 0 0;
+			}
+			.box-loggin-header h1 {
+				margin-top: 0;
+				margin-bottom: 0;
+				font-size: 1.3em;
+				line-height: 1.1;
+			}
+			.box-loggin-body{
+				display: block;
+				padding: 20px;
+				font-size: 14px;
+				background-color: #fff;
+				border: 1px solid #d8dee2;
+				border-top-color: white;
+				border-radius: 0 0 4px 4px;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+			label {
+				font-weight: bold;
+				font-size: 15px;
+			}
+			.ui-inputfield {
+				min-height: 20px;
+				padding: 7px 8px;
+				outline: none;
+				color: #333333;
+				background-color: #fff;
+				background-repeat: no-repeat;
+				background-position: right center;
+				border: 1px solid #ccc;
+				border-radius: 3px;
+				box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+				vertical-align: middle;
+				display: block;
+				width: 100%;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;    
+				box-sizing: border-box;
+				margin-top: 5px;
+				margin-bottom: 15px;
+			}
+		</style>
+	</h:head>
+		
+	<h:body>
+		<h:form id="form-content">
+		<p:growl id="mensajes" showDetail="true" />
+		<p:focus for="txtusuario"></p:focus>
+		<div class="header-logging">
+		</div>
+		<div class="box-loggin">
+			<div class="box-loggin-header">
+				<h1>Administración</h1>
+			</div>
+			<div class="box-loggin-body">
+				<h:outputLabel value="Usuario:" for="txtusuario" />
+				<p:inputText id="txtusuario" value="#{usuarioBean.username}"></p:inputText>
+				
+				<h:outputLabel value="Clave:" for="txtclave" />
+				<p:password id="txtclave" value="#{usuarioBean.password}"></p:password>
+				
+				<p:commandButton id="btnentrar" value="Entrar" action="#{usuarioBean.login()}" update=":form-content:mensajes" ></p:commandButton>
+			</div>
+		</div>
+		
+		<p:ajaxStatus
+			style="width:32px;height:32px;display:block;position:fixed;right:0;top:0;">
+			<f:facet name="start">
+				<h:graphicImage library="images" name="loading.gif" />
+			</f:facet>
+			<f:facet name="complete">
+				<h:outputText value="" />
+			</f:facet>
+		</p:ajaxStatus>
+		</h:form>
+	</h:body>
+
+</html>
