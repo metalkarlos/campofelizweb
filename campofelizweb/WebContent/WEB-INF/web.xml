@@ -81,7 +81,7 @@
   </servlet-mapping>
   <context-param>
     <param-name>imagesDirectory</param-name>
-    <param-value>D:/Repositorio/Images</param-value>
+    <param-value>D:/Repositorio/Imagenes</param-value>
   </context-param>
   <servlet>
     <servlet-name>imageServlet</servlet-name>
@@ -89,7 +89,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>imageServlet</servlet-name>
-    <url-pattern>/image/*</url-pattern>
+    <url-pattern>/imagenes/*</url-pattern>
   </servlet-mapping>
   <session-config>
     <session-timeout>60</session-timeout>
