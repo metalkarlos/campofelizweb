@@ -43,15 +43,10 @@ public class FacesUtil {
 		return facesContext;
 	}
 
-	public void redirect(String view) throws RuntimeException{
-		try {
-			if(view != null){
-				String url = getFacesContext().getExternalContext().getRequestContextPath()+"/pages"+"/"+view;
-				getFacesContext().getExternalContext().redirect(url);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException();
+	public void redirect(String view) throws Exception{
+		if(view != null){
+			String url = getFacesContext().getExternalContext().getRequestContextPath()+"/pages"+"/"+view;
+			getFacesContext().getExternalContext().redirect(url);
 		}
 	}
 	
@@ -59,17 +54,22 @@ public class FacesUtil {
 		getFacesContext().getExternalContext().invalidateSession();
     }
 	
-	public String getRealPath(String path){
-		String realPath = null;
+	public String getRealPath(String path) throws Exception {
 		
-		try {
-			realPath = getFacesContext().getExternalContext().getRealPath(path);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException();
-		}
+		String realPath = getFacesContext().getExternalContext().getRealPath(path);
 		
 		return realPath;
+	}
+	
+	public String getParametrosUrl(){
+		return request.getQueryString();
+	}
+	
+	public String getContextParam(String paramName) throws Exception {
+		
+		String paramValue = facesContext.getExternalContext().getInitParameter(paramName);
+		
+		return paramValue;
 	}
 	
 }
