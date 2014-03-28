@@ -269,6 +269,9 @@ p {padding-bottom:18px;}
 	float:left;
 	padding:0px 10px 0px 10px;
 	min-height: 500px;
+	background-color: white;
+	border-radius: 7px;
+	box-shadow: 1px 0 5px #bbb;
 }
 .indent-bot-1 .center{
 	width:450px;
