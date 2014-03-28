@@ -11,6 +11,20 @@
 	<ui:define name="head">
 		<title>Últimas Noticias</title>
 		<style type="text/css">
+			.noticias-body {
+				
+			}
+			.noticias-body .imagen {
+				float: left;
+				width: 200px;
+				overflow: hidden;
+				padding: 15px
+			}
+			.noticias-body .cuerpo {
+				margin: 15px;
+				text-align: justify;
+				line-height: 17px;
+			}
 	        h1  {   
 				border-bottom: 2px solid #666666;
 				font-size: 28px;
@@ -21,12 +35,62 @@
 				color: #008BB4;
 				margin: 0;
 			}
+			.gridNoticias {
+				padding: 10px 0;
+			}
+			.ui-widget-header {
+				border: none;
+			}
+			.ui-widget-content {
+				border: none;
+			}
+			.ui-corner-top {
+				-moz-border-radius-topleft: 0px;
+				-webkit-border-top-left-radius: 0px;
+				border-top-left-radius: 0px;
+				-moz-border-radius-topright: 0px;
+				-webkit-border-top-right-radius: 0px;
+				border-top-right-radius: 0px;
+			}
+			.ui-corner-bottom {
+				-moz-border-radius-bottomleft: 0px;
+				-webkit-border-bottom-left-radius: 0px;
+				border-bottom-left-radius: 0px;
+				-moz-border-radius-bottomright: 0px;
+				-webkit-border-bottom-right-radius: 0px;
+				border-bottom-right-radius: 0px;
+			}
 		</style>
 	</ui:define>
 	
 	<ui:define name="content_page">
 		<h1>Noticias</h1>
-		<h:graphicImage value="#{noticiasBean.rutaImagenes}/campo-feliz.jpg" style="max-height: 100px" />
+		
+		
+		<p:dataGrid styleClass="gridNoticias" id="gridNoticias" value="#{noticiasBean.lisPetnoticia}" var="noticia" columns="1" rows="5" paginator="true" effect="true" 
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			emptyMessage="No se encontraron registros" paginatorPosition="bottom">
+			<p:column>
+				<div class="noticias-body">
+				<h1>#{noticia.titulo}</h1>
+				<div class="imagen">
+					<h:graphicImage value="#{noticiasBean.rutaImagenes}/campo-feliz.jpg" width="100%" />
+				</div>
+				<div class="cuerpo">
+				<div>
+					<h:outputText id="fechaNoticia" value="#{noticia.fecharegistro}" >
+                    	<f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+				</div>
+				<div>
+					<p>
+						#{noticia.descripcion}
+					</p>
+				</div>
+				</div>
+				</div>
+			</p:column>
+		</p:dataGrid>
 	</ui:define>
 	
 </ui:composition>

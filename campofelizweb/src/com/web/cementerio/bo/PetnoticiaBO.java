@@ -37,7 +37,7 @@ public class PetnoticiaBO {
 		return petnoticia;
 	}
 	
-	public List<Petnoticia> lisPetnoticiaByPage(int pageSize, int pageNumber, int args[], String titulo, String descripcion) throws Exception {
+	public List<Petnoticia> lisPetnoticiaByPage(int pageSize, int pageNumber, int args[], String titulo, String descripcion) throws RuntimeException {
 		List<Petnoticia> listPetnoticia = null;
 		Session session = null;
 		
@@ -46,7 +46,7 @@ public class PetnoticiaBO {
             listPetnoticia = petnoticiaDAO.lisPetnoticiaByPage(session, pageSize, pageNumber, args, titulo, descripcion);
         }
         catch(Exception ex){
-            throw new Exception(ex);
+            throw new RuntimeException(ex);
         }
         finally{
             session.close();
