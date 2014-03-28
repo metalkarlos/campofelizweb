@@ -103,9 +103,10 @@ public class UsuarioBean implements Serializable{
 			Properties parametrosProperties = fileUtil.getPropertiesFile(Parametro.PARAMETROS_PROPERTIES_PATH);
 			String strLogin = parametrosProperties.getProperty("home");
 			facesUtil.redirect(strLogin);
-		}catch(RuntimeException re){
+		}catch(Exception re){
 			new MessageUtil().showFatalMessage("Esto es Vergonzoso!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
+		
 		return "";
 	}
 	
@@ -126,9 +127,15 @@ public class UsuarioBean implements Serializable{
 	
 	public String redirect(){
 		FileUtil fileUtil = new FileUtil();
-		Properties parametrosProperties = fileUtil.getPropertiesFile(Parametro.PARAMETROS_PROPERTIES_PATH);
-		String strnotlogged = parametrosProperties.getProperty("notlogged");
-		new FacesUtil().redirect(strnotlogged);
+		
+		try{
+			Properties parametrosProperties = fileUtil.getPropertiesFile(Parametro.PARAMETROS_PROPERTIES_PATH);
+			String strnotlogged = parametrosProperties.getProperty("notlogged");
+			new FacesUtil().redirect(strnotlogged);
+		}catch(Exception re){
+			new MessageUtil().showFatalMessage("Esto es Vergonzoso!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
+		
 		return "";
 	}
 	
