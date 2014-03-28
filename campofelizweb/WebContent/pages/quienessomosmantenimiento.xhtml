@@ -7,11 +7,11 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="../templates/default.xhtml">
 
-
 	<ui:define name="title">Campo Feliz - Quienes Somos Mantenimiento</ui:define>
 	<ui:define name="content_page">
-		<h:form id="form-contentpage" enctype="multipart/form-data">
-			<p:growl id="mensajes" showDetail="true" />
+	
+	<h:form id="form-contentpage" enctype="multipart/form-data">
+        	<p:growl id="mensajes" showDetail="true" />
 			<p:panel id="panel-quienessomoscontent">
 				<div class="box_title">
 					<h4 class="title">C&oacute;digo</h4>
@@ -23,70 +23,52 @@
 					<div class="box_title">
 						<h4 class="title">Quienes Somos</h4>
 					</div>
-					<p:inputTextarea  autoResize="true" style="width: 350px;" value="#{quienesSomosBean.petinformacion.quienessomos}" />
+					<p:inputTextarea maxlength="2000"  autoResize="true" style="width: 380px; height:125px" value="#{quienesSomosBean.petinformacion.quienessomos}" />
 					<br />
 					<br />
 
 					<h6 class="title">Foto</h6>
-					<p:fileUpload value="#{albumBean.uploadedFile}" mode="simple"
+					<p:fileUpload value="#{quienesSomosBean.uploadedFile}" mode="simple"
 						invalidSizeMessage="Tamaño de la imágen debe ser menor a 1 mb"
 						sizeLimit="1024" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-					<p:commandButton title="Subir Foto" value="Subir Foto" ajax="false"
-						actionListener="#{albumBean.subirImagen()}" />
+					<p:commandButton title="Subir Foto" value="Subir Foto" ajax="false" />
 				</div>
 				<br />
 				<div class="box_title">
 					<h4 class="title">Antecedentes</h4>
 				</div>
-				<h:inputText
-					value="#{quienesSomosBean.petinformacion.antecendentes}" />
+				<p:inputTextarea maxlength="5000"   autoResize="true" style="width: 380px; height:125px" value="#{quienesSomosBean.petinformacion.antecendentes}" />
 				<br />
 				<br />
 				<h6 class="title">Foto</h6>
-				<p:fileUpload value="#{albumBean.uploadedFile}" mode="simple"
+				<p:fileUpload value="#{quienesSomosBean.uploadedFile}" mode="simple"
 					invalidSizeMessage="Tamaño de la imágen debe ser menor a 1 mb"
 					sizeLimit="1024" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-				<p:commandButton title="Subir Foto" value="Subir Foto" ajax="false"
-					actionListener="#{albumBean.subirImagen()}" />
+				<p:commandButton title="Subir Foto" value="Subir Foto" ajax="false"/>
 				<br />
 				<br />
 				<div class="box_title">
 					<h4 class="title">Misi&oacute;n</h4>
 				</div>
-				<h:inputText value="#{quienesSomosBean.petinformacion.mision}" />
+				<p:inputTextarea  maxlength="2000"   autoResize="true" style="width: 380px; height:85px" value="#{quienesSomosBean.petinformacion.mision}" />
 				<br />
 				<br />
 				<div class="box_title">
 					<h4 class="title">Visi&oacute;n</h4>
 				</div>
-				<h:inputText value="#{quienesSomosBean.petinformacion.vision}" />
+				<p:inputTextarea maxlength="2000"   autoResize="true" style="width: 380px; height:85px" value="#{quienesSomosBean.petinformacion.vision}" />
 				<br />
 				<br />
+				<div class="box_title">
+					<h4 class="title">Tags</h4>
+				</div>
+				<p:inputText  maxlength="200" style="width: 380px;" value="#{quienesSomosBean.petinformacion.tag}" />
 				<br />
-
-				<h:panelGrid id="idpanelbotones" columns="2">
-					<p:commandButton id="idconfirmargrabar" value="Guardar"
-						actionListener="#{quienesSomosBean.guardarPetinformacion()}" update=":form-contentpage:mensajes, :form-contentpage:panel-quienessomoscontent" />
-					<p:commandButton id="idcancelargrabar" value="Cancelar" />
-				</h:panelGrid>
-			</p:panel>
-
-			<p:dialog id="iddialoggrabar" header="Grabar" closable="true"
-				widgetVar="vardialoggrabar" modal="true" showEffect="bounce"
-				hideEffect="explode">
-				<h:panelGrid id="idpanelgrabar" columns="2">
-					<h:outputLabel id="idlabelgrabar"
-						value="Confirme si desea grabar el registro" />
-					<h:panelGrid columns="2">
-						<p:commandButton value="SI" style="width: 50px"
-							actionListener="#{quienesSomosBean.guardarPetinformacion()}"
-							oncomplete="vardialoggrabar.hide()"
-							update=":form-contentpage:mensajes, :form-contentpage:panel-quienessomoscontent" />
-						<p:commandButton value="NO" style="width: 50px"
-							onclick="vardialoggrabar.hide()" />
-					</h:panelGrid>
-				</h:panelGrid>
-			</p:dialog>
+				<br />
+	             <p:commandButton value="Guardar" actionListener="#{quienesSomosBean.guardarPetinformacion()}" update="mensajes"/>  
+		         <p:commandButton value="Cancelar"/>
+            </p:panel>
+		
 		</h:form>
 	</ui:define>
 </ui:composition>

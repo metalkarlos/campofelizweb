@@ -68,7 +68,7 @@ public class PetinformacionBO {
 			
 			//Auditoría
 			petinformacion.setFecharegistro(fecharegistro);
-			//petinformacion.setIplog(usuarioBean.getIp());
+			petinformacion.setIplog(usuarioBean.getIp());
 			
 			petinformacionDAO.actualizarPetinformacion(session, petinformacion);
 			

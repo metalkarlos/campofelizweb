@@ -33,7 +33,7 @@ public class Petmascotahomenaje implements java.io.Serializable {
 	private Petespecie petespecie;
 	private String nombre;
 	private Date fechanacimiento;
-	private Date fechanfallecimiento;
+	private Date fechafallecimiento;
 	private String familia;
 	private String dedicatoria;
 	private String tag;
@@ -51,7 +51,7 @@ public class Petmascotahomenaje implements java.io.Serializable {
 
 	public Petmascotahomenaje(int idmascota, Setestado setestado,
 			Setusuario setusuario, Petespecie petespecie, String nombre,
-			Date fechanacimiento, Date fechanfallecimiento, String familia,
+			Date fechanacimiento, Date fechafallecimiento, String familia,
 			String dedicatoria, String tag, Date fecharegistro, String iplog,
 			Set<?> petfotomascotas) {
 		this.idmascota = idmascota;
@@ -60,7 +60,7 @@ public class Petmascotahomenaje implements java.io.Serializable {
 		this.petespecie = petespecie;
 		this.nombre = nombre;
 		this.fechanacimiento = fechanacimiento;
-		this.fechanfallecimiento = fechanfallecimiento;
+		this.fechafallecimiento = fechafallecimiento;
 		this.familia = familia;
 		this.dedicatoria = dedicatoria;
 		this.tag = tag;
@@ -129,13 +129,13 @@ public class Petmascotahomenaje implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fechanfallecimiento", length = 29)
-	public Date getFechanfallecimiento() {
-		return this.fechanfallecimiento;
+	@Column(name = "fechafallecimiento", length = 29)
+	public Date getFechafallecimiento() {
+		return this.fechafallecimiento;
 	}
 
-	public void setFechanfallecimiento(Date fechanfallecimiento) {
-		this.fechanfallecimiento = fechanfallecimiento;
+	public void setFechafallecimiento(Date fechanfallecimiento) {
+		this.fechafallecimiento = fechanfallecimiento;
 	}
 
 	@Column(name = "familia", length = 200)
