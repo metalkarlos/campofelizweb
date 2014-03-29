@@ -97,4 +97,12 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+  <context-param>
+    <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.apache.myfaces.STRICT_JSF_2_ALLOW_SLASH_LIBRARY_NAME</param-name>
+    <param-value>true</param-value>
+  </context-param>
 </web-app>
