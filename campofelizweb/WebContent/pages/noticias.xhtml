@@ -11,16 +11,26 @@
 	<ui:define name="head">
 		<title>Últimas Noticias</title>
 		<style type="text/css">
-			.noticias-body {
+			.noticias-content {
 				
 			}
-			.noticias-body .imagen {
+			.noticias-content h1  {   
+				border-bottom: 2px solid #666666;
+				font-size: 28px;
+				font-weight: bold;
+				letter-spacing: -1px;
+				text-transform: uppercase;
+				font-family: Georgia,"Times New Roman",Times,serif;
+				color: #008BB4;
+				margin: 0;
+			}
+			.noticias-content .imagen {
 				float: left;
 				width: 200px;
 				overflow: hidden;
 				padding: 15px
 			}
-			.noticias-body .cuerpo {
+			.noticias-content .cuerpo {
 				margin: 15px;
 				text-align: justify;
 				line-height: 17px;
@@ -71,23 +81,23 @@
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			emptyMessage="No se encontraron registros" paginatorPosition="bottom">
 			<p:column>
-				<div class="noticias-body">
-				<h1>#{noticia.titulo}</h1>
-				<div class="imagen">
-					<h:graphicImage value="#{noticiasBean.rutaImagenes}/campo-feliz.jpg" width="100%" />
-				</div>
-				<div class="cuerpo">
-				<div>
-					<h:outputText id="fechaNoticia" value="#{noticia.fecharegistro}" >
-                    	<f:convertDateTime pattern="dd/MM/yyyy" />
-                    </h:outputText>
-				</div>
-				<div>
-					<p>
-						#{noticia.descripcion}
-					</p>
-				</div>
-				</div>
+				<div class="noticias-content">
+					<h1>#{noticia.titulo}</h1>
+					<div class="imagen">
+						<h:graphicImage alt="foto-noticia" value="#{noticiasBean.rutaImagenes}/campo-feliz.jpg" width="100%" />
+					</div>
+					<div class="cuerpo">
+						<div>
+							<h:outputText id="fechaNoticia" value="#{noticia.fecharegistro}" >
+		                    	<f:convertDateTime pattern="dd/MM/yyyy" />
+		                    </h:outputText>
+						</div>
+						<div>
+							<p>
+								#{noticia.descripcion}
+							</p>
+						</div>
+					</div>
 				</div>
 			</p:column>
 		</p:dataGrid>
