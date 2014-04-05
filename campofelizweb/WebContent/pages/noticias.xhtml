@@ -14,14 +14,33 @@
 			.noticias-content {
 				
 			}
+			.title  { 
+				font-size: 23px;
+				line-height: normal;
+				height: 40px;
+				padding: 8px 0 0 20px;
+				text-align: center;
+				
+	        	/*text-align: center;
+	        	padding: 40px 0px 20px;
+	        	font-family: Georgia,"Times New Roman",Times,serif;
+	        	font-size: 28px;
+				font-weight: bold;*/
+				
+				/*border-bottom: 1px solid #666666;  
+				letter-spacing: -1px;
+				text-transform: uppercase;
+				color: #008BB4;
+				margin: 0;*/
+			}
 			.noticias-content h1  {   
-				border-bottom: 2px solid #666666;
+				border-bottom: 1px solid #dddddd;/*#666666;*/
 				font-size: 28px;
 				font-weight: bold;
 				letter-spacing: -1px;
 				text-transform: uppercase;
 				font-family: Georgia,"Times New Roman",Times,serif;
-				color: #008BB4;
+				color: #66ad23; /*#008BB4;*/
 				margin: 0;
 			}
 			.noticias-content .imagen {
@@ -35,15 +54,9 @@
 				text-align: justify;
 				line-height: 17px;
 			}
-	        h1  {   
-				border-bottom: 2px solid #666666;
-				font-size: 28px;
+			.noticias-content .cuerpo .fecha {
 				font-weight: bold;
-				letter-spacing: -1px;
-				text-transform: uppercase;
-				font-family: Georgia,"Times New Roman",Times,serif;
-				color: #008BB4;
-				margin: 0;
+				color: #66ad23;
 			}
 			.gridNoticias {
 				padding: 10px 0;
@@ -74,9 +87,6 @@
 	</ui:define>
 	
 	<ui:define name="content_page">
-		<h1>Noticias</h1>
-		
-		
 		<p:dataGrid styleClass="gridNoticias" id="gridNoticias" value="#{noticiasBean.lisPetnoticia}" var="noticia" columns="1" rows="5" paginator="true" effect="true" 
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			emptyMessage="No se encontraron registros" paginatorPosition="bottom">
@@ -84,10 +94,10 @@
 				<div class="noticias-content">
 					<h1>#{noticia.titulo}</h1>
 					<div class="imagen">
-						<h:graphicImage alt="foto-noticia" value="#{noticiasBean.rutaImagenes}/campo-feliz.jpg" width="100%" />
+						<h:graphicImage alt="foto-noticia" value="#{noticiasBean.rutaImagenes}#{noticia.rutafoto}" width="100%" />
 					</div>
 					<div class="cuerpo">
-						<div>
+						<div class="fecha">
 							<h:outputText id="fechaNoticia" value="#{noticia.fecharegistro}" >
 		                    	<f:convertDateTime pattern="dd/MM/yyyy" />
 		                    </h:outputText>

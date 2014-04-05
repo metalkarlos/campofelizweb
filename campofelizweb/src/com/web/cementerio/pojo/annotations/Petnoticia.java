@@ -35,6 +35,7 @@ public class Petnoticia implements java.io.Serializable {
 	private String tag;
 	private Date fecharegistro;
 	private String iplog;
+	private String rutafoto;
 	private Set<?> petfotonoticias = new HashSet<Object>(0);
 
 	public Petnoticia() {
@@ -135,6 +136,14 @@ public class Petnoticia implements java.io.Serializable {
 		this.iplog = iplog;
 	}
 
+	@Column(name = "rutafoto", length = 100)
+	public String getRutafoto() {
+		return rutafoto;
+	}
+
+	public void setRutafoto(String rutafoto) {
+		this.rutafoto = rutafoto;
+	}
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petnoticia", targetEntity=Petfotonoticia.class)
 	public Set<?> getPetfotonoticias() {
 		return this.petfotonoticias;
