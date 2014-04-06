@@ -1,5 +1,7 @@
 package com.web.util;
 
+import java.io.InputStream;
+
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,11 +56,11 @@ public class FacesUtil {
 		getFacesContext().getExternalContext().invalidateSession();
     }
 	
-	public String getRealPath(String path) throws Exception {
+	public InputStream getResourceAsStream(String pathrecurso){
 		
-		String realPath = getFacesContext().getExternalContext().getRealPath(path);
+		InputStream content = facesContext.getExternalContext().getResourceAsStream(pathrecurso);
 		
-		return realPath;
+		return content;
 	}
 	
 	public String getParametrosUrl(){

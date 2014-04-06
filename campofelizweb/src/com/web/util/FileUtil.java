@@ -1,13 +1,11 @@
 package com.web.util;
 
+import com.web.cementerio.global.Parametro;
+
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
-import com.web.cementerio.global.Parametro;
 
 public class FileUtil {
 
@@ -19,8 +17,7 @@ public class FileUtil {
 			fos.write(bfile);
 			fos.close();
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception();
+			throw new Exception(e);
 		}
 	}
 	
@@ -33,8 +30,7 @@ public class FileUtil {
 				ok = fileDir.delete();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception();
+			throw new Exception(e);
 		}
 				
 		return ok;
@@ -49,16 +45,10 @@ public class FileUtil {
 				ok = fileDir.mkdirs();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception();
+			throw new Exception(e);
 		}
 				
 		return ok;
-	}
-	
-	public InputStream getResourceAsStream(String name)
-	{
-		return this.getClass().getResourceAsStream(name);
 	}
 	
 	public boolean existFile(String pathdirectory) throws Exception {
@@ -68,25 +58,34 @@ public class FileUtil {
 			File fileDir = new File(pathdirectory);
 			ok = fileDir.exists();
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception();
+			throw new Exception(e);
 		}
 				
 		return ok;
 	}
 	
-	public Properties getPropertiesFile(String path) {
+	public Properties getPropertiesFile(String nombre) throws Exception {
 		Properties properties = new Properties();
+		InputStream inputStream = null;
 		
 		try {
-			File file = new File(path);
-			if(file.exists()){
-				InputStream in = new FileInputStream(file);
-				properties.load(in);
+			inputStream = FileUtil.class.getClassLoader().getResourceAsStream(nombre);
+			
+			if(inputStream != null){
+				properties.load(inputStream);
+			}else{
+				throw new Exception("No se ha encontrado archivo: " + nombre);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException();
+		} catch (Exception e) {
+			throw new Exception(e);
+		} finally {
+			if(inputStream != null){
+				try{
+					inputStream.close();
+				}catch(Exception e){
+					
+				}
+			}
 		}
 		
 		return properties;
@@ -96,7 +95,7 @@ public class FileUtil {
 		String value = null;
 		
 		try {
-			Properties properties = getPropertiesFile(Parametro.PARAMETROS_PROPERTIES_PATH);
+			Properties properties = getPropertiesFile(Parametro.PROPERTIES_FILE_NAME);
 			value = properties.getProperty(key);
 		} catch (Exception e) {
 			throw new Exception(e);

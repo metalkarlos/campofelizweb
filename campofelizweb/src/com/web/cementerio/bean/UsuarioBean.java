@@ -1,16 +1,12 @@
 package com.web.cementerio.bean;
 
 import java.io.Serializable;
-import java.util.Properties;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import com.web.cementerio.bo.SetusuarioBO;
-import com.web.cementerio.global.Parametro;
 import com.web.cementerio.pojo.annotations.Setusuario;
-//import com.web.pet.pojo.annotations.Setusuario;
-//import com.web.pet.bo.SetusuarioBO;
 import com.web.util.FacesUtil;
 import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
@@ -82,8 +78,7 @@ public class UsuarioBean implements Serializable{
 				autenticado = true;
 				
 				FileUtil fileUtil = new FileUtil();
-				Properties parametrosProperties = fileUtil.getPropertiesFile(Parametro.PARAMETROS_PROPERTIES_PATH);
-				strRedirect = parametrosProperties.getProperty("home");
+				strRedirect = fileUtil.getPropertyValue("home");
 			}else{
 				new MessageUtil().showWarnMessage("Autenticación fallida","Usuario o Contraseña no existen.");
 			}
@@ -100,8 +95,7 @@ public class UsuarioBean implements Serializable{
 		try{
 			facesUtil.logout();
 			FileUtil fileUtil = new FileUtil();
-			Properties parametrosProperties = fileUtil.getPropertiesFile(Parametro.PARAMETROS_PROPERTIES_PATH);
-			String strLogin = parametrosProperties.getProperty("home");
+			String strLogin = fileUtil.getPropertyValue("home");
 			facesUtil.redirect(strLogin);
 		}catch(Exception re){
 			new MessageUtil().showFatalMessage("Esto es Vergonzoso!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
@@ -129,8 +123,7 @@ public class UsuarioBean implements Serializable{
 		FileUtil fileUtil = new FileUtil();
 		
 		try{
-			Properties parametrosProperties = fileUtil.getPropertiesFile(Parametro.PARAMETROS_PROPERTIES_PATH);
-			String strnotlogged = parametrosProperties.getProperty("notlogged");
+			String strnotlogged = fileUtil.getPropertyValue("notlogged");
 			new FacesUtil().redirect(strnotlogged);
 		}catch(Exception re){
 			new MessageUtil().showFatalMessage("Esto es Vergonzoso!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
