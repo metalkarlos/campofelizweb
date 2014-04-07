@@ -34,11 +34,9 @@ public class NoticiasBean {
 	private void cargarRutaImagenes(){
 		try {
 			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
-			
-			consultarNoticias();
 		} catch (Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Esto es Vergonzoso!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 	}
 	
@@ -73,7 +71,7 @@ public class NoticiasBean {
                 }
 			};
 		}catch(Exception re){
-			new MessageUtil().showFatalMessage("Esto es Vergonzoso!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 	}
 

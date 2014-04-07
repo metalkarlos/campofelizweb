@@ -83,7 +83,7 @@ public class UsuarioBean implements Serializable{
 				new MessageUtil().showWarnMessage("Autenticación fallida","Usuario o Contraseña no existen.");
 			}
 		}catch(Exception re){
-			new MessageUtil().showFatalMessage("Esto es Vergonzoso!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 		
 		return strRedirect;
@@ -98,7 +98,7 @@ public class UsuarioBean implements Serializable{
 			String strLogin = fileUtil.getPropertyValue("home");
 			facesUtil.redirect(strLogin);
 		}catch(Exception re){
-			new MessageUtil().showFatalMessage("Esto es Vergonzoso!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 		
 		return "";
@@ -113,7 +113,7 @@ public class UsuarioBean implements Serializable{
 		}
 		catch(Exception e){
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Esto es Vergonzoso!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 		
 		return homePage;
@@ -126,7 +126,7 @@ public class UsuarioBean implements Serializable{
 			String strnotlogged = fileUtil.getPropertyValue("notlogged");
 			new FacesUtil().redirect(strnotlogged);
 		}catch(Exception re){
-			new MessageUtil().showFatalMessage("Esto es Vergonzoso!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 		
 		return "";
