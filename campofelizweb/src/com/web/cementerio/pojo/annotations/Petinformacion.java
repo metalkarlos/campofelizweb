@@ -37,6 +37,7 @@ public class Petinformacion implements java.io.Serializable {
 	private String fotoquienessomos;
 	private String fotoantecedentes;
 	private Date fecharegistro;
+	private Date fechamodificacion;
 	private String iplog;
 	private String tag;
 	private Set<?> petfotoinformacions = new HashSet<Object>(0);
@@ -54,7 +55,7 @@ public class Petinformacion implements java.io.Serializable {
 	public Petinformacion(int idinformacion, Setestado setestado,
 			Setusuario setusuario, String quienessomos, String mision,
 			String vision, String antecendentes, String fotoantecedentes,
-			String fotoquienessomos,Date fecharegistro,
+			String fotoquienessomos,Date fecharegistro,Date fechamodificacion,
 			String iplog, String tag, Set<?> petfotoinformacions) {
 		this.idinformacion = idinformacion;
 		this.setestado = setestado;
@@ -64,6 +65,7 @@ public class Petinformacion implements java.io.Serializable {
 		this.vision = vision;
 		this.antecendentes = antecendentes;
 		this.fecharegistro = fecharegistro;
+		this.fechamodificacion = fechamodificacion;
 		this.iplog = iplog;
 		this.tag = tag;
 		this.petfotoinformacions = petfotoinformacions;
@@ -167,6 +169,16 @@ public class Petinformacion implements java.io.Serializable {
 		this.fecharegistro = fecharegistro;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechamodificacion", nullable = false, length = 29)
+	public Date getFechamodificacion() {
+		return this.fechamodificacion;
+	}
+	
+	public void setFechamodificacion(Date fechamodificacion) {
+		this.fechamodificacion = fechamodificacion;
+	}
+	
 	@Column(name = "iplog", length = 20)
 	public String getIplog() {
 		return this.iplog;

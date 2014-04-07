@@ -22,8 +22,17 @@
 				<div class="box_title">
 				   <h4 class="title">Nombre Mascota</h4>
 				</div>
-				<p:inputText style="width: 200px;" value="#{mascotaHomenajeBean.petmascotahomenaje.nombre}" />
+				<p:inputText maxlength="100" style="width: 200px;" value="#{mascotaHomenajeBean.petmascotahomenaje.nombre}" />
 				<br />
+				<div class="box_title">
+				   <h4 class="title">Especie</h4>
+				</div>
+				<p:selectOneMenu id="idespeciemascota" style="width: 145px; align: center;" value="#{mascotaHomenajeBean.petmascotahomenaje.petespecie.idespecie}" >
+					<f:selectItem itemLabel="Seleccione" itemValue="0"/>
+					<f:selectItems value="#{petespecieBean.listPetespecie}" var="especie" itemLabel="#{especie.nombre}" itemValue="#{especie.idespecie}"></f:selectItems>
+				</p:selectOneMenu>
+				<br />
+				
 				<div class="box_title">
 				   <h4 class="title">Fecha Nacimiento</h4>
 				</div>
@@ -37,12 +46,12 @@
 				<div class="box_title">
 				   <h4 class="title">Familia</h4>
 				</div>
-				<p:inputText style="width: 300px;" value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
+				<p:inputText maxlength="100" style="width: 300px;" value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
 				<br />
 				<div class="box_title">
 				   <h4 class="title">Dedicatoria</h4>
 				</div>
-				<p:inputTextarea autoResize="true" style="width: 380px; height:85px" value="#{mascotaHomenajeBean.petmascotahomenaje.dedicatoria}"/>
+				<p:inputTextarea maxlength="1000" autoResize="true" style="width: 380px; height:85px" value="#{mascotaHomenajeBean.petmascotahomenaje.dedicatoria}"/>
 				<br/>
 				<br />
 				<div class="box_title">
@@ -51,7 +60,6 @@
 				<p:inputText  maxlength="200" style="width: 380px;" value="#{mascotaHomenajeBean.petmascotahomenaje.tag}" />
 				<br />
 				<br />
-				  <p:commandButton value="Nuevo"  update="mensajes"/>
 	             <p:commandButton value="Guardar" actionListener="#{mascotaHomenajeBean.ingresarHomenajemascota()}" update="mensajes"/>  
 		         <p:commandButton value="Cancelar"/>
 		  </p:panel>

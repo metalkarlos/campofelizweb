@@ -3,6 +3,8 @@ package com.web.cementerio.bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import com.web.cementerio.bo.PetinformacionBO;
@@ -23,7 +25,8 @@ public class QuienesSomosBean implements java.io.Serializable {
 	private UploadedFile uploadedFile;
 
 	public QuienesSomosBean() {
-		petinformacion = new Petinformacion(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null);
+		petinformacion = new Petinformacion(0, new Setestado(), new Setusuario(), null, null, null, null, null, null,null, null, null, null, null);
+		
 		consultarInformacion();
 	}
 	
@@ -36,7 +39,21 @@ public class QuienesSomosBean implements java.io.Serializable {
 			new MessageUtil().showErrorMessage("Error", "Lamentamos que tenga inconvenientes");
 		}
 	}
-	
+	/*
+	public void subirimagen(){
+		if (uploadedFile !=null){
+			petinformacion.setFotoquienessomos(uploadedFile.getFileName());
+			new MessageUtil().showInfoMessage("Info", "Foto: "+uploadedFile.getFileName()+" subida con éxito");
+			
+		}
+	}*/
+	public void subir(FileUploadEvent event){
+		//if (event.getFile() !=null){
+			petinformacion.setFotoquienessomos("/resources/images/"+event.getFile().getFileName());
+			new MessageUtil().showInfoMessage("Info", "Foto: "+event.getFile().getFileName()+" subida con éxito");
+			
+		//}
+	}
 	public void guardarPetinformacion(){
 		try{
 			 if (validarcampos()){
@@ -94,6 +111,8 @@ public class QuienesSomosBean implements java.io.Serializable {
 		this.uploadedFile = uploadedFile;
 	}
 
+	
+	
 	
 	
 }

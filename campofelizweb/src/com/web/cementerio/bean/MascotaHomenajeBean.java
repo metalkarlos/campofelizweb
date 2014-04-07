@@ -21,6 +21,7 @@ public class MascotaHomenajeBean implements Serializable {
 	
 	
 	
+	
 	public MascotaHomenajeBean() {
 		petmascotahomenaje = new Petmascotahomenaje();
 	}

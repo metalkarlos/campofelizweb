@@ -59,7 +59,7 @@ public class PetinformacionBO {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			
-			Date fecharegistro = new Date();
+			Date fechamodificacion = new Date();
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 			
 			Setestado setestado = new Setestado();
@@ -67,7 +67,7 @@ public class PetinformacionBO {
 			petinformacion.setSetestado(setestado);
 			
 			//Auditoría
-			petinformacion.setFecharegistro(fecharegistro);
+			petinformacion.setFechamodificacion(fechamodificacion);
 			petinformacion.setIplog(usuarioBean.getIp());
 			
 			petinformacionDAO.actualizarPetinformacion(session, petinformacion);

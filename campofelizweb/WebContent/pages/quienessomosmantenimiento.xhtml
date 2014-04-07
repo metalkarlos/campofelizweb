@@ -33,10 +33,14 @@
 					<br /><br />
 					<h5 >Foto</h5>
 					<br />
-					<p:fileUpload value="#{quienesSomosBean.uploadedFile}" mode="simple"
-						invalidSizeMessage="Tamaño de la imágen debe ser menor a 1 mb"
-						sizeLimit="1024" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-					<p:commandButton title="Subir Foto" value="Subir Foto" ajax="false" />
+					<div>
+					<p:graphicImage id="imagenquienessomos" height="120px" width="120px"  value="#{quienesSomosBean.petinformacion.fotoquienessomos}" />
+					</div>
+					<p:fileUpload  fileUploadListener="#{quienesSomosBean.subir()}" auto="true" mode="advanced" update="mensajes,imagenquienessomos"
+						invalidSizeMessage="Tamaño de la imagen debe ser menor a 1 mb"
+						sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+					
+					  
 				</div>
 				<br />
 				<div class="box_title">
@@ -46,10 +50,10 @@
 				<br /><br />
 					<h5 >Foto</h5>
 					<br />
-				<p:fileUpload value="#{quienesSomosBean.uploadedFile}" mode="simple"
-					invalidSizeMessage="Tamaño de la imágen debe ser menor a 1 mb"
-					sizeLimit="1024" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-				<p:commandButton title="Subir Foto" value="Subir Foto" ajax="false"/>
+					<div>
+					<p:graphicImage id="imagenantecedentes" height="120px" width="120px"  value="#{quienesSomosBean.petinformacion.fotoantecedentes}" />
+					</div>
+				
 				<br />
 				<br />
 				<div class="box_title">
