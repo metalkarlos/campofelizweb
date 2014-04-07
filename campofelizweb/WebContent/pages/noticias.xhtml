@@ -6,42 +6,31 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="../templates/default_others.xhtml">
 	
 	<ui:define name="head">
 		<title>Últimas Noticias</title>
 		<style type="text/css">
+			.content-page h1 {
+				text-align: center;
+				color: #ec8f23;
+				line-height: normal;
+			}
 			.noticias-content {
 				
 			}
-			.title  { 
-				font-size: 23px;
-				line-height: normal;
-				height: 40px;
-				padding: 8px 0 0 20px;
-				text-align: center;
-				
-	        	/*text-align: center;
-	        	padding: 40px 0px 20px;
-	        	font-family: Georgia,"Times New Roman",Times,serif;
-	        	font-size: 28px;
-				font-weight: bold;*/
-				
-				/*border-bottom: 1px solid #666666;  
-				letter-spacing: -1px;
-				text-transform: uppercase;
-				color: #008BB4;
-				margin: 0;*/
-			}
 			.noticias-content h1  {   
 				border-bottom: 1px solid #dddddd;/*#666666;*/
-				font-size: 28px;
-				font-weight: bold;
+				font-size: 15px;
 				letter-spacing: -1px;
 				text-transform: uppercase;
 				font-family: Georgia,"Times New Roman",Times,serif;
-				color: #66ad23; /*#008BB4;*/
+				color: #66ad23; /*#ec8f23; /*#66ad23; /*#008BB4;*/
 				margin: 0;
+				text-align: left;
+				
+				text-shadow: 1px 1px #fbfbfb;
 			}
 			.noticias-content .imagen {
 				float: left;
@@ -56,7 +45,11 @@
 			}
 			.noticias-content .cuerpo .fecha {
 				font-weight: bold;
-				color: #66ad23;
+				color: #ec8f23;
+			}
+			.noticias-content .cuerpo a {
+				color: #ec8f23;
+				font-weight: bold;
 			}
 			.gridNoticias {
 				padding: 10px 0;
@@ -87,30 +80,37 @@
 	</ui:define>
 	
 	<ui:define name="content_page">
-		<p:dataGrid styleClass="gridNoticias" id="gridNoticias" value="#{noticiasBean.lisPetnoticia}" var="noticia" columns="1" rows="5" paginator="true" effect="true" 
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			emptyMessage="No se encontraron registros" paginatorPosition="bottom">
-			<p:column>
-				<div class="noticias-content">
-					<h1>#{noticia.titulo}</h1>
-					<div class="imagen">
-						<h:graphicImage alt="foto-noticia" value="#{noticiasBean.rutaImagenes}#{noticia.rutafoto}" width="100%" />
-					</div>
-					<div class="cuerpo">
-						<div class="fecha">
-							<h:outputText id="fechaNoticia" value="#{noticia.fecharegistro}" >
-		                    	<f:convertDateTime pattern="dd/MM/yyyy" />
-		                    </h:outputText>
+		<div class="content-page">
+		<h:form id="form-contentpage">
+			<h1 class="title ui-widget-header">Noticias</h1>
+			
+			<p:dataGrid styleClass="gridNoticias" id="gridNoticias" value="#{noticiasBean.lisPetnoticia}" var="noticia" columns="1" rows="5" paginator="true" effect="true" 
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				emptyMessage="No se encontraron registros" paginatorPosition="bottom">
+				<p:column>
+					<div class="noticias-content">
+						<h1>#{noticia.titulo}</h1>
+						<div class="imagen">
+							<h:graphicImage alt="foto-noticia" value="#{noticiasBean.rutaImagenes}#{noticia.rutafoto}" width="100%" />
 						</div>
-						<div>
-							<p>
-								#{noticia.descripcion}
-							</p>
+						<div class="cuerpo">
+							<div class="fecha">
+								<h:outputText id="fechaNoticia" value="#{noticia.fecharegistro}" >
+			                    	<f:convertDateTime pattern="dd/MM/yyyy" />
+			                    </h:outputText>
+							</div>
+							<div>
+								<p>
+									#{fn:substring(noticia.descripcion, 0, 300)} [...]
+									<h:commandLink style="float: right; padding: 10px 0 0" value="Leer Más" />
+								</p>
+							</div>
 						</div>
 					</div>
-				</div>
-			</p:column>
-		</p:dataGrid>
+				</p:column>
+			</p:dataGrid>
+		</h:form>
+		</div>
 	</ui:define>
 	
 </ui:composition>
