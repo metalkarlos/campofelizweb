@@ -18,7 +18,7 @@
 				line-height: normal;
 			}
 			.noticias-content {
-				
+				margin: 15px 15px 0 15px;
 			}
 			.noticias-content h1  {   
 				border-bottom: 1px solid #dddddd;/*#666666;*/
@@ -29,6 +29,7 @@
 				color: #66ad23; /*#ec8f23; /*#66ad23; /*#008BB4;*/
 				margin: 0;
 				text-align: left;
+				font-weight: bold;
 				
 				text-shadow: 1px 1px #fbfbfb;
 			}
@@ -36,14 +37,14 @@
 				float: left;
 				width: 200px;
 				overflow: hidden;
-				padding: 15px
+				padding: 15px 15px 0 0;
 			}
 			.noticias-content .cuerpo {
-				margin: 15px;
+				margin: 15px 0;
 				text-align: justify;
-				line-height: 17px;
+				line-height: 180%;
 			}
-			.noticias-content .cuerpo .fecha {
+			.noticias-content .cuerpo .titulo2 {
 				font-weight: bold;
 				color: #ec8f23;
 			}
@@ -53,28 +54,6 @@
 			}
 			.gridNoticias {
 				padding: 10px 0;
-			}
-			.ui-widget-header {
-				border: none;
-			}
-			.ui-widget-content {
-				border: none;
-			}
-			.ui-corner-top {
-				-moz-border-radius-topleft: 0px;
-				-webkit-border-top-left-radius: 0px;
-				border-top-left-radius: 0px;
-				-moz-border-radius-topright: 0px;
-				-webkit-border-top-right-radius: 0px;
-				border-top-right-radius: 0px;
-			}
-			.ui-corner-bottom {
-				-moz-border-radius-bottomleft: 0px;
-				-webkit-border-bottom-left-radius: 0px;
-				border-bottom-left-radius: 0px;
-				-moz-border-radius-bottomright: 0px;
-				-webkit-border-bottom-right-radius: 0px;
-				border-bottom-right-radius: 0px;
 			}
 		</style>
 	</ui:define>
@@ -94,15 +73,17 @@
 							<h:graphicImage alt="foto-noticia" value="#{noticiasBean.rutaImagenes}#{noticia.rutafoto}" width="100%" />
 						</div>
 						<div class="cuerpo">
-							<div class="fecha">
+							<div class="titulo2">
 								<h:outputText id="fechaNoticia" value="#{noticia.fecharegistro}" >
 			                    	<f:convertDateTime pattern="dd/MM/yyyy" />
-			                    </h:outputText>
+								</h:outputText>
 							</div>
 							<div>
 								<p>
 									#{fn:substring(noticia.descripcion, 0, 300)} [...]
-									<h:commandLink style="float: right; padding: 10px 0 0" value="Leer Más" />
+									<h:link style="float: right; padding: 10px 0 0" value="Leer Más" outcome="noticia?faces-redirect=true" >
+										<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
+									</h:link>
 								</p>
 							</div>
 						</div>
