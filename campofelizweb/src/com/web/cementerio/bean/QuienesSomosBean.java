@@ -39,20 +39,20 @@ public class QuienesSomosBean implements java.io.Serializable {
 			new MessageUtil().showErrorMessage("Error", "Lamentamos que tenga inconvenientes");
 		}
 	}
-	/*
+	
 	public void subirimagen(){
 		if (uploadedFile !=null){
-			petinformacion.setFotoquienessomos(uploadedFile.getFileName());
+			petinformacion.setFotoquienessomos("/resources/images/"+uploadedFile.getFileName());
 			new MessageUtil().showInfoMessage("Info", "Foto: "+uploadedFile.getFileName()+" subida con éxito");
 			
 		}
-	}*/
+	}
 	public void subir(FileUploadEvent event){
-		//if (event.getFile() !=null){
+		if (event.getFile() !=null){
 			petinformacion.setFotoquienessomos("/resources/images/"+event.getFile().getFileName());
 			new MessageUtil().showInfoMessage("Info", "Foto: "+event.getFile().getFileName()+" subida con éxito");
 			
-		//}
+		}
 	}
 	public void guardarPetinformacion(){
 		try{

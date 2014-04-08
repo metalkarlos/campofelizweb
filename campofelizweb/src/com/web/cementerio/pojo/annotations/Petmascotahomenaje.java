@@ -37,7 +37,9 @@ public class Petmascotahomenaje implements java.io.Serializable {
 	private String familia;
 	private String dedicatoria;
 	private String tag;
+	private String rutafoto;
 	private Date fecharegistro;
+	private Date fechamodificacion;
 	private String iplog;
 	private Set<?> petfotomascotas = new HashSet<Object>(0);
 
@@ -52,7 +54,8 @@ public class Petmascotahomenaje implements java.io.Serializable {
 	public Petmascotahomenaje(int idmascota, Setestado setestado,
 			Setusuario setusuario, Petespecie petespecie, String nombre,
 			Date fechanacimiento, Date fechafallecimiento, String familia,
-			String dedicatoria, String tag, Date fecharegistro, String iplog,
+			String dedicatoria, String tag, String rutafoto,Date fecharegistro,
+			Date fechamodificacion,String iplog,
 			Set<?> petfotomascotas) {
 		this.idmascota = idmascota;
 		this.setestado = setestado;
@@ -64,7 +67,9 @@ public class Petmascotahomenaje implements java.io.Serializable {
 		this.familia = familia;
 		this.dedicatoria = dedicatoria;
 		this.tag = tag;
+		this.rutafoto = rutafoto;
 		this.fecharegistro = fecharegistro;
+		this.fechamodificacion = fechamodificacion;
 		this.iplog = iplog;
 		this.petfotomascotas = petfotomascotas;
 	}
@@ -164,6 +169,15 @@ public class Petmascotahomenaje implements java.io.Serializable {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
+	
+	@Column(name = "rutafoto", length = 100)
+	public String getRutafoto() {
+		return this.rutafoto;
+	}
+
+	public void setRutafoto(String rutafoto) {
+		this.rutafoto = rutafoto;
+	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecharegistro", nullable = false, length = 29)
@@ -175,6 +189,15 @@ public class Petmascotahomenaje implements java.io.Serializable {
 		this.fecharegistro = fecharegistro;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechamodificacion",  length = 29)
+	public Date getFechamodificacion() {
+		return this.fechamodificacion;
+	}
+
+	public void setFechamodificacion(Date fechamodificacion) {
+		this.fechamodificacion = fechamodificacion;
+	}
 	@Column(name = "iplog", length = 20)
 	public String getIplog() {
 		return this.iplog;
