@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="../templates/default_admin.xhtml">
+	
+	<f:view contentType="text/html">
+		<f:metadata>
+			<f:viewParam name="idnoticia" value="#{noticiaAdminBean.idnoticia}" />
+		</f:metadata>
+	</f:view>
+		
+	<ui:define name="head">
+			
+		<title>Mantenimiento de Noticias</title>
+		
+		<style type="text/css">
+			.content-page h1 {
+				text-align: center;
+				color: #ec8f23;
+				line-height: normal;
+			}
+			.noticia-content {
+				padding-top: 30px;
+				margin: 15px 15px 0 15px;
+			}
+			.noticia-content h1  {   
+				border-bottom: 1px solid #dddddd;/*#666666;*/
+				font-size: 15px;
+				letter-spacing: -1px;
+				text-transform: uppercase;
+				font-family: Georgia,"Times New Roman",Times,serif;
+				color: #66ad23; /*#ec8f23; /*#66ad23; /*#008BB4;*/
+				margin: 0;
+				text-align: left;
+				font-weight: bold;
+				
+				text-shadow: 1px 1px #fbfbfb;
+			}
+			.noticia-content .imagen {
+				float: left;
+				width: 200px;
+				overflow: hidden;
+				padding: 15px 15px 0 0;
+			}
+			.noticia-content .cuerpo {
+				margin: 15px 0;
+				text-align: justify;
+				line-height: 180%;
+			}
+			.noticia-content .cuerpo .titulo2 {
+				font-weight: bold;
+				color: #ec8f23;
+			}
+		</style>
+	</ui:define>
+	
+	<ui:define name="content_page">
+		<div class="content-page">
+		<h:form id="form-contentpage">
+			<h:outputLabel value="Título" for="txtTitulo" />
+			<p:inputText id="txtTitulo" value="#{noticiaAdminBean.petnoticia.titulo}"></p:inputText>
+			
+			
+		</h:form>
+		</div>
+	</ui:define>
+	
+</ui:composition>
