@@ -183,10 +183,10 @@
 </h:head>
 
 <h:body>
-<h:form id="form-content">
-	<h:commandLink styleClass="logoutfloat" value="Salir [#{usuarioBean.username}]" action="#{usuarioBean.logout}" rendered="#{usuarioBean.autenticado}" />
-	<ui:insert name="metadata" />
-	<ui:debug hotkey="q" />
+	<h:form id="form-logout">
+		<h:commandLink styleClass="logoutfloat" value="Salir [#{usuarioBean.username}]" action="#{usuarioBean.logout}" rendered="#{usuarioBean.autenticado}" />
+	</h:form>
+	<ui:debug hotkey="q" rendered="#{facesContext.application.projectStage == 'Development'}" />
 	<!-- Header -->
 	<header>
 	<div class="inner">
@@ -376,6 +376,5 @@
 	</ui:insert>
 	<p:idleMonitor timeout="#{session.maxInactiveInterval * 1000}"
 		onidle="redirect(window.location);" />
-</h:form>
 </h:body>
 </html>
