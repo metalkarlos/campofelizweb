@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<ui:insert name="head" />
+		<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+		<meta name="description" content="Your description" />
+		<meta name="keywords" content="Your keywords" />
+		<meta name="author" content="Your name" />
+	
+		<h:outputScript library="js" name="javascript.js" />
+		<h:outputScript library="js" name="slider.js" />
+		<h:outputScript library="js" name="tms-0.4.1.js" />
+		<h:outputScript library="primefaces" name="jquery/jquery.js" />
+		<h:outputScript library="js" name="superfish.js" />
+		<h:outputScript library="js" name="jquery.easing.1.3.js" />
+	
+		<h:outputStylesheet library="css" name="messages.css" />
+		<h:outputStylesheet library="css" name="menu.css" />
+		<h:outputStylesheet library="css" name="style.css" />
+		<h:outputStylesheet library="css" name="template.css" />
+		<h:outputStylesheet library="themes/smoothness" name="skin.css" />
+		
+		<style type="text/css">
+			body header {
+				background: none;
+			}
+		</style>
+
+		<!-- Configuración del Calendario de la Agenda -->
+		<script type="text/javascript">
+				PrimeFaces.locales['es'] = {
+				    closeText: 'Cerrar',
+				    prevText: 'Anterior',
+				    nextText: 'Siguiente',
+				    monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+				    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+				    dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+				    dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+				    dayNamesMin: ['D','L','M','M','J','V','S'],
+				    weekHeader: 'Semana',
+				    firstDay: 1,
+				    isRTL: false,
+				    showMonthAfterYear: false,
+				    yearSuffix: '',
+				    timeOnlyTitle: 'Sólo hora',
+				    timeText: 'Tempo',
+				    hourText: 'Hora',
+				    minuteText: 'Minuto',
+				    secondText: 'Segundo',
+				    currentText: 'Fecha actual',
+				    ampm: false,
+				    month: 'Mes',
+				    week: 'Semana',
+				    day: 'Día',
+				    allDayText : 'Todo el día'
+				};
+				$.datepicker.regional['es'] = {
+				        closeText: 'Cerrar',
+				        prevText: '&#x3c;Ant',
+				        nextText: 'Sig&#x3e;',
+				        currentText: 'Hoy',
+				        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+				                'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+				        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+				                'Jul','Ago','Sep','Oct','Nov','Dic'],
+				        dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+				        dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+				        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+				        dateFormat: 'dd/mm/yyyy',
+				        firstDay: 1,
+				        weekHeader: 'Sm',
+				        isRTL:false,
+				        showMonthAfterYear:false,
+				        yearSuffix:""
+				        };
+				$.datepicker.setDefaults($.datepicker.regional["es"]);
+			</script>
+		<script type="text/javascript">
+				$(function(){
+					function equalHeight(group) {
+						var tallest = 0;
+						group.each(function() {
+							var thisHeight = $(this).height();
+							if(thisHeight > tallest) {
+								tallest = thisHeight;
+							}
+						});
+						group.height(tallest);
+					}	
+					equalHeight($(".box-1 .inner"));
+				})
+			</script>
+		<!--[if lt IE 8]>
+			   <div style=' clear: both; text-align:center; position: relative;'>
+			     <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+			       <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+			    </a>
+			  </div>
+			<![endif]-->
+		<!--[if lt IE 9]>
+				<script src="js/html5.js"></script>
+				<link rel="stylesheet" href="css/ie.css"> 
+			<![endif]-->
+	</h:head>
+	
+	<h:body>
+		<h:form id="form-logout">
+			<h:commandLink styleClass="logoutfloat" value="Salir [#{usuarioBean.username}]" action="#{usuarioBean.logout}" rendered="#{usuarioBean.autenticado}" />
+		</h:form>
+		<ui:debug hotkey="q" rendered="#{facesContext.application.projectStage == 'Development'}" />
+		<!-- Header -->
+		<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="home.jsf"> Cementerio de Mascotas Campo Feliz </a>
+			</h1>
+			<div>
+				<div class="header-meta">
+					<div class="col-img">
+					</div>
+					<div class="col-elem">
+						Para mayor información <br></br> Llámanos: <span
+							class="phone">(04)6014815</span>
+					</div>
+				</div>
+				<div id='cssmenu'>
+					<ul>
+						<li><a href='#'><span>Inicio</span></a></li>
+					<li><a href='#'><span>Quienes <br>Somos </br></span></a></li>
+					<li class='has-sub'><a href='#'><span>Servicios</span></a>
+						<ul>
+							<li><a href='#'><span>Nuestros Servicios</span></a></li>
+							<li><a href='#'><span>Encuesta de Satisfacción</span></a></li>
+							<li class='last'><a href='#'><span>Cotización</span></a></li>
+						</ul></li>
+					<li><a href='#'><span>Cementerio Virtual</span></a></li>
+					<li><a href='#'><span>Homenaje <br>Póstumo </br></span></a></li>
+					<li><a href='#'><span>Cómo decir Adiós</span></a></li>
+					<li><a href='#'><span>Preguntas <br> Frecuentes </br></span></a></li>
+					<li class='last'><a href='#'><span>Contáctenos</span></a></li>
+					</ul>
+				</div>
+	
+			</div>
+			<div class="clear"></div>
+		</div>
+		</header>
+		<!-- Content -->
+		<section id="content">
+		<div class="ic"></div>
+		<div class="otrocontainer_24">
+			<div class="indent-bot-1">
+				<div class="leftcontent">
+					<ui:insert name="content_page">
+						<h1>En construcción...</h1>
+					</ui:insert>
+				</div>
+				<div class="right">
+					<div class="otrobox-1">
+						<div class="inner2">
+							<div class="box_content">
+								<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FCampo-Feliz-Cementerio-de-Mascotas%2F257959247667793%3Ffref%3Dts&amp;width&amp;height=550&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=true&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:590px;" allowTransparency="true"></iframe>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		</section>
+		<!-- Footer -->
+		<footer>
+		<div class="copyright">
+			&copy; 2014 
+			<div>
+				<a href="#">Diseño Web</a> por Fourth Dimension S.A.
+			</div>
+		</div>
+		<ul class="social-list">
+			<li><a href="#"><h:graphicImage alt="social-link-1.jpg" library="images" name="social-link-1.jpg" /></a></li>
+			<li><a href="#"><h:graphicImage alt="social-link-2.jpg" library="images" name="social-link-2.jpg" /></a></li>
+			<li><a href="#"><h:graphicImage alt="social-link-3.jpg" library="images" name="social-link-3.jpg" /></a></li>
+			<li><a href="#"><h:graphicImage alt="social-link-4.jpg" library="images" name="social-link-4.jpg" /></a></li>
+		</ul>
+		</footer>
+		
+		<p:ajaxStatus
+			style="width:32px;height:32px;display:block;position:fixed;right:0;top:0;">
+			<f:facet name="start">
+				<h:graphicImage alt="loading.gif" library="images" name="loading.gif" />
+			</f:facet>
+			<f:facet name="complete">
+				<h:outputText value="" />
+			</f:facet>
+		</p:ajaxStatus>
+		
+		<p:idleMonitor timeout="#{session.maxInactiveInterval * 1000}"
+			onidle="redirect(window.location);" />
+	</h:body>
+</html>
