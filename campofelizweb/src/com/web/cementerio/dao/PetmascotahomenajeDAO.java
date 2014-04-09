@@ -1,7 +1,12 @@
 package com.web.cementerio.dao;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
@@ -22,6 +27,19 @@ public class PetmascotahomenajeDAO {
 		return petmascotahomenaje;
 	}
 	
+	public List<Petmascotahomenaje> getListpetmascotahomenaje(Session session, int idestado) throws Exception{
+		List<Petmascotahomenaje> listPetmascotahomenaje = null;
+		
+		Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
+				.add(Restrictions.eq("setestado.idestado",1));
+		
+		criteria.addOrder(Order.desc("fechapublicacion"))
+		.setMaxResults(6);
+		
+		listPetmascotahomenaje = (List<Petmascotahomenaje>)criteria.list();
+		       
+		return listPetmascotahomenaje;
+	}
 	
 	public int getMaxidpetmascotahomenaje(Session session)throws Exception{
 		int maxid = 0;

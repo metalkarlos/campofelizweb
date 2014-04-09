@@ -33,6 +33,7 @@ public class MascotaHomenajeBean implements Serializable {
 		petmascotahomenaje = new Petmascotahomenaje();
 		Petespecie petespecie = new Petespecie();
 		petmascotahomenaje.setPetespecie(petespecie);
+		petmascotahomenaje.setFechapublicacion(new Date());
 	}
 	
 	public void ingresarHomenajemascota() {
@@ -85,7 +86,19 @@ public class MascotaHomenajeBean implements Serializable {
 		}
 		else if (petmascotahomenaje.getFechafallecimiento().before(petmascotahomenaje.getFechanacimiento())){
 			ok = false;
-			new MessageUtil().showInfoMessage("Info", "Fecha de fallecimiento debe ser menor o igual a la fecha de nacimiento");
+			new MessageUtil().showInfoMessage("Info", "Fecha de fallecimiento debe ser mayor o igual a la fecha de nacimiento");
+		}
+		else if (petmascotahomenaje.getFechapublicacion().before(petmascotahomenaje.getFechanacimiento())){
+			ok = false;
+			new MessageUtil().showInfoMessage("Info", "Fecha de publicación debe ser mayor o igual a la fecha de fallecimiento");
+		}
+		else if (petmascotahomenaje.getFechapublicacion().before(petmascotahomenaje.getFechafallecimiento())){
+			ok = false;
+			new MessageUtil().showInfoMessage("Info", "Fecha de publicación debe ser mayor o igual a la fecha de fallecimiento");
+		}
+		else if (petmascotahomenaje.getFechapublicacion().after(fechaactual)){
+			ok = false;
+			new MessageUtil().showInfoMessage("Info", "Fecha de publicación no pueder ser mayor a la fecha de hoy");
 		}
 		return ok;
 		

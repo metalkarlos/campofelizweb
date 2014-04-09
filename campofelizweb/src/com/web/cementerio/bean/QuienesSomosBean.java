@@ -1,7 +1,10 @@
 package com.web.cementerio.bean;
 
+import java.util.Map;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 
 import org.primefaces.event.FileUploadEvent;
@@ -49,8 +52,20 @@ public class QuienesSomosBean implements java.io.Serializable {
 	}
 	public void subir(FileUploadEvent event){
 		if (event.getFile() !=null){
-			petinformacion.setFotoquienessomos("/resources/images/"+event.getFile().getFileName());
-			new MessageUtil().showInfoMessage("Info", "Foto: "+event.getFile().getFileName()+" subida con éxito");
+			long tamaño = event.getFile().getSize();
+			String parametro = (String)event.getComponent().getAttributes().get("tipo");
+			
+			if (tamaño<100000) {
+			  if (parametro.equals("1")){	
+			      petinformacion.setFotoquienessomos("/resources/images/"+event.getFile().getFileName());
+			  }else{
+				  petinformacion.setFotoantecedentes("/resources/images/"+event.getFile().getFileName());
+			  }
+				  
+			  new MessageUtil().showInfoMessage("Info", "Foto: "+event.getFile().getFileName()+" subida con éxito");
+			}else{
+			  new MessageUtil().showInfoMessage("Info", "El tamaño de la imagen debe ser menor a 1MB");
+			}
 			
 		}
 	}

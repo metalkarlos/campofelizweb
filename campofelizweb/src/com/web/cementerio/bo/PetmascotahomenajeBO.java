@@ -1,6 +1,7 @@
 package com.web.cementerio.bo;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.Session;
 
@@ -18,6 +19,21 @@ public class PetmascotahomenajeBO {
 	
 	public  PetmascotahomenajeBO(){
 		petmascotahomenajeDAO = new PetmascotahomenajeDAO();
+	}
+	
+	public List<Petmascotahomenaje> getListpetmascotahomenaje(int idestado) throws Exception{
+		List<Petmascotahomenaje> listpetmascotahomenaje = null;
+		Session session = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			listpetmascotahomenaje = petmascotahomenajeDAO.getListpetmascotahomenaje(session, idestado);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}finally{
+			session.close();
+		}
+		
+		return listpetmascotahomenaje;
 	}
 	
 	

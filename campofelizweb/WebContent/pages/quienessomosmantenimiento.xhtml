@@ -34,26 +34,31 @@
 					<h5 >Foto</h5>
 					<br />
 					<div>
-					<p:graphicImage id="imagenquienessomos" height="120px" width="120px"  value="#{quienesSomosBean.petinformacion.fotoquienessomos}" />
+					   <p:graphicImage id="imagenquienessomos" height="120px" width="120px"  value="#{quienesSomosBean.petinformacion.fotoquienessomos}" />
 					</div>
-					<p:fileUpload  fileUploadListener="#{quienesSomosBean.subir()}" auto="true" mode="advanced" update="mensajes,imagenquienessomos"
-						invalidSizeMessage="Tamaño de la imagen debe ser menor a 1 mb"
-						sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-					
-					  
+					<p:fileUpload label="Subir"  auto="true"  fileUploadListener="#{quienesSomosBean.subir}"  mode="advanced" update="mensajes,imagenquienessomos"						
+						 allowTypes="/(\.|\/)(gif|jpe?g|png)$/" >
+						<f:attribute name="tipo" value="1"/>
+                    </p:fileUpload>						
+						
 				</div>
 				<br />
-				<div class="box_title">
-					<h4 >Antecedentes</h4>
-				</div>
-				<p:inputTextarea maxlength="5000"   autoResize="true" style="width: 610px; height:125px" value="#{quienesSomosBean.petinformacion.antecendentes}" />
-				<br /><br />
+				<div>
+					<div class="box_title">
+						<h4 >Antecedentes</h4>
+					</div>
+					<p:inputTextarea maxlength="5000"   autoResize="true" style="width: 610px; height:125px" value="#{quienesSomosBean.petinformacion.antecendentes}" />
+					<br /><br />
 					<h5 >Foto</h5>
 					<br />
 					<div>
-					<p:graphicImage id="imagenantecedentes" height="120px" width="120px"  value="#{quienesSomosBean.petinformacion.fotoantecedentes}" />
+						<p:graphicImage id="imagenantecedentes" height="120px" width="120px"  value="#{quienesSomosBean.petinformacion.fotoantecedentes}" />
+						<p:fileUpload label="Subir"  auto="true"  fileUploadListener="#{quienesSomosBean.subir}"  mode="advanced" update="mensajes,imagenantecedentes"						
+						 allowTypes="/(\.|\/)(gif|jpe?g|png)$/" >
+						<f:attribute name="tipo" value="2"/>
+						</p:fileUpload>
 					</div>
-				
+				</div>
 				<br />
 				<br />
 				<div class="box_title">
