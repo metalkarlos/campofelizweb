@@ -1,5 +1,7 @@
 package com.web.cementerio.bean;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -10,8 +12,12 @@ import com.web.util.MessageUtil;
 
 @ManagedBean
 @ViewScoped
-public class NoticiaBean {
+public class NoticiaBean implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4154729518983967192L;
 	private int idnoticia;
 	private Petnoticia petnoticia;
 	private String rutaImagenes;

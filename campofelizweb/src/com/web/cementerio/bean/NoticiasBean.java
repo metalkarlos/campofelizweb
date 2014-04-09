@@ -1,5 +1,6 @@
 package com.web.cementerio.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +18,12 @@ import com.web.util.MessageUtil;
 
 @ManagedBean
 @ViewScoped
-public class NoticiasBean {
+public class NoticiasBean implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2425720865157253886L;
 	private String rutaImagenes;
 	private LazyDataModel<Petnoticia> lisPetnoticia;
 	private String tituloParam;
