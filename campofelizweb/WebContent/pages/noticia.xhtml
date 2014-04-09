@@ -73,6 +73,7 @@
 						<h:outputText id="fechaNoticia" value="#{noticiaBean.petnoticia.fecharegistro}">
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
+						<h:link value="[Editar]" style="float: right;" outcome="noticia-admin.jsf" rendered="#{usuarioBean.autenticado}" />
 					</div>
 					<div>
 						<p>
@@ -81,7 +82,9 @@
 					</div>
 				</div>
 				
-				<h:link value="[Editar]" outcome="noticia-admin.jsf" rendered="#{usuarioBean.autenticado}" />
+				<center>
+				<div class="fb-comments" data-href="https://www.facebook.com/pages/Campo-Feliz-Cementerio-de-Mascotas/257959247667793" data-numposts="5" data-colorscheme="light"></div>
+				</center>
 			</div>
 		</h:form>
 		</div>
