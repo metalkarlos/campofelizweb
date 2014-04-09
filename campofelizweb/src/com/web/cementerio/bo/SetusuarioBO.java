@@ -22,8 +22,7 @@ public class SetusuarioBO {
 			session = HibernateUtil.getSessionFactory().openSession();
 			setusuario = setusuarioDAO.getByUserPasswd(session, nombre, clave);
 		}catch(Exception he){
-			he.printStackTrace();
-			throw new Exception();
+			throw new Exception(he);
 		}finally{
 			session.close();
 		}
