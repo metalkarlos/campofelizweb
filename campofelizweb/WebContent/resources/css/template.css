@@ -17,7 +17,7 @@
 }
 .title {
 	height: 30px;
-	padding: 8px 0 0 20px;
+	padding: 8px 0 0 0; /*20px;*/
 }
 .ui-widget-header {
 	border: 1px solid #a8a8a8;
@@ -45,6 +45,35 @@
 	margin-left:auto;
 	margin-right:auto;
 	width:960px
+}
+/*--------LADOS---------*/
+.indent-bot-1 .left{
+	width:210px;
+	clear:left;
+	float:left;
+	text-align:center;
+}
+.indent-bot-1 .leftcontent{
+	width:660px;
+	float:left;
+	/*padding:0px 10px 0px 10px;*/
+	margin-left: 5px;
+	min-height: 500px;
+	background-color: white;
+	border-radius: 7px;
+	box-shadow: 1px 0 5px #bbb;
+}
+.indent-bot-1 .center{
+	width:450px;
+	float:left;
+	padding:0px 10px 0px 10px;
+	min-height: 500px;
+}
+.indent-bot-1 .right{
+	/*width:280px;*/
+	float:right;
+	text-align:center;
+	margin-right: 5px;
 }
 /*----- boxes -----*/
 .otrobox-1 {
@@ -76,12 +105,18 @@
 	border-bottom: 1px solid #e2e2e2;
 }
 
-/*----- contenido de las paginas internas -----*/
+/*----- contenido de las paginas secundarias -----*/
 .content-page {
-	padding-top: 15px;
+	/*padding-top: 10px;*/
 }
 .content-page h1 {
 	font-size: 1.6em;
+	-moz-border-radius-topleft: 7px;
+	-webkit-border-top-left-radius: 7px;
+	border-top-left-radius: 7px;
+	-moz-border-radius-topright: 7px;
+	-webkit-border-top-right-radius: 7px;
+	border-top-right-radius: 7px;
 }
 .content-page .ui-widget-header {
 	border: none;
