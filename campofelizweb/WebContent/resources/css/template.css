@@ -52,6 +52,7 @@
 	clear:left;
 	float:left;
 	text-align:center;
+	margin-left: 5px;
 }
 .indent-bot-1 .leftcontent{
 	width:660px;
@@ -66,7 +67,7 @@
 .indent-bot-1 .center{
 	width:450px;
 	float:left;
-	padding:0px 10px 0px 10px;
+	padding:0px 5px 0px 5px;
 	min-height: 500px;
 }
 .indent-bot-1 .right{
