@@ -132,6 +132,7 @@ header {
 }
 .content-page .ui-widget-content {
 	border: none;
+	color: #7b7b7b;
 }
 .content-page .ui-corner-top {
 	-moz-border-radius-topleft: 0px;
