@@ -141,3 +141,11 @@
 	-webkit-border-bottom-right-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
+
+/*------Menu------*/
+#cssmenu > ul li {
+	width: 100px;
+}
+#cssmenu > ul li a {
+  padding: 10px 10px;/*ESPACIO ENTRE MENUES*/
+}
