@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import com.web.cementerio.bean.UsuarioBean;
+import com.web.cementerio.dao.PetfotomascotaDAO;
 import com.web.cementerio.dao.PetmascotahomenajeDAO;
 import com.web.cementerio.pojo.annotations.Petfotomascota;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
@@ -36,9 +37,23 @@ public class PetmascotahomenajeBO {
 		return listpetmascotahomenaje;
 	}
 	
-	
-	public void ingresarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje) throws Exception{
+	public List<Petmascotahomenaje> getListpetmascotahomenajebycriteria(int idestado, int idespecie, String nombre) throws Exception{
+		List<Petmascotahomenaje> listpetmascotahomenaje = null;
 		Session session = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			listpetmascotahomenaje = petmascotahomenajeDAO.getListpetmascotabycriteria(session, idestado, idespecie, nombre);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}finally{
+			session.close();
+		}
+	   return listpetmascotahomenaje;
+	}
+	
+	public void ingresarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,List<Petfotomascota> lisPetfotomascota,int idestado) throws Exception{
+		Session session = null;
+		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -51,7 +66,7 @@ public class PetmascotahomenajeBO {
 			petmascotahomenaje.setIdmascota(idmascota);
 			
 			Setestado setestado = new Setestado();
-			setestado.setIdestado(1);
+			setestado.setIdestado(idestado);
 			petmascotahomenaje.setSetestado(setestado);	
 	
 			//petmascotahomenaje.getPetfotomascotas().add(new Petfotomascota());
@@ -62,15 +77,62 @@ public class PetmascotahomenajeBO {
 			
 			
 			petmascotahomenajeDAO.ingresarPetmascotahomenaje(session, petmascotahomenaje);
+			
+			ingresarPetfotomascota(session, lisPetfotomascota, idestado, petmascotahomenaje.getIdmascota());
+			
 			session.getTransaction().commit();
 			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new Exception(e);
 		}finally {
+
+			
 			session.close();
 		}
 	}
 	
 
+	public void ingresarPetfotomascota(Session session,List<Petfotomascota> lisPetfotomascota, int idestado, int idmascota)throws Exception{
+		Petfotomascota petfotomascota =null;
+		PetfotomascotaDAO petfotomascotaDAO = new PetfotomascotaDAO();
+		try {
+			if (!lisPetfotomascota.isEmpty()){
+				
+				for (int i =0; i<lisPetfotomascota.size(); i++){
+					
+					petfotomascota = new Petfotomascota();
+					
+					petfotomascota = lisPetfotomascota.get(i);
+							
+					Petmascotahomenaje petmascotahomenaje = new Petmascotahomenaje();
+					petmascotahomenaje.setIdmascota(idmascota);
+					petfotomascota.setPetmascotahomenaje(petmascotahomenaje);
+					
+					Date fecharegistro = new Date();
+					UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("UsuarioBean");
+					petfotomascota.setIdfotomascota(petfotomascotaDAO.getMaxidpetfotomascota(session));
+				    
+					Setestado setestado = new Setestado();
+					setestado.setIdestado(idestado);
+					petfotomascota.setSetestado(setestado);
+					
+					//Auditoria
+					petfotomascota.setFecharegistro(fecharegistro);
+					//petmascotahomenaje.setIplog(usuarioBean.getIp());
+					
+					petfotomascotaDAO.ingresarFotomascota(session, petfotomascota);
+				}
+				
+			}
+			
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			throw new Exception(e);
+		}/*finally{
+           session.close();
+		}*/
+	
+	}
+	
 }

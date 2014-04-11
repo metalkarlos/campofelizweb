@@ -39,7 +39,7 @@
 						<h:outputLabel value="Nombre Mascota:" />
 					</p:column>
 					<p:column >
-						<p:inputText id="idnombre"  style="width: 300px" />
+						<p:inputText id="idnombre" value="#{mascotaHomenajeConsultaBean.nombre}"  style="width: 300px" />
 					</p:column>
 				</p:row>
 				<p:row>
@@ -47,7 +47,7 @@
 						<h:outputLabel value="Especie:" />
 					</p:column>
 					<p:column>
-					    <p:selectOneMenu id="idespeciemascota" style="width: 165px; align: center;" value="#{mascotaHomenajeBean.petmascotahomenaje.petespecie.idespecie}" >
+					    <p:selectOneMenu id="idespeciemascota" style="width: 165px; align: center;" value="#{mascotaHomenajeConsultaBean.idespecie}" >
 						<f:selectItem itemLabel="Seleccione" itemValue="0"/>
 						<f:selectItems value="#{petespecieBean.listPetespecie}" var="especie" itemLabel="#{especie.nombre}" itemValue="#{especie.idespecie}"></f:selectItems>
 						</p:selectOneMenu>
@@ -55,12 +55,12 @@
 				</p:row>
 				</p:panelGrid>
 				<center>
-					<p:commandButton value="Buscar"  />
+					<p:commandButton value="Buscar"  actionListener="#{mascotaHomenajeConsultaBean.buscarmascotahomenajebycriteria()}" update="resultadomascota" />
 				</center>
 				<br />
 			</p:panel>
 			
-			 <p:dataGrid var="mascota" value="#{mascotaHomenajeConsultaBean.listpetmascotahomenaje}" columns="3"  
+			 <p:dataGrid  id="resultadomascota" var="mascota" value="#{mascotaHomenajeConsultaBean.listpetmascotahomenaje}" columns="3"  
 				        rows="6" paginator="true"  
 				        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
 				        rowsPerPageTemplate="9,12,15">  
@@ -74,9 +74,21 @@
 		  				</td>
 		  				<td>
 		  				   <h:outputText value="#{fn:substring(mascota.dedicatoria, 0, 25)} [...]"/>
-		  				   
-		                	
-		                </td>	  
+		  			    </td>	  
+		  			  </tr>
+		  			  <tr>
+		  			   <td>
+		  			   
+		  			   	<h:link  style="float: right; padding: 10px 0 0" value="Leer Más"  outcome="mascotahomenajedetalle?faces-redirect=true" >
+						  <f:param name="idmascota" value="#{mascota.idmascota}"></f:param>
+						</h:link>
+		  			   <p:commandLink   actionListener="#{mascotaHomenajeConsultaBean.navegaenlace()}" title="View Detail">  
+		                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
+		                    <f:setPropertyActionListener value="#{mascota}"  target="#{mascotaHomenajeConsultaBean.petmascotahomenajeselected}" />  
+		                </p:commandLink>  
+		  			     
+		  			     
+		  			   </td>
 		  			  </tr>            
 		  			</table>           
 		            </h:panelGrid>  

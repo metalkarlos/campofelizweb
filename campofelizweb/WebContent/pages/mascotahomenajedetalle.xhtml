@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="../templates/default_others.xhtml">
+	
+	
+	<ui:define name="head">
+		<title>Campo Feliz - Homenaje Póstumo</title>
+		<style type="text/css">
+			.ui-widget-content {
+				border: 0px;
+			}
+		</style>
+	</ui:define>
+	
+ <ui:define name="content_page">
+	
+	 <h:form id="form-contentpage" enctype="multipart/form-data">
+        <p:growl id="mensajes" showDetail="true" />
+ 		<p:panel id="panel-homenajepostumocontent">
+ 		     <h3 class="title ui-widget-header ui-corner-all">Homenaje Póstumo</h3>
+ 		     <br/>
+ 		     <p style="text-align:justify;">
+				Este espacio es un homenaje a las mascotas que han sido sepultadas o cremadas en Campo Feliz.
+				Gracias a sus dueños por confiar en nosotros.
+			</p>
+			<br/>
+			<div class="box_title">
+			     #{mascotaHomenajeConsultaBean.petmascotahomenajeselected.nombre}
+			</div>
+			<table>
+			  <tr>
+			   <td>
+			     <p:outputLabel>Familia:</p:outputLabel>
+			   </td>
+			   <td>
+			     <p:outputLabel> #{mascotaHomenajeConsultaBean.petmascotahomenajeselected.familia}</p:outputLabel>
+			   </td>
+			   <td>
+			     <p:outputLabel>F nacimiento:</p:outputLabel>
+			   </td>
+			   <td>
+			     <p:outputLabel> #{mascotaHomenajeConsultaBean.petmascotahomenajeselected.fechanacimiento}</p:outputLabel>
+			   </td>
+			   <td>
+			     <p:outputLabel>F fallecimiento:</p:outputLabel>
+			   </td>
+			   <td>
+			     <p:outputLabel> #{mascotaHomenajeConsultaBean.petmascotahomenajeselected.fechafallecimiento}</p:outputLabel>
+			   </td>
+			  </tr>
+			  <tr >
+			    <td>
+			      <p:outputLabel> #{mascotaHomenajeConsultaBean.petmascotahomenajeselected.dedicatoria}</p:outputLabel>
+				</td>			      
+			  </tr>
+			</table>
+	
+			
+		</p:panel>		
+	  </h:form>
+	</ui:define>
+</ui:composition>	

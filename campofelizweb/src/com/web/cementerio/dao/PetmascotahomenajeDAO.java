@@ -31,7 +31,7 @@ public class PetmascotahomenajeDAO {
 		List<Petmascotahomenaje> listPetmascotahomenaje = null;
 		
 		Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
-				.add(Restrictions.eq("setestado.idestado",1));
+				.add(Restrictions.eq("setestado.idestado",idestado));
 		
 		criteria.addOrder(Order.desc("fechapublicacion"))
 		.setMaxResults(6);
@@ -39,6 +39,20 @@ public class PetmascotahomenajeDAO {
 		listPetmascotahomenaje = (List<Petmascotahomenaje>)criteria.list();
 		       
 		return listPetmascotahomenaje;
+	}
+	
+	public List<Petmascotahomenaje> getListpetmascotabycriteria(Session session, int idestado, int idespecie, String nombre){
+		List<Petmascotahomenaje> listPetmascotahomeanje = null;
+		
+		Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
+				 .add(Restrictions.eq("setestado.idestado",idestado))
+				 .add(Restrictions.eq("petespecie.idespecie", idespecie))
+				 .add(Restrictions.like("nombre","%" +nombre.replaceAll(" ", "%")+"%").ignoreCase());
+		
+		criteria.addOrder(Order.desc("fechapublicacion"));
+		listPetmascotahomeanje = (List<Petmascotahomenaje>)criteria.list();
+		
+		return listPetmascotahomeanje;
 	}
 	
 	public int getMaxidpetmascotahomenaje(Session session)throws Exception{
