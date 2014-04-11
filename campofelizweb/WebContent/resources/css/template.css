@@ -146,6 +146,9 @@
 #cssmenu > ul li {
 	width: 100px;
 }
+#cssmenu > ul li li {
+	width: auto;
+}
 #cssmenu > ul li a {
   padding: 10px 10px;/*ESPACIO ENTRE MENUES*/
 }
