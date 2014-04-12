@@ -19,42 +19,8 @@
 		<title>Mantenimiento de Noticias</title>
 		
 		<style type="text/css">
-			.content-page h1 {
-				text-align: center;
-				color: #ec8f23;
-				line-height: normal;
-			}
-			.noticia-content {
+			.inner-content {
 				padding-top: 30px;
-				margin: 15px 15px 0 15px;
-			}
-			.noticia-content h1  {   
-				border-bottom: 1px solid #dddddd;/*#666666;*/
-				font-size: 15px;
-				letter-spacing: -1px;
-				text-transform: uppercase;
-				font-family: Georgia,"Times New Roman",Times,serif;
-				color: #66ad23; /*#ec8f23; /*#66ad23; /*#008BB4;*/
-				margin: 0;
-				text-align: left;
-				font-weight: bold;
-				
-				text-shadow: 1px 1px #fbfbfb;
-			}
-			.noticia-content .imagen {
-				float: left;
-				width: 200px;
-				overflow: hidden;
-				padding: 15px 15px 0 0;
-			}
-			.noticia-content .cuerpo {
-				margin: 15px 0;
-				text-align: justify;
-				line-height: 180%;
-			}
-			.noticia-content .cuerpo .titulo2 {
-				font-weight: bold;
-				color: #ec8f23;
 			}
 		</style>
 	</ui:define>
@@ -62,10 +28,15 @@
 	<ui:define name="content_page">
 		<div class="content-page">
 		<h:form id="form-contentpage">
-			<h:outputLabel value="Título" for="txtTitulo" />
-			<p:inputText id="txtTitulo" value="#{noticiaAdminBean.petnoticia.titulo}"></p:inputText>
+			<h1 class="title ui-widget-header">Administración</h1>
 			
-			
+			<h:panelGrid columns="1">
+				<h:outputLabel value="Título" for="txtTitulo" />
+				<p:inputText id="txtTitulo" value="#{noticiaAdminBean.petnoticia.titulo}"></p:inputText>
+				
+				<h:outputLabel value="Contenido" for="txtContenido" />
+				<p:editor id="editor" value="#{noticiaAdminBean.petnoticia.descripcion}" width="600"/>
+			</h:panelGrid>
 		</h:form>
 		</div>
 	</ui:define>
