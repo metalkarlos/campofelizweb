@@ -13,14 +13,16 @@ import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
 
 public class PetmascotahomenajeDAO {
 	
-	public Petmascotahomenaje getPethomenajemascotaById(Session session, int idmascota) throws Exception {
+	public Petmascotahomenaje getPethomenajemascotaById(Session session, int idmascota, int idestado) throws Exception {
 		Petmascotahomenaje petmascotahomenaje = null;
 		
 		String hql = " from Petmascotahomenaje ";
 		       hql += " where idmascota = :idmascota ";
+		       hql += " and   setestado.idestado = :idestado ";
 		
 		Query query = session.createQuery(hql)
-				     .setInteger("idmascota", idmascota);
+				     .setInteger("idmascota", idmascota)
+				     .setInteger("idestado", idestado);
 		
 		petmascotahomenaje = (Petmascotahomenaje) query.uniqueResult();
 		

@@ -8,6 +8,11 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="../templates/default_others.xhtml">
 	
+	<f:view contentType="text/html">
+		<f:metadata>
+			<f:viewParam name="idmascota" value="#{mascotaHomenajeBean.idmascota}" />
+		</f:metadata>
+	</f:view>
 	
 	<ui:define name="head">
 		<title>Campo Feliz - Homenaje Póstumo</title>
@@ -30,37 +35,15 @@
 				Gracias a sus dueños por confiar en nosotros.
 			</p>
 			<br/>
+			<h:link value="[Editar]" style="float: right;" outcome="mascotahomenajemantenimiento.jsf" rendered="#{usuarioBean.autenticado}" />
 			<div class="box_title">
-			     #{mascotaHomenajeConsultaBean.petmascotahomenajeselected.nombre}
+			     #{mascotaHomenajeBean.petmascotahomenaje.nombre}
 			</div>
-			<table>
-			  <tr>
-			   <td>
-			     <p:outputLabel>Familia:</p:outputLabel>
-			   </td>
-			   <td>
-			     <p:outputLabel> #{mascotaHomenajeConsultaBean.petmascotahomenajeselected.familia}</p:outputLabel>
-			   </td>
-			   <td>
-			     <p:outputLabel>F nacimiento:</p:outputLabel>
-			   </td>
-			   <td>
-			     <p:outputLabel> #{mascotaHomenajeConsultaBean.petmascotahomenajeselected.fechanacimiento}</p:outputLabel>
-			   </td>
-			   <td>
-			     <p:outputLabel>F fallecimiento:</p:outputLabel>
-			   </td>
-			   <td>
-			     <p:outputLabel> #{mascotaHomenajeConsultaBean.petmascotahomenajeselected.fechafallecimiento}</p:outputLabel>
-			   </td>
-			  </tr>
-			  <tr >
-			    <td>
-			      <p:outputLabel> #{mascotaHomenajeConsultaBean.petmascotahomenajeselected.dedicatoria}</p:outputLabel>
-				</td>			      
-			  </tr>
-			</table>
-	
+			<div class="box_title">
+			     #{mascotaHomenajeBean.petmascotahomenaje.familia}
+			</div>
+			
+
 			
 		</p:panel>		
 	  </h:form>

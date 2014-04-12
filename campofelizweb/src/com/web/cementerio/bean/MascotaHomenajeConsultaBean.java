@@ -22,18 +22,18 @@ public class MascotaHomenajeConsultaBean  {
 private List<Petmascotahomenaje> listpetmascotahomenaje = null; 
 private int idespecie = 0;
 private String nombre = null;
-private Petmascotahomenaje petmascotahomenajeselected = null;
 
 	public MascotaHomenajeConsultaBean(){
 		consultarMascotaHomenaje(1);
-		petmascotahomenajeselected = new Petmascotahomenaje(0, null,null,null,null,null,null,null,null, null, null, null, null, null, null, null);
+		
 	}
 		
-	public void navegaenlace(){
+	public void navegaenlace(ActionEvent actionEvent){
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("mascotahomenajedetalle.jsf");
+			FacesContext context = FacesContext.getCurrentInstance();
+					context.getExternalContext().redirect("mascotahomenajedetalle.jsf");
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 		
 	}
@@ -93,14 +93,7 @@ private Petmascotahomenaje petmascotahomenajeselected = null;
 		this.nombre = nombre;
 	}
 
-	public Petmascotahomenaje getPetmascotahomenajeselected() {
-		return petmascotahomenajeselected;
-	}
 
-	public void setPetmascotahomenajeselected(
-			Petmascotahomenaje petmascotahomenajeselected) {
-		this.petmascotahomenajeselected = petmascotahomenajeselected;
-	}
 	
 	
 	
