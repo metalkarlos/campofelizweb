@@ -36,6 +36,20 @@ public class PetnoticiaDAO {
 		return petnoticia;
 	}
 	
+	public Petnoticia getPetnoticiaConObjetosById(Session session, int idnoticia) throws Exception {
+		Petnoticia petnoticia = null;
+		
+		String hql = " from Petnoticia as noti left join fetch noti.petfotonoticias ";
+		hql += " where noti.idnoticia = :idnoticia ";
+
+		Query query = session.createQuery(hql)
+				.setInteger("idnoticia", idnoticia);
+		
+		petnoticia = (Petnoticia) query.uniqueResult();
+		
+		return petnoticia;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Petnoticia> lisPetnoticiaByPage(Session session, int pageSize, int pageNumber, int args[], String titulo, String descripcion) throws Exception {
 		List<Petnoticia> listPetnoticia = null;

@@ -37,6 +37,24 @@ public class PetnoticiaBO {
 		return petnoticia;
 	}
 	
+	public Petnoticia getPetnoticiaConObjetosById(int idnoticia) throws Exception {
+		Petnoticia petnoticia = null;
+		Session session = null;
+		
+		try{
+            session = HibernateUtil.getSessionFactory().openSession();
+            petnoticia = petnoticiaDAO.getPetnoticiaConObjetosById(session, idnoticia);
+        }
+        catch(Exception ex){
+            throw new Exception(ex);
+        }
+        finally{
+            session.close();
+        }
+		
+		return petnoticia;
+	}
+	
 	public List<Petnoticia> lisPetnoticiaByPage(int pageSize, int pageNumber, int args[], String titulo, String descripcion) throws RuntimeException {
 		List<Petnoticia> listPetnoticia = null;
 		Session session = null;
