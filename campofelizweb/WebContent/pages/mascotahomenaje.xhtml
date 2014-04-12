@@ -18,6 +18,10 @@
 			.ui-panelgrid td {
 			   border: 0px;
 			}
+			.mascotas-content .cuerpo a {
+				color: #ec8f23;
+				font-weight: bold;
+			}
 		</style>
 	</ui:define>
 
@@ -33,7 +37,7 @@
 				Gracias a sus dueños por confiar en nosotros.
 			</p>
 			<p:panel id="panel-buscarmascota">
-			    <p:panelGrid id="panelgridcriterios" >
+			    <p:panelGrid  id="panelgridcriterios" >
 			    <p:row >
 					<p:column  style="width: 100px">
 						<h:outputLabel value="Nombre Mascota:" />
@@ -60,6 +64,7 @@
 				<br />
 			</p:panel>
 			
+			<div class="mascotas-content">
 			 <p:dataGrid  id="resultadomascota" var="mascota" value="#{mascotaHomenajeConsultaBean.listpetmascotahomenaje}" columns="3"  
 				        rows="6" paginator="true"  
 				        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
@@ -77,17 +82,10 @@
 		  			    </td>	  
 		  			  </tr>
 		  			  <tr>
-		  			   <td>
-		  			   
-		  			   	<h:link  style="float: right; padding: 10px 0 0" value="Leer Más"  outcome="mascotahomenajedetalle?faces-redirect=true" >
+		  			   <td >
+		  			     <h:link   style="float: center; padding: 10px 0 0" value="Leer Más"  outcome="mascotahomenajedetalle?faces-redirect=true" >
 						  <f:param name="idmascota" value="#{mascota.idmascota}"></f:param>
 						</h:link>
-		  			   <p:commandLink   actionListener="#{mascotaHomenajeConsultaBean.navegaenlace()}" title="View Detail">  
-		                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
-		                    <f:setPropertyActionListener value="#{mascota}"  target="#{mascotaHomenajeConsultaBean.petmascotahomenajeselected}" />  
-		                </p:commandLink>  
-		  			     
-		  			     
 		  			   </td>
 		  			  </tr>            
 		  			</table>           
@@ -95,7 +93,7 @@
 		        </p:panel>  
   
    			 </p:dataGrid>  
-     
+          </div>
  		</p:panel>
     </h:form>
     </ui:define>

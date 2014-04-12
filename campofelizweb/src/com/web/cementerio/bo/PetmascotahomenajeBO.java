@@ -22,6 +22,21 @@ public class PetmascotahomenajeBO {
 		petmascotahomenajeDAO = new PetmascotahomenajeDAO();
 	}
 	
+	public Petmascotahomenaje getPetmascotahomenaje(int idmascota, int idestado)throws Exception{
+		Petmascotahomenaje petmascotahomenaje = null;
+		Session session = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			petmascotahomenaje = petmascotahomenajeDAO.getPethomenajemascotaById(session,idmascota, idestado);
+		} catch (Exception e) {
+			throw new Exception(e); 
+		}
+		finally{
+			session.close();
+		}
+		return petmascotahomenaje;
+	}
+	
 	public List<Petmascotahomenaje> getListpetmascotahomenaje(int idestado) throws Exception{
 		List<Petmascotahomenaje> listpetmascotahomenaje = null;
 		Session session = null;

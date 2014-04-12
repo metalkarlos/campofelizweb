@@ -29,6 +29,7 @@ public class MascotaHomenajeBean implements Serializable {
 	private Petfotomascota petfotomascotaselected = null;
 	private Petfotomascota petfotomascota = null;
 	private int indice = 0;
+	private int idmascota =0;
 
 	
 	
@@ -209,6 +210,27 @@ public class MascotaHomenajeBean implements Serializable {
 
 	public void setIndice(int indice) {
 		this.indice = indice;
+	}
+
+
+	public int getIdmascota() {
+		return idmascota;
+	}
+
+
+	public void setIdmascota(int idmascota) {
+		this.idmascota = idmascota;
+		
+		if(this.idmascota >0){
+			try {
+				PetmascotahomenajeBO mascotaHomenajeBO= new PetmascotahomenajeBO();
+				petmascotahomenaje = new Petmascotahomenaje();
+				petmascotahomenaje = mascotaHomenajeBO.getPetmascotahomenaje(idmascota, 1);
+			} catch (Exception e) {
+				e.printStackTrace();
+				new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			}
+		}
 	}
 
 
