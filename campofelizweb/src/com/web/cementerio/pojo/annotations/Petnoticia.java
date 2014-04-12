@@ -36,7 +36,7 @@ public class Petnoticia implements java.io.Serializable {
 	private Date fecharegistro;
 	private String iplog;
 	private String rutafoto;
-	private Set<?> petfotonoticias = new HashSet<Object>(0);
+	private Set<Petfotonoticia> petfotonoticias = new HashSet<Petfotonoticia>(0);
 
 	public Petnoticia() {
 	}
@@ -48,7 +48,7 @@ public class Petnoticia implements java.io.Serializable {
 
 	public Petnoticia(int idnoticia, Setestado setestado,
 			Setusuario setusuario, String titulo, String descripcion,
-			String tag, Date fecharegistro, String iplog, Set<?> petfotonoticias) {
+			String tag, Date fecharegistro, String iplog, Set<Petfotonoticia> petfotonoticias) {
 		this.idnoticia = idnoticia;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -145,11 +145,11 @@ public class Petnoticia implements java.io.Serializable {
 		this.rutafoto = rutafoto;
 	}
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petnoticia", targetEntity=Petfotonoticia.class)
-	public Set<?> getPetfotonoticias() {
+	public Set<Petfotonoticia> getPetfotonoticias() {
 		return this.petfotonoticias;
 	}
 
-	public void setPetfotonoticias(Set<?> petfotonoticias) {
+	public void setPetfotonoticias(Set<Petfotonoticia> petfotonoticias) {
 		this.petfotonoticias = petfotonoticias;
 	}
 
