@@ -28,18 +28,21 @@
 				padding-top: 14px;
 				margin: 15px 15px 0 15px;
 			}
-			.noticia-content h1  {   
+			.titulo2, .noticia-content .fecha  {   
 				border-bottom: 1px solid #dddddd;/*#666666;*/
 				font-size: 15px;
 				letter-spacing: -1px;
-				text-transform: uppercase;
 				font-family: Georgia,"Times New Roman",Times,serif;
 				color: #66ad23; /*#ec8f23; /*#66ad23; /*#008BB4;*/
-				margin: 0;
+				margin: 10px 0;
+				padding: 3px 0;
 				text-align: left;
 				font-weight: bold;
 				
 				text-shadow: 1px 1px #fbfbfb;
+			}
+			.fecha a {
+				font-size: 11px;
 			}
 			.noticia-content .imagen {
 				float: left;
@@ -53,8 +56,10 @@
 				line-height: 180%;
 			}
 			.noticia-content .cuerpo .titulo2 {
-				font-weight: bold;
 				color: #ec8f23;
+				border-bottom: 0px;
+				font-size: 25px;
+				line-height: normal;
 			}
 		</style>
 	</ui:define>
@@ -64,16 +69,30 @@
 		<h:form id="form-contentpage">
 			<h1 class="title ui-widget-header">Noticias</h1>
 			<div class="noticia-content">
-				<h1>#{noticiaBean.petnoticia.titulo}</h1>
-				<div class="imagen">
-					<h:graphicImage alt="foto-noticia" value="#{noticiaBean.rutaImagenes}#{noticiaBean.petnoticia.rutafoto}" width="100%" />
+
+				<center>
+				<p:galleria id="idgalleria" value="#{noticiaBean.lisPetfotonoticia}" var="item" panelWidth="500" panelHeight="320" showCaption="true" >
+			        <p:graphicImage id="idfotos" value="#{noticiaBean.rutaImagenes}#{item.ruta}" alt="alt" title="titulo" />
+			        <p:galleriaContent>  
+			            <h:panelGrid columns="1" style="background-color: #eaeaea;height: 100%; width: 100%;" >  
+					        <f:facet name="header">
+				            	<p:graphicImage id="idfoto" value="#{noticiaBean.rutaImagenes}#{item.ruta}" style="max-height: 300px" alt="alt" title="titulo" />
+					        </f:facet>
+					    </h:panelGrid>
+					</p:galleriaContent>
+				</p:galleria>
+				</center>
+				
+				<div class="fecha">
+				<h:outputText id="fechaNoticia" value="#{noticiaBean.petnoticia.fecharegistro}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+				<h:link value="[Editar]" style="float: right;" outcome="noticia-admin.jsf" rendered="#{usuarioBean.autenticado}" />
 				</div>
+				
 				<div class="cuerpo">
 					<div class="titulo2">
-						<h:outputText id="fechaNoticia" value="#{noticiaBean.petnoticia.fecharegistro}">
-							<f:convertDateTime pattern="dd/MM/yyyy" />
-						</h:outputText>
-						<h:link value="[Editar]" style="float: right;" outcome="noticia-admin.jsf" rendered="#{usuarioBean.autenticado}" />
+						#{noticiaBean.petnoticia.titulo}
 					</div>
 					<div>
 						<p>
