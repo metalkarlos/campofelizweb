@@ -21,6 +21,7 @@
 		<style type="text/css">
 			.inner-content {
 				padding-top: 30px;
+				line-height: 180%;
 			}
 		</style>
 	</ui:define>
@@ -30,13 +31,15 @@
 		<h:form id="form-contentpage">
 			<h1 class="title ui-widget-header">Administración</h1>
 			
-			<h:panelGrid columns="1">
-				<h:outputLabel value="Título" for="txtTitulo" />
-				<p:inputText id="txtTitulo" value="#{noticiaAdminBean.petnoticia.titulo}"></p:inputText>
-				
-				<h:outputLabel value="Contenido" for="txtContenido" />
-				<p:editor id="editor" value="#{noticiaAdminBean.petnoticia.descripcion}" width="600"/>
-			</h:panelGrid>
+			<div class="inner-content">
+				<h:panelGrid columns="1">
+					<h:outputLabel value="Título" for="txtTitulo" />
+					<p:inputText id="txtTitulo" value="#{noticiaAdminBean.petnoticia.titulo}"></p:inputText>
+					
+					<h:outputLabel value="Contenido" for="txtContenido" />
+					<p:editor id="editor" value="#{noticiaAdminBean.petnoticia.descripcion}" width="600"/>
+				</h:panelGrid>
+			</div>
 		</h:form>
 		</div>
 	</ui:define>
