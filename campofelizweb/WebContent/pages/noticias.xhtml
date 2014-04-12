@@ -12,45 +12,8 @@
 	<ui:define name="head">
 		<title>Últimas Noticias</title>
 		<style type="text/css">
-			.content-page h1 {
-				text-align: center;
-				color: #ec8f23;
-				line-height: normal;
-			}
-			.noticias-content {
-				margin: 15px 15px 0 15px;
-			}
-			.noticias-content h1  {   
-				border-bottom: 1px solid #dddddd;/*#666666;*/
-				font-size: 15px;
-				letter-spacing: -1px;
-				text-transform: uppercase;
-				font-family: Georgia,"Times New Roman",Times,serif;
-				color: #66ad23; /*#ec8f23; /*#66ad23; /*#008BB4;*/
-				margin: 0;
-				text-align: left;
-				font-weight: bold;
-				
-				text-shadow: 1px 1px #fbfbfb;
-			}
-			.noticias-content .imagen {
-				float: left;
-				width: 200px;
-				overflow: hidden;
-				padding: 15px 15px 0 0;
-			}
-			.noticias-content .cuerpo {
-				margin: 15px 0;
-				text-align: justify;
-				line-height: 180%;
-			}
-			.noticias-content .cuerpo .titulo2 {
-				font-weight: bold;
-				color: #ec8f23;
-			}
-			.noticias-content .cuerpo a {
-				color: #ec8f23;
-				font-weight: bold;
+			.inner-content h1  {
+				color: #66ad23;
 			}
 			.gridNoticias {
 				padding: 10px 0;
@@ -67,13 +30,13 @@
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				emptyMessage="No se encontraron registros" paginatorPosition="bottom">
 				<p:column>
-					<div class="noticias-content">
-						<h1>#{noticia.titulo}</h1>
+					<div class="inner-content">
+						<div class="titulo3">#{noticia.titulo}</div>
 						<div class="imagen">
 							<h:graphicImage alt="foto-noticia" value="#{noticiasBean.rutaImagenes}#{noticia.rutafoto}" width="100%" />
 						</div>
 						<div class="cuerpo">
-							<div class="titulo2">
+							<div class="fecha">
 								<h:outputText id="fechaNoticia" value="#{noticia.fecharegistro}" >
 			                    	<f:convertDateTime pattern="dd/MM/yyyy" />
 								</h:outputText>

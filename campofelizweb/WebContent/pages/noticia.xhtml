@@ -19,47 +19,8 @@
 		<title>Últimas Noticias</title>
 		
 		<style type="text/css">
-			.content-page h1 {
-				text-align: center;
-				color: #ec8f23;
-				line-height: normal;
-			}
-			.noticia-content {
+			.inner-content {
 				padding-top: 14px;
-				margin: 15px 15px 0 15px;
-			}
-			.titulo2, .noticia-content .fecha  {   
-				border-bottom: 1px solid #dddddd;/*#666666;*/
-				font-size: 15px;
-				letter-spacing: -1px;
-				font-family: Georgia,"Times New Roman",Times,serif;
-				color: #66ad23; /*#ec8f23; /*#66ad23; /*#008BB4;*/
-				margin: 10px 0;
-				padding: 3px 0;
-				text-align: left;
-				font-weight: bold;
-				
-				text-shadow: 1px 1px #fbfbfb;
-			}
-			.fecha a {
-				font-size: 11px;
-			}
-			.noticia-content .imagen {
-				float: left;
-				width: 200px;
-				overflow: hidden;
-				padding: 15px 15px 0 0;
-			}
-			.noticia-content .cuerpo {
-				margin: 15px 0;
-				text-align: justify;
-				line-height: 180%;
-			}
-			.noticia-content .cuerpo .titulo2 {
-				color: #ec8f23;
-				border-bottom: 0px;
-				font-size: 25px;
-				line-height: normal;
 			}
 		</style>
 	</ui:define>
@@ -68,7 +29,7 @@
 		<div class="content-page">
 		<h:form id="form-contentpage">
 			<h1 class="title ui-widget-header">Noticias</h1>
-			<div class="noticia-content">
+			<div class="inner-content">
 
 				<center>
 				<p:galleria id="idgalleria" value="#{noticiaBean.lisPetfotonoticia}" var="item" panelWidth="500" panelHeight="320" showCaption="true" >
@@ -83,11 +44,11 @@
 				</p:galleria>
 				</center>
 				
-				<div class="fecha">
-				<h:outputText id="fechaNoticia" value="#{noticiaBean.petnoticia.fecharegistro}">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</h:outputText>
-				<h:link value="[Editar]" style="float: right;" outcome="noticia-admin.jsf" rendered="#{usuarioBean.autenticado}" />
+				<div class="fecha2">
+					<h:outputText id="fechaNoticia" value="#{noticiaBean.petnoticia.fecharegistro}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+					<h:link value="[Editar]" style="float: right;" outcome="noticia-admin.jsf" rendered="#{usuarioBean.autenticado}" />
 				</div>
 				
 				<div class="cuerpo">

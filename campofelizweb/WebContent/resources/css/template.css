@@ -153,7 +153,62 @@ header {
 .ui-paginator-bottom span {
 	vertical-align: middle;
 }
-
+.content-page h1 {
+	text-align: center;
+	color: #ec8f23;
+	line-height: normal;
+}
+.inner-content {
+	margin: 15px 15px 0 15px;
+}
+.inner-content h1, .inner-content .titulo3, .inner-content .fecha2, .inner-content .titulo2 {
+	border-bottom: 1px solid #dddddd;/*#666666;*/
+	font-size: 15px;
+	letter-spacing: -1px;
+	font-family: Georgia,"Times New Roman",Times,serif;
+	color: #66ad23; /*#ec8f23; /*#66ad23; /*#008BB4;*/
+	text-align: left;
+	font-weight: bold;
+	text-shadow: 1px 1px #fbfbfb;
+}
+.inner-content h1, .inner-content .titulo3  {   
+	text-transform: uppercase;
+	margin: 0;
+}
+.inner-content .fecha2, .inner-content .titulo2  {   
+	text-transform: capitalize;
+	margin: 10px 0;
+	padding: 3px 0;
+}
+.inner-content .fecha2 a {
+	font-size: 11px;
+}
+.inner-content .imagen {
+	float: left;
+	width: 200px;
+	overflow: hidden;
+	padding: 15px 15px 0 0;
+}
+.inner-content .cuerpo {
+	margin: 15px 0;
+	text-align: justify;
+	line-height: 180%;
+}
+.inner-content .cuerpo .fecha {
+	font-weight: bold;
+	color: #ec8f23;
+}
+.inner-content .cuerpo a {
+	color: #ec8f23;
+	font-weight: bold;
+}
+.inner-content .cuerpo .titulo2 {
+	color: #ec8f23;
+	border-bottom: 0px;
+	font-size: 25px;
+	line-height: normal;
+}
+			
 /*------Menu------*/
 #cssmenu > ul li {
 	width: 100px;
