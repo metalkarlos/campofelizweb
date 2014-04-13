@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import com.web.cementerio.bo.PetnoticiaBO;
 import com.web.cementerio.pojo.annotations.Petfotonoticia;
@@ -28,6 +29,7 @@ public class NoticiaAdminBean implements Serializable {
 	private String rutaImagenes;
 	private List<Petfotonoticia> lisPetfotonoticia;
 	private Petfotonoticia petfotonoticiaSeleccionada;
+	private UploadedFile uploadedFile;
 
 	public NoticiaAdminBean() {
 		petnoticia = new Petnoticia();
@@ -69,7 +71,8 @@ public class NoticiaAdminBean implements Serializable {
 	}
 	
 	public void handleFileUpload(FileUploadEvent event) {
-		new MessageUtil().showInfoMessage("Bla!", event.getFile().getFileName());
+		uploadedFile = event.getFile();
+		new MessageUtil().showInfoMessage("Foto en memoria!", uploadedFile.getFileName());
 	}
 
 	public Petnoticia getPetnoticia() {
@@ -103,6 +106,14 @@ public class NoticiaAdminBean implements Serializable {
 	public void setPetfotonoticiaSeleccionada(
 			Petfotonoticia petfotonoticiaSeleccionada) {
 		this.petfotonoticiaSeleccionada = petfotonoticiaSeleccionada;
+	}
+
+	public UploadedFile getUploadedFile() {
+		return uploadedFile;
+	}
+
+	public void setUploadedFile(UploadedFile uploadedFile) {
+		this.uploadedFile = uploadedFile;
 	}
 
 }
