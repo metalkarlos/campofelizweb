@@ -5,12 +5,12 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="../templates/default_others.xhtml">
 	
 	<f:view contentType="text/html">
 		<f:metadata>
 			<f:viewParam name="idmascota" value="#{mascotaHomenajeBean.idmascota}" />
+            <f:viewParam name="idusuario" value="#{usuarioBean.setUsuario.idusuario}" />
 		</f:metadata>
 	</f:view>
 	
@@ -19,6 +19,10 @@
 		<style type="text/css">
 			.ui-widget-content {
 				border: 0px;
+			}
+			.ui-fieldset {
+				border:1px;
+				
 			}
 		</style>
 	</ui:define>
@@ -35,15 +39,37 @@
 				Gracias a sus dueños por confiar en nosotros.
 			</p>
 			<br/>
-			<h:link value="[Editar]" style="float: right;" outcome="mascotahomenajemantenimiento.jsf" rendered="#{usuarioBean.autenticado}" />
-			<div class="box_title">
-			     #{mascotaHomenajeBean.petmascotahomenaje.nombre}
-			</div>
-			<div class="box_title">
-			     #{mascotaHomenajeBean.petmascotahomenaje.familia}
-			</div>
-			
-
+			<h:link value="[Editar]" style="float: right;" outcome="mascotahomenajemantenimiento.jsf" rendered="#{usuarioBean.autenticado}" >
+			    <f:param name="idmascota" value="#{mascotaHomenajeBean.petmascotahomenaje.idmascota}"></f:param>
+			    <f:param name="idusuario" value="#{usuarioBean.setUsuario.idusuario}" ></f:param>
+			</h:link>
+			<br/>
+           <center>
+			<p:fieldset style="border:1px; width:380px;" legend="#{mascotaHomenajeBean.petmascotahomenaje.nombre}">
+			  <h:panelGrid columns="2" cellpadding="10">
+			   <p:galleria value="#{mascotaHomenajeBean.listpetfotomascota}" var="image" panelWidth="200" panelHeight="200" showCaption="true">  
+    				<p:graphicImage value="#{image.ruta}" alt="Image Description for #{image}" title="#{image}"/>  
+				</p:galleria>
+				<h:outputText value="#{mascotaHomenajeBean.petmascotahomenaje.dedicatoria}" />
+				<h:outputText value="Familia:" />
+				<h:outputText value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
+				
+				<h:outputText value="Fecha nacimiento:" />
+				<h:outputText value="#{mascotaHomenajeBean.petmascotahomenaje.fechanacimiento}" />
+				
+				<h:outputText value="Fecha fallecimiento:" />
+				<h:outputText value="#{mascotaHomenajeBean.petmascotahomenaje.fechafallecimiento}" />
+			  
+				
+				<br/>
+			  </h:panelGrid>
+			</p:fieldset>
+        </center>
+        
+            <br/>
+             <center>
+				<div class="fb-comments" data-href="https://www.facebook.com/pages/Campo-Feliz-Cementerio-de-Mascotas/257959247667793" data-numposts="5" data-colorscheme="light"></div>
+			</center>
 			
 		</p:panel>		
 	  </h:form>

@@ -22,7 +22,7 @@ public class PetmascotahomenajeBO {
 		petmascotahomenajeDAO = new PetmascotahomenajeDAO();
 	}
 	
-	public Petmascotahomenaje getPetmascotahomenaje(int idmascota, int idestado)throws Exception{
+	public Petmascotahomenaje getPetmascotahomenajebyId(int idmascota, int idestado)throws Exception{
 		Petmascotahomenaje petmascotahomenaje = null;
 		Session session = null;
 		try {
@@ -66,6 +66,28 @@ public class PetmascotahomenajeBO {
 	   return listpetmascotahomenaje;
 	}
 	
+	public void modificarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,int idestado) throws Exception{
+		Session session = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			//auditoria
+			Date fechamodificacion= new Date();
+			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("UsuarioBean");
+			petmascotahomenaje.setFechamodificacion(fechamodificacion);
+			//petmascotahomenaje.setIplog(usuarioBean.getIp());
+			//petmascotahomenaje.getSetusuario().setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
+			
+			petmascotahomenajeDAO.modificarPetmascotahomenaje(session, petmascotahomenaje);
+			
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			throw new Exception(e);
+		}finally {
+			session.close();
+		}
+	}
+	
 	public void ingresarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,List<Petfotomascota> lisPetfotomascota,int idestado) throws Exception{
 		Session session = null;
 		
@@ -101,8 +123,6 @@ public class PetmascotahomenajeBO {
 			session.getTransaction().rollback();
 			throw new Exception(e);
 		}finally {
-
-			
 			session.close();
 		}
 	}

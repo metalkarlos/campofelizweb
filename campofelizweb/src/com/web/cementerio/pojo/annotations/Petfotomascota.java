@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "petfotomascota", schema = "pets")
-public class Petfotomascota implements java.io.Serializable {
+public class Petfotomascota implements java.io.Serializable, Cloneable{
 
 	/**
 	 * 
@@ -33,6 +33,7 @@ public class Petfotomascota implements java.io.Serializable {
 	private String nombrearchivo;
 	private Integer perfil;
 	private Date fecharegistro;
+	private Date fechamodificacion;
 	private String iplog;
 
 	public Petfotomascota() {
@@ -147,6 +148,15 @@ public class Petfotomascota implements java.io.Serializable {
 		this.fecharegistro = fecharegistro;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechamodificacion",  length = 29)
+	public Date getFechamodificacion() {
+		return this.fechamodificacion;
+	}
+
+	public void setFechamodificacion(Date fechamodificacion) {
+		this.fechamodificacion = fecharegistro;
+	}
 	@Column(name = "iplog", length = 20)
 	public String getIplog() {
 		return this.iplog;

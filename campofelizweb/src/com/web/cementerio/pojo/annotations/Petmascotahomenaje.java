@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "petmascotahomenaje", schema = "pets")
-public class Petmascotahomenaje implements java.io.Serializable {
+public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 
 	/**
 	 * 
@@ -226,6 +226,119 @@ public class Petmascotahomenaje implements java.io.Serializable {
 
 	public void setPetfotomascotas(Set<?> petfotomascotas) {
 		this.petfotomascotas = petfotomascotas;
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException{
+	  Petmascotahomenaje petmascotahomenaje = (Petmascotahomenaje) super.clone();
+	  petmascotahomenaje.setPetespecie((Petespecie) petmascotahomenaje.getPetespecie().clone());
+	  return petmascotahomenaje;
+	}
+	
+	public Petmascotahomenaje clonar() throws Exception{
+		return (Petmascotahomenaje)this.clone();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((dedicatoria == null) ? 0 : dedicatoria.hashCode());
+		result = prime * result + ((familia == null) ? 0 : familia.hashCode());
+		result = prime
+				* result
+				+ ((fechafallecimiento == null) ? 0 : fechafallecimiento
+						.hashCode());
+		result = prime
+				* result
+				+ ((fechamodificacion == null) ? 0 : fechamodificacion
+						.hashCode());
+		result = prime * result
+				+ ((fechanacimiento == null) ? 0 : fechanacimiento.hashCode());
+		result = prime
+				* result
+				+ ((fechapublicacion == null) ? 0 : fechapublicacion.hashCode());
+		result = prime * result + idmascota;
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result
+				+ ((petespecie == null) ? 0 : petespecie.hashCode());
+		result = prime * result
+				+ ((rutafoto == null) ? 0 : rutafoto.hashCode());
+		result = prime * result
+				+ ((setestado == null) ? 0 : setestado.hashCode());
+		result = prime * result
+				+ ((setusuario == null) ? 0 : setusuario.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Petmascotahomenaje other = (Petmascotahomenaje) obj;
+		if (dedicatoria == null) {
+			if (other.dedicatoria != null)
+				return false;
+		} else if (!dedicatoria.equals(other.dedicatoria))
+			return false;
+		if (familia == null) {
+			if (other.familia != null)
+				return false;
+		} else if (!familia.equals(other.familia))
+			return false;
+		if (fechafallecimiento == null) {
+			if (other.fechafallecimiento != null)
+				return false;
+		} else if (!fechafallecimiento.equals(other.fechafallecimiento))
+			return false;
+		if (fechamodificacion == null) {
+			if (other.fechamodificacion != null)
+				return false;
+		} else if (!fechamodificacion.equals(other.fechamodificacion))
+			return false;
+		if (fechanacimiento == null) {
+			if (other.fechanacimiento != null)
+				return false;
+		} else if (!fechanacimiento.equals(other.fechanacimiento))
+			return false;
+		if (fechapublicacion == null) {
+			if (other.fechapublicacion != null)
+				return false;
+		} else if (!fechapublicacion.equals(other.fechapublicacion))
+			return false;
+		if (idmascota != other.idmascota)
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (petespecie == null) {
+			if (other.petespecie != null)
+				return false;
+		} else if (!petespecie.equals(other.petespecie))
+			return false;
+		if (rutafoto == null) {
+			if (other.rutafoto != null)
+				return false;
+		} else if (!rutafoto.equals(other.rutafoto))
+			return false;
+		if (setestado == null) {
+			if (other.setestado != null)
+				return false;
+		} else if (!setestado.equals(other.setestado))
+			return false;
+		if (setusuario == null) {
+			if (other.setusuario != null)
+				return false;
+		} else if (!setusuario.equals(other.setusuario))
+			return false;
+		return true;
 	}
 
 }

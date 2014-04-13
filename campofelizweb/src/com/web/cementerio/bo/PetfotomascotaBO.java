@@ -21,6 +21,20 @@ public class PetfotomascotaBO {
 		petfotomascotaDAO = new PetfotomascotaDAO();
 	}
 	
+	public List<Petfotomascota>getListpetfotomascota (int idmascota, int idestado)throws Exception{
+		Session session = null;
+		List<Petfotomascota> listpetfotomascota = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			listpetfotomascota = petfotomascotaDAO.getListpetfotomascota(session, idmascota, idestado);			
+		} catch (Exception e) {
+			throw new Exception(e);
+		}finally{
+			session.close();	
+		}
+		return listpetfotomascota;
+	}
+	
 	public void ingresarPetfotomascotaBO(List<Petfotomascota> lisPetfotomascota, int idestado, int idmascota)throws Exception{
 		Session session = null;
 		Petfotomascota petfotomascota =null;
@@ -63,7 +77,51 @@ public class PetfotomascotaBO {
 		}
 	
 	}
-
+	
+	
+	public void modificarPetfotomascotaBO(List<Petfotomascota> lisPetfotomascota, int idestado, int idmascota)throws Exception{
+		Session session = null;
+		Petfotomascota petfotomascota=null;
+		try{
+               if (!lisPetfotomascota.isEmpty()){
+				
+				session = HibernateUtil.getSessionFactory().openSession();
+				session.beginTransaction();
+				
+				
+				for (int i =0; i<lisPetfotomascota.size(); i++){
+					
+					petfotomascota = new Petfotomascota();
+					
+					Petmascotahomenaje petmascotahomenaje = new Petmascotahomenaje();
+					petmascotahomenaje.setIdmascota(idmascota);
+					petfotomascota.setPetmascotahomenaje(petmascotahomenaje);
+					
+					Date fechamodificacion= new Date();
+					UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("UsuarioBean");
+					
+				    
+					Setestado setestado = new Setestado();
+					setestado.setIdestado(idestado);
+					
+					//Auditoria
+					petfotomascota.setFechamodificacion(fechamodificacion);
+					petfotomascota.setIplog(usuarioBean.getIp());
+					
+					petfotomascotaDAO.modificarFotomascota(session, petfotomascota);
+				}
+				
+			}
+		}
+		catch (Exception e) {
+			session.getTransaction().rollback();
+			throw new Exception(e);
+		}finally{
+           session.close();
+		}
+	}
+	
+	
 	public PetfotomascotaDAO getPetfotomascotaDAO() {
 		return petfotomascotaDAO;
 	}

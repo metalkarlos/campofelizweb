@@ -7,6 +7,13 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="../templates/default_others.xhtml">
 
+
+	<f:view contentType="text/html">
+		<f:metadata>
+			<f:viewParam name="idmascota" value="#{mascotaHomenajeBean.idmascota}" />
+            <f:viewParam name="idusuario" value="#{usuarioBean.setUsuario.idusuario}" />
+		</f:metadata>
+	</f:view>
 	
 	<ui:define name="head">
 		<title>Campo Feliz - Homenaje a las Mascotas Mantenimiento</title>
@@ -100,7 +107,7 @@
 				<p:inputText id="tag" maxlength="200" style="width: 380px;" value="#{mascotaHomenajeBean.petmascotahomenaje.tag}" />
 				<br />
 				<br />
-	             <p:commandButton value="Guardar" actionListener="#{mascotaHomenajeBean.ingresarHomenajemascota()}" 
+	             <p:commandButton value="Guardar" actionListener="#{mascotaHomenajeBean.guardarHomenajemascota()}" 
 	                     update="mensajes,nombremascota,idespeciemascota,idfechanacimiento,idfechafallecimiento,familia,dedicatoria,tag,idgalleria" />  
 		         <p:commandButton value="Cancelar"/>
 		  </p:panel>

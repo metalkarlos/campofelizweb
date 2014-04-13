@@ -69,4 +69,8 @@ public class PetmascotahomenajeDAO {
     public void ingresarPetmascotahomenaje(Session session, Petmascotahomenaje petmascotahomenaje) throws Exception {
     	session.save(petmascotahomenaje);
     }
+    public void modificarPetmascotahomenaje(Session session, Petmascotahomenaje petmascotahomenaje) throws Exception {
+    	session.update(petmascotahomenaje);
+    }
+
 }
