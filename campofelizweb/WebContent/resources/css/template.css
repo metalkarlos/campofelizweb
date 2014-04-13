@@ -25,6 +25,15 @@
 	border: 1px solid #a8a8a8;
 	text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
 }
+.ui-dialog .ui-panelgrid td {
+	padding: 0px;
+}
+.ui-dialog-content table, .ui-dialog-content table td {
+	padding: 2px;
+}
+.ui-widget-content .ui-panelgrid tr, .ui-widget-content .ui-panelgrid td {
+	border: none;
+}
 
 /*---------style.css-----------*/
 .box_title {   
