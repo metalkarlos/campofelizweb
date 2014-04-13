@@ -25,6 +25,7 @@
 			}
 			label {
 				font-weight: bold;
+				font-size: 15px;
 			}
 		</style>
 	</ui:define>
@@ -55,7 +56,7 @@
 						        <p:commandButton id="idbuttonperfil" title="Colocar como foto principal" icon="ui-icon ui-icon-person"  onclick="vardialogperfil.show()" style="position:absolute;right:0px;top:30px;" update=":form-contentpage:idpanelperfil" >
 						        	<f:setPropertyActionListener value="#{item}" target="#{noticiaAdminBean.petfotonoticiaSeleccionada}" />
 						        </p:commandButton>
-						        <p:commandButton id="idbuttondelete"  title="Eliminar foto permanentemente" icon="ui-icon ui-icon-trash" onclick="vardialogdelete.show()" style="position:absolute;right:0px;top:55px;" update=":form-contentpage:idpaneldelete">
+						        <p:commandButton id="idbuttondelete"  title="Eliminar foto permanentemente" icon="ui-icon ui-icon-trash" onclick="vardialogdelete.show()" style="position:absolute;right:0px;top:60px;" update=":form-contentpage:idpaneldelete">
 						        	<f:setPropertyActionListener value="#{item}" target="#{noticiaAdminBean.petfotonoticiaSeleccionada}" />
 						        </p:commandButton>
 						    </h:panelGrid>
@@ -66,26 +67,34 @@
 					<p:inputText id="txtTags" value="#{noticiaAdminBean.petnoticia.tag}" style="width: 400px;"></p:inputText>
 				</h:panelGrid>
 			</div>
-			<p:dialog id="iddialogperfil" header="Foto Principal" closable="true" widgetVar="vardialogperfil" modal="true" height="80" width="450">
-				<h:panelGrid id="idpanelperfil" columns="2">
+			<p:dialog id="iddialogperfil" header="Foto Principal" closable="true" widgetVar="vardialogperfil" modal="true" style="min-height: 80px; width: 450px">
+				<h:panelGrid id="idpanelperfil" columns="2" width="100%">
 					<p:graphicImage value="#{noticiaAdminBean.rutaImagenes}#{noticiaAdminBean.petfotonoticiaSeleccionada.ruta}" style="max-height: 50px" />
 					<h:outputText id="idlabelperfil" value="¿Seleccionar imágen como foto principal?" />
 					<h:outputText value="" />
-					<h:panelGrid id="idpanel2perfil" columns="2" style="position: absolute;right: 0;bottom: 0;">
+					<p:panelGrid id="idpanel2perfil" style="width: 100%; text-align: right;">
+						<p:row>
+						<p:column>
 						<p:commandButton id="idconfirmarperfil" value="Confirmar" oncomplete="vardialogperfil.hide()" update=":form-contentpage:mensajes" />
 						<p:commandButton id="idcancelarperfil" value="Cancelar" onclick="vardialogperfil.hide()" />
-					</h:panelGrid>
+						</p:column>
+						</p:row>
+					</p:panelGrid>
 				</h:panelGrid>
 			</p:dialog>
-			<p:dialog id="iddialogdelete"  header="Eliminar Foto" closable="true" widgetVar="vardialogdelete" modal="true" height="80" width="450">
-				<h:panelGrid id="idpaneldelete" columns="2">
+			<p:dialog id="iddialogdelete"  header="Eliminar Foto" closable="true" widgetVar="vardialogdelete" modal="true" style="min-height: 80px; width: 450px">
+				<h:panelGrid id="idpaneldelete" columns="2" width="100%">
 					<p:graphicImage value="#{noticiaAdminBean.rutaImagenes}#{noticiaAdminBean.petfotonoticiaSeleccionada.ruta}" style="max-height: 50px" />
 					<h:outputText id="idlabeldelete" value="¿Eliminar Permanentemente la imágen del álbum? Esta acción no podrá; deshacerse" />
 					<h:outputText value="" />
-					<h:panelGrid id="idpanel2delete" columns="2" style="position: absolute;right: 0;bottom: 0;">
+					<p:panelGrid id="idpanel2delete" style="width: 100%; text-align: right;">
+						<p:row>
+						<p:column>
 						<p:commandButton id="idconfirmardelete" value="Confirmar" oncomplete="vardialogdelete.hide()" update=":form-contentpage:mensajes, :form-contentpage:idgridcontenido" />
 						<p:commandButton id="idcancelardelete" value="Cancelar" onclick="vardialogdelete.hide()" />
-					</h:panelGrid>
+						</p:column>
+						</p:row>
+					</p:panelGrid>
 				</h:panelGrid>
 			</p:dialog>
 		</h:form>
