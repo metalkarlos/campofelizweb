@@ -24,6 +24,8 @@
 	<ui:define name="content_page">
 		<div class="content-page">
 		<h:form id="form-contentpage">
+			<p:growl id="mensajes" showDetail="true" />
+			
 			<h1 class="title ui-widget-header">Noticias</h1>
 			
 			<p:dataGrid styleClass="gridNoticias" id="gridNoticias" value="#{noticiasBean.lisPetnoticia}" var="noticia" columns="1" rows="5" paginator="true" effect="true" 

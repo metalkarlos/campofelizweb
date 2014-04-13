@@ -28,16 +28,18 @@
 	<ui:define name="content_page">
 		<div class="content-page">
 		<h:form id="form-contentpage">
+			<p:growl id="mensajes" showDetail="true" />
+			
 			<h1 class="title ui-widget-header">Noticias</h1>
 			<div class="inner-content">
 
 				<center>
 				<p:galleria id="idgalleria" value="#{noticiaBean.lisPetfotonoticia}" var="item" panelWidth="500" panelHeight="320" showCaption="true" >
-			        <p:graphicImage id="idfotos" value="#{noticiaBean.rutaImagenes}#{item.ruta}" alt="alt" title="titulo" />
+			        <p:graphicImage id="idfotos" value="#{noticiaBean.rutaImagenes}#{item.ruta}" style="max-height: 58px" />
 			        <p:galleriaContent>  
 			            <h:panelGrid columns="1" style="background-color: #eaeaea;height: 100%; width: 100%;" >  
 					        <f:facet name="header">
-				            	<p:graphicImage id="idfoto" value="#{noticiaBean.rutaImagenes}#{item.ruta}" style="max-height: 300px" alt="alt" title="titulo" />
+				            	<p:graphicImage id="idfoto" value="#{noticiaBean.rutaImagenes}#{item.ruta}" style="max-height: 300px;" />
 					        </f:facet>
 					    </h:panelGrid>
 					</p:galleriaContent>
@@ -48,7 +50,9 @@
 					<h:outputText id="fechaNoticia" value="#{noticiaBean.petnoticia.fecharegistro}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
-					<h:link value="[Editar]" style="float: right;" outcome="noticia-admin.jsf" rendered="#{usuarioBean.autenticado}" />
+					<h:link value="[Editar]" style="float: right;" outcome="noticia-admin.jsf" rendered="#{usuarioBean.autenticado}" >
+						<f:param name="idnoticia" value="#{noticiaBean.idnoticia}"></f:param>
+					</h:link>
 				</div>
 				
 				<div class="cuerpo">
