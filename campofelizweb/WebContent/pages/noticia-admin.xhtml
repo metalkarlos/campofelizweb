@@ -27,6 +27,10 @@
 				font-weight: bold;
 				font-size: 15px;
 			}
+			.ui-panelgrid tr, .ui-panelgrid td {
+				border: none;
+				padding: 0 10px;
+			}
 		</style>
 	</ui:define>
 	
@@ -38,14 +42,37 @@
 			<h1 class="title ui-widget-header">Administración - Noticias</h1>
 			
 			<div class="inner-content">
-				<h:panelGrid id="idgridcontenido" columns="1" border="0" cellpadding="0" cellspacing="0" >
+				<p:panelGrid id="idgridcontenido">
+					<p:row>
+					<p:column>
 					<h:outputLabel value="Título" for="txtTitulo" />
+					</p:column>
+					</p:row>
+					<p:row>
+					<p:column>
 					<p:inputText id="txtTitulo" value="#{noticiaAdminBean.petnoticia.titulo}" style="width: 400px;"></p:inputText>
+					</p:column>
+					</p:row>
 					
+					<p:row>
+					<p:column>
 					<h:outputLabel value="Contenido" for="txtContenido" />
+					</p:column>
+					</p:row>
+					<p:row>
+					<p:column>
 					<p:editor id="txtContenido" value="#{noticiaAdminBean.petnoticia.descripcion}" width="600"/>
+					</p:column>
+					</p:row>
 					
+					<p:row>
+					<p:column>
 					<h:outputLabel value="Fotos" for="idgalleria" />
+					</p:column>
+					</p:row>
+					
+					<p:row>
+					<p:column>
 					<p:galleria id="idgalleria" value="#{noticiaAdminBean.lisPetfotonoticia}" var="item" transitionInterval="0" panelWidth="500" panelHeight="320" styleClass="ui-widget-content ui-corner-all">
 				        <p:graphicImage id="idfotos" value="#{noticiaAdminBean.rutaImagenes}#{item.ruta}" style="max-height: 58px;" />
 				        <p:galleriaContent>  
@@ -62,10 +89,28 @@
 						    </h:panelGrid>
 						</p:galleriaContent>
 					</p:galleria>
+					</p:column>
+					</p:row>
+					<p:row>
+					<p:column>
+					<h:form enctype="multipart/form-data">
+						<p:fileUpload fileUploadListener="#{noticiaAdminBean.handleFileUpload}" mode="advanced"
+						update=":form-contentpage:mensajes" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="ff"/>
+					</h:form>
+					</p:column>
+					</p:row>
 				
+					<p:row>
+					<p:column>
 					<h:outputLabel value="Tags" for="txtTags" />
+					</p:column>
+					</p:row>
+					<p:row>
+					<p:column>
 					<p:inputText id="txtTags" value="#{noticiaAdminBean.petnoticia.tag}" style="width: 400px;"></p:inputText>
-				</h:panelGrid>
+					</p:column>
+					</p:row>
+				</p:panelGrid>
 			</div>
 			<p:dialog id="iddialogperfil" header="Foto Principal" closable="true" widgetVar="vardialogperfil" modal="true" style="min-height: 80px; width: 450px">
 				<h:panelGrid id="idpanelperfil" columns="2" width="100%">
