@@ -73,6 +73,7 @@ public class NoticiaAdminBean implements Serializable {
 	public void handleFileUpload(FileUploadEvent event) {
 		uploadedFile = event.getFile();
 		new MessageUtil().showInfoMessage("Foto en memoria!", uploadedFile.getFileName());
+		
 	}
 
 	public Petnoticia getPetnoticia() {
