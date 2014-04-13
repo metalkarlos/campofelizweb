@@ -15,6 +15,11 @@
 	margin: 5px;
 	padding: 5px;
 }
+.centrar {
+	text-align: center;
+	text-align: -webkit-center;
+	text-align: -moz-center;
+}
 
 /*------------primefaces----------------*/
 .title {
