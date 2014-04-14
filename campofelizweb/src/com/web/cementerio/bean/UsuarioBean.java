@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.model.StreamedContent;
+
 import com.web.cementerio.bo.SetusuarioBO;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
@@ -25,6 +27,7 @@ public class UsuarioBean implements Serializable{
 	private String ip;
 	private String sid;
 	private boolean autenticado;
+	private StreamedContent streamedContent;
 	
 	public UsuarioBean(){
 		ip = new FacesUtil().getIp();
@@ -130,6 +133,14 @@ public class UsuarioBean implements Serializable{
 		}
 		
 		return "";
+	}
+
+	public StreamedContent getStreamedContent() {
+		return streamedContent;
+	}
+
+	public void setStreamedContent(StreamedContent streamedContent) {
+		this.streamedContent = streamedContent;
 	}
 	
 }

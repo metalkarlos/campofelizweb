@@ -36,7 +36,7 @@
 	
 	<ui:define name="content_page">
 		<div class="content-page">
-		<h:form id="form-contentpage">
+		<h:form id="form-contentpage" enctype="multipart/form-data">
 			<p:growl id="mensajes" showDetail="true" />
 			
 			<h1 class="title ui-widget-header">Administración - Noticias</h1>
@@ -93,10 +93,14 @@
 					</p:row>
 					<p:row>
 					<p:column>
-					<h:form enctype="multipart/form-data">
-						<p:fileUpload fileUploadListener="#{noticiaAdminBean.handleFileUpload}" mode="advanced"
-						update=":form-contentpage:mensajes" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="ff"/>
-					</h:form>
+					<p:fileUpload id="idSubeFotos" fileUploadListener="#{noticiaAdminBean.handleFileUpload}" mode="advanced"
+					update="mensajes, idfotoseleccionada" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="ff"/>
+					</p:column>
+					</p:row>
+				
+					<p:row>
+					<p:column>
+					<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" style="max-height: 300px;"/>
 					</p:column>
 					</p:row>
 				

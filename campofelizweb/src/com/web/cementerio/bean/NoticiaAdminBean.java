@@ -8,11 +8,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import com.web.cementerio.bo.PetnoticiaBO;
 import com.web.cementerio.pojo.annotations.Petfotonoticia;
 import com.web.cementerio.pojo.annotations.Petnoticia;
+import com.web.util.FacesUtil;
 import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
@@ -71,9 +73,16 @@ public class NoticiaAdminBean implements Serializable {
 	}
 	
 	public void handleFileUpload(FileUploadEvent event) {
-		uploadedFile = event.getFile();
-		new MessageUtil().showInfoMessage("Foto en memoria!", uploadedFile.getFileName());
-		
+		try{
+			//uploadedFile = event.getFile();
+			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+			usuarioBean.setStreamedContent(new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType()));
+			new FacesUtil().setSessionBean("usuarioBean", usuarioBean);
+			new MessageUtil().showInfoMessage("Foto en memoria!", event.getFile().getFileName());
+		}catch(Exception x){
+			x.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
 	}
 
 	public Petnoticia getPetnoticia() {
