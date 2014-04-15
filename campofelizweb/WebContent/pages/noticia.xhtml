@@ -11,6 +11,7 @@
 	<f:view contentType="text/html">
 		<f:metadata>
 			<f:viewParam name="idnoticia" value="#{noticiaBean.idnoticia}" />
+			<f:event listener="#{noticiaBean.consultarNoticias}" type="preRenderView" />
 		</f:metadata>
 	</f:view>
 		

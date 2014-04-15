@@ -41,13 +41,7 @@ public class NoticiaBean implements Serializable {
 		}
 	}
 	
-	public int getIdnoticia() {
-		return idnoticia;
-	}
-
-	public void setIdnoticia(int idnoticia) {
-		this.idnoticia = idnoticia;
-		
+	public void consultarNoticias(){
 		if(this.idnoticia > 0){
 			try {
 				PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
@@ -61,6 +55,14 @@ public class NoticiaBean implements Serializable {
 				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 			}
 		}
+	}
+	
+	public int getIdnoticia() {
+		return idnoticia;
+	}
+
+	public void setIdnoticia(int idnoticia) {
+		this.idnoticia = idnoticia;
 	}
 
 	public Petnoticia getPetnoticia() {
