@@ -51,14 +51,8 @@ public class NoticiaAdminBean implements Serializable {
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 	}
-
-	public int getIdnoticia() {
-		return idnoticia;
-	}
-
-	public void setIdnoticia(int idnoticia) {
-		this.idnoticia = idnoticia;
-		
+	
+	public void consultaNoticia(){
 		if(this.idnoticia > 0){
 			try {
 				PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
@@ -73,7 +67,7 @@ public class NoticiaAdminBean implements Serializable {
 			}
 		}
 	}
-	
+
 	public void handleFileUpload(FileUploadEvent event) {
 		try{
 			streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
@@ -91,15 +85,32 @@ public class NoticiaAdminBean implements Serializable {
 		}
 	}
 	
-	public void borrarImagenSubida(){
+	public void ponerFotoPrincipal(){
+		new MessageUtil().showFatalMessage("pri!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+	}
+	
+	public void quitarFotoGaleria(){
+		lisPetfotonoticia.remove(petfotonoticiaSeleccionada);
+		new MessageUtil().showFatalMessage("qui!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+	}
+	
+	public void borrarFotoSubida(){
 		streamedContent = null;
 		fotoSubida = false;
 	}
 	
 	public void grabar(){
-		
+		new MessageUtil().showFatalMessage("grab!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 	}
 
+	public int getIdnoticia() {
+		return idnoticia;
+	}
+
+	public void setIdnoticia(int idnoticia) {
+		this.idnoticia = idnoticia;
+	}
+	
 	public Petnoticia getPetnoticia() {
 		return petnoticia;
 	}

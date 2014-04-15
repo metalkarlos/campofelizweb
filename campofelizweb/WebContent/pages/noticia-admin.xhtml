@@ -12,6 +12,7 @@
 	<f:view contentType="text/html">
 		<f:metadata>
 			<f:viewParam name="idnoticia" value="#{noticiaAdminBean.idnoticia}" />
+			<f:event listener="#{noticiaAdminBean.consultaNoticia}" type="preRenderView" />
 		</f:metadata>
 	</f:view>
 		
@@ -88,7 +89,7 @@
 						        <f:facet name="header">
 					            	<p:graphicImage id="idfoto" value="#{noticiaAdminBean.rutaImagenes}#{item.ruta}" style="max-height: 300px; padding-top: 10px" />
 						        </f:facet>
-						        <p:commandButton id="idbuttonperfil" title="Colocar como foto principal" icon="ui-icon ui-icon-person"  onclick="vardialogperfil.show()" style="position:absolute;right:0px;top:30px;" update=":form-contentpage:idpanelperfil" >
+						        <p:commandButton id="idbuttonprincipal" title="Colocar como foto principal" icon="ui-icon ui-icon-person"  onclick="vardialogprincipal.show()" style="position:absolute;right:0px;top:30px;" update=":form-contentpage:idpanelprincipal" >
 						        	<f:setPropertyActionListener value="#{item}" target="#{noticiaAdminBean.petfotonoticiaSeleccionada}" />
 						        </p:commandButton>
 						        <p:commandButton id="idbuttondelete"  title="Eliminar foto permanentemente" icon="ui-icon ui-icon-trash" onclick="vardialogdelete.show()" style="position:absolute;right:0px;top:60px;" update=":form-contentpage:idpaneldelete">
@@ -109,7 +110,7 @@
 					<p:column styleClass="alto-columna">
 					<p:panel id="pnlPrevia" styleClass="panel-previa">
 					<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" style="max-height: 100px;" rendered="#{noticiaAdminBean.fotoSubida}" />
-					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{noticiaAdminBean.borrarImagenSubida()}" update="pnlPrevia" rendered="#{noticiaAdminBean.fotoSubida}" />
+					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{noticiaAdminBean.borrarFotoSubida()}" update="pnlPrevia" rendered="#{noticiaAdminBean.fotoSubida}" />
 					</p:panel>
 					<p:fileUpload id="idSubeFotos" fileUploadListener="#{noticiaAdminBean.handleFileUpload}" mode="advanced" 
 					update="mensajes, pnlPrevia" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
@@ -134,16 +135,16 @@
 			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('noticias.jsf');"
 			renderedButtonNewItem="false" />
 			</div>
-			<p:dialog id="iddialogperfil" header="Foto Principal" closable="true" widgetVar="vardialogperfil" modal="true" style="min-height: 80px; width: 450px">
-				<h:panelGrid id="idpanelperfil" columns="2" width="100%">
+			<p:dialog id="iddialogprincipal" header="Foto Principal" closable="true" widgetVar="vardialogprincipal" modal="true" style="min-height: 80px; width: 450px">
+				<h:panelGrid id="idpanelprincipal" columns="2" width="100%">
 					<p:graphicImage value="#{noticiaAdminBean.rutaImagenes}#{noticiaAdminBean.petfotonoticiaSeleccionada.ruta}" style="max-height: 50px" />
-					<h:outputText id="idlabelperfil" value="¿Seleccionar imágen como foto principal?" />
+					<h:outputText id="idlabelprincipal" value="¿Seleccionar imágen como foto principal?" />
 					<h:outputText value="" />
-					<p:panelGrid id="idpanel2perfil" style="width: 100%; text-align: right;">
+					<p:panelGrid id="idpanel2principal" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmarperfil" value="Confirmar" oncomplete="vardialogperfil.hide()" update=":form-contentpage:mensajes" />
-						<p:commandButton id="idcancelarperfil" value="Cancelar" onclick="vardialogperfil.hide()" />
+						<p:commandButton id="idconfirmarprincipal" value="Confirmar" action="#{noticiaAdminBean.ponerFotoPrincipal()}" oncomplete="vardialogprincipal.hide()" update=":form-contentpage:mensajes" />
+						<p:commandButton id="idcancelarprincipal" value="Cancelar" onclick="vardialogprincipal.hide()" />
 						</p:column>
 						</p:row>
 					</p:panelGrid>
@@ -152,12 +153,12 @@
 			<p:dialog id="iddialogdelete"  header="Eliminar Foto" closable="true" widgetVar="vardialogdelete" modal="true" style="min-height: 80px; width: 450px">
 				<h:panelGrid id="idpaneldelete" columns="2" width="100%">
 					<p:graphicImage value="#{noticiaAdminBean.rutaImagenes}#{noticiaAdminBean.petfotonoticiaSeleccionada.ruta}" style="max-height: 50px" />
-					<h:outputText id="idlabeldelete" value="¿Eliminar Permanentemente la imágen del álbum? Esta acción no podrá; deshacerse" />
+					<h:outputText id="idlabeldelete" value="¿Quitar foto?" />
 					<h:outputText value="" />
 					<p:panelGrid id="idpanel2delete" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmardelete" value="Confirmar" oncomplete="vardialogdelete.hide()" update=":form-contentpage:mensajes, :form-contentpage:idgridcontenido" />
+						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{noticiaAdminBean.quitarFotoGaleria()}" oncomplete="vardialogdelete.hide()" update=":form-contentpage:mensajes, :form-contentpage:idgridcontenido" />
 						<p:commandButton id="idcancelardelete" value="Cancelar" onclick="vardialogdelete.hide()" />
 						</p:column>
 						</p:row>
@@ -172,7 +173,7 @@
 					<p:panelGrid id="idpanel2grabar" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmargrabar" value="Confirmar" oncomplete="vardialoggrabar.hide()" update=":form-contentpage:mensajes" />
+						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{noticiaAdminBean.grabar()}" oncomplete="vardialoggrabar.hide()" update=":form-contentpage:mensajes" />
 						<p:commandButton id="idcancelargrabar" value="Cancelar" onclick="vardialoggrabar.hide()" />
 						</p:column>
 						</p:row>
