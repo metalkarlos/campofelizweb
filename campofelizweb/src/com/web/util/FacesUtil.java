@@ -1,6 +1,7 @@
 package com.web.util;
 
 import java.io.InputStream;
+import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -65,6 +66,17 @@ public class FacesUtil {
 	
 	public String getParametrosUrl(){
 		return request.getQueryString();
+	}
+	
+	public Object getParametroUrl(String paramName){
+		Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
+		Object value = 0;
+		
+		if(params != null && !params.isEmpty()){
+			value = params.get(paramName);
+		}
+		
+		return value;
 	}
 	
 	public String getContextParam(String paramName) throws Exception {
