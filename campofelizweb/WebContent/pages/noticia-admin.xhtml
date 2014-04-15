@@ -6,7 +6,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	template="../templates/default_admin.xhtml">
+	template="../templates/default_admin.xhtml"
+	xmlns:my="http://java.sun.com/jsf/composite/components/buttons">
 	
 	<f:view contentType="text/html">
 		<f:metadata>
@@ -21,7 +22,7 @@
 		<style type="text/css">
 			.inner-content {
 				padding: 30px 0;
-				line-height: 300%;
+				/*line-height: 300%;*/
 			}
 			label {
 				font-weight: bold;
@@ -31,6 +32,15 @@
 				border: none;
 				padding: 0 10px;
 			}
+			.ui-panelgrid .alto-columna {
+				padding-bottom: 15px;
+			}
+			.area-botones {
+				margin: 0 0 25px 25px;
+			}
+			.panel-previa .ui-panel-content {
+				padding: 0;
+			}
 		</style>
 	</ui:define>
 	
@@ -38,39 +48,37 @@
 		<div class="content-page">
 		<h:form id="form-contentpage" enctype="multipart/form-data">
 			<p:growl id="mensajes" showDetail="true" />
-			
 			<h1 class="title ui-widget-header">Administración - Noticias</h1>
 			
 			<div class="inner-content">
-				<p:panelGrid id="idgridcontenido">
+				<p:panelGrid id="idgridcontenido" >
 					<p:row>
-					<p:column>
+					<p:column styleClass="alto-columna">
 					<h:outputLabel value="Título" for="txtTitulo" />
 					</p:column>
 					</p:row>
 					<p:row>
-					<p:column>
+					<p:column styleClass="alto-columna">
 					<p:inputText id="txtTitulo" value="#{noticiaAdminBean.petnoticia.titulo}" style="width: 400px;"></p:inputText>
 					</p:column>
 					</p:row>
 					
 					<p:row>
-					<p:column>
+					<p:column styleClass="alto-columna">
 					<h:outputLabel value="Contenido" for="txtContenido" />
 					</p:column>
 					</p:row>
 					<p:row>
-					<p:column>
+					<p:column styleClass="alto-columna">
 					<p:editor id="txtContenido" value="#{noticiaAdminBean.petnoticia.descripcion}" width="600"/>
 					</p:column>
 					</p:row>
 					
 					<p:row>
-					<p:column>
+					<p:column styleClass="alto-columna">
 					<h:outputLabel value="Fotos" for="idgalleria" />
 					</p:column>
 					</p:row>
-					
 					<p:row>
 					<p:column styleClass="centrar">
 					<p:galleria id="idgalleria" value="#{noticiaAdminBean.lisPetfotonoticia}" var="item" transitionInterval="0" panelWidth="500" panelHeight="320" styleClass="ui-widget-content ui-corner-all">
@@ -91,30 +99,40 @@
 					</p:galleria>
 					</p:column>
 					</p:row>
+					
 					<p:row>
-					<p:column>
-					<p:fileUpload id="idSubeFotos" fileUploadListener="#{noticiaAdminBean.handleFileUpload}" mode="advanced"
-					update="mensajes, idfotoseleccionada" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="ff"/>
+					<p:column styleClass="alto-columna">
+					<h:outputLabel value="Agregar Foto" for="idSubeFotos" />
+					</p:column>
+					</p:row>
+					<p:row>
+					<p:column styleClass="alto-columna">
+					<p:panel id="pnlPrevia" styleClass="panel-previa">
+					<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" style="max-height: 100px;" rendered="#{noticiaAdminBean.fotoSubida}" />
+					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{noticiaAdminBean.borrarImagenSubida()}" update="pnlPrevia" rendered="#{noticiaAdminBean.fotoSubida}" />
+					</p:panel>
+					<p:fileUpload id="idSubeFotos" fileUploadListener="#{noticiaAdminBean.handleFileUpload}" mode="advanced" 
+					update="mensajes, pnlPrevia" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
 					</p:column>
 					</p:row>
 				
 					<p:row>
-					<p:column>
-					<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" style="max-height: 300px;"/>
-					</p:column>
-					</p:row>
-				
-					<p:row>
-					<p:column>
+					<p:column styleClass="alto-columna">
 					<h:outputLabel value="Tags" for="txtTags" />
 					</p:column>
 					</p:row>
 					<p:row>
-					<p:column>
+					<p:column styleClass="alto-columna">
 					<p:inputText id="txtTags" value="#{noticiaAdminBean.petnoticia.tag}" style="width: 400px;"></p:inputText>
 					</p:column>
 					</p:row>
 				</p:panelGrid>
+			</div>
+			<div class="area-botones">
+			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
+			renderedButtonEliminar="#{noticiaAdminBean.idnoticia > 0}" onclickButtonEliminar="vardialogdelete.show()" 
+			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('noticias.jsf');"
+			renderedButtonNewItem="false" />
 			</div>
 			<p:dialog id="iddialogperfil" header="Foto Principal" closable="true" widgetVar="vardialogperfil" modal="true" style="min-height: 80px; width: 450px">
 				<h:panelGrid id="idpanelperfil" columns="2" width="100%">
@@ -141,6 +159,21 @@
 						<p:column>
 						<p:commandButton id="idconfirmardelete" value="Confirmar" oncomplete="vardialogdelete.hide()" update=":form-contentpage:mensajes, :form-contentpage:idgridcontenido" />
 						<p:commandButton id="idcancelardelete" value="Cancelar" onclick="vardialogdelete.hide()" />
+						</p:column>
+						</p:row>
+					</p:panelGrid>
+				</h:panelGrid>
+			</p:dialog>
+			<p:dialog id="iddialoggrabar" header="Grabar" closable="true" widgetVar="vardialoggrabar" modal="true" style="min-height: 80px; width: 450px">
+				<h:panelGrid id="idpanelgrabar" columns="2" width="100%">
+					<h:outputText id="idlabelgrabar" value="Confirme si desea grabar el registro" />
+					<h:outputText value="" />
+					<h:outputText value="" />
+					<p:panelGrid id="idpanel2grabar" style="width: 100%; text-align: right;">
+						<p:row>
+						<p:column>
+						<p:commandButton id="idconfirmargrabar" value="Confirmar" oncomplete="vardialoggrabar.hide()" update=":form-contentpage:mensajes" />
+						<p:commandButton id="idcancelargrabar" value="Cancelar" onclick="vardialoggrabar.hide()" />
 						</p:column>
 						</p:row>
 					</p:panelGrid>

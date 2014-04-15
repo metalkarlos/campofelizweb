@@ -9,7 +9,7 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.model.StreamedContent;
 
 import com.web.cementerio.bo.PetnoticiaBO;
 import com.web.cementerio.pojo.annotations.Petfotonoticia;
@@ -31,12 +31,14 @@ public class NoticiaAdminBean implements Serializable {
 	private String rutaImagenes;
 	private List<Petfotonoticia> lisPetfotonoticia;
 	private Petfotonoticia petfotonoticiaSeleccionada;
-	private UploadedFile uploadedFile;
-
+	private StreamedContent streamedContent;
+	private boolean fotoSubida;
+	
 	public NoticiaAdminBean() {
 		petnoticia = new Petnoticia();
 		lisPetfotonoticia = new ArrayList<Petfotonoticia>();
 		petfotonoticiaSeleccionada = new Petfotonoticia();
+		fotoSubida = false;
 		
 		cargarRutaImagenes();
 	}
@@ -74,15 +76,28 @@ public class NoticiaAdminBean implements Serializable {
 	
 	public void handleFileUpload(FileUploadEvent event) {
 		try{
-			//uploadedFile = event.getFile();
-			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
-			usuarioBean.setStreamedContent(new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType()));
-			new FacesUtil().setSessionBean("usuarioBean", usuarioBean);
+			streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
+			
+			FacesUtil facesUtil = new FacesUtil();
+			UsuarioBean usuarioBean = (UsuarioBean)facesUtil.getSessionBean("usuarioBean");
+			usuarioBean.setStreamedContent(streamedContent);
+			facesUtil.setSessionBean("usuarioBean", usuarioBean);
+			fotoSubida = true;
+			
 			new MessageUtil().showInfoMessage("Foto en memoria!", event.getFile().getFileName());
 		}catch(Exception x){
 			x.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
+	}
+	
+	public void borrarImagenSubida(){
+		streamedContent = null;
+		fotoSubida = false;
+	}
+	
+	public void grabar(){
+		
 	}
 
 	public Petnoticia getPetnoticia() {
@@ -118,12 +133,19 @@ public class NoticiaAdminBean implements Serializable {
 		this.petfotonoticiaSeleccionada = petfotonoticiaSeleccionada;
 	}
 
-	public UploadedFile getUploadedFile() {
-		return uploadedFile;
+	public StreamedContent getStreamedContent() {
+		return streamedContent;
 	}
 
-	public void setUploadedFile(UploadedFile uploadedFile) {
-		this.uploadedFile = uploadedFile;
+	public void setStreamedContent(StreamedContent streamedContent) {
+		this.streamedContent = streamedContent;
 	}
 
+	public boolean isFotoSubida() {
+		return fotoSubida;
+	}
+
+	public void setFotoSubida(boolean fotoSubida) {
+		this.fotoSubida = fotoSubida;
+	}
 }
