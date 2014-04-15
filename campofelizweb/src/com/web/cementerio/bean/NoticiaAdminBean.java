@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -41,6 +42,16 @@ public class NoticiaAdminBean implements Serializable {
 		fotoSubida = false;
 		
 		cargarRutaImagenes();
+	}
+	
+	@PostConstruct
+	public void initNoticiaAdminBean() {
+		FacesUtil facesUtil = new FacesUtil();
+		idnoticia = Integer.parseInt(facesUtil.getParametroUrl("idnoticia").toString());
+		
+		if(idnoticia > 0){
+			consultaNoticia();
+		}
 	}
 	
 	private void cargarRutaImagenes(){

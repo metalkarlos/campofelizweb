@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import com.web.cementerio.bo.PetnoticiaBO;
 import com.web.cementerio.pojo.annotations.Petfotonoticia;
 import com.web.cementerio.pojo.annotations.Petnoticia;
+import com.web.util.FacesUtil;
 import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
@@ -38,6 +40,16 @@ public class NoticiaBean implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
+	}
+	
+	@PostConstruct
+	public void initNoticiaBean() {
+		FacesUtil facesUtil = new FacesUtil();
+		idnoticia = Integer.parseInt(facesUtil.getParametroUrl("idnoticia").toString());
+		
+		if(idnoticia > 0){
+			consultarNoticias();
 		}
 	}
 	

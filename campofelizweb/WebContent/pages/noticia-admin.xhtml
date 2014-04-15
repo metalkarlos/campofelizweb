@@ -9,13 +9,6 @@
 	template="../templates/default_admin.xhtml"
 	xmlns:my="http://java.sun.com/jsf/composite/components/buttons">
 	
-	<f:view contentType="text/html">
-		<f:metadata>
-			<f:viewParam name="idnoticia" value="#{noticiaAdminBean.idnoticia}" />
-			<f:event listener="#{noticiaAdminBean.consultaNoticia}" type="preRenderView" />
-		</f:metadata>
-	</f:view>
-		
 	<ui:define name="head">
 			
 		<title>Mantenimiento de Noticias</title>

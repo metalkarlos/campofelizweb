@@ -8,13 +8,6 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="../templates/default_others.xhtml">
 	
-	<f:view contentType="text/html">
-		<f:metadata>
-			<f:viewParam name="idnoticia" value="#{noticiaBean.idnoticia}" />
-			<f:event listener="#{noticiaBean.consultarNoticias}" type="preRenderView" />
-		</f:metadata>
-	</f:view>
-		
 	<ui:define name="head">
 			
 		<title>Últimas Noticias</title>
