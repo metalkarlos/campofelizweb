@@ -12,25 +12,17 @@ public class FileUtil {
 	public void createFile(String path, byte[] bfile) throws Exception {
 		FileOutputStream fos;
 		
-		try {
-			fos = new FileOutputStream(new File(path));
-			fos.write(bfile);
-			fos.close();
-		} catch (Exception e) {
-			throw new Exception(e);
-		}
+		fos = new FileOutputStream(new File(path));
+		fos.write(bfile);
+		fos.close();
 	}
 	
 	public boolean deleteFile(String pathdirectory) throws Exception {
 		boolean ok = true;
 		
-		try {
-			File fileDir = new File(pathdirectory);
-			if(fileDir.exists()){
-				ok = fileDir.delete();
-			}
-		} catch (Exception e) {
-			throw new Exception(e);
+		File fileDir = new File(pathdirectory);
+		if(fileDir.exists()){
+			ok = fileDir.delete();
 		}
 				
 		return ok;
@@ -39,13 +31,9 @@ public class FileUtil {
 	public boolean createDir(String pathdirectory) throws Exception {
 		boolean ok = true;
 		
-		try {
-			File fileDir = new File(pathdirectory);
-			if(!fileDir.exists()){
-				ok = fileDir.mkdirs();
-			}
-		} catch (Exception e) {
-			throw new Exception(e);
+		File fileDir = new File(pathdirectory);
+		if(!fileDir.exists()){
+			ok = fileDir.mkdirs();
 		}
 				
 		return ok;
@@ -54,12 +42,8 @@ public class FileUtil {
 	public boolean existFile(String pathdirectory) throws Exception {
 		boolean ok = true;
 		
-		try {
-			File fileDir = new File(pathdirectory);
-			ok = fileDir.exists();
-		} catch (Exception e) {
-			throw new Exception(e);
-		}
+		File fileDir = new File(pathdirectory);
+		ok = fileDir.exists();
 				
 		return ok;
 	}
@@ -94,12 +78,8 @@ public class FileUtil {
 	public String getPropertyValue(String key) throws Exception {
 		String value = null;
 		
-		try {
-			Properties properties = getPropertiesFile(Parametro.PROPERTIES_FILE_NAME);
-			value = properties.getProperty(key);
-		} catch (Exception e) {
-			throw new Exception(e);
-		}
+		Properties properties = getPropertiesFile(Parametro.PROPERTIES_FILE_NAME);
+		value = properties.getProperty(key);
 		
 		return value;
 	}
