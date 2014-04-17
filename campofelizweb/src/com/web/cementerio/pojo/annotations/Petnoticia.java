@@ -163,4 +163,81 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 		return (Petnoticia)this.clone();
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result
+				+ ((fecharegistro == null) ? 0 : fecharegistro.hashCode());
+		result = prime * result + idnoticia;
+		result = prime * result + ((iplog == null) ? 0 : iplog.hashCode());
+		result = prime * result
+				+ ((rutafoto == null) ? 0 : rutafoto.hashCode());
+		result = prime * result
+				+ ((setestado == null) ? 0 : setestado.getIdestado());
+		result = prime * result
+				+ ((setusuario == null) ? 0 : setusuario.getIdusuario());
+		result = prime * result + ((tag == null) ? 0 : tag.hashCode());
+		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Petnoticia other = (Petnoticia) obj;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (fecharegistro == null) {
+			if (other.fecharegistro != null)
+				return false;
+		} else if (!fecharegistro.equals(other.fecharegistro))
+			return false;
+		if (idnoticia != other.idnoticia)
+			return false;
+		if (iplog == null) {
+			if (other.iplog != null)
+				return false;
+		} else if (!iplog.equals(other.iplog))
+			return false;
+		if (rutafoto == null) {
+			if (other.rutafoto != null)
+				return false;
+		} else if (!rutafoto.equals(other.rutafoto))
+			return false;
+		if (setestado == null) {
+			if (other.setestado != null)
+				return false;
+		} else if (setestado.getIdestado() != other.setestado.getIdestado())
+			return false;
+		if (setusuario == null) {
+			if (other.setusuario != null)
+				return false;
+		} else if (setusuario.getIdusuario() != other.setusuario.getIdusuario())
+			return false;
+		if (tag == null) {
+			if (other.tag != null)
+				return false;
+		} else if (!tag.equals(other.tag))
+			return false;
+		if (titulo == null) {
+			if (other.titulo != null)
+				return false;
+		} else if (!titulo.equals(other.titulo))
+			return false;
+		return true;
+	}
+	
+	
+
 }

@@ -262,13 +262,13 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 		result = prime * result + idmascota;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result
-				+ ((petespecie == null) ? 0 : petespecie.hashCode());
+				+ ((petespecie == null) ? 0 : petespecie.getIdespecie());
 		result = prime * result
 				+ ((rutafoto == null) ? 0 : rutafoto.hashCode());
 		result = prime * result
-				+ ((setestado == null) ? 0 : setestado.hashCode());
+				+ ((setestado == null) ? 0 : setestado.getIdestado());
 		result = prime * result
-				+ ((setusuario == null) ? 0 : setusuario.hashCode());
+				+ ((setusuario == null) ? 0 : setusuario.getIdusuario());
 		return result;
 	}
 
@@ -321,7 +321,7 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 		if (petespecie == null) {
 			if (other.petespecie != null)
 				return false;
-		} else if (!petespecie.equals(other.petespecie))
+		} else if (petespecie.getIdespecie() != other.petespecie.getIdespecie())
 			return false;
 		if (rutafoto == null) {
 			if (other.rutafoto != null)
@@ -331,12 +331,12 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 		if (setestado == null) {
 			if (other.setestado != null)
 				return false;
-		} else if (!setestado.equals(other.setestado))
+		} else if (setestado.getIdestado() != other.setestado.getIdestado())
 			return false;
 		if (setusuario == null) {
 			if (other.setusuario != null)
 				return false;
-		} else if (!setusuario.equals(other.setusuario))
+		} else if (setusuario.getIdusuario() != other.setusuario.getIdusuario())
 			return false;
 		return true;
 	}

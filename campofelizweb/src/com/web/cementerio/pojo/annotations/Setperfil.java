@@ -133,4 +133,68 @@ public class Setperfil implements java.io.Serializable {
 		this.setusuarios = setusuarios;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result
+				+ ((fecharegistro == null) ? 0 : fecharegistro.hashCode());
+		result = prime * result + idperfil;
+		result = prime * result + ((iplog == null) ? 0 : iplog.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result
+				+ ((setestado == null) ? 0 : setestado.getIdestado());
+		result = prime * result
+				+ ((setusuario == null) ? 0 : setusuario.getIdusuario());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Setperfil other = (Setperfil) obj;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (fecharegistro == null) {
+			if (other.fecharegistro != null)
+				return false;
+		} else if (!fecharegistro.equals(other.fecharegistro))
+			return false;
+		if (idperfil != other.idperfil)
+			return false;
+		if (iplog == null) {
+			if (other.iplog != null)
+				return false;
+		} else if (!iplog.equals(other.iplog))
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (setestado == null) {
+			if (other.setestado != null)
+				return false;
+		} else if (setestado.getIdestado() != other.setestado.getIdestado())
+			return false;
+		if (setusuario == null) {
+			if (other.setusuario != null)
+				return false;
+		} else if (setusuario.getIdusuario() != other.setusuario.getIdusuario())
+			return false;
+		return true;
+	}
+	
+	
+
 }
