@@ -342,7 +342,7 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 				return false;
 		} else if (setusuario.getIdusuario() != other.setusuario.getIdusuario())
 			return false;*/
-		  if (setusuario.getIdusuario() != other.setusuario.getIdusuario())
+		 /* if (setusuario.getIdusuario() != other.setusuario.getIdusuario())
 			return false;*/
 		return true;
 	}
