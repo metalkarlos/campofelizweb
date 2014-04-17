@@ -137,8 +137,6 @@ public class NoticiaAdminBean implements Serializable {
 			petfotonoticia.setDescripcion(descripcionFoto);
 			
 			if(idnoticia == 0){
-				
-				
 				petnoticiaBO.ingresar(petnoticia, petfotonoticia, uploadedFile);
 			}else{
 				petnoticiaBO.modificar(petnoticia, petnoticiaClon, lisPetfotonoticia, lisPetfotonoticiaClon, petfotonoticia, uploadedFile);

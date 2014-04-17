@@ -48,18 +48,18 @@
 				<p:panelGrid id="idgridcontenido" >
 					<p:row>
 					<p:column styleClass="alto-columna">
-					<h:outputLabel value="Título" for="txtTitulo" />
+					<h:outputLabel value="Título de la Noticia" for="txtTitulo" />
 					</p:column>
 					</p:row>
 					<p:row>
 					<p:column styleClass="alto-columna">
-					<p:inputText id="txtTitulo" value="#{noticiaAdminBean.petnoticia.titulo}" style="width: 400px;"></p:inputText>
+					<p:inputText id="txtTitulo" value="#{noticiaAdminBean.petnoticia.titulo}" style="width: 600px;"></p:inputText>
 					</p:column>
 					</p:row>
 					
 					<p:row>
 					<p:column styleClass="alto-columna">
-					<h:outputLabel value="Contenido" for="txtContenido" />
+					<h:outputLabel value="Contenido de la Noticia" for="txtContenido" />
 					</p:column>
 					</p:row>
 					<p:row>
@@ -68,14 +68,14 @@
 					</p:column>
 					</p:row>
 					
-					<p:row>
+					<p:row rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}" >
 					<p:column styleClass="alto-columna">
-					<h:outputLabel value="Fotos" for="idgalleria" />
+					<h:outputLabel id="lblFotos" value="Fotos" for="idgalleria" />
 					</p:column>
 					</p:row>
-					<p:row>
+					<p:row rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}" >
 					<p:column styleClass="centrar">
-					<p:galleria id="idgalleria" value="#{noticiaAdminBean.lisPetfotonoticia}" var="item" transitionInterval="0" panelWidth="500" panelHeight="320" styleClass="ui-widget-content ui-corner-all" rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}">
+					<p:galleria id="idgalleria" value="#{noticiaAdminBean.lisPetfotonoticia}" var="item" transitionInterval="0" panelWidth="500" panelHeight="320" styleClass="ui-widget-content ui-corner-all" >
 				        <p:graphicImage id="idfotos" value="#{noticiaAdminBean.rutaImagenes}#{item.ruta}" style="max-height: 58px;" />
 				        <p:galleriaContent>  
 				            <h:panelGrid columns="1" style="background-color: #eaeaea;height: 100%; width: 100%;" >  
@@ -112,12 +112,23 @@
 				
 					<p:row>
 					<p:column styleClass="alto-columna">
+					<h:outputLabel value="Observación Foto" for="txtObservacionFoto" />
+					</p:column>
+					</p:row>
+					<p:row>
+					<p:column styleClass="alto-columna">
+					<p:inputTextarea id="txtObservacionFoto" value="#{noticiaAdminBean.descripcionFoto}" maxlength="500" autoResize="false"></p:inputTextarea>
+					</p:column>
+					</p:row>
+				
+					<p:row>
+					<p:column styleClass="alto-columna">
 					<h:outputLabel value="Tags" for="txtTags" />
 					</p:column>
 					</p:row>
 					<p:row>
 					<p:column styleClass="alto-columna">
-					<p:inputText id="txtTags" value="#{noticiaAdminBean.petnoticia.tag}" style="width: 400px;"></p:inputText>
+					<p:inputText id="txtTags" value="#{noticiaAdminBean.petnoticia.tag}" style="width: 600px;"></p:inputText>
 					</p:column>
 					</p:row>
 				</p:panelGrid>

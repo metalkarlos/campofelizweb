@@ -88,7 +88,7 @@ public class PetnoticiaBO {
 			session.beginTransaction();
 			
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
-			PetfotonoticiaDAO petfotonoticiaDAO = new PetfotonoticiaDAO();
+			//PetfotonoticiaDAO petfotonoticiaDAO = new PetfotonoticiaDAO();
 			
 			//noticia
 			int maxIdnoticia = petnoticiaDAO.maxIdnoticia(session)+1;
@@ -106,40 +106,46 @@ public class PetnoticiaBO {
 			//ingresar noticia
 			petnoticiaDAO.savePetnoticia(session, petnoticia);
 			
-			//foto en disco
-			FileUtil fileUtil = new FileUtil();
-			Calendar fecha = Calendar.getInstance();
-			
-			String rutaImagenes = fileUtil.getPropertyValue("rutaImagen");
-			String rutaNoticias =  "/noticia/" + fecha.get(Calendar.YEAR);
-			String nombreArchivo = fecha.get(Calendar.MONTH) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + fecha.get(Calendar.YEAR) + "-" + maxIdnoticia + fileUtil.getFileExtention(uploadedFile.getFileName());
-			
-			String rutaCompleta = rutaImagenes + rutaNoticias;
-			
-			if(fileUtil.createDir(rutaCompleta)){
-				//crear foto en disco
-				fileUtil.createFile(rutaNoticias+"/"+nombreArchivo,uploadedFile.getContents());
+			//Si subio foto se crea en disco y en base
+			if(uploadedFile != null){
+				creaFotoDiscoBD(petnoticia, petfotonoticia, uploadedFile, session);
+				
+				/*int maxIdfotonoticia = petfotonoticiaDAO.maxIdfotonoticia(session);
+				
+				//foto en disco
+				FileUtil fileUtil = new FileUtil();
+				Calendar fecha = Calendar.getInstance();
+				
+				String rutaImagenes = fileUtil.getPropertyValue("rutaImagen");
+				String rutaNoticias =  "/noticia/" + fecha.get(Calendar.YEAR);
+				String nombreArchivo = fecha.get(Calendar.MONTH) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + fecha.get(Calendar.YEAR) + "-" + maxIdnoticia + "-" + maxIdfotonoticia + "-" + fileUtil.getFileExtention(uploadedFile.getFileName());
+				
+				String rutaCompleta = rutaImagenes + rutaNoticias;
+				
+				if(fileUtil.createDir(rutaCompleta)){
+					//crear foto en disco
+					fileUtil.createFile(rutaCompleta+"/"+nombreArchivo,uploadedFile.getContents());
+				}
+				
+				//foto en BD
+				petfotonoticia.setIdfotonoticia(maxIdfotonoticia);
+				petfotonoticia.setPetnoticia(petnoticia);
+				petfotonoticia.setRuta(rutaNoticias+"/"+nombreArchivo);
+				petfotonoticia.setNombrearchivo(nombreArchivo);
+				petfotonoticia.setPerfil(1);//campo sin uso ya que tabla principal posee ruta de foto de perfil
+				Setestado setestadoPetfotonoticia = new Setestado();
+				setestadoPetfotonoticia.setIdestado(1);
+				petfotonoticia.setSetestado(setestadoPetfotonoticia);
+				
+				//auditoria
+				fecharegistro = new Date();
+				petfotonoticia.setFecharegistro(fecharegistro);
+				petfotonoticia.setIplog(usuarioBean.getIp());
+				petfotonoticia.setSetusuario(usuarioBean.getSetUsuario());
+				
+				//ingresar foto en BD
+				petfotonoticiaDAO.savePetfotonoticia(session, petfotonoticia);*/
 			}
-			
-			//foto en BD
-			int maxIdfotonoticia = petfotonoticiaDAO.maxIdfotonoticia(session);
-			petfotonoticia.setIdfotonoticia(maxIdfotonoticia);
-			petfotonoticia.setPetnoticia(petnoticia);
-			petfotonoticia.setRuta(rutaNoticias+"/"+nombreArchivo);
-			petfotonoticia.setNombrearchivo(nombreArchivo);
-			petfotonoticia.setPerfil(1);//campo sin uso ya que tabla principal posee ruta de foto de perfil
-			Setestado setestadoPetfotonoticia = new Setestado();
-			setestadoPetfotonoticia.setIdestado(1);
-			petfotonoticia.setSetestado(setestadoPetfotonoticia);
-			
-			//auditoria
-			fecharegistro = new Date();
-			petfotonoticia.setFecharegistro(fecharegistro);
-			petfotonoticia.setIplog(usuarioBean.getIp());
-			petfotonoticia.setSetusuario(usuarioBean.getSetUsuario());
-			
-			//ingresar foto en BD
-			petfotonoticiaDAO.savePetfotonoticia(session, petfotonoticia);
 			
 			session.getTransaction().commit();
 			
@@ -154,7 +160,6 @@ public class PetnoticiaBO {
 		return ok;
 	}
 	
-	//TODO completar, fotos quitadas eliminar del disco
 	public boolean modificar(Petnoticia petnoticia, Petnoticia petnoticiaClon, List<Petfotonoticia> lisPetfotonoticia, List<Petfotonoticia> lisPetfotonoticiaClon, Petfotonoticia petfotonoticia, UploadedFile uploadedFile) throws Exception {
 		boolean ok = false;
 		Session session = null;
@@ -166,6 +171,7 @@ public class PetnoticiaBO {
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 			PetfotonoticiaDAO petfotonoticiaDAO = new PetfotonoticiaDAO();
 			Date fecharegistro = new Date();
+			FileUtil fileUtil = new FileUtil();
 			
 			//Se graba la noticia si han habido cambios
 			if(!petnoticia.equals(petnoticiaClon)){
@@ -192,10 +198,23 @@ public class PetnoticiaBO {
 					
 					//actualizar
 					petfotonoticiaDAO.updatePetfotonoticia(session, petfotonoticiaItem);
+					
+					//eliminar foto del disco
+					Calendar fecha = Calendar.getInstance();
+					String rutaImagenes = fileUtil.getPropertyValue("rutaImagen");
+					String rutaNoticias =  "/noticia/" + fecha.get(Calendar.YEAR);
+					String nombreArchivo = fecha.get(Calendar.MONTH) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + fecha.get(Calendar.YEAR) + "-" + petnoticiaClon.getIdnoticia() + "-" + petfotonoticiaItem.getIdfotonoticia() + "-" + fileUtil.getFileExtention(uploadedFile.getFileName());
+					
+					String rutaCompleta = rutaImagenes + rutaNoticias;
+					
+					fileUtil.deleteFile(rutaCompleta+"/"+nombreArchivo);
 				}
 			}
 			
-			//
+			//Si subio foto se crea en disco y en base
+			if(uploadedFile != null){
+				creaFotoDiscoBD(petnoticia, petfotonoticia, uploadedFile, session);
+			}
 			
 			session.getTransaction().commit();
 			
@@ -210,9 +229,11 @@ public class PetnoticiaBO {
 		return ok;
 	}
 	
-	private void creaFotoDiscoBD(String nombreFoto, Petnoticia petnoticia, Petfotonoticia petfotonoticia, UploadedFile uploadedFile, Session session) throws Exception {
+	private void creaFotoDiscoBD(Petnoticia petnoticia, Petfotonoticia petfotonoticia, UploadedFile uploadedFile, Session session) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		PetfotonoticiaDAO petfotonoticiaDAO = new PetfotonoticiaDAO();
+		
+		int maxIdfotonoticia = petfotonoticiaDAO.maxIdfotonoticia(session);
 		
 		//foto en disco
 		FileUtil fileUtil = new FileUtil();
@@ -220,7 +241,7 @@ public class PetnoticiaBO {
 		
 		String rutaImagenes = fileUtil.getPropertyValue("rutaImagen");
 		String rutaNoticias =  "/noticia/" + fecha.get(Calendar.YEAR);
-		String nombreArchivo = fecha.get(Calendar.MONTH) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + fecha.get(Calendar.YEAR) + "-" + nombreFoto + fileUtil.getFileExtention(uploadedFile.getFileName());
+		String nombreArchivo = fecha.get(Calendar.MONTH) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + fecha.get(Calendar.YEAR) + "-" + petnoticia.getIdnoticia() + "-" + maxIdfotonoticia + "-" + fileUtil.getFileExtention(uploadedFile.getFileName());
 		
 		String rutaCompleta = rutaImagenes + rutaNoticias;
 		
@@ -230,7 +251,6 @@ public class PetnoticiaBO {
 		}
 		
 		//foto en BD
-		int maxIdfotonoticia = petfotonoticiaDAO.maxIdfotonoticia(session);
 		petfotonoticia.setIdfotonoticia(maxIdfotonoticia);
 		petfotonoticia.setPetnoticia(petnoticia);
 		petfotonoticia.setRuta(rutaNoticias+"/"+nombreArchivo);
