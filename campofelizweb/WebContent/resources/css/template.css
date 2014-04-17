@@ -20,6 +20,13 @@
 	text-align: -webkit-center;
 	text-align: -moz-center;
 }
+textarea {
+	max-width: 600px; 
+	min-width: 600px; 
+	overflow-y: visible; 
+	max-height: 50px; 
+	min-height: 50px;
+}
 
 /*------------primefaces----------------*/
 .title {
