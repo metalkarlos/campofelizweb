@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "petfotonoticia", schema = "pets")
-public class Petfotonoticia implements java.io.Serializable {
+public class Petfotonoticia implements java.io.Serializable, Cloneable {
 
 	/**
 	 * 
@@ -154,6 +154,16 @@ public class Petfotonoticia implements java.io.Serializable {
 
 	public void setIplog(String iplog) {
 		this.iplog = iplog;
+	}
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		Petfotonoticia petfotonoticia = (Petfotonoticia)super.clone();
+		return petfotonoticia;
+	}
+	
+	public Petfotonoticia clonar() throws Exception {
+		return (Petfotonoticia)this.clone();
 	}
 
 	@Override

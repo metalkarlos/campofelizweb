@@ -130,4 +130,74 @@ public class Setusuario implements java.io.Serializable {
 		this.iplog = iplog;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((clave == null) ? 0 : clave.hashCode());
+		result = prime * result
+				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result
+				+ ((fecharegistro == null) ? 0 : fecharegistro.hashCode());
+		result = prime * result + idusuario;
+		result = prime * result + ((iplog == null) ? 0 : iplog.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result
+				+ ((setestado == null) ? 0 : setestado.getIdestado());
+		result = prime * result
+				+ ((setperfil == null) ? 0 : setperfil.getIdperfil());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Setusuario other = (Setusuario) obj;
+		if (clave == null) {
+			if (other.clave != null)
+				return false;
+		} else if (!clave.equals(other.clave))
+			return false;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (fecharegistro == null) {
+			if (other.fecharegistro != null)
+				return false;
+		} else if (!fecharegistro.equals(other.fecharegistro))
+			return false;
+		if (idusuario != other.idusuario)
+			return false;
+		if (iplog == null) {
+			if (other.iplog != null)
+				return false;
+		} else if (!iplog.equals(other.iplog))
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (setestado == null) {
+			if (other.setestado != null)
+				return false;
+		} else if (setestado.getIdestado() != other.setestado.getIdestado())
+			return false;
+		if (setperfil == null) {
+			if (other.setperfil != null)
+				return false;
+		} else if (setperfil.getIdperfil() != other.setperfil.getIdperfil())
+			return false;
+		return true;
+	}
+	
+	
+
 }
