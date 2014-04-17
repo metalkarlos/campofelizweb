@@ -231,7 +231,11 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 	@Override
 	protected Object clone() throws CloneNotSupportedException{
 	  Petmascotahomenaje petmascotahomenaje = (Petmascotahomenaje) super.clone();
-	  petmascotahomenaje.setPetespecie((Petespecie) petmascotahomenaje.getPetespecie().clone());
+	  
+	  if(petmascotahomenaje.getPetespecie() != null && petmascotahomenaje.getPetespecie().getIdespecie() > 0){
+		  petmascotahomenaje.setPetespecie((Petespecie) petmascotahomenaje.getPetespecie().clone());
+	  }
+	  
 	  return petmascotahomenaje;
 	}
 	
@@ -328,7 +332,7 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 				return false;
 		} else if (!rutafoto.equals(other.rutafoto))
 			return false;
-		if (setestado == null) {
+		/*if (setestado == null) {
 			if (other.setestado != null)
 				return false;
 		} else if (!setestado.equals(other.setestado))
@@ -337,7 +341,7 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 			if (other.setusuario != null)
 				return false;
 		} else if (!setusuario.equals(other.setusuario))
-			return false;
+			return false;*/
 		return true;
 	}
 

@@ -3,7 +3,6 @@ package com.web.cementerio.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -13,21 +12,25 @@ import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
 
 public class PetmascotahomenajeDAO {
 	
-	public Petmascotahomenaje getPethomenajemascotaById(Session session, int idmascota, int idestado) throws Exception {
+	public Petmascotahomenaje getPethomenajemascotaById(Session session, int idmascota, int idestado, boolean especie) throws Exception {
+		
 		Petmascotahomenaje petmascotahomenaje = null;
-		
-		String hql = " from Petmascotahomenaje ";
-		       hql += " where idmascota = :idmascota ";
-		       hql += " and   setestado.idestado = :idestado ";
-		
-		Query query = session.createQuery(hql)
-				     .setInteger("idmascota", idmascota)
-				     .setInteger("idestado", idestado);
-		
-		petmascotahomenaje = (Petmascotahomenaje) query.uniqueResult();
-		
+		if (!especie){
+			Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
+					 .add(Restrictions.eq("idmascota", idmascota))
+					 .add(Restrictions.eq("setestado.idestado", idestado));
+					
+			petmascotahomenaje = (Petmascotahomenaje) criteria.uniqueResult();
+	
+		}else{
+	          petmascotahomenaje  = (Petmascotahomenaje) session.createCriteria(Petmascotahomenaje.class)
+	          .createAlias("petespecie", "e")
+	          .add( Restrictions.eq("idmascota", idmascota) ).uniqueResult();
+		}
 		return petmascotahomenaje;
 	}
+	
+	
 	
 	public List<Petmascotahomenaje> getListpetmascotahomenaje(Session session, int idestado) throws Exception{
 		List<Petmascotahomenaje> listPetmascotahomenaje = null;

@@ -11,6 +11,7 @@ import com.web.cementerio.dao.PetfotomascotaDAO;
 import com.web.cementerio.pojo.annotations.Petfotomascota;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
 import com.web.cementerio.pojo.annotations.Setestado;
+import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
 import com.web.util.HibernateUtil;
 
@@ -35,9 +36,9 @@ public class PetfotomascotaBO {
 		return listpetfotomascota;
 	}
 	
-	public void ingresarPetfotomascotaBO(List<Petfotomascota> lisPetfotomascota, int idestado, int idmascota)throws Exception{
+	public void ingresarPetfotomascotaBO(List<Petfotomascota> lisPetfotomascota, int idestado, Petmascotahomenaje petmascotahomenaje)throws Exception{
 		Session session = null;
-		Petfotomascota petfotomascota =null;
+		
 		try {
 			if (!lisPetfotomascota.isEmpty()){
 				
@@ -45,24 +46,25 @@ public class PetfotomascotaBO {
 				session.beginTransaction();
 				
 				
-				for (int i =0; i<lisPetfotomascota.size(); i++){
+				for (Petfotomascota petfotomascota :lisPetfotomascota){
 					
-					petfotomascota = new Petfotomascota();
-					
-					Petmascotahomenaje petmascotahomenaje = new Petmascotahomenaje();
-					petmascotahomenaje.setIdmascota(idmascota);
 					petfotomascota.setPetmascotahomenaje(petmascotahomenaje);
 					
 					Date fecharegistro = new Date();
-					UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("UsuarioBean");
+					UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 					petfotomascota.setIdfotomascota(petfotomascotaDAO.getMaxidpetfotomascota(session));
 				    
 					Setestado setestado = new Setestado();
 					setestado.setIdestado(idestado);
+					petfotomascota.setSetestado(setestado);
+					
+					Setusuario setusuario = new Setusuario();
+					setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
+					petfotomascota.setSetusuario(setusuario);
 					
 					//Auditoria
 					petfotomascota.setFecharegistro(fecharegistro);
-					//petmascotahomenaje.setIplog(usuarioBean.getIp());
+					petmascotahomenaje.setIplog(usuarioBean.getIp());
 					
 					petfotomascotaDAO.ingresarFotomascota(session, petfotomascota);
 				}
@@ -79,9 +81,9 @@ public class PetfotomascotaBO {
 	}
 	
 	
-	public void modificarPetfotomascotaBO(List<Petfotomascota> lisPetfotomascota, int idestado, int idmascota)throws Exception{
+	public void modificarPetfotomascotaBO(List<Petfotomascota> lisPetfotomascota, int idestado, Petmascotahomenaje petmascotahomenaje)throws Exception{
 		Session session = null;
-		Petfotomascota petfotomascota=null;
+		
 		try{
                if (!lisPetfotomascota.isEmpty()){
 				
@@ -89,25 +91,18 @@ public class PetfotomascotaBO {
 				session.beginTransaction();
 				
 				
-				for (int i =0; i<lisPetfotomascota.size(); i++){
+				for (Petfotomascota petfotomascota:lisPetfotomascota){
 					
-					petfotomascota = new Petfotomascota();
-					
-					Petmascotahomenaje petmascotahomenaje = new Petmascotahomenaje();
-					petmascotahomenaje.setIdmascota(idmascota);
 					petfotomascota.setPetmascotahomenaje(petmascotahomenaje);
 					
 					Date fechamodificacion= new Date();
-					UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("UsuarioBean");
 					
-				    
 					Setestado setestado = new Setestado();
 					setestado.setIdestado(idestado);
 					
+					
 					//Auditoria
 					petfotomascota.setFechamodificacion(fechamodificacion);
-					petfotomascota.setIplog(usuarioBean.getIp());
-					
 					petfotomascotaDAO.modificarFotomascota(session, petfotomascota);
 				}
 				

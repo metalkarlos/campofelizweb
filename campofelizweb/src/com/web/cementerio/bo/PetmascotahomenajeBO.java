@@ -11,6 +11,7 @@ import com.web.cementerio.dao.PetmascotahomenajeDAO;
 import com.web.cementerio.pojo.annotations.Petfotomascota;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
 import com.web.cementerio.pojo.annotations.Setestado;
+import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
 import com.web.util.HibernateUtil;
 
@@ -22,12 +23,12 @@ public class PetmascotahomenajeBO {
 		petmascotahomenajeDAO = new PetmascotahomenajeDAO();
 	}
 	
-	public Petmascotahomenaje getPetmascotahomenajebyId(int idmascota, int idestado)throws Exception{
+	public Petmascotahomenaje getPetmascotahomenajebyId(int idmascota, int idestado,boolean especie)throws Exception{
 		Petmascotahomenaje petmascotahomenaje = null;
 		Session session = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
-			petmascotahomenaje = petmascotahomenajeDAO.getPethomenajemascotaById(session,idmascota, idestado);
+			petmascotahomenaje = petmascotahomenajeDAO.getPethomenajemascotaById(session,idmascota, idestado,especie);
 		} catch (Exception e) {
 			throw new Exception(e); 
 		}
@@ -73,10 +74,10 @@ public class PetmascotahomenajeBO {
 			session.beginTransaction();
 			//auditoria
 			Date fechamodificacion= new Date();
-			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("UsuarioBean");
+			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 			petmascotahomenaje.setFechamodificacion(fechamodificacion);
-			//petmascotahomenaje.setIplog(usuarioBean.getIp());
-			//petmascotahomenaje.getSetusuario().setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
+			petmascotahomenaje.setIplog(usuarioBean.getIp());
+			petmascotahomenaje.getSetusuario().setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
 			
 			petmascotahomenajeDAO.modificarPetmascotahomenaje(session, petmascotahomenaje);
 			
@@ -96,7 +97,7 @@ public class PetmascotahomenajeBO {
 			session.beginTransaction();
 			
 			Date fecharegistro = new Date();
-			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("UsuarioBean");
+			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 			
 			Integer idmascota = 0;
 			idmascota= petmascotahomenajeDAO.getMaxidpetmascotahomenaje(session);
@@ -105,17 +106,20 @@ public class PetmascotahomenajeBO {
 			Setestado setestado = new Setestado();
 			setestado.setIdestado(idestado);
 			petmascotahomenaje.setSetestado(setestado);	
+			
+			Setusuario setusuario = new Setusuario();
+			setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
+			petmascotahomenaje.setSetusuario(setusuario);
 	
-			//petmascotahomenaje.getPetfotomascotas().add(new Petfotomascota());
 			
 			//Auditoria
 			petmascotahomenaje.setFecharegistro(fecharegistro);
-			//petmascotahomenaje.setIplog(usuarioBean.getIp());
+			petmascotahomenaje.setIplog(usuarioBean.getIp());
 			
 			
 			petmascotahomenajeDAO.ingresarPetmascotahomenaje(session, petmascotahomenaje);
 			
-			ingresarPetfotomascota(session, lisPetfotomascota, idestado, petmascotahomenaje.getIdmascota());
+			ingresarPetfotomascota(session, lisPetfotomascota, idestado, petmascotahomenaje);
 			
 			session.getTransaction().commit();
 			
@@ -128,33 +132,31 @@ public class PetmascotahomenajeBO {
 	}
 	
 
-	public void ingresarPetfotomascota(Session session,List<Petfotomascota> lisPetfotomascota, int idestado, int idmascota)throws Exception{
-		Petfotomascota petfotomascota =null;
+	public void ingresarPetfotomascota(Session session,List<Petfotomascota> lisPetfotomascota, int idestado, Petmascotahomenaje petmascotahomenaje)throws Exception{
+		//Petfotomascota petfotomascota =null;
 		PetfotomascotaDAO petfotomascotaDAO = new PetfotomascotaDAO();
 		try {
 			if (!lisPetfotomascota.isEmpty()){
 				
-				for (int i =0; i<lisPetfotomascota.size(); i++){
+				for (Petfotomascota petfotomascota : lisPetfotomascota){
 					
-					petfotomascota = new Petfotomascota();
-					
-					petfotomascota = lisPetfotomascota.get(i);
-							
-					Petmascotahomenaje petmascotahomenaje = new Petmascotahomenaje();
-					petmascotahomenaje.setIdmascota(idmascota);
 					petfotomascota.setPetmascotahomenaje(petmascotahomenaje);
-					
 					Date fecharegistro = new Date();
-					UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("UsuarioBean");
+					UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+					
 					petfotomascota.setIdfotomascota(petfotomascotaDAO.getMaxidpetfotomascota(session));
 				    
 					Setestado setestado = new Setestado();
 					setestado.setIdestado(idestado);
 					petfotomascota.setSetestado(setestado);
 					
+					Setusuario setusuario = new Setusuario();
+					setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
+					petfotomascota.setSetusuario(setusuario);
+					
 					//Auditoria
 					petfotomascota.setFecharegistro(fecharegistro);
-					//petmascotahomenaje.setIplog(usuarioBean.getIp());
+					petmascotahomenaje.setIplog(usuarioBean.getIp());
 					
 					petfotomascotaDAO.ingresarFotomascota(session, petfotomascota);
 				}

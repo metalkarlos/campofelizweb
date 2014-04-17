@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="../templates/default_others.xhtml">
+	
+	
+	<ui:define name="head">
+		<title>Campo Feliz - Homenaje Póstumo</title>
+		<style type="text/css">
+			.ui-widget-content {
+				border: 0px;
+			}
+			.ui-panelgrid td {
+			   border: 0px;
+			}
+			.mascotas-content .cuerpo a {
+				color: #ec8f23;
+				font-weight: bold;
+			}
+		</style>
+	</ui:define>
+
+    <ui:define name="content_page">
+	<div  class="content-page">
+	 <h:form id="form-contentpage" enctype="multipart/form-data">
+        <p:growl id="mensajes" showDetail="true"  autoUpdate="true"/>
+ 		<p:panel id="panel-homenajepostumocontent">
+ 		     <h1 class="title ui-widget-header">Homenaje Póstumo</h1>
+ 		     <br/>
+ 		     <p style="text-align:justify;">
+				Este espacio es un homenaje a las mascotas que han sido sepultadas o cremadas en Campo Feliz.
+				<br />
+				Gracias a sus dueños por confiar en nosotros.
+			</p>
+			<h:link value="[Nuevo]" style="float: right;" outcome="mascotahomenaje-admin.jsf" rendered="#{usuarioBean.autenticado}" >
+			   <f:param name="idmascota" value="0"></f:param>
+			</h:link>
+			<p:panel id="panel-buscarmascota" >
+				    <p:panelGrid  id="panelgridcriterios" >
+				    <p:row >
+						<p:column  style="width: 100px">
+							<h:outputLabel value="Nombre Mascota:" />
+						</p:column>
+						<p:column >
+							<p:inputText id="idnombre" value="#{mascotasHomenajeBean.nombre}"  style="width: 300px" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width: 100px">
+							<h:outputLabel value="Especie:" />
+						</p:column>
+						<p:column>
+						    <p:selectOneMenu id="idespeciemascota" style="width: 165px; align: center;" value="#{mascotasHomenajeBean.idespecie}" >
+							<f:selectItem itemLabel="Seleccione" itemValue="0"/>
+							<f:selectItems value="#{petespecieBean.listPetespecie}" var="especie" itemLabel="#{especie.nombre}" itemValue="#{especie.idespecie}"></f:selectItems>
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					</p:panelGrid>
+					<center>
+						<p:commandButton icon="ui-icon ui-icon-search" value="Buscar"  actionListener="#{mascotasHomenajeBean.buscarmascotahomenajebycriteria()}" update="resultadomascota" />
+					</center>
+					<br />
+			</p:panel>
+			
+			<div class="mascotas-content">
+			 <p:dataGrid  id="resultadomascota" var="mascota" value="#{mascotasHomenajeBean.listpetmascotahomenaje}" columns="3"  
+				        rows="6" paginator="true"  
+				        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+				        rowsPerPageTemplate="9,12,15">  
+				  
+		        <p:panel header="#{mascota.nombre}" style="text-align:center">  
+		            <h:panelGrid columns="1" style="width:150px">  
+		            <table>
+		               <tr>
+		                <td>
+		                  <p:graphicImage alt="foto-homenaje póstumo" value="#{mascotasHomenajeBean.rutaImagenes}#{mascota.rutafoto}" height="150px" width="170px"/>   
+		  				</td>
+		  				<td>
+		  				   <h:outputText style="height:40px" value="#{fn:substring(mascota.dedicatoria, 0, 60)} [...]"/>
+		  			    </td>	  
+		  			  </tr>
+		  			  <tr>
+		  			   <td >
+		  			      <h:link   style="float: center; padding: 10px 0 0" value="Leer Más"  outcome="mascotahomenaje?faces-redirect=true" >
+						  <f:param name="idmascota" value="#{mascota.idmascota}"></f:param>
+						</h:link>
+		  			   </td>
+		  			  </tr>            
+		  			</table>           
+		            </h:panelGrid>  
+		        </p:panel>  
+  
+   			 </p:dataGrid>  
+          </div>
+ 		</p:panel>
+      </h:form>
+     </div>
+    </ui:define>
+
+</ui:composition>

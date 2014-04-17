@@ -2,41 +2,48 @@ package com.web.cementerio.bean;
 
 
 
-import java.awt.event.ActionEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+
 
 
 import com.web.cementerio.bo.PetmascotahomenajeBO;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
+import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
 @ViewScoped
-public class MascotaHomenajeConsultaBean  {
+public class MascotasHomenajeBean  {
 
-private List<Petmascotahomenaje> listpetmascotahomenaje = null; 
-private int idespecie = 0;
-private String nombre = null;
+private List<Petmascotahomenaje> listpetmascotahomenaje; 
+private int idespecie;
+private String nombre;
+private String rutaImagenes;
 
-	public MascotaHomenajeConsultaBean(){
+	public MascotasHomenajeBean(){
+		idespecie=0;
+		nombre ="";
+		rutaImagenes = "";
+		cargarRutaImagenes();
 		consultarMascotaHomenaje(1);
 		
+		
 	}
 		
-	public void navegaenlace(ActionEvent actionEvent){
+	private void cargarRutaImagenes(){
 		try {
-			FacesContext context = FacesContext.getCurrentInstance();
-					context.getExternalContext().redirect("mascotahomenajedetalle.jsf");
+			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
 		} catch (Exception e) {
 			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
-		
 	}
+	
 	
 	public void consultarMascotaHomenaje(int idestado){
 		if(idestado >0){
@@ -46,7 +53,7 @@ private String nombre = null;
 				
 			} catch (Exception e) {
 				e.printStackTrace();
-				new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+				new MessageUtil().showFatalMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 			}
 		}
 		
@@ -60,7 +67,7 @@ private String nombre = null;
 	    		listpetmascotahomenaje = petmascotahomenajeBO.getListpetmascotahomenajebycriteria(1, idespecie, nombre);
     		} catch (Exception e) {
 			   e.printStackTrace();
-			   new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			   new MessageUtil().showFatalMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 			}
     	}else{
     		new MessageUtil().showInfoMessage("Info", "Por favor ingrese el nombre y especie de la mascota a consultar");
@@ -91,6 +98,16 @@ private String nombre = null;
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+
+	public String getRutaImagenes() {
+		return rutaImagenes;
+	}
+
+
+	public void setRutaImagenes(String rutaImagenes) {
+		this.rutaImagenes = rutaImagenes;
 	}
 
 
