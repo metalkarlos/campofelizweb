@@ -132,16 +132,23 @@ public class NoticiaAdminBean implements Serializable {
 	
 	public void grabar(){
 		try{
+			boolean ok = false;
+			
 			PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
 			Petfotonoticia petfotonoticia = new Petfotonoticia();
 			petfotonoticia.setDescripcion(descripcionFoto);
 			
 			if(idnoticia == 0){
-				petnoticiaBO.ingresar(petnoticia, petfotonoticia, uploadedFile);
+				ok = petnoticiaBO.ingresar(petnoticia, petfotonoticia, uploadedFile);
 			}else{
-				petnoticiaBO.modificar(petnoticia, petnoticiaClon, lisPetfotonoticia, lisPetfotonoticiaClon, petfotonoticia, uploadedFile);
+				ok = petnoticiaBO.modificar(petnoticia, petnoticiaClon, lisPetfotonoticia, lisPetfotonoticiaClon, petfotonoticia, uploadedFile);
 			}
-			new MessageUtil().showInfoMessage("Listo!", "Datos grabados con Exito!");
+			
+			if(ok){
+				new MessageUtil().showInfoMessage("Listo!", "Datos grabados con Exito!");
+			}else{
+				new MessageUtil().showInfoMessage("Aviso", "No existen cambios que guardar");
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
