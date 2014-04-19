@@ -136,7 +136,10 @@ public class NoticiaAdminBean implements Serializable {
 			
 			PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
 			Petfotonoticia petfotonoticia = new Petfotonoticia();
-			petfotonoticia.setDescripcion(descripcionFoto);
+			
+			if(descripcionFoto != null && descripcionFoto.trim().length() > 0){
+				petfotonoticia.setDescripcion(descripcionFoto);
+			}
 			
 			if(idnoticia == 0){
 				ok = petnoticiaBO.ingresar(petnoticia, petfotonoticia, uploadedFile);
