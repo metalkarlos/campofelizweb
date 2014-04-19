@@ -21,6 +21,7 @@
 			label {
 				font-weight: bold;
 				font-size: 15px;
+				line-height: 300%;
 			}
 			.ui-panelgrid tr, .ui-panelgrid td {
 				border: none;
@@ -47,35 +48,26 @@
 			<div class="inner-content">
 				<p:panelGrid id="idgridcontenido" >
 					<p:row>
-					<p:column styleClass="alto-columna">
-					<h:outputLabel value="Título de la Noticia" for="txtTitulo" />
-					</p:column>
-					</p:row>
-					<p:row>
-					<p:column styleClass="alto-columna">
+					<p:column>
+					<h:outputLabel value="Título de la Noticia" for="txtTitulo" /><br />
 					<p:inputText id="txtTitulo" value="#{noticiaAdminBean.petnoticia.titulo}" style="width: 600px;"></p:inputText>
 					</p:column>
 					</p:row>
 					
 					<p:row>
-					<p:column styleClass="alto-columna">
-					<h:outputLabel value="Contenido de la Noticia" for="txtContenido" />
-					</p:column>
-					</p:row>
-					<p:row>
-					<p:column styleClass="alto-columna">
+					<p:column>
+					<h:outputLabel value="Contenido de la Noticia" for="txtContenido" /><br />
 					<p:editor id="txtContenido" value="#{noticiaAdminBean.petnoticia.descripcion}" width="600"/>
 					</p:column>
 					</p:row>
 					
-					<p:row rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}" >
-					<p:column styleClass="alto-columna">
-					<h:outputLabel id="lblFotos" value="Fotos" for="idgalleria" />
-					</p:column>
-					</p:row>
-					<p:row rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}" >
-					<p:column styleClass="centrar">
-					<p:galleria id="idgalleria" value="#{noticiaAdminBean.lisPetfotonoticia}" var="item" transitionInterval="0" panelWidth="500" panelHeight="320" styleClass="ui-widget-content ui-corner-all" >
+					<p:row>
+					<p:column>
+					<h:panelGroup id="idpanellabelgaleria">
+					<h:outputLabel id="lblFotos" value="Fotos" for="idgalleria" rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}" />
+					</h:panelGroup>
+					<h:panelGroup id="idpanelgaleria" styleClass="centrar">
+					<p:galleria id="idgalleria" value="#{noticiaAdminBean.lisPetfotonoticia}" var="item" transitionInterval="0" panelWidth="500" panelHeight="320" styleClass="ui-widget-content ui-corner-all" rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}">
 				        <p:graphicImage id="idfotos" value="#{noticiaAdminBean.rutaImagenes}#{item.ruta}" style="max-height: 58px;" />
 				        <p:galleriaContent>  
 				            <h:panelGrid columns="1" style="background-color: #eaeaea;height: 100%; width: 100%;" >  
@@ -91,43 +83,34 @@
 						    </h:panelGrid>
 						</p:galleriaContent>
 					</p:galleria>
+					</h:panelGroup>
 					</p:column>
 					</p:row>
 					
 					<p:row>
-					<p:column styleClass="alto-columna">
-					<h:outputLabel value="Agregar Foto" for="idSubeFotos" />
-					</p:column>
-					</p:row>
-					<p:row>
-					<p:column styleClass="alto-columna">
+					<p:column>
+					<h:outputLabel value="Agregar Foto" for="idSubeFotos" /><br />
 					<p:panel id="pnlPrevia" styleClass="panel-previa">
 					<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" style="max-height: 100px;" rendered="#{noticiaAdminBean.fotoSubida}" />
-					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{noticiaAdminBean.borrarFotoSubida()}" update="pnlPrevia" rendered="#{noticiaAdminBean.fotoSubida}" />
+					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{noticiaAdminBean.borrarFotoSubida()}" update="pnlPrevia, idpaneltextdescfoto" rendered="#{noticiaAdminBean.fotoSubida}" />
 					</p:panel>
 					<p:fileUpload id="idSubeFotos" fileUploadListener="#{noticiaAdminBean.handleFileUpload}" mode="advanced" 
-					update="mensajes, pnlPrevia" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
+					update="mensajes, pnlPrevia, idpaneltextdescfoto" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
 					</p:column>
 					</p:row>
 				
 					<p:row>
-					<p:column styleClass="alto-columna">
-					<h:outputLabel value="Descripción de la Foto" for="txtObservacionFoto" />
-					</p:column>
-					</p:row>
-					<p:row>
-					<p:column styleClass="alto-columna">
-					<p:inputTextarea id="txtObservacionFoto" value="#{noticiaAdminBean.descripcionFoto}" maxlength="500" autoResize="false"></p:inputTextarea>
+					<p:column>
+					<h:panelGroup id="idpaneltextdescfoto">
+					<h:outputLabel value="Descripción de la Foto" for="txtObservacionFoto" rendered="#{noticiaAdminBean.fotoSubida}" />
+					<p:inputTextarea id="txtObservacionFoto" value="#{noticiaAdminBean.descripcionFoto}" maxlength="500" autoResize="false" rendered="#{noticiaAdminBean.fotoSubida}" />
+					</h:panelGroup>
 					</p:column>
 					</p:row>
 				
 					<p:row>
-					<p:column styleClass="alto-columna">
-					<h:outputLabel value="Tags" for="txtTags" />
-					</p:column>
-					</p:row>
-					<p:row>
-					<p:column styleClass="alto-columna">
+					<p:column>
+					<h:outputLabel value="Tags" for="txtTags" /><br />
 					<p:inputText id="txtTags" value="#{noticiaAdminBean.petnoticia.tag}" style="width: 600px;"></p:inputText>
 					</p:column>
 					</p:row>
@@ -162,7 +145,7 @@
 					<p:panelGrid id="idpanel2delete" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{noticiaAdminBean.quitarFotoGaleria()}" oncomplete="vardialogdelete.hide()" update=":form-contentpage:mensajes, :form-contentpage:idgridcontenido" />
+						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{noticiaAdminBean.quitarFotoGaleria()}" oncomplete="vardialogdelete.hide()" update=":form-contentpage:mensajes, :form-contentpage:idpanellabelgaleria, :form-contentpage:idpanelgaleria" />
 						<p:commandButton id="idcancelardelete" value="Cancelar" onclick="vardialogdelete.hide()" />
 						</p:column>
 						</p:row>
