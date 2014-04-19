@@ -39,8 +39,9 @@ public class PetnoticiaDAO {
 	public Petnoticia getPetnoticiaConObjetosById(Session session, int idnoticia) throws Exception {
 		Petnoticia petnoticia = null;
 		
-		String hql = " from Petnoticia as noti left join fetch noti.petfotonoticias ";
+		String hql = " from Petnoticia as noti left join fetch noti.petfotonoticias as foto left join fetch foto.setestado as estado ";
 		hql += " where noti.idnoticia = :idnoticia ";
+		hql += " and estado.idestado = 1 ";
 
 		Query query = session.createQuery(hql)
 				.setInteger("idnoticia", idnoticia);
