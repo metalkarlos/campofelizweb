@@ -150,10 +150,10 @@ public class PetnoticiaBO {
 			}
 			
 			//Si han quitado fotos se las inhabilita en la BD
-			for(Petfotonoticia petfotonoticiaItem : lisPetfotonoticia){
-				if(!lisPetfotonoticiaClon.contains(petfotonoticiaItem)){
+			for(Petfotonoticia petfotonoticiaItem : lisPetfotonoticiaClon){
+				if(!lisPetfotonoticia.contains(petfotonoticiaItem)){
 					//inhabilitar
-					petfotonoticiaItem.getSetestado().setIdestado(0);
+					petfotonoticiaItem.getSetestado().setIdestado(2);
 					
 					//auditoria
 					fecharegistro = new Date();
@@ -165,14 +165,11 @@ public class PetnoticiaBO {
 					petfotonoticiaDAO.updatePetfotonoticia(session, petfotonoticiaItem);
 					
 					//eliminar foto del disco
-					Calendar fecha = Calendar.getInstance();
 					String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
-					String rutaNoticias =  "/noticia/" + fecha.get(Calendar.YEAR);
-					String nombreArchivo = fecha.get(Calendar.MONTH) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + fecha.get(Calendar.YEAR) + "-" + petnoticiaClon.getIdnoticia() + "-" + petfotonoticiaItem.getIdfotonoticia() + "-" + fileUtil.getFileExtention(uploadedFile.getFileName());
 					
-					String rutaCompleta = rutaImagenes + rutaNoticias;
+					String rutaArchivo = rutaImagenes + petfotonoticiaItem.getRuta();
 					
-					fileUtil.deleteFile(rutaCompleta+"/"+nombreArchivo);
+					fileUtil.deleteFile(rutaArchivo);
 					ok = true;
 				}
 			}
@@ -216,13 +213,15 @@ public class PetnoticiaBO {
 		
 		if(fileUtil.createDir(rutaCompleta)){
 			//crear foto en disco
-			fileUtil.createFile(rutaCompleta+"/"+nombreArchivo,uploadedFile.getContents());
+			String rutaArchivo = rutaCompleta + "/" + nombreArchivo;
+			fileUtil.createFile(rutaArchivo,uploadedFile.getContents());
 		}
 		
 		//foto en BD
 		petfotonoticia.setIdfotonoticia(maxIdfotonoticia);
 		petfotonoticia.setPetnoticia(petnoticia);
-		petfotonoticia.setRuta(rutaNoticias+"/"+nombreArchivo);
+		String rutaBD = rutaNoticias + "/" + nombreArchivo;
+		petfotonoticia.setRuta(rutaBD);
 		petfotonoticia.setNombrearchivo(nombreArchivo);
 		petfotonoticia.setPerfil(1);//campo sin uso ya que tabla principal posee ruta de foto de perfil
 		Setestado setestadoPetfotonoticia = new Setestado();
