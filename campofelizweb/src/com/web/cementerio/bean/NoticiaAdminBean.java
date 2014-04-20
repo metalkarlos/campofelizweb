@@ -137,7 +137,7 @@ public class NoticiaAdminBean implements Serializable {
 			PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
 			Petfotonoticia petfotonoticia = new Petfotonoticia();
 			
-			if(descripcionFoto != null && descripcionFoto.trim().length() > 0){
+			if(fotoSubida && descripcionFoto != null && descripcionFoto.trim().length() > 0){
 				petfotonoticia.setDescripcion(descripcionFoto);
 			}
 			
@@ -156,6 +156,23 @@ public class NoticiaAdminBean implements Serializable {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
+	}
+	
+	public String eliminar(){
+		String paginaRetorno = null;
+		
+		try{
+			PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
+			
+			petnoticiaBO.eliminar(petnoticia);
+
+			paginaRetorno = "noticias?faces-redirect=true";
+		}catch(Exception e){
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
+		
+		return paginaRetorno;
 	}
 
 	public int getIdnoticia() {
