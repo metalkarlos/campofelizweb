@@ -16,7 +16,6 @@
 		<style type="text/css">
 			.inner-content {
 				padding: 30px 0;
-				/*line-height: 300%;*/
 			}
 			label {
 				font-weight: bold;
@@ -56,18 +55,11 @@
 					
 					<p:row>
 					<p:column>
-					<h:outputLabel value="Contenido de la Noticia" for="txtContenido" /><br />
-					<p:editor id="txtContenido" value="#{noticiaAdminBean.petnoticia.descripcion}" width="600"/>
-					</p:column>
-					</p:row>
-					
-					<p:row>
-					<p:column>
 					<h:panelGroup id="idpanellabelgaleria">
 					<h:outputLabel id="lblFotos" value="Fotos" for="idgalleria" rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}" />
 					</h:panelGroup>
 					<h:panelGroup id="idpanelgaleria" styleClass="centrar">
-					<p:galleria id="idgalleria" value="#{noticiaAdminBean.lisPetfotonoticia}" var="item" transitionInterval="0" panelWidth="500" panelHeight="320" styleClass="ui-widget-content ui-corner-all" rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}">
+					<p:galleria id="idgalleria" value="#{noticiaAdminBean.lisPetfotonoticia}" var="item" transitionInterval="0" panelWidth="500" panelHeight="320" rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}">
 				        <p:graphicImage id="idfotos" value="#{noticiaAdminBean.rutaImagenes}#{item.ruta}" style="max-height: 58px;" />
 				        <p:galleriaContent>  
 				            <h:panelGrid columns="1" style="background-color: #eaeaea;height: 100%; width: 100%;" >  
@@ -107,6 +99,13 @@
 					</h:panelGroup>
 					</p:column>
 					</p:row>
+					
+					<p:row>
+					<p:column>
+					<h:outputLabel value="Contenido de la Noticia" for="txtContenido" /><br />
+					<p:editor id="txtContenido" value="#{noticiaAdminBean.petnoticia.descripcion}" width="600"/>
+					</p:column>
+					</p:row>
 				
 					<p:row>
 					<p:column>
@@ -118,7 +117,7 @@
 			</div>
 			<div class="area-botones">
 			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
-			renderedButtonEliminar="#{noticiaAdminBean.idnoticia > 0}" onclickButtonEliminar="vardialogdelete.show()" 
+			renderedButtonEliminar="#{noticiaAdminBean.idnoticia > 0}" onclickButtonEliminar="vardialogdeletenoticia.show()" 
 			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('noticias.jsf');"
 			renderedButtonNewItem="false" />
 			</div>
@@ -162,6 +161,21 @@
 						<p:column>
 						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{noticiaAdminBean.grabar()}" oncomplete="vardialoggrabar.hide()" update=":form-contentpage:mensajes" />
 						<p:commandButton id="idcancelargrabar" value="Cancelar" onclick="vardialoggrabar.hide()" />
+						</p:column>
+						</p:row>
+					</p:panelGrid>
+				</h:panelGrid>
+			</p:dialog>
+			<p:dialog id="iddialogdeletenoticia"  header="Eliminar Noticia" closable="true" widgetVar="vardialogdeletenoticia" modal="true" style="min-height: 80px; width: 450px">
+				<h:panelGrid id="idpaneldeletenoticia" columns="2" width="100%">
+					<h:outputText id="idlabeldeletenoticia" value="Confirme si desea eliminar la noticia" />
+					<h:outputText value="" />
+					<h:outputText value="" />
+					<p:panelGrid id="idpanel2deletenoticia" style="width: 100%; text-align: right;">
+						<p:row>
+						<p:column>
+						<p:commandButton id="idconfirmardeletenoticia" value="Confirmar" action="#{noticiaAdminBean.eliminar()}" oncomplete="vardialogdeletenoticia.hide()" update=":form-contentpage:mensajes" />
+						<p:commandButton id="idcancelardeletenoticia" value="Cancelar" onclick="vardialogdeletenoticia.hide()" />
 						</p:column>
 						</p:row>
 					</p:panelGrid>
