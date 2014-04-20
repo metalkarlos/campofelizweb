@@ -142,6 +142,8 @@ public class PetnoticiaBO {
 			petnoticia.setIplog(usuarioBean.getIp());
 			petnoticia.setSetusuario(usuarioBean.getSetUsuario());
 			
+			petnoticiaDAO.updatePetnoticia(session, petnoticia);
+			
 			session.getTransaction().commit();
 			
 			ok = true;
