@@ -123,6 +123,38 @@ public class PetnoticiaBO {
 		return ok;
 	}
 	
+	public boolean eliminar(Petnoticia petnoticia) throws Exception {
+		boolean ok = false;
+		Session session = null;
+		
+		try{
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			
+			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+			
+			//se inactiva el registro
+			petnoticia.getSetestado().setIdestado(2);
+			
+			//auditoria
+			Date fecharegistro = new Date();
+			petnoticia.setFecharegistro(fecharegistro);
+			petnoticia.setIplog(usuarioBean.getIp());
+			petnoticia.setSetusuario(usuarioBean.getSetUsuario());
+			
+			session.getTransaction().commit();
+			
+			ok = true;
+		}catch(Exception e){
+			session.getTransaction().rollback();
+			throw new Exception(e); 
+		}finally{
+			session.close();
+		}
+		
+		return ok;
+	}
+	
 	public boolean modificar(Petnoticia petnoticia, Petnoticia petnoticiaClon, List<Petfotonoticia> lisPetfotonoticia, List<Petfotonoticia> lisPetfotonoticiaClon, Petfotonoticia petfotonoticia, UploadedFile uploadedFile) throws Exception {
 		boolean ok = false;
 		Session session = null;
