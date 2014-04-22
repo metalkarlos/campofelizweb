@@ -1,9 +1,11 @@
 package com.web.cementerio.bo;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.primefaces.model.UploadedFile;
 
 
 import com.web.cementerio.bean.UsuarioBean;
@@ -13,6 +15,7 @@ import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
+import com.web.util.FileUtil;
 import com.web.util.HibernateUtil;
 
 public class PetfotomascotaBO {
@@ -36,7 +39,7 @@ public class PetfotomascotaBO {
 		return listpetfotomascota;
 	}
 	
-	public void ingresarPetfotomascotaBO(List<Petfotomascota> lisPetfotomascota, int idestado, Petmascotahomenaje petmascotahomenaje)throws Exception{
+	public void ingresarPetfotomascotaBO(List<Petfotomascota> lisPetfotomascota, int idestado, Petmascotahomenaje petmascotahomenaje,UploadedFile uploadedFile)throws Exception{
 		Session session = null;
 		
 		try {
@@ -67,6 +70,23 @@ public class PetfotomascotaBO {
 					petmascotahomenaje.setIplog(usuarioBean.getIp());
 					
 					petfotomascotaDAO.ingresarFotomascota(session, petfotomascota);
+					
+					
+					//foto en disco
+					FileUtil fileUtil = new FileUtil();
+					Calendar fecha = Calendar.getInstance();
+					
+					String rutaImagenes = fileUtil.getPropertyValue("rutaImagen");
+					String rutaMascota =  "/mascota/" + fecha.get(Calendar.YEAR);
+					String nombreArchivo = fecha.get(Calendar.MONTH) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + fecha.get(Calendar.YEAR) + "-" + petmascotahomenaje.getIdmascota() + "-" + petfotomascota.getIdfotomascota() + "-" + fileUtil.getFileExtention(uploadedFile.getFileName());
+					
+					String rutaCompleta = rutaImagenes + rutaMascota;
+					
+					if(fileUtil.createDir(rutaCompleta)){
+						//crear foto en disco
+						fileUtil.createFile(rutaMascota+"/"+nombreArchivo,uploadedFile.getContents());
+					}
+				
 				}
 				
 			}
@@ -81,7 +101,7 @@ public class PetfotomascotaBO {
 	}
 	
 	
-	public void modificarPetfotomascotaBO(List<Petfotomascota> lisPetfotomascota, int idestado, Petmascotahomenaje petmascotahomenaje)throws Exception{
+	public void modificarPetfotomascotaBO(List<Petfotomascota> lisPetfotomascota, int idestado, Petmascotahomenaje petmascotahomenaje,UploadedFile uploadedFile)throws Exception{
 		Session session = null;
 		
 		try{
@@ -104,6 +124,17 @@ public class PetfotomascotaBO {
 					//Auditoria
 					petfotomascota.setFechamodificacion(fechamodificacion);
 					petfotomascotaDAO.modificarFotomascota(session, petfotomascota);
+					
+					//eliminar foto del disco
+					Calendar fecha = Calendar.getInstance();
+					FileUtil fileUtil = new FileUtil();
+					String rutaImagenes = fileUtil.getPropertyValue("rutaImagen");
+					String rutaNoticias =  "/mascota/" + fecha.get(Calendar.YEAR);
+					String nombreArchivo = fecha.get(Calendar.MONTH) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + fecha.get(Calendar.YEAR) + "-" + petmascotahomenaje.getIdmascota() + "-" + petfotomascota.getIdfotomascota() + "-" + fileUtil.getFileExtention(uploadedFile.getFileName());
+					
+					String rutaCompleta = rutaImagenes + rutaNoticias;
+					
+					fileUtil.deleteFile(rutaCompleta+"/"+nombreArchivo);
 				}
 				
 			}

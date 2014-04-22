@@ -2,6 +2,7 @@
 
 	import java.io.Serializable;
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -15,9 +16,11 @@ import javax.faces.bean.ViewScoped;
 	import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 	import com.web.cementerio.bo.PetfotomascotaBO;
 import com.web.cementerio.bo.PetmascotahomenajeBO;
+
 import com.web.cementerio.pojo.annotations.Petespecie;
 import com.web.cementerio.pojo.annotations.Petfotomascota;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
@@ -36,14 +39,11 @@ import com.web.util.MessageUtil;
 		
 		private Petmascotahomenaje petmascotahomenaje;
 		private Petmascotahomenaje petmascotahomenajeclone;
-		private Petfotomascota petfotomascotaselected;
-		private Petfotomascota petfotomascota;
-		private Petfotomascota petfotomascotabuscar;
+		private Petfotomascota     petfotomascotaselected;
 		private List<Petfotomascota> listpetfotomascota;
 		private List<Petfotomascota> listpetfotomascotaclone;
-		private List<Petfotomascota> listpetfotomascotaagregar;
-		private List<Petfotomascota> listpetfotomascotaeliminar;
 		private StreamedContent streamedContent;
+		private UploadedFile    uploadedFile;
 		private int indice;
 		private int indiceagregar;
 		private int indiceeliminar;
@@ -54,8 +54,8 @@ import com.web.util.MessageUtil;
 	
 
 		public MascotaHomenajeAdminBean() {
-			cargarRutaImagenes();
 			inicializarobjetos();
+			cargarRutaImagenes();
 			
 		}
 		
@@ -78,19 +78,15 @@ import com.web.util.MessageUtil;
 			petmascotahomenaje.setPetespecie(petespecie);
 			petmascotahomenaje.setFechapublicacion(new Date());
 			petfotomascotaselected = new Petfotomascota(0,new Setestado(),new Petmascotahomenaje(),new Setusuario(),null,null,null,0,null,null,null);
-			petfotomascota = new Petfotomascota(0,new Setestado(),new Petmascotahomenaje(),new Setusuario(),null,null,null,0,null,null,null);
-			petfotomascotabuscar = new Petfotomascota(0,new Setestado(),new Petmascotahomenaje(),new Setusuario(),null,null,null,0,null,null,null);
 			listpetfotomascota = new ArrayList<Petfotomascota>();
-			listpetfotomascotaagregar = null;
-			listpetfotomascotaeliminar = null;
 			rutaImagenes ="";
 			indice =0;
 			indiceeliminar =0;
 			indiceagregar =0;
 			idmascota =0;
 			fotoSubida=false;
-
-		
+			streamedContent = null;
+			uploadedFile = null;
 		}
 		
 		private void cargarRutaImagenes(){
@@ -107,24 +103,13 @@ import com.web.util.MessageUtil;
 					PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
 					
 					if(petmascotahomenaje.getIdmascota()==0){
-						petmascotahomenajeBO.ingresarPetmascotahomenajeBO(petmascotahomenaje, listpetfotomascota, 1);
+						petmascotahomenajeBO.ingresarPetmascotahomenajeBO(petmascotahomenaje, 1,uploadedFile);
 						new MessageUtil().showInfoMessage("Exito", "Información registrada");
 						inicializarobjetos();
 						
 				    }else if(petmascotahomenaje.getIdmascota()>0){
 					  //objeto petmascotahomenaje se ha modificado
-					  if(!petmascotahomenaje.equals(petmascotahomenajeclone)){
-						 petmascotahomenajeBO.modificarPetmascotahomenajeBO(petmascotahomenaje, 1);
-						
-						 if(!listpetfotomascotaagregar.isEmpty()){
-							 PetfotomascotaBO petfotomascotaBO = new PetfotomascotaBO();
-							 petfotomascotaBO.ingresarPetfotomascotaBO(listpetfotomascotaagregar, 1, petmascotahomenaje);
-							 
-						 }
-						 if(!listpetfotomascotaeliminar.isEmpty()){
-							 PetfotomascotaBO petfotomascotaBO = new PetfotomascotaBO();
-							 petfotomascotaBO.modificarPetfotomascotaBO(listpetfotomascotaeliminar, 2, petmascotahomenaje);
-						 }
+					  if(petmascotahomenajeBO.modificarPetmascotahomenajeBO(petmascotahomenaje,petmascotahomenajeclone,uploadedFile,listpetfotomascota,listpetfotomascotaclone,2)){
 						 new MessageUtil().showInfoMessage("Exito", "Información modificada");
 						 inicializarobjetos();
 					  }
@@ -132,49 +117,30 @@ import com.web.util.MessageUtil;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				new MessageUtil().showErrorMessage("Error", "Lamentamos que tenga inconvenietnes");
+				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 			}
 		}
 		
-		
-		public void subir(FileUploadEvent event){
-			if (event.getFile() !=null){
-				long tamaño = event.getFile().getSize();
-				if (tamaño<100000) {
-				   
-					if (listpetfotomascota.isEmpty()){
-						indice =0;
-					}
-					petfotomascota = new Petfotomascota();
-					petfotomascota.setIdfotomascota(indice);
-					petfotomascota.setNombrearchivo(event.getFile().getFileName());
-					petfotomascota.setRuta("/resources/images/"+event.getFile().getFileName());
-					listpetfotomascota.add(indice, petfotomascota);
-					
-				    if(petmascotahomenaje.getIdmascota() >0){
-				    	agregarfotoxmodificacion(petfotomascota.getNombrearchivo());
-				    	
-				    }
-				    indice ++;
-				    new MessageUtil().showInfoMessage("Info", "Foto: "+event.getFile().getFileName()+" subida con éxito");
-				}else{
-				  new MessageUtil().showInfoMessage("Info", "El tamaño de la imagen debe ser menor a 1MB");
-				}
-				
-			}
-		}
 		
 		public void handleFileUpload(FileUploadEvent event) {
 			try{
-				streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
 				
-				FacesUtil facesUtil = new FacesUtil();
-				UsuarioBean usuarioBean = (UsuarioBean)facesUtil.getSessionBean("usuarioBean");
-				usuarioBean.setStreamedContent(streamedContent);
-				facesUtil.setSessionBean("usuarioBean", usuarioBean);
-				fotoSubida = true;
+				if (event.getFile().getSize() < 100000){
+					uploadedFile = event.getFile();
+					streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
+					
+					FacesUtil facesUtil = new FacesUtil();
+					UsuarioBean usuarioBean = (UsuarioBean)facesUtil.getSessionBean("usuarioBean");
+					usuarioBean.setStreamedContent(streamedContent);
+					facesUtil.setSessionBean("usuarioBean", usuarioBean);
+					fotoSubida = true;
+					
+					new MessageUtil().showInfoMessage("Foto en memoria!",uploadedFile.getFileName());
+				}else{
+					new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 1MB");
+				}
 				
-				new MessageUtil().showInfoMessage("Foto en memoria!", event.getFile().getFileName());
+				
 			}catch(Exception x){
 				x.printStackTrace();
 				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
@@ -182,84 +148,32 @@ import com.web.util.MessageUtil;
 		}
 		public void borrarFotoSubida(){
 			streamedContent = null;
+			uploadedFile = null;
 			fotoSubida = false;
 		}
 		
 		public void ponerFotoperfil(){
 			if (petfotomascotaselected !=null){
 				petmascotahomenaje.setRutafoto(petfotomascotaselected.getRuta());
-				new MessageUtil().showInfoMessage("Info", "Foto: "+petfotomascotaselected.getNombrearchivo()+" seleccionada como foto de perfil");
+				new MessageUtil().showInfoMessage("Info", "Foto: "+petfotomascotaselected.getRuta()+" seleccionada como foto de perfil");
+				petfotomascotaselected= new Petfotomascota();
 			}
 		}
 		
 		public void quitarFoto(){
 			if (petfotomascotaselected !=null){
 				if (!petfotomascotaselected.getRuta().equals(petmascotahomenaje.getRutafoto())){
-					if(petmascotahomenaje.getIdmascota()==0){
-					   listpetfotomascota.remove(petfotomascotaselected);
-					}
-					else{
-					    eliminarfotoxmodificacion(petfotomascotaselected.getNombrearchivo()) ;
-					}
+					listpetfotomascota.remove(petfotomascotaselected);
 					new MessageUtil().showInfoMessage("Info", "Foto: "+petfotomascotaselected.getNombrearchivo()+" ha sido eliminada de la galería");	
 				}
 				else {
 					new MessageUtil().showInfoMessage("Info", "No se puede eliminar foto que ha sido seleccionada como foto de perfil, cambie de foto de perfil y vuelva a intentarlo");
 				}
+				petfotomascotaselected= new Petfotomascota();
 			}
 			
 		}
 		
-		public void agregarfotoxmodificacion(String nombre){
-			if (listpetfotomascotaagregar.isEmpty()){
-				indiceagregar =0;
-			}
-			if(buscarobjetolista(nombre, listpetfotomascotaclone)){
-				if(buscarobjetolista(nombre, listpetfotomascotaeliminar)){
-					listpetfotomascotaeliminar.remove(petfotomascotabuscar);
-					indiceeliminar--;
-				}
-			}else{
-				listpetfotomascotaagregar.add(indiceagregar, petfotomascota);
-				indiceagregar++;
-			}
-			//listpetfotomascota.add(indice, petfotomascota);
-			//indice++;
-			
-		}
-		
-		public void eliminarfotoxmodificacion(String nombre){
-			if (listpetfotomascotaeliminar.isEmpty()){
-				indiceeliminar =0;
-			}
-			if(buscarobjetolista(nombre, listpetfotomascotaclone)){
-			  listpetfotomascotaeliminar.add(indiceeliminar,petfotomascotaselected);
-			  indiceeliminar++;
-			}
-			if(buscarobjetolista(nombre, listpetfotomascotaagregar)){
-			   listpetfotomascotaagregar.remove(petfotomascotabuscar);
-			   indiceagregar--;
-			}
-			listpetfotomascota.remove(petfotomascotaselected);
-			indice--;
-		}
-		
-		//buscar en la lista a enviar la imagen que se agregara o eliminara
-		public boolean buscarobjetolista(String nombre, List<Petfotomascota> listPetfotomascotas){
-			petfotomascotabuscar = new Petfotomascota();
-			boolean encontro = false;
-			if(!listPetfotomascotas.isEmpty()){
-			   for(Petfotomascota petfotomascotalista :listPetfotomascotas){
-				 if(petfotomascotalista.getNombrearchivo().equals(nombre)){
-					encontro= true; 
-					petfotomascotabuscar= petfotomascotalista;
-					return encontro;
-				 }
-			   }
-			}	
-		return encontro;
-		}
-
 		
 		public boolean validarcampos(){
 			boolean ok = true;
@@ -335,8 +249,6 @@ import com.web.util.MessageUtil;
 		
 		public void clonarobjetos(){
 			try {
-				listpetfotomascotaagregar  = new ArrayList<Petfotomascota>();
-				listpetfotomascotaeliminar = new ArrayList<Petfotomascota>();
 				listpetfotomascotaclone = new ArrayList<Petfotomascota>();
 				petmascotahomenajeclone = petmascotahomenaje.clonar();
 				indice =0;
@@ -355,7 +267,24 @@ import com.web.util.MessageUtil;
 		}
 		
 		
-		
+		public String eliminar(){
+			String paginaRetorno = null;
+			
+			try{
+				PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
+				
+				petmascotahomenajeBO.eliminarBO(petmascotahomenaje, listpetfotomascotaclone, 2);
+				new MessageUtil().showInfoMessage("Exito", "Mascota eliminada");
+				inicializarobjetos();
+				paginaRetorno = "mascotashomenaje?faces-redirect=true";
+				
+			}catch(Exception e){
+				e.printStackTrace();
+				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			}
+			
+			return paginaRetorno;
+		}
 
      
 		
@@ -387,27 +316,7 @@ import com.web.util.MessageUtil;
 			this.petfotomascotaselected = petfotomascotaselected;
 		}
 
-
-		public Petfotomascota getPetfotomascota() {
-			return petfotomascota;
-		}
-
-
-		public void setPetfotomascota(Petfotomascota petfotomascota) {
-			this.petfotomascota = petfotomascota;
-		}
-
-
-		public Petfotomascota getPetfotomascotabuscar() {
-			return petfotomascotabuscar;
-		}
-
-
-		public void setPetfotomascotabuscar(Petfotomascota petfotomascotabuscar) {
-			this.petfotomascotabuscar = petfotomascotabuscar;
-		}
-
-
+		
 		public int getIndice() {
 			return indice;
 		}
@@ -438,27 +347,6 @@ import com.web.util.MessageUtil;
 			this.petmascotahomenajeclone = petmascotahomenajeclone;
 		}
 
-
-		public List<Petfotomascota> getListpetfotomascotaagregar() {
-			return listpetfotomascotaagregar;
-		}
-
-
-		public void setListpetfotomascotaagregar(
-				List<Petfotomascota> listpetfotomascotaagregar) {
-			this.listpetfotomascotaagregar = listpetfotomascotaagregar;
-		}
-
-
-		public List<Petfotomascota> getListpetfotomascotaeliminar() {
-			return listpetfotomascotaeliminar;
-		}
-
-
-		public void setListpetfotomascotaeliminar(
-				List<Petfotomascota> listpetfotomascotaeliminar) {
-			this.listpetfotomascotaeliminar = listpetfotomascotaeliminar;
-		}
 
 		public List<Petfotomascota> getListpetfotomascotaclone() {
 			return listpetfotomascotaclone;
@@ -503,6 +391,14 @@ import com.web.util.MessageUtil;
 
 		public void setStreamedContent(StreamedContent streamedContent) {
 			this.streamedContent = streamedContent;
+		}
+
+		public UploadedFile getUploadedFile() {
+			return uploadedFile;
+		}
+
+		public void setUploadedFile(UploadedFile uploadedFile) {
+			this.uploadedFile = uploadedFile;
 		}
 
 		public boolean isFotoSubida() {

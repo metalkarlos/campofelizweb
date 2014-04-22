@@ -37,7 +37,7 @@
 			
 			<div>
 			   <h:link value="[Editar]" style="float: right;"  outcome="mascotahomenaje-admin.jsf" rendered="#{usuarioBean.autenticado}" >
-			    <f:param name="idmascota" value="#{mascotaHomenajeBean.petmascotahomenaje.idmascota}"></f:param>
+			    <f:param name="idmascota" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascota}"></f:param>
 			   </h:link>
 			</div>
 			
@@ -59,13 +59,8 @@
 				</p:galleria>
 			 </center>
 			 <center>
-			 <p:panelGrid id="panelgridcontenido" columns="2" style="background-color: #eaeaea;height: 100%; width: 80%;" >
-			 <!-- 
-			 <p:row>
-			   	<p:column styleClass="alto-columna" >
-			    </p:column>
-			 </p:row>
-			  -->
+			 <p:panelGrid id="panelgridcontenido" style="background-color: #eaeaea;height: 100%; width: 80%;" >
+			 
 			 <p:row>
 			  	<p:column colspan="2" styleClass="alto-columna">
 			    	<p style="text-align:justify;">	
@@ -76,43 +71,36 @@
 			
 			 <p:row>
 			   	<p:column styleClass="alto-columna" >
-			   	   <h:outputLabel value="Familia"  />
+			   	   <h:outputLabel value="Familia"  for="txtFamilia" />
+			    </p:column>
+			    <p:column styleClass="alto-columna">
+			   	   <h:outputText id="txtFamilia"  value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
 			    </p:column>
 			 </p:row>
 			 
-			 <p:row>
-			   	<p:column styleClass="alto-columna">
-			   	   <h:outputLabel id="txtFamilia"  value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
-			    </p:column>
-			 </p:row>
-			
 			<p:row>
 			   	<p:column styleClass="alto-columna">
-			   	   <h:outputLabel value="Fecha nacimiento" />
+			   	   <h:outputLabel value="Fecha nacimiento" for="calFechanacimiento" />
+			    </p:column>
+			    <p:column>
+			   	   <h:outputText id="calFechanacimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechanacimiento}">
+			   	   	<f:convertDateTime pattern="dd/MM/yyyy" />
+			   	   </h:outputText>
 			    </p:column>
 			 </p:row>
 			 
-			 <p:row>
-			   	<p:column styleClass="fecha2">
-			   	   <h:outputLabel id="calFechanacimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechanacimiento}">
-			   	   	<f:convertDateTime pattern="dd/MM/yyyy" />
-			   	   </h:outputLabel>
-			    </p:column>
-			 </p:row>
 			 
 			 <p:row>
 			   	<p:column styleClass="alto-columna">
-			   	   <h:outputLabel value="Fecha fallecimiento" />
+			   	   <h:outputLabel value="Fecha fallecimiento" for="calFechafallecimiento" />
+			    </p:column>
+			    <p:column>
+			   	   <h:outputText  id="calFechafallecimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechafallecimiento}">
+			   	    <f:convertDateTime pattern="dd/MM/yyyy" />
+			   	   </h:outputText>
 			    </p:column>
 			 </p:row>
 			 
-			 <p:row>
-			   	<p:column styleClass="fecha2">
-			   	   <h:outputLabel id="calFechafallecimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechafallecimiento}">
-			   	    <f:convertDateTime pattern="dd/MM/yyyy" />
-			   	   </h:outputLabel>
-			    </p:column>
-			 </p:row>
 			 
 			 </p:panelGrid>
 			 </center>

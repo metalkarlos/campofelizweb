@@ -41,8 +41,8 @@
 	<ui:define name="content_page">
 	  <div class="content-page">
 	  	<h:form id="form-contentpage" enctype="multipart/form-data">
-       		<p:growl id="mensajes" autoUpdate="true" showDetail="true"  />
-            <h1 class="title ui-widget-header">Administración - Homenaje Póstumo </h1>
+       		<p:growl id="mensajes"  showDetail="true"  />
+            <h1 class="title ui-widget-header"> Administración - Homenaje Póstumo </h1>
           	<div class="inner-content">
 		     <p:panelGrid id="idgridcontenido" >	   
 				<p:row>
@@ -50,12 +50,13 @@
 				  <h:outputLabel value="Código" for="txtCodigo" />
 				  </p:column>
 				</p:row>
+				
 				<p:row>
 				  <p:column styleClass="alto-columna">
 				  <p:inputText id="txtCodigo" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascota}" style="width: 100px;"></p:inputText>
 				  </p:column>
 				</p:row>
-				
+					
 				<p:row>
 					<p:column styleClass="centrar">
 					<p:galleria id="idgalleria" value="#{mascotaHomenajeAdminBean.listpetfotomascota}" var="item" transitionInterval="0" panelWidth="500" panelHeight="320" styleClass="ui-widget-content ui-corner-all">
@@ -76,7 +77,7 @@
 					</p:galleria>
 					</p:column>
 				</p:row>
-				
+				 
 				<p:row>
 					<p:column styleClass="alto-columna">
 					<h:outputLabel value="Agregar Foto" for="idSubeFotos" />
@@ -88,8 +89,9 @@
 					<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" style="max-height: 100px;" rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
 					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{mascotaHomenajeAdminBean.borrarFotoSubida()}" update="pnlPrevia" rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
 					</p:panel>
-					<p:fileUpload id="idSubeFotos" fileUploadListener="#{mascotaHomenajeAdminBean.handleFileUpload}" mode="advanced" 
-					update="mensajes, pnlPrevia" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
+					<p:fileUpload id="idSubeFotos" fileUploadListener="#{mascotaHomenajeAdminBean.handleFileUpload}" mode="advanced"  cancelLabel="Cancelar" 
+					uploadLabel="Subir Foto" label="Elegir Foto"
+					update="mensajes, pnlPrevia"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
 					</p:column>
 				</p:row>
 				
@@ -169,7 +171,7 @@
 				</p:row>
 				<p:row>
 				  <p:column styleClass="alto-columna">
-				   <p:inputTextarea  id="txtDedicatoria" maxlength="2000"   autoResize="true" style="width: 610px; height:85px" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.dedicatoria}" />
+				   <p:inputTextarea  id="txtDedicatoria" maxlength="2000"   autoResize="true" style="width: 610px; height:85px;" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.dedicatoria}" />
 				  </p:column>
 				</p:row>
 				
@@ -177,7 +179,7 @@
 			</div>
 			<div class="area-botones">
 			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
-			renderedButtonEliminar="#{mascotaHomenajeAdminBean.idmascota > 0}" onclickButtonEliminar="vardialogdelete.show()" 
+			renderedButtonEliminar="#{mascotaHomenajeAdminBean.idmascota > 0}" onclickButtonEliminar="vardialogdeletemascota.show()" 
 			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('mascotashomenaje.jsf');"
 			renderedButtonNewItem="false" />
 			</div>	
@@ -221,8 +223,24 @@
 					<p:panelGrid id="idpanel2grabar" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{mascotaHomenajeAdminBean.grabar()}" oncomplete="vardialoggrabar.hide()" update=":form-contentpage:mensajes" />
+						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{mascotaHomenajeAdminBean.grabar()}" oncomplete="vardialoggrabar.hide()" update="mensajes" />
 						<p:commandButton id="idcancelargrabar" value="Cancelar" onclick="vardialoggrabar.hide()" />
+						</p:column>
+						</p:row>
+					</p:panelGrid>
+				</h:panelGrid>
+			</p:dialog>
+			
+			<p:dialog id="iddialogdeletemascota"  header="Eliminar Mascota" closable="true" widgetVar="vardialogdeletemascota" modal="true" style="min-height: 80px; width: 450px">
+				<h:panelGrid id="idpaneldeletenoticia" columns="2" width="100%">
+					<h:outputText id="idlabeldeletemascota" value="Confirme si desea eliminar la mascota" />
+					<h:outputText value="" />
+					<h:outputText value="" />
+					<p:panelGrid id="idpanel2deletemascota" style="width: 100%; text-align: right;">
+						<p:row>
+						<p:column>
+						<p:commandButton id="idconfirmardeletemascota" value="Confirmar" action="#{mascotaHomenajeAdminBean.eliminar()}" oncomplete="vardialogdeletemascota.hide()" update="mensajes" />
+						<p:commandButton id="idcancelardeletenmascota" value="Cancelar" onclick="vardialogdeletemascota.hide()" />
 						</p:column>
 						</p:row>
 					</p:panelGrid>
