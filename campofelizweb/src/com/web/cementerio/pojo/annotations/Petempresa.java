@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "petempresa", schema = "pets")
-public class Petempresa implements java.io.Serializable {
+public class Petempresa implements java.io.Serializable, Cloneable {
 
 	/**
 	 * 
@@ -33,9 +33,10 @@ public class Petempresa implements java.io.Serializable {
 	private String telefono;
 	private String celular;
 	private String paginaweb;
-	private Integer matriz;
+	private Integer tipoempresa;
 	private String email;
 	private Date fecharegistro;
+	private Date fechamodificacion;
 	private String iplog;
 
 	public Petempresa() {
@@ -49,7 +50,8 @@ public class Petempresa implements java.io.Serializable {
 	public Petempresa(int idempresa, Setestado setestado,
 			Setusuario setusuario, String nombre, String descripcion,
 			String direccion, String telefono, String celular,
-			String paginaweb, Integer matriz, String email, Date fecharegistro,
+			String paginaweb, Integer tipoempresa, String email, Date fecharegistro,
+			Date fechamodificacion,
 			String iplog) {
 		this.idempresa = idempresa;
 		this.setestado = setestado;
@@ -60,9 +62,10 @@ public class Petempresa implements java.io.Serializable {
 		this.telefono = telefono;
 		this.celular = celular;
 		this.paginaweb = paginaweb;
-		this.matriz = matriz;
+		this.tipoempresa = tipoempresa;
 		this.email = email;
 		this.fecharegistro = fecharegistro;
+		this.fechamodificacion = fechamodificacion;
 		this.iplog = iplog;
 	}
 
@@ -123,7 +126,7 @@ public class Petempresa implements java.io.Serializable {
 		this.direccion = direccion;
 	}
 
-	@Column(name = "telefono", length = 20)
+	@Column(name = "telefono", length = 40)
 	public String getTelefono() {
 		return this.telefono;
 	}
@@ -132,7 +135,7 @@ public class Petempresa implements java.io.Serializable {
 		this.telefono = telefono;
 	}
 
-	@Column(name = "celular", length = 20)
+	@Column(name = "celular", length = 40)
 	public String getCelular() {
 		return this.celular;
 	}
@@ -150,13 +153,13 @@ public class Petempresa implements java.io.Serializable {
 		this.paginaweb = paginaweb;
 	}
 
-	@Column(name = "matriz")
-	public Integer getMatriz() {
-		return this.matriz;
+	@Column(name = "tipoempresa")
+	public Integer getTipoempresa() {
+		return this.tipoempresa;
 	}
 
-	public void setMatriz(Integer matriz) {
-		this.matriz = matriz;
+	public void setTipoempresa(Integer tipoempresa) {
+		this.tipoempresa = tipoempresa;
 	}
 
 	@Column(name = "email", length = 100)
@@ -178,6 +181,17 @@ public class Petempresa implements java.io.Serializable {
 		this.fecharegistro = fecharegistro;
 	}
 
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechamodificacion",  length = 29)
+	public Date getFechamodificacion() {
+		return this.fechamodificacion;
+	}
+
+	public void setFechamodificacion(Date fechamodificacion) {
+		this.fechamodificacion = fechamodificacion;
+	}
+	
 	@Column(name = "iplog", length = 20)
 	public String getIplog() {
 		return this.iplog;
@@ -185,6 +199,92 @@ public class Petempresa implements java.io.Serializable {
 
 	public void setIplog(String iplog) {
 		this.iplog = iplog;
+	}
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException{
+	  Petempresa Petempresa = (Petempresa) super.clone();
+	  
+	  return Petempresa;
+	}
+	
+	public Petempresa clonar() throws Exception{
+		return (Petempresa)this.clone();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((celular == null) ? 0 : celular.hashCode());
+		result = prime * result
+				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result
+				+ ((direccion == null) ? 0 : direccion.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + idempresa;
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result
+				+ ((paginaweb == null) ? 0 : paginaweb.hashCode());
+		result = prime * result
+				+ ((telefono == null) ? 0 : telefono.hashCode());
+		result = prime * result
+				+ ((tipoempresa == null) ? 0 : tipoempresa.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Petempresa other = (Petempresa) obj;
+		if (celular == null) {
+			if (other.celular != null)
+				return false;
+		} else if (!celular.equals(other.celular))
+			return false;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (direccion == null) {
+			if (other.direccion != null)
+				return false;
+		} else if (!direccion.equals(other.direccion))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (idempresa != other.idempresa)
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (paginaweb == null) {
+			if (other.paginaweb != null)
+				return false;
+		} else if (!paginaweb.equals(other.paginaweb))
+			return false;
+		if (telefono == null) {
+			if (other.telefono != null)
+				return false;
+		} else if (!telefono.equals(other.telefono))
+			return false;
+		if (tipoempresa == null) {
+			if (other.tipoempresa != null)
+				return false;
+		} else if (!tipoempresa.equals(other.tipoempresa))
+			return false;
+		return true;
 	}
 
 }
