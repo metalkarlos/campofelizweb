@@ -182,7 +182,7 @@ header {
 .inner-content {
 	margin: 15px 15px 0 15px;
 }
-.inner-content h1, .inner-content .titulo3, .inner-content .fecha2, .inner-content .titulo2 {
+.inner-content h1, .inner-content .titulo3, .inner-content .titulo2 {
 	border-bottom: 1px solid #dddddd;/*#666666;*/
 	font-size: 15px;
 	letter-spacing: -1px;
@@ -192,17 +192,21 @@ header {
 	font-weight: bold;
 	text-shadow: 1px 1px #fbfbfb;
 }
+.link2 {
+	letter-spacing: -1px;
+	font-family: Georgia,"Times New Roman",Times,serif;
+	font-weight: bold;
+	font-size: 11px;
+	text-shadow: 1px 1px #fbfbfb;
+}
 .inner-content h1, .inner-content .titulo3  {   
 	text-transform: uppercase;
 	margin: 0;
 }
-.inner-content .fecha2, .inner-content .titulo2  {   
+.inner-content .titulo2  {   
 	text-transform: capitalize;
 	margin: 10px 0;
 	padding: 3px 0;
-}
-.inner-content .fecha2 a {
-	font-size: 11px;
 }
 .inner-content .imagen {
 	float: left;
