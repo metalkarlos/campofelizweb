@@ -19,7 +19,7 @@ import com.web.util.HibernateUtil;
 
 public class PetnoticiaBO {
 
-	PetnoticiaDAO petnoticiaDAO;
+	private PetnoticiaDAO petnoticiaDAO;
 	
 	public PetnoticiaBO() {
 		petnoticiaDAO = new PetnoticiaDAO();
