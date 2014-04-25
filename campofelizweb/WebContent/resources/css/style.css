@@ -343,7 +343,7 @@ header{
 	z-index:2;	
 }
 body header {background:url(../resources/images/header-bg.png) center 0 no-repeat;}
-	header .inner {
+	header .innerheader {
 		width:950px;
 		margin:0 auto;
 		padding:0 0 10px 0;
