@@ -27,7 +27,15 @@
 			<p:growl id="mensajes" showDetail="true" />
 			
 			<h1 class="title ui-widget-header">Noticias</h1>
-			
+			<div style="float: right;margin: 20px 15px 0 0;">
+			<div id="search-form" >
+				<h:inputText id="txtbusqueda" value="#{noticiasBean.descripcionParam}" onblur="if(this.value==''){this.value='buscar'}" onfocus="if(this.value=='buscar'){this.value=''}" />
+				<h:commandLink styleClass="search-form-submit" >
+					<f:ajax render="gridNoticias" execute="txtbusqueda"></f:ajax>
+				</h:commandLink>
+			</div>
+			</div>
+			<span class="clear" />
 			<p:dataGrid styleClass="gridNoticias" id="gridNoticias" value="#{noticiasBean.lisPetnoticia}" var="noticia" columns="1" rows="5" paginator="true" effect="true" 
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				emptyMessage="No se encontraron registros" paginatorPosition="bottom">
@@ -55,6 +63,9 @@
 					</div>
 				</p:column>
 			</p:dataGrid>
+			<h:link value="[Nueva Noticia]" outcome="noticia-admin.jsf" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" rendered="#{usuarioBean.autenticado}" >
+				<f:param name="idnoticia" value="0"></f:param>
+			</h:link>
 		</h:form>
 		</div>
 	</ui:define>
