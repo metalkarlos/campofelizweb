@@ -104,6 +104,68 @@ public class PetnoticiaDAO {
 		return listPetnoticia;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Petnoticia> lisPetnoticiaBusquedaByPage(Session session, String[] texto, int pageSize, int pageNumber, int args[]) throws Exception {
+		List<Petnoticia> listPetnoticia = null;
+		
+		Criteria criteria = session.createCriteria(Petnoticia.class)
+		.add( Restrictions.eq("setestado.idestado", 1));
+		
+		if(texto != null && texto.length > 0){
+			String query = "(";
+			for(int i=0;i<texto.length;i++)
+			{
+				query += "lower({alias}.descripcion) like lower('%"+texto[i]+"%') ";
+				if(i<texto.length-1){
+					query += "or ";
+				}
+			}
+			query += ")";
+			
+			criteria.add(Restrictions.sqlRestriction(query));
+		}
+		
+        criteria.addOrder(Order.desc("fecharegistro"))
+		.setMaxResults(pageSize)
+		.setFirstResult(pageNumber);
+        
+		listPetnoticia = (List<Petnoticia>) criteria.list();
+		
+		if(listPetnoticia != null && listPetnoticia.size() > 0)
+		{
+			Criteria criteriaCount = session.createCriteria(Petnoticia.class)
+					.add( Restrictions.eq("setestado.idestado", 1))
+                    .setProjection( Projections.rowCount());
+
+			if(texto != null && texto.length > 0){
+				String query = "(";
+				for(int i=0;i<texto.length;i++)
+				{
+					query += "lower({alias}.descripcion) like lower('%"+texto[i]+"%') ";
+					if(i<texto.length-1){
+						query += "or ";
+					}
+				}
+				query += ")";
+				
+				criteria.add(Restrictions.sqlRestriction(query));
+			}
+			
+			criteriaCount.setMaxResults(pageSize)
+			.setFirstResult(pageNumber);
+			
+			Object object = criteriaCount.uniqueResult();
+			int count = (object==null?0:Integer.parseInt(object.toString()));
+			args[0] = count;
+		}
+		else
+		{
+			args[0] = 0;
+		}
+		
+		return listPetnoticia;
+	} 
+	
 	public void savePetnoticia(Session session, Petnoticia petnoticia) throws Exception {
 		session.save(petnoticia);
 	}

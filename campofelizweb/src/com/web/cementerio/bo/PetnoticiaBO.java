@@ -79,6 +79,24 @@ public class PetnoticiaBO {
 		return listPetnoticia;
 	}
 	
+	public List<Petnoticia> lisPetnoticiaBusquedaByPage(String[] texto, int pageSize, int pageNumber, int args[]) throws RuntimeException {
+		List<Petnoticia> listPetnoticia = null;
+		Session session = null;
+		
+		try{
+            session = HibernateUtil.getSessionFactory().openSession();
+            listPetnoticia = petnoticiaDAO.lisPetnoticiaBusquedaByPage(session, texto, pageSize, pageNumber, args);
+        }
+        catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
+        finally{
+            session.close();
+        }
+		
+		return listPetnoticia;
+	}
+	
 	public boolean ingresar(Petnoticia petnoticia, Petfotonoticia petfotonoticia, UploadedFile uploadedFile) throws Exception {
 		boolean ok = false;
 		Session session = null;
