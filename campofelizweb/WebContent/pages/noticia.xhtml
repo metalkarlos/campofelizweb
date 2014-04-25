@@ -42,11 +42,11 @@
 				</p:galleria>
 				</center>
 				
-				<div class="fecha2">
+				<div class="titulo2">
 					<h:outputText id="fechaNoticia" value="#{noticiaBean.petnoticia.fecharegistro}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
-					<h:link value="[Editar]" style="float: right;" outcome="noticia-admin.jsf" rendered="#{usuarioBean.autenticado}" >
+					<h:link value="[Editar]" styleClass="link2" style="float: right;" outcome="noticia-admin.jsf" rendered="#{usuarioBean.autenticado}" >
 						<f:param name="idnoticia" value="#{noticiaBean.idnoticia}"></f:param>
 					</h:link>
 				</div>
