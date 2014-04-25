@@ -31,7 +31,7 @@ public class NoticiasBean implements Serializable {
 	
 	public NoticiasBean() {
 		tituloParam = "";
-		descripcionParam = "";
+		descripcionParam = "buscar";
 		cargarRutaImagenes();
 		consultarNoticias();
 	}
@@ -55,7 +55,12 @@ public class NoticiasBean implements Serializable {
 					PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
 					int args[] = {0};
 					
-					data = petnoticiaBO.lisPetnoticiaByPage(pageSize, first, args, tituloParam, descripcionParam);
+					String[] textoBusqueda = null;
+					if(descripcionParam != null && descripcionParam.trim().length() > 0 && descripcionParam.trim().compareTo("buscar") != 0 ){
+						textoBusqueda = descripcionParam.split(" ");
+					}
+					
+					data = petnoticiaBO.lisPetnoticiaBusquedaByPage(textoBusqueda, pageSize, first, args);
 					this.setRowCount(args[0]);
 	
 			        return data;
@@ -94,6 +99,22 @@ public class NoticiasBean implements Serializable {
 
 	public void setLisPetnoticia(LazyDataModel<Petnoticia> lisPetnoticia) {
 		this.lisPetnoticia = lisPetnoticia;
+	}
+
+	public String getTituloParam() {
+		return tituloParam;
+	}
+
+	public void setTituloParam(String tituloParam) {
+		this.tituloParam = tituloParam;
+	}
+
+	public String getDescripcionParam() {
+		return descripcionParam;
+	}
+
+	public void setDescripcionParam(String descripcionParam) {
+		this.descripcionParam = descripcionParam;
 	}
 
 
