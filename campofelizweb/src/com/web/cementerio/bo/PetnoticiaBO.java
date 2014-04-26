@@ -156,7 +156,7 @@ public class PetnoticiaBO {
 			
 			//auditoria
 			Date fecharegistro = new Date();
-			petnoticia.setFecharegistro(fecharegistro);
+			petnoticia.setFechamodificacion(fecharegistro);
 			petnoticia.setIplog(usuarioBean.getIp());
 			petnoticia.setSetusuario(usuarioBean.getSetUsuario());
 			
@@ -192,7 +192,7 @@ public class PetnoticiaBO {
 			//Se graba la noticia si han habido cambios
 			if(!petnoticia.equals(petnoticiaClon)){
 				//auditoria
-				petnoticia.setFecharegistro(fecharegistro);
+				petnoticia.setFechamodificacion(fecharegistro);
 				petnoticia.setIplog(usuarioBean.getIp());
 				petnoticia.setSetusuario(usuarioBean.getSetUsuario());
 		
@@ -203,13 +203,13 @@ public class PetnoticiaBO {
 			
 			//Si han quitado fotos se las inhabilita en la BD
 			for(Petfotonoticia petfotonoticiaItem : lisPetfotonoticiaClon){
-				if(!lisPetfotonoticia.contains(petfotonoticiaItem)){
+				if(!lisPetfotonoticia.contains(petfotonoticiaItem)){ 
 					//inhabilitar
 					petfotonoticiaItem.getSetestado().setIdestado(2);
 					
 					//auditoria
 					fecharegistro = new Date();
-					petfotonoticiaItem.setFecharegistro(fecharegistro);
+					petfotonoticiaItem.setFechamodificacion(fecharegistro);
 					petfotonoticiaItem.setIplog(usuarioBean.getIp());
 					petfotonoticiaItem.setSetusuario(usuarioBean.getSetUsuario());
 					
