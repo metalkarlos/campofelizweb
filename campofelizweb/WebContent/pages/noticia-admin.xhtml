@@ -106,6 +106,13 @@
 					<p:editor id="txtContenido" value="#{noticiaAdminBean.petnoticia.descripcion}" width="600"/>
 					</p:column>
 					</p:row>
+					
+					<p:row>
+					<p:column>
+					<h:outputLabel value="Fecha de Publicación" for="txtFechaPublicacion" /><br />
+					<p:calendar id="txtFechaPublicacion" value="#{noticiaAdminBean.petnoticia.fechapublicacion}" yearRange="c-20:c" locale="es" pattern="dd/MM/yyyy" navigator="true" />
+					</p:column>
+					</p:row>
 				
 					<p:row>
 					<p:column>
