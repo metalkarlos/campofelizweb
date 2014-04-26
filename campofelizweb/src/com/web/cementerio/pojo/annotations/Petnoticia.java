@@ -37,6 +37,8 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 	private String iplog;
 	private String rutafoto;
 	private Set<Petfotonoticia> petfotonoticias = new HashSet<Petfotonoticia>(0);
+	private Date fechamodificacion;
+	private Date fechapublicacion;
 
 	public Petnoticia() {
 	}
@@ -48,7 +50,8 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 
 	public Petnoticia(int idnoticia, Setestado setestado,
 			Setusuario setusuario, String titulo, String descripcion,
-			String tag, Date fecharegistro, String iplog, Set<Petfotonoticia> petfotonoticias) {
+			String tag, Date fecharegistro, String iplog, String rutafoto, 
+			Set<Petfotonoticia> petfotonoticias, Date fechamodificacion, Date fechapublicacion) {
 		this.idnoticia = idnoticia;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -56,8 +59,11 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 		this.descripcion = descripcion;
 		this.tag = tag;
 		this.fecharegistro = fecharegistro;
+		this.rutafoto = rutafoto;
 		this.iplog = iplog;
 		this.petfotonoticias = petfotonoticias;
+		this.fechamodificacion = fechamodificacion;
+		this.fechapublicacion = fechapublicacion;
 	}
 
 	@Id
@@ -153,6 +159,26 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 		this.petfotonoticias = petfotonoticias;
 	}
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechamodificacion", length = 29)
+	public Date getFechamodificacion() {
+		return fechamodificacion;
+	}
+
+	public void setFechamodificacion(Date fechamodificacion) {
+		this.fechamodificacion = fechamodificacion;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechapublicacion", nullable = false, length = 29)
+	public Date getFechapublicacion() {
+		return fechapublicacion;
+	}
+
+	public void setFechapublicacion(Date fechapublicacion) {
+		this.fechapublicacion = fechapublicacion;
+	}
+
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		Petnoticia petnoticia = (Petnoticia)super.clone();
@@ -169,6 +195,13 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 		int result = 1;
 		result = prime * result
 				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime
+				* result
+				+ ((fechamodificacion == null) ? 0 : fechamodificacion
+						.hashCode());
+		result = prime
+				* result
+				+ ((fechapublicacion == null) ? 0 : fechapublicacion.hashCode());
 		result = prime * result
 				+ ((fecharegistro == null) ? 0 : fecharegistro.hashCode());
 		result = prime * result + idnoticia;
@@ -198,6 +231,16 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 				return false;
 		} else if (!descripcion.equals(other.descripcion))
 			return false;
+		if (fechamodificacion == null) {
+			if (other.fechamodificacion != null)
+				return false;
+		} else if (!fechamodificacion.equals(other.fechamodificacion))
+			return false;
+		if (fechapublicacion == null) {
+			if (other.fechapublicacion != null)
+				return false;
+		} else if (!fechapublicacion.equals(other.fechapublicacion))
+			return false;
 		if (fecharegistro == null) {
 			if (other.fecharegistro != null)
 				return false;
@@ -209,6 +252,11 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 			if (other.iplog != null)
 				return false;
 		} else if (!iplog.equals(other.iplog))
+			return false;
+		if (petfotonoticias == null) {
+			if (other.petfotonoticias != null)
+				return false;
+		} else if (!petfotonoticias.equals(other.petfotonoticias))
 			return false;
 		if (rutafoto == null) {
 			if (other.rutafoto != null)
@@ -237,7 +285,5 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 			return false;
 		return true;
 	}
-	
-	
 
 }
