@@ -34,6 +34,7 @@ public class Petfotonoticia implements java.io.Serializable, Cloneable {
 	private Integer perfil;
 	private Date fecharegistro;
 	private String iplog;
+	private Date fechamodificacion;
 
 	public Petfotonoticia() {
 	}
@@ -48,7 +49,7 @@ public class Petfotonoticia implements java.io.Serializable, Cloneable {
 	public Petfotonoticia(int idfotonoticia, Setestado setestado,
 			Petnoticia petnoticia, Setusuario setusuario, String descripcion,
 			String ruta, String nombrearchivo, Integer perfil,
-			Date fecharegistro, String iplog) {
+			Date fecharegistro, String iplog, Date fechamodificacion) {
 		this.idfotonoticia = idfotonoticia;
 		this.setestado = setestado;
 		this.petnoticia = petnoticia;
@@ -59,6 +60,7 @@ public class Petfotonoticia implements java.io.Serializable, Cloneable {
 		this.perfil = perfil;
 		this.fecharegistro = fecharegistro;
 		this.iplog = iplog;
+		this.fechamodificacion = fechamodificacion;
 	}
 
 	@Id
@@ -156,6 +158,16 @@ public class Petfotonoticia implements java.io.Serializable, Cloneable {
 		this.iplog = iplog;
 	}
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechamodificacion", length = 29)
+	public Date getFechamodificacion() {
+		return fechamodificacion;
+	}
+
+	public void setFechamodificacion(Date fechamodificacion) {
+		this.fechamodificacion = fechamodificacion;
+	}
+	
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		Petfotonoticia petfotonoticia = (Petfotonoticia)super.clone();
@@ -172,6 +184,10 @@ public class Petfotonoticia implements java.io.Serializable, Cloneable {
 		int result = 1;
 		result = prime * result
 				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime
+				* result
+				+ ((fechamodificacion == null) ? 0 : fechamodificacion
+						.hashCode());
 		result = prime * result
 				+ ((fecharegistro == null) ? 0 : fecharegistro.hashCode());
 		result = prime * result + idfotonoticia;
@@ -202,6 +218,11 @@ public class Petfotonoticia implements java.io.Serializable, Cloneable {
 			if (other.descripcion != null)
 				return false;
 		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (fechamodificacion == null) {
+			if (other.fechamodificacion != null)
+				return false;
+		} else if (!fechamodificacion.equals(other.fechamodificacion))
 			return false;
 		if (fecharegistro == null) {
 			if (other.fecharegistro != null)
@@ -247,7 +268,5 @@ public class Petfotonoticia implements java.io.Serializable, Cloneable {
 			return false;
 		return true;
 	}
-	
-	
 
 }
