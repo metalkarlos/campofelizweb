@@ -2,6 +2,7 @@ package com.web.cementerio.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +17,8 @@ import org.primefaces.model.UploadedFile;
 import com.web.cementerio.bo.PetnoticiaBO;
 import com.web.cementerio.pojo.annotations.Petfotonoticia;
 import com.web.cementerio.pojo.annotations.Petnoticia;
+import com.web.cementerio.pojo.annotations.Setestado;
+import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
 import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
@@ -41,8 +44,8 @@ public class NoticiaAdminBean implements Serializable {
 	private boolean fotoSubida;
 	
 	public NoticiaAdminBean() {
-		petnoticia = new Petnoticia();
-		petnoticiaClon = new Petnoticia();
+		petnoticia = new Petnoticia(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, null, null, new Date(), new Date());
+		petnoticiaClon = new Petnoticia(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, null, null, new Date(), new Date());
 		lisPetfotonoticia = new ArrayList<Petfotonoticia>();
 		lisPetfotonoticiaClon = new ArrayList<Petfotonoticia>();
 		petfotonoticiaSeleccionada = new Petfotonoticia();
