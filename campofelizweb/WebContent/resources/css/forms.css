@@ -2,10 +2,13 @@
 #search-form {
 	display:inline-block;
 	position:relative;
-	background:url(../images/header-search.png) no-repeat 0 0;
+	/*background:url(../images/header-search.png) no-repeat 0 0;*/
 	width:271px;
 	height:31px;
 	margin:6px 0 0 0;
+	border: 1px solid #cccccc;
+	border-radius: 7px;
+	box-shadow: 1px 0 5px #aaaaaa;
 }
 	#search-form input {
 		outline:none;

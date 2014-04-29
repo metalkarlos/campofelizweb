@@ -36,6 +36,10 @@
 			</div>
 			</div>
 			<span class="clear" />
+			<br />
+			<h:link value="[Nueva Noticia]" outcome="noticia-admin.jsf" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" rendered="#{usuarioBean.autenticado}" >
+				<f:param name="idnoticia" value="0"></f:param>
+			</h:link>
 			<p:dataGrid styleClass="gridNoticias" id="gridNoticias" value="#{noticiasBean.lisPetnoticia}" var="noticia" columns="1" rows="5" paginator="true" effect="true" 
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				emptyMessage="No se encontraron registros" paginatorPosition="bottom">
@@ -63,9 +67,6 @@
 					</div>
 				</p:column>
 			</p:dataGrid>
-			<h:link value="[Nueva Noticia]" outcome="noticia-admin.jsf" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" rendered="#{usuarioBean.autenticado}" >
-				<f:param name="idnoticia" value="0"></f:param>
-			</h:link>
 		</h:form>
 		</div>
 	</ui:define>
