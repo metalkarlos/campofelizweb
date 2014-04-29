@@ -18,6 +18,15 @@
 			.gridServicios {
 				padding: 10px 0;
 			}
+			.str-1{
+				font-weight: bold;
+			}
+			.inner-content{
+				width: 295px;
+			}
+			.img-indent-1 {
+				margin: 0 10px 10px 0;
+			}
 		</style>
 	</ui:define>
 	
@@ -45,9 +54,18 @@
 				emptyMessage="No se encontraron registros" paginatorPosition="bottom">
 				<p:column>
 					<div class="inner-content">
-						<p:graphicImage id="idfoto" title="#{servicio.nombre}" value="#{serviciosBean.rutaImagenes}#{servicio.rutafoto}" style="max-height: 100px" />
-						<b>#{servicio.nombre}</b>
-						<p>#{servicio.descripcion}</p>
+					<div class="cuerpo">
+						<div class="wrapper">
+							<p:graphicImage id="idfoto" title="#{servicio.nombre}" value="#{serviciosBean.rutaImagenes}#{servicio.rutafoto}" style="max-height: 150px; max-width: 150px;" styleClass="img-indent-1" />
+							<p class="p2"><strong class="str-1">#{servicio.nombre}</strong></p>
+							<p class="p1" style="text-align: justify;">#{fn:substring(servicio.descripcion, 0, 200)}...</p>
+						</div>
+						<div class="alignright p3">
+	                        <h:link value="Leer Más" outcome="noticia?faces-redirect=true" >
+								<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
+							</h:link>
+	                    </div>
+	                </div>
 					</div>
 				</p:column>
 			</p:dataGrid>
