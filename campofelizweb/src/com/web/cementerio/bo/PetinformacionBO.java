@@ -66,6 +66,10 @@ public class PetinformacionBO {
 			setestado.setIdestado(1);
 			petinformacion.setSetestado(setestado);
 			
+			Setusuario setusuario = new Setusuario();
+			setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
+			petinformacion.setSetusuario(setusuario);
+			
 			//Auditoría
 			petinformacion.setFechamodificacion(fechamodificacion);
 			petinformacion.setIplog(usuarioBean.getIp());

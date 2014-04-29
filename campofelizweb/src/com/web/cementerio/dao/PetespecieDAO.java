@@ -9,6 +9,7 @@ import com.web.cementerio.pojo.annotations.Petespecie;
 
 public class PetespecieDAO {
 	
+	@SuppressWarnings("unchecked")
 	public  List<Petespecie> getListpetespecie(Session session, int estado){
 		List<Petespecie> listpetespecie =null;
 		

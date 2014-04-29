@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "petenunciado", schema = "pets")
-public class Petenunciado implements java.io.Serializable {
+public class Petenunciado implements java.io.Serializable, Cloneable {
 
 	/**
 	 * 
@@ -31,6 +31,7 @@ public class Petenunciado implements java.io.Serializable {
 	private String descripcion;
 	private Integer idpadre;
 	private Date fecharegistro;
+	private Date fechamodificacion;
 	private String iplog;
 	private String tag;
 
@@ -44,7 +45,7 @@ public class Petenunciado implements java.io.Serializable {
 
 	public Petenunciado(int idenunciado, Setestado setestado,
 			Setusuario setusuario, Character tipo, String descripcion,
-			Integer idpadre, Date fecharegistro, String iplog, String tag) {
+			Integer idpadre, Date fecharegistro, Date fechamodificacion, String iplog, String tag) {
 		this.idenunciado = idenunciado;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -52,6 +53,7 @@ public class Petenunciado implements java.io.Serializable {
 		this.descripcion = descripcion;
 		this.idpadre = idpadre;
 		this.fecharegistro = fecharegistro;
+		this.fechamodificacion = fechamodificacion;
 		this.iplog = iplog;
 		this.tag = tag;
 	}
@@ -123,6 +125,16 @@ public class Petenunciado implements java.io.Serializable {
 		this.fecharegistro = fecharegistro;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechamodificacion",  length = 29)
+	public Date getFechamodificacion() {
+		return this.fechamodificacion;
+	}
+
+	public void setFechamodificacion(Date fechamodificacion) {
+		this.fechamodificacion = fechamodificacion;
+	}
+	
 	@Column(name = "iplog", length = 20)
 	public String getIplog() {
 		return this.iplog;
@@ -141,4 +153,63 @@ public class Petenunciado implements java.io.Serializable {
 		this.tag = tag;
 	}
 
+	@Override
+	protected Object clone() throws CloneNotSupportedException{
+	  Petenunciado Petenunciado = (Petenunciado) super.clone();
+	  
+	  return Petenunciado;
+	}
+	
+	public Petenunciado clonar() throws Exception{
+		return (Petenunciado)this.clone();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result + idenunciado;
+		result = prime * result + ((idpadre == null) ? 0 : idpadre.hashCode());
+		result = prime * result + ((tag == null) ? 0 : tag.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Petenunciado other = (Petenunciado) obj;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (idenunciado != other.idenunciado)
+			return false;
+		if (idpadre == null) {
+			if (other.idpadre != null)
+				return false;
+		} else if (!idpadre.equals(other.idpadre))
+			return false;
+		if (tag == null) {
+			if (other.tag != null)
+				return false;
+		} else if (!tag.equals(other.tag))
+			return false;
+		if (tipo == null) {
+			if (other.tipo != null)
+				return false;
+		} else if (!tipo.equals(other.tipo))
+			return false;
+		return true;
+	}
+	
+	
 }

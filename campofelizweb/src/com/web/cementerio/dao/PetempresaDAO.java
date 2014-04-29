@@ -19,6 +19,18 @@ public class PetempresaDAO {
 		return maxid;
 	}
 	
+	public Petempresa getPetempresabyTipo(Session session,int idestado, int idtipo)throws Exception{
+		Petempresa petempresa = null;
+		
+		Criteria criteria = session.createCriteria(Petempresa.class) 
+				.add(Restrictions.eq("tipoempresa", idtipo))
+				.add(Restrictions.eq("setestado.idestado", idestado));
+		
+		petempresa =(Petempresa) criteria.uniqueResult();
+		
+		return petempresa;
+	}
+	
 	public Petempresa getPetempresabyId(Session session,int idestado, int idempresa)throws Exception{
 		Petempresa petempresa = null;
 		
@@ -31,6 +43,7 @@ public class PetempresaDAO {
 		return petempresa;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Petempresa> getListPetempresa(Session session,int idestado)throws Exception{
 		List<Petempresa> listPetempresa = null;
 		

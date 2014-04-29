@@ -132,7 +132,10 @@
 		        </p:row>
 		         <p:row>
 		          <p:column  styleClass="alto-columna">
-		             <p:inputText id="email" maxlength="100" value="#{empresaAdminBean.petempresa.email}" style="width: 300px;" />
+		             <p:inputText id="email" maxlength="100" value="#{empresaAdminBean.petempresa.email}" style="width: 300px;"  
+		                          validatorMessage="Formato de Correo Electrónico incorrecto">
+					 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+		             </p:inputText>
 		          </p:column>
 		        </p:row>
 		     </p:panelGrid>

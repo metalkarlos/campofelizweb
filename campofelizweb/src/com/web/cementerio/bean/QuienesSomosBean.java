@@ -1,10 +1,10 @@
 package com.web.cementerio.bean;
 
-import java.util.Map;
+
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+
 
 
 import org.primefaces.event.FileUploadEvent;

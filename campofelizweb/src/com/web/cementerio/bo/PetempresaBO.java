@@ -20,6 +20,22 @@ public class PetempresaBO {
 	public PetempresaBO(){
 		petempresaDAO = new PetempresaDAO();
 	}
+	
+	
+	public Petempresa getPetempresabyTipo(int idestado, int tipo) throws Exception{
+		Petempresa petempresa =null;
+		Session session=null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			petempresa = petempresaDAO.getPetempresabyTipo(session, idestado, tipo);
+				
+		} catch (Exception e) {
+			throw new Exception(e);
+		}finally{
+			session.close();
+		}
+		return petempresa;
+	}
 
 	public Petempresa getPetempresabyId(int idestado, int idempresa) throws Exception{
 		Petempresa petempresa =null;

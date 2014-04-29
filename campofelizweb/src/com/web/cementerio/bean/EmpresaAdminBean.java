@@ -1,8 +1,6 @@
 package com.web.cementerio.bean;
 
 import java.io.Serializable;
-import java.util.Date;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;

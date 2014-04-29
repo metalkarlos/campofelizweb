@@ -32,6 +32,7 @@ public class PetmascotahomenajeDAO {
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	public List<Petmascotahomenaje> getListpetmascotahomenaje(Session session, int idestado) throws Exception{
 		List<Petmascotahomenaje> listPetmascotahomenaje = null;
 		
@@ -46,6 +47,7 @@ public class PetmascotahomenajeDAO {
 		return listPetmascotahomenaje;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Petmascotahomenaje> getListpetmascotabycriteria(Session session, int idestado, int idespecie, String nombre){
 		List<Petmascotahomenaje> listPetmascotahomeanje = null;
 		

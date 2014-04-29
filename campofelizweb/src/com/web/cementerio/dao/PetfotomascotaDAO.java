@@ -10,6 +10,7 @@ import com.web.cementerio.pojo.annotations.Petfotomascota;
 
 public class PetfotomascotaDAO {
 	
+	@SuppressWarnings("unchecked")
 	public List<Petfotomascota> getListpetfotomascota(Session session, int idmascota, int idestado)throws Exception{
 		List<Petfotomascota> listpetfotomascota = null;
 		
