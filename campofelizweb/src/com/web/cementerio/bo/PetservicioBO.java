@@ -31,4 +31,22 @@ public class PetservicioBO {
 		
 		return lisPetservicio;
 	}
+	
+	public List<Petservicio> lisPetservicioBusquedaByPage(String[] texto, int pageSize, int pageNumber, int args[]) throws RuntimeException {
+		List<Petservicio> lisPetservicio = null;
+		Session session = null;
+		
+		try{
+            session = HibernateUtil.getSessionFactory().openSession();
+            lisPetservicio = petservicioDAO.lisPetservicioBusquedaByPage(session, texto, pageSize, pageNumber, args);
+        }
+        catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
+        finally{
+            session.close();
+        }
+		
+		return lisPetservicio;
+	}
 }
