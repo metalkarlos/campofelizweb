@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "petservicio", schema = "pets")
-public class Petservicio implements java.io.Serializable {
+public class Petservicio implements java.io.Serializable, Cloneable {
 
 	/**
 	 * 
@@ -38,7 +38,7 @@ public class Petservicio implements java.io.Serializable {
 	private Integer principal;
 	private Date fechamodificacion;
 	private String rutafoto;
-	private Set<?> petfotoservicios = new HashSet<Object>(0);
+	private Set<Petfotoservicio> petfotoservicios = new HashSet<Petfotoservicio>(0);
 
 	public Petservicio() {
 	}
@@ -51,7 +51,7 @@ public class Petservicio implements java.io.Serializable {
 	public Petservicio(int idservicio, Setestado setestado,
 			Setusuario setusuario, String nombre, String descripcion,
 			String tag, Date fecharegistro, String iplog, Integer principal,
-			Date fechamodificacion, Set<?> petfotoservicios) {
+			Date fechamodificacion, Set<Petfotoservicio> petfotoservicios) {
 		this.idservicio = idservicio;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -170,12 +170,123 @@ public class Petservicio implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petservicio", targetEntity=Petfotoservicio.class)
-	public Set<?> getPetfotoservicios() {
+	public Set<Petfotoservicio> getPetfotoservicios() {
 		return this.petfotoservicios;
 	}
 
-	public void setPetfotoservicios(Set<?> petfotoservicios) {
+	public void setPetfotoservicios(Set<Petfotoservicio> petfotoservicios) {
 		this.petfotoservicios = petfotoservicios;
 	}
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		Petservicio petservicio = (Petservicio)super.clone();
+		return petservicio;
+	}
+	
+	public Petservicio clonar() throws Exception {
+		return (Petservicio)this.clone();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime
+				* result
+				+ ((fechamodificacion == null) ? 0 : fechamodificacion
+						.hashCode());
+		result = prime * result
+				+ ((fecharegistro == null) ? 0 : fecharegistro.hashCode());
+		result = prime * result + idservicio;
+		result = prime * result + ((iplog == null) ? 0 : iplog.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime
+				* result
+				+ ((petfotoservicios == null) ? 0 : petfotoservicios.hashCode());
+		result = prime * result
+				+ ((principal == null) ? 0 : principal.hashCode());
+		result = prime * result
+				+ ((rutafoto == null) ? 0 : rutafoto.hashCode());
+		result = prime * result
+				+ ((setestado == null) ? 0 : setestado.hashCode());
+		result = prime * result
+				+ ((setusuario == null) ? 0 : setusuario.hashCode());
+		result = prime * result + ((tag == null) ? 0 : tag.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Petservicio other = (Petservicio) obj;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (fechamodificacion == null) {
+			if (other.fechamodificacion != null)
+				return false;
+		} else if (!fechamodificacion.equals(other.fechamodificacion))
+			return false;
+		if (fecharegistro == null) {
+			if (other.fecharegistro != null)
+				return false;
+		} else if (!fecharegistro.equals(other.fecharegistro))
+			return false;
+		if (idservicio != other.idservicio)
+			return false;
+		if (iplog == null) {
+			if (other.iplog != null)
+				return false;
+		} else if (!iplog.equals(other.iplog))
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (petfotoservicios == null) {
+			if (other.petfotoservicios != null)
+				return false;
+		} else if (!petfotoservicios.equals(other.petfotoservicios))
+			return false;
+		if (principal == null) {
+			if (other.principal != null)
+				return false;
+		} else if (!principal.equals(other.principal))
+			return false;
+		if (rutafoto == null) {
+			if (other.rutafoto != null)
+				return false;
+		} else if (!rutafoto.equals(other.rutafoto))
+			return false;
+		if (setestado == null) {
+			if (other.setestado != null)
+				return false;
+		} else if (!setestado.equals(other.setestado))
+			return false;
+		if (setusuario == null) {
+			if (other.setusuario != null)
+				return false;
+		} else if (!setusuario.equals(other.setusuario))
+			return false;
+		if (tag == null) {
+			if (other.tag != null)
+				return false;
+		} else if (!tag.equals(other.tag))
+			return false;
+		return true;
+	}
+	
+	
 
 }
