@@ -93,4 +93,22 @@ public class PetservicioDAO {
 		return lisPetservicio;
 	}
 	
+	public Petservicio getPetservicioConObjetosById(Session session, int idservicio) throws Exception {
+		Petservicio petservicio = null;
+		
+		String hql = " from Petservicio as serv left join fetch serv.setestado as servestado ";
+		hql += " left join fetch serv.petfotoservicios as foto ";
+		hql += " left join fetch foto.setestado as fotoestado ";
+		hql += " where serv.idservicio = :idservicio ";
+		hql += " and servestado.idestado = 1 ";
+		hql += " and fotoestado.idestado = 1 ";
+
+		Query query = session.createQuery(hql)
+				.setInteger("idservicio", idservicio);
+		
+		petservicio = (Petservicio) query.uniqueResult();
+		
+		return petservicio;
+	}
+	
 }

@@ -49,4 +49,22 @@ public class PetservicioBO {
 		
 		return lisPetservicio;
 	}
+	
+	public Petservicio getPetservicioConObjetosById(int idservicio) throws Exception {
+		Petservicio petservicio = null;
+		Session session = null;
+		
+		try{
+            session = HibernateUtil.getSessionFactory().openSession();
+            petservicio = petservicioDAO.getPetservicioConObjetosById(session, idservicio);
+        }
+        catch(Exception ex){
+            throw new Exception(ex);
+        }
+        finally{
+            session.close();
+        }
+		
+		return petservicio;
+	}
 }
