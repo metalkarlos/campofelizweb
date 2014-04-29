@@ -36,6 +36,8 @@ public class Petservicio implements java.io.Serializable {
 	private Date fecharegistro;
 	private String iplog;
 	private Integer principal;
+	private Date fechamodificacion;
+	private String rutafoto;
 	private Set<?> petfotoservicios = new HashSet<Object>(0);
 
 	public Petservicio() {
@@ -49,7 +51,7 @@ public class Petservicio implements java.io.Serializable {
 	public Petservicio(int idservicio, Setestado setestado,
 			Setusuario setusuario, String nombre, String descripcion,
 			String tag, Date fecharegistro, String iplog, Integer principal,
-			Set<?> petfotoservicios) {
+			Date fechamodificacion, Set<?> petfotoservicios) {
 		this.idservicio = idservicio;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -59,6 +61,7 @@ public class Petservicio implements java.io.Serializable {
 		this.fecharegistro = fecharegistro;
 		this.iplog = iplog;
 		this.principal = principal;
+		this.fechamodificacion = fechamodificacion;
 		this.petfotoservicios = petfotoservicios;
 	}
 
@@ -145,6 +148,25 @@ public class Petservicio implements java.io.Serializable {
 
 	public void setPrincipal(Integer principal) {
 		this.principal = principal;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechamodificacion", length = 29)
+	public Date getFechamodificacion() {
+		return fechamodificacion;
+	}
+
+	public void setFechamodificacion(Date fechamodificacion) {
+		this.fechamodificacion = fechamodificacion;
+	}
+
+	@Column(name = "rutafoto", length = 100)
+	public String getRutafoto() {
+		return rutafoto;
+	}
+
+	public void setRutafoto(String rutafoto) {
+		this.rutafoto = rutafoto;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petservicio", targetEntity=Petfotoservicio.class)
