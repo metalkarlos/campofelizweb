@@ -9,7 +9,7 @@
 	xmlns:my="http://java.sun.com/jsf/composite/components/buttons">
 
     <ui:define name="head">
-		<title>Administración - Empresas</title>
+		<title>Administración - Preguntas Frecuentes</title>
 		<style type="text/css">
 			.inner-content {
 				padding: 30px 0;
@@ -40,6 +40,7 @@
 	<div  class="content-page">
 	 <h:form id="form-contentpage" enctype="multipart/form-data">
         <p:growl id="mensajes" showDetail="true"  />
+        <h1 class="title ui-widget-header">Administración - Preguntas Frecuentes</h1>
         <div class="inner-content">
 		     <p:panelGrid id="idgridcontenido" >
 		        <p:row>
@@ -49,7 +50,7 @@
 		        </p:row>   
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <h:outputText  id="pregunta" value="#{enunciadoAdminBean.petenunciadopregunta.descripcion}" style="width: 100px;" />
+		            <p:inputText   id="pregunta" value="#{enunciadoAdminBean.petenunciadopregunta.descripcion}" style="width: 600px;" />
 		          </p:column>
 		        </p:row>   	
 		        <p:row>
@@ -59,13 +60,10 @@
 		        </p:row>   
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <h:outputText  id="tagpregunta" value="#{enunciadoAdminBean.petenunciadopregunta.tag}" style="width: 100px;" />
+		            <p:inputText  id="tagpregunta" value="#{enunciadoAdminBean.petenunciadopregunta.tag}" style="width: 600px;" />
 		          </p:column>
 		        </p:row>   	
-		     </p:panelGrid>
-		</div>     
-		 <div class="inner-content">
-		     <p:panelGrid id="idgridcontenido" >
+		
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
 		            <h:outputLabel value="Respuesta" for="respuesta" />
@@ -73,19 +71,24 @@
 		        </p:row>   
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <h:outputText  id="respuesta" value="#{enunciadoAdminBean.petenunciadorespuesta.descripcion}" style="width: 100px;" />
+		            <p:inputTextarea  id="respuesta" value="#{enunciadoAdminBean.petenunciadorespuesta.descripcion}" style="width: 400px;" />
 		          </p:column>
-		        </p:row>   	
+		        </p:row>  
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
 		            <h:outputLabel value="Tag" for="tagrespuesta" />
+		          </p:column>
+		        </p:row>    	
+		        <p:row>
+		          <p:column  styleClass="alto-columna">
+		            <p:inputText id="tagrespuesta" value="#{enunciadoAdminBean.petenunciadorespuesta.tag}" style="width: 600px;" />
 		          </p:column>
 		        </p:row>   
 		     </p:panelGrid>
 		</div>   
 		 <div class="area-botones">
 			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
-			renderedButtonEliminar="#{enunciadoAdminBean.idenunciado > 0}" onclickButtonEliminar="vardialogdeleteempresa.show()" 
+			renderedButtonEliminar="#{enunciadoAdminBean.idenunciado > 0}" onclickButtonEliminar="vardialogdelete.show()" 
 			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('preguntas.jsf');"
 			renderedButtonNewItem="false" />
 		</div>  
@@ -113,7 +116,7 @@
 					<p:panelGrid id="idpanel2delete" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{enunciadoAdminBean.eliminar()}" oncomplete="vardialogdeleteempresa.hide()" update="mensajes" />
+						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{enunciadoAdminBean.eliminar()}" oncomplete="vardialogdelete.hide()" update="mensajes" />
 						<p:commandButton id="idcancelardelete" value="Cancelar" onclick="vardialogdelete.hide()" />
 						</p:column>
 						</p:row>

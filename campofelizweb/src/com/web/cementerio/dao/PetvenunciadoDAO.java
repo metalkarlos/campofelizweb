@@ -31,8 +31,11 @@ public class PetvenunciadoDAO {
 		sentenciaOR.add(Restrictions.eq("idpadre",idenunciado ));
 		
 		Criteria criteria = session.createCriteria(Petvenunciado.class) 
-				     .add(Restrictions.and(critidenunciado, sentenciaOR));
-				 criteria.addOrder(Order.desc("idpadre"));
+				    .add(Restrictions.or(critidenunciado, sentenciaOR))
+				//.add(Restrictions.eq("idenunciado", idenunciado))
+				//.add(Restrictions.disjunction().add(Restrictions.eq("idpadre",idenunciado)));
+				
+				.addOrder(Order.asc("idpadre"));
 		
 		listpetenunciado = (List<Petvenunciado>)criteria.list();
 		return listpetenunciado;

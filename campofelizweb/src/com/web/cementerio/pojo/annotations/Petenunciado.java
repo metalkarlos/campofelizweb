@@ -199,7 +199,7 @@ public class Petenunciado implements java.io.Serializable, Cloneable {
 		} else if (!idpadre.equals(other.idpadre))
 			return false;
 		if (tag == null) {
-			if (other.tag != null)
+			if (other.tag != null && !other.tag.equals(""))
 				return false;
 		} else if (!tag.equals(other.tag))
 			return false;

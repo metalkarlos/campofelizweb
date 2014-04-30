@@ -35,8 +35,8 @@ public class EnunciadoAdminBean implements Serializable {
 
 	public EnunciadoAdminBean(){
 		idenunciado =0;
-		petenunciadopregunta = new Petenunciado(0, new Setestado(),new Setusuario(), null, null, 0, null, null,null, null);
-		petenunciadorespuesta = new Petenunciado(0, new Setestado(),new Setusuario(), null, null, 0, null, null,null, null);
+		petenunciadopregunta = new Petenunciado(0, new Setestado(),new Setusuario(), 'P', null, 0, null, null,null, null);
+		petenunciadorespuesta = new Petenunciado(0, new Setestado(),new Setusuario(), 'R', null, 0, null, null,null, null);
 	}
 
 	@PostConstruct
@@ -80,15 +80,17 @@ public class EnunciadoAdminBean implements Serializable {
 			   
 			}else if(idenunciado >0){
 			  for(Petenunciado petenunciadoclone: listpetenunciadoclone){
+				  int indice = 0;
 				  if(petenunciadoclone.getIdenunciado()==petenunciadopregunta.getIdenunciado()){
 					 if(!petenunciadoclone.equals(petenunciadopregunta)){
-				       listpetenunciado.add(0,petenunciadopregunta);
+				       listpetenunciado.add(indice,petenunciadopregunta);
 					}
   				  }else if(petenunciadoclone.getIdenunciado()==petenunciadorespuesta.getIdenunciado()){
 					if(!petenunciadoclone.equals(petenunciadorespuesta)){
-					  listpetenunciado.add(1,petenunciadorespuesta);
+					  listpetenunciado.add(indice,petenunciadorespuesta);
 					}
 				  }
+				  indice++;
 				}
 				
 			   petenunciadoBO.modificar(listpetenunciado, 1);	
@@ -103,7 +105,7 @@ public class EnunciadoAdminBean implements Serializable {
 		}
 	}
 	
-	public void eliminar(){
+	public String eliminar(){
 		PetenunciadoBO petenunciadoBO = new PetenunciadoBO();
 		List<Petenunciado> listpetenunciado = new ArrayList<Petenunciado>();
 		try {
@@ -119,13 +121,15 @@ public class EnunciadoAdminBean implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return paginaRetorno;
 	}
 	
 	
 	public void clonar(){
 		
 		int indice =0;
-		Petenunciado petenunciado = new Petenunciado(0, new Setestado(), new Setusuario(), null, null, 0, null, null, null, null);
+		Petenunciado petenunciado = new Petenunciado(0, null, null, null, null, 0, null, null, null, null);
+		listpetenunciadoclone = new ArrayList<Petenunciado>();
 		try{
 			if(!listpetvenunciado.isEmpty()){
 			for(Petvenunciado petvenunciado : listpetvenunciado){
@@ -133,11 +137,21 @@ public class EnunciadoAdminBean implements Serializable {
 			    petenunciado.setDescripcion(petvenunciado.getDescripcion());
 			    petenunciado.setTipo(petvenunciado.getTipo());
 			    petenunciado.setTag(petvenunciado.getTag());
+			    petenunciado.setFecharegistro(petvenunciado.getFecharegistro());
 			    if(petvenunciado.getIdpadre()>0){
 			       petenunciado.setIdpadre(petvenunciado.getIdpadre());
 			    }
+			    
+			    if(String.valueOf(petvenunciado.getTipo()).equals("P")){
+				   petenunciadopregunta = petenunciado;
+				}else if(String.valueOf(petvenunciado.getTipo()).equals("R")){
+					petenunciadorespuesta= petenunciado;
+				 }
 			    listpetenunciadoclone.add(indice,petenunciado.clonar());
+			    petenunciado = new Petenunciado(0, null, null, null, null, 0, null, null, null, null);
+			    indice ++;
 			 }
+			 
 		   }
 		}
 		catch (Exception e){

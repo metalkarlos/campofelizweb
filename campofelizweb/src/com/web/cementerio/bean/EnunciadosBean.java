@@ -25,7 +25,7 @@ public class EnunciadosBean  implements Serializable{
 	private List<Petvenunciado> listpetvenunciado;
 	
 	public EnunciadosBean(){
-		petvenunciadoseleccionado = new Petvenunciado(0, null, null, 0, null);
+		petvenunciadoseleccionado = new Petvenunciado(0, null, null, 0, null,null);
 		consultar();
 	}
 	

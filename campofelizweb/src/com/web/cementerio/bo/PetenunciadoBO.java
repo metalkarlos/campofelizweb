@@ -90,10 +90,10 @@ public class PetenunciadoBO {
 			
 				petenunciado.setIdenunciado(petenunciadoDAO.getMaxidenunciado(session));
 				
-				if(petenunciado.getTipo().equals("P")){
+				if(String.valueOf(petenunciado.getTipo()).equals("P")){
 				  idpadre = petenunciado.getIdenunciado();
 				}
-				else if(petenunciado.getTipo().equals("R")){
+				else if(String.valueOf(petenunciado.getTipo()).equals("R")){
 				  petenunciado.setIdpadre(idpadre);
 				  idpadre =0;
 				}

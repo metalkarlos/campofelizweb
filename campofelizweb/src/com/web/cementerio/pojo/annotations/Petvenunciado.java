@@ -1,9 +1,13 @@
 package com.web.cementerio.pojo.annotations;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "petvenunciado", schema = "pets")
@@ -15,17 +19,19 @@ public class Petvenunciado implements java.io.Serializable {
 	private Character tipo;
 	private Integer idpadre;
 	private String tag;
+	private Date fecharegistro;
 	
 	public Petvenunciado(){
 		
 	}
 	
-    public Petvenunciado(Integer idenunciado,String descripcion,Character tipo,Integer idpadre, String tag){
+    public Petvenunciado(Integer idenunciado,String descripcion,Character tipo,Integer idpadre, String tag, Date fecharegistro){
 		this.idenunciado = idenunciado;
 		this.descripcion = descripcion;
 		this.tipo = tipo;
 		this.idpadre = idpadre;
 		this.tag = tag;
+		this.fecharegistro = fecharegistro;
 	}
 
     @Id
@@ -71,6 +77,16 @@ public class Petvenunciado implements java.io.Serializable {
 
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fecharegistro", nullable = false, length = 29)
+	public Date getFecharegistro() {
+		return fecharegistro;
+	}
+
+	public void setFecharegistro(Date fecharegistro) {
+		this.fecharegistro = fecharegistro;
 	}
 	
 }
