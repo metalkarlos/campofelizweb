@@ -17,6 +17,7 @@
   min-height: 1px;
   line-height: 1.3em;
   vertical-align: middle;
+  text-align: center;
 }
 #cssmenu > ul li.hover,
 #cssmenu > ul li:hover {
@@ -34,6 +35,7 @@
 }
 #cssmenu > ul ul li {
   float: none;
+  text-align: left;
 }
 #cssmenu > ul ul ul {
   top: 1px;
