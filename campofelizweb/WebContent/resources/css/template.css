@@ -27,6 +27,14 @@ textarea {
 	max-height: 50px; 
 	min-height: 50px;
 }
+.rounded-corners-top, .header-meta {
+	-moz-border-radius-topleft: 10px;
+	-webkit-border-top-left-radius: 10px;
+	border-top-left-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	-webkit-border-top-right-radius: 10px;
+	border-top-right-radius: 10px;
+}
 
 /*------------primefaces----------------*/
 .title {
