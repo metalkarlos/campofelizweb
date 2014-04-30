@@ -122,6 +122,7 @@ header {
 }
 .indent-bot-1 .center{
 	width:450px;
+	/*width:650px;*/
 	float:left;
 	padding:0px 5px 0px 5px;
 	min-height: 500px;
