@@ -58,6 +58,7 @@ public class NoticiasBean implements Serializable {
 					String[] textoBusqueda = null;
 					if(descripcionParam != null && descripcionParam.trim().length() > 0 && descripcionParam.trim().compareTo("buscar") != 0 ){
 						textoBusqueda = descripcionParam.split(" ");
+						first = 0;
 					}
 					
 					data = petnoticiaBO.lisPetnoticiaBusquedaByPage(textoBusqueda, pageSize, first, args);
