@@ -24,7 +24,7 @@ public class PetservicioDAO {
 		
 		Query query = session.createQuery(hql)
 				.setInteger("idestado", 1)
-				.setInteger("principal", 1);
+				.setBoolean("principal", true);
 		
 		lisPetservicio = (List<Petservicio>) query.list();
 		
