@@ -57,9 +57,12 @@ h1,h2,h3,h4,h5,h6{
 	text-shadow:1px 1px #fbfbfb;
 	letter-spacing:-1px;
 }
+h2,h3,h4,h5,h6{
+	padding:0 0 15px 0;
+}
 h1{font-size:33px; line-height:39px;}
-h2{font-size:30px; line-height:36px;}
-h3{font-size:27px; line-height:32px;} 
+h2{font-size:25px;/*font-size:30px;*/ line-height:36px;}
+h3{font-size:20px;/*font-size:27px;*/ line-height:32px;} 
 h4{font-size:24px; line-height:30px;}  
 h5{font-size:21px; line-height:26px;}
 h6{font-size:18px; line-height:22px;}
@@ -255,7 +258,7 @@ p {padding-bottom:18px;}
 .p3 {padding-bottom:25px !important;}
 
 .a1 {margin:0 5px;}
-.indent-bot {margin:0 0 40px 0;}
+.indent-bot {margin:0 0 20px 0;/*margin:0 0 40px 0;*/}
 .indent-bot-1 {margin:0 0 33px 0;}
 .indent-bot-2 {margin:0 0 37px 0;}
 .inner-indent {padding:20px 35px 0 0;}
@@ -427,7 +430,8 @@ body header {background:url(../resources/images/header-bg.png) center 0 no-repea
 	height:483px;
 	width:950px;
 	margin:0 auto;
-	padding:0 0 52px 0;
+	/*padding:0 0 52px 0;*/
+	padding:0 0 10px 0;
 }
 .slider-container .pic, .mp-slider {
 	border-radius:9px;

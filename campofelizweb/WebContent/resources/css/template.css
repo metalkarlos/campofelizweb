@@ -129,8 +129,8 @@ header {
 	box-shadow: 1px 0 5px #bbb;
 }
 .indent-bot-1 .center{
-	width:450px;
-	/*width:650px;*/
+	/*width:450px;*/
+	width:650px;
 	float:left;
 	padding:0px 5px 0px 5px;
 	min-height: 500px;
