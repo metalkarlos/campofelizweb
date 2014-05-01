@@ -44,8 +44,8 @@ public class NoticiaAdminBean implements Serializable {
 	private boolean fotoSubida;
 	
 	public NoticiaAdminBean() {
-		petnoticia = new Petnoticia(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, null, null, new Date(), new Date());
-		petnoticiaClon = new Petnoticia(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, null, null, new Date(), new Date());
+		petnoticia = new Petnoticia(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, null, null, new Date(), new Date(), false);
+		petnoticiaClon = new Petnoticia(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, null, null, new Date(), new Date(), false);
 		lisPetfotonoticia = new ArrayList<Petfotonoticia>();
 		lisPetfotonoticiaClon = new ArrayList<Petfotonoticia>();
 		petfotonoticiaSeleccionada = new Petfotonoticia();
