@@ -97,6 +97,22 @@ public class PetnoticiaBO {
 		return listPetnoticia;
 	}
 	
+	public List<Petnoticia> lisPetnoticiaPrincipales() throws Exception {
+		List<Petnoticia> lisPetnoticia = null;
+		Session session = null;
+		
+		try{
+			session = HibernateUtil.getSessionFactory().openSession();
+			lisPetnoticia = petnoticiaDAO.lisPetnoticiaPrincipales(session);
+		}catch(Exception e){
+			throw new Exception(e);
+		}finally{
+			session.close();
+		}
+		
+		return lisPetnoticia;
+	}
+	
 	public boolean ingresar(Petnoticia petnoticia, Petfotonoticia petfotonoticia, UploadedFile uploadedFile) throws Exception {
 		boolean ok = false;
 		Session session = null;

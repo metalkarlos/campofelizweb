@@ -166,6 +166,24 @@ public class PetnoticiaDAO {
 		return listPetnoticia;
 	} 
 	
+	@SuppressWarnings("unchecked")
+	public List<Petnoticia> lisPetnoticiaPrincipales(Session session) throws Exception {
+		List<Petnoticia> lisPetnoticia = null;
+		
+		String hql = " from Petnoticia ";
+		hql += " where setestado.idestado = :idestado ";
+		hql += " and principal = :principal ";
+		hql += " order by titulo ";
+		
+		Query query = session.createQuery(hql)
+				.setInteger("idestado", 1)
+				.setBoolean("principal", true);
+		
+		lisPetnoticia = (List<Petnoticia>) query.list();
+		
+		return lisPetnoticia;
+	}
+	
 	public void savePetnoticia(Session session, Petnoticia petnoticia) throws Exception {
 		session.save(petnoticia);
 	}
