@@ -7,25 +7,23 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<h:form id="form-serviciospage">
-		<div class="container_24">
-			<div class="indent-bot">
-				<c:forEach items="#{serviciosPrincipalesBean.lisPetservicio}" var="servicio">
-					<article class="grid_6">
-						<div class="box-1">
-							<div class="inner">
-								<h3 class="str-3" >#{servicio.nombre}</h3>
-								<p>#{fn:substring(servicio.descripcion, 0, 100)}...</p>
-								<div class="btn-container">
-									<div class="button-box">
-										<a href="#" class="button">Leer más</a>
-									</div>
+		<div class="indent-bot">
+			<c:forEach items="#{serviciosPrincipalesBean.lisPetservicio}" var="servicio">
+				<article class="grid_6">
+					<div class="box-1">
+						<div class="inner">
+							<h3 class="str-3" >#{servicio.nombre}</h3>
+							<p>#{fn:substring(servicio.descripcion, 0, 100)}...</p>
+							<div class="btn-container">
+								<div class="button-box">
+									<a href="#" class="button">Leer más</a>
 								</div>
 							</div>
 						</div>
-					</article>
-				</c:forEach>
-				<div class="clear"></div>
-			</div>
+					</div>
+				</article>
+			</c:forEach>
+			<div class="clear"></div>
 		</div>
 	</h:form>
 </ui:composition>
