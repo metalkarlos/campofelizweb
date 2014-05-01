@@ -39,6 +39,7 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 	private Set<Petfotonoticia> petfotonoticias = new HashSet<Petfotonoticia>(0);
 	private Date fechamodificacion;
 	private Date fechapublicacion;
+	private boolean principal;
 
 	public Petnoticia() {
 	}
@@ -51,7 +52,7 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 	public Petnoticia(int idnoticia, Setestado setestado,
 			Setusuario setusuario, String titulo, String descripcion,
 			String tag, Date fecharegistro, String iplog, String rutafoto, 
-			Set<Petfotonoticia> petfotonoticias, Date fechamodificacion, Date fechapublicacion) {
+			Set<Petfotonoticia> petfotonoticias, Date fechamodificacion, Date fechapublicacion, boolean principal) {
 		this.idnoticia = idnoticia;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -64,6 +65,7 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 		this.petfotonoticias = petfotonoticias;
 		this.fechamodificacion = fechamodificacion;
 		this.fechapublicacion = fechapublicacion;
+		this.principal = principal;
 	}
 
 	@Id
@@ -179,6 +181,15 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 		this.fechapublicacion = fechapublicacion;
 	}
 
+	@Column(name = "principal")
+	public boolean getPrincipal() {
+		return principal;
+	}
+
+	public void setPrincipal(boolean principal) {
+		this.principal = principal;
+	}
+
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		Petnoticia petnoticia = (Petnoticia)super.clone();
@@ -214,6 +225,7 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 				+ ((setusuario == null) ? 0 : setusuario.getIdusuario());
 		result = prime * result + ((tag == null) ? 0 : tag.hashCode());
 		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
+		result = prime * result + (principal ? 1231 : 1237);
 		return result;
 	}
 
@@ -282,6 +294,8 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 			if (other.titulo != null)
 				return false;
 		} else if (!titulo.equals(other.titulo))
+			return false;
+		if (principal != other.principal)
 			return false;
 		return true;
 	}

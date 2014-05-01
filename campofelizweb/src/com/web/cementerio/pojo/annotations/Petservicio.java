@@ -35,7 +35,7 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 	private String tag;
 	private Date fecharegistro;
 	private String iplog;
-	private Integer principal;
+	private boolean principal;
 	private Date fechamodificacion;
 	private String rutafoto;
 	private Set<Petfotoservicio> petfotoservicios = new HashSet<Petfotoservicio>(0);
@@ -50,7 +50,7 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 
 	public Petservicio(int idservicio, Setestado setestado,
 			Setusuario setusuario, String nombre, String descripcion,
-			String tag, Date fecharegistro, String iplog, Integer principal,
+			String tag, Date fecharegistro, String iplog, boolean principal,
 			Date fechamodificacion, Set<Petfotoservicio> petfotoservicios) {
 		this.idservicio = idservicio;
 		this.setestado = setestado;
@@ -142,11 +142,11 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 	}
 
 	@Column(name = "principal")
-	public Integer getPrincipal() {
+	public boolean getPrincipal() {
 		return this.principal;
 	}
 
-	public void setPrincipal(Integer principal) {
+	public void setPrincipal(boolean principal) {
 		this.principal = principal;
 	}
 
@@ -206,8 +206,7 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 		result = prime
 				* result
 				+ ((petfotoservicios == null) ? 0 : petfotoservicios.hashCode());
-		result = prime * result
-				+ ((principal == null) ? 0 : principal.hashCode());
+		result = prime * result + (principal ? 1231 : 1237);
 		result = prime * result
 				+ ((rutafoto == null) ? 0 : rutafoto.hashCode());
 		result = prime * result
@@ -259,10 +258,7 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 				return false;
 		} else if (!petfotoservicios.equals(other.petfotoservicios))
 			return false;
-		if (principal == null) {
-			if (other.principal != null)
-				return false;
-		} else if (!principal.equals(other.principal))
+		if (principal != other.principal)
 			return false;
 		if (rutafoto == null) {
 			if (other.rutafoto != null)
