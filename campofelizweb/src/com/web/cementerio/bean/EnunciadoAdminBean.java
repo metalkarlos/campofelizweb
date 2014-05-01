@@ -72,33 +72,35 @@ public class EnunciadoAdminBean implements Serializable {
 		PetenunciadoBO petenunciadoBO = new PetenunciadoBO();
 		List<Petenunciado> listpetenunciado = new ArrayList<Petenunciado>();
 		try {
-			if(idenunciado ==0){
-			   listpetenunciado.add(0,petenunciadopregunta);
-			   listpetenunciado.add(1,petenunciadorespuesta);
-			   petenunciadoBO.grabar(listpetenunciado, 1);	
-			   new MessageUtil().showInfoMessage("Exito", "Información registrada");
-			   
-			}else if(idenunciado >0){
-			  for(Petenunciado petenunciadoclone: listpetenunciadoclone){
-				  int indice = 0;
-				  if(petenunciadoclone.getIdenunciado()==petenunciadopregunta.getIdenunciado()){
-					 if(!petenunciadoclone.equals(petenunciadopregunta)){
-				       listpetenunciado.add(indice,petenunciadopregunta);
+			if(validarcampos()){
+				if(idenunciado ==0){
+				   listpetenunciado.add(0,petenunciadopregunta);
+				   listpetenunciado.add(1,petenunciadorespuesta);
+				   petenunciadoBO.grabar(listpetenunciado, 1);	
+				   new MessageUtil().showInfoMessage("Exito", "Información registrada");
+				   
+				}else if(idenunciado >0){
+				  for(Petenunciado petenunciadoclone: listpetenunciadoclone){
+					  int indice = 0;
+					  if(petenunciadoclone.getIdenunciado()==petenunciadopregunta.getIdenunciado()){
+						 if(!petenunciadoclone.equals(petenunciadopregunta)){
+					       listpetenunciado.add(indice,petenunciadopregunta);
+						}
+	  				  }else if(petenunciadoclone.getIdenunciado()==petenunciadorespuesta.getIdenunciado()){
+						if(!petenunciadoclone.equals(petenunciadorespuesta)){
+						  listpetenunciado.add(indice,petenunciadorespuesta);
+						}
+					  }
+					  indice++;
 					}
-  				  }else if(petenunciadoclone.getIdenunciado()==petenunciadorespuesta.getIdenunciado()){
-					if(!petenunciadoclone.equals(petenunciadorespuesta)){
-					  listpetenunciado.add(indice,petenunciadorespuesta);
-					}
-				  }
-				  indice++;
+					
+				   petenunciadoBO.modificar(listpetenunciado, 1);	
+				   listpetenunciadoclone = new ArrayList<Petenunciado>();
+				   new MessageUtil().showInfoMessage("Exito", "Información modificada");
 				}
-				
-			   petenunciadoBO.modificar(listpetenunciado, 1);	
-			   listpetenunciadoclone = new ArrayList<Petenunciado>();
-			   new MessageUtil().showInfoMessage("Exito", "Información modificada");
-			}
-			petenunciadopregunta = new Petenunciado(0, new Setestado(),new Setusuario(), null, null, 0, null, null,null, null);
-			petenunciadorespuesta = new Petenunciado(0, new Setestado(),new Setusuario(), null, null, 0, null, null,null, null);
+				petenunciadopregunta = new Petenunciado(0, new Setestado(),new Setusuario(), null, null, 0, null, null,null, null);
+				petenunciadorespuesta = new Petenunciado(0, new Setestado(),new Setusuario(), null, null, 0, null, null,null, null);
+			}	
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
@@ -116,6 +118,7 @@ public class EnunciadoAdminBean implements Serializable {
 				new MessageUtil().showInfoMessage("Exito", "Registro eliminado");
 				petenunciadopregunta = new Petenunciado(0, new Setestado(),new Setusuario(), null, null, 0, null, null,null, null);
 				petenunciadorespuesta = new Petenunciado(0, new Setestado(),new Setusuario(), null, null, 0, null, null,null, null);
+				listpetenunciadoclone = new ArrayList<Petenunciado>();
 			}	
 			paginaRetorno = "preguntas?faces-redirect=true";
 		} catch (Exception e) {
@@ -124,6 +127,19 @@ public class EnunciadoAdminBean implements Serializable {
 		return paginaRetorno;
 	}
 	
+	public boolean validarcampos(){
+		boolean ok = true;
+	    if(petenunciadopregunta.getDescripcion()== null || petenunciadopregunta.getDescripcion().length() ==0){
+	    	ok = false;
+	    	new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contenido de la pregunta");
+	    }
+	    else if(petenunciadorespuesta.getDescripcion()== null || petenunciadorespuesta.getDescripcion().length() ==0){
+	    	ok = false;
+	    	new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contenido de la respuesta");
+	    }
+		return ok;
+		
+	}
 	
 	public void clonar(){
 		
