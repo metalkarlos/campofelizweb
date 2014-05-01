@@ -120,6 +120,13 @@
 					<p:inputText id="txtTags" value="#{noticiaAdminBean.petnoticia.tag}" style="width: 600px;"></p:inputText>
 					</p:column>
 					</p:row>
+					
+					<p:row>
+					<p:column>
+					<h:outputLabel value="¿Aparece en la página principal?" for="txtprincipal" /><br />
+					<p:selectBooleanCheckbox itemLabel="Sí" value="#{noticiaAdminBean.petnoticia.principal}"></p:selectBooleanCheckbox>
+					</p:column>
+					</p:row>
 				</p:panelGrid>
 			</div>
 			<div class="area-botones">
