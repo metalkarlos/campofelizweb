@@ -30,17 +30,17 @@
 	<style type="text/css">
         .box_title {   
 			margin-bottom:12px;
-			margin-left:0px;
-			margin-right:0px;
-			margin-top:2px;
+			margin-left:10px;
+			margin-right:10px;
+			margin-top:0px;
 			padding-bottom:2px;
-			padding-left:2px;
-			padding-right:2px;
-			padding-top:2px;
+			padding-left:0px;
+			padding-right:0px;
+			padding-top:0px;
 			border-bottom:1px solid #c8c8c8;/*linea al pie*/
 			line-height:19px;
-			/*height:30px;*/
-			overflow:hidden;	
+			height:35px;
+			overflow:hidden;
 		}
 		.title {
 			padding: 0px 0px 10px 0px;
@@ -94,7 +94,8 @@
 			position:relative;
 			z-index:1;
 			height:100%;
-			width:100%;
+			/*width:100%;*/
+			width:150px;
 			margin:0 auto;
 			padding:0 0 52px 0;
 		}
@@ -206,16 +207,6 @@
 				</div>
 			</div>
 			<div class="header-meta">
-				<!-- <div class="col-elem">
-					Para mayor información <br></br> Llámanos: <span
-						class="phone">(04)6014815</span>
-					<ul class="social-list">
-						<li><a href="#"><h:graphicImage alt="social-link-1.jpg" library="images" name="social-link-1.jpg" /></a></li>
-						<li><a href="#"><h:graphicImage alt="social-link-2.jpg" library="images" name="social-link-2.jpg" /></a></li>
-						<li><a href="#"><h:graphicImage alt="social-link-3.jpg" library="images" name="social-link-3.jpg" /></a></li>
-						<li><a href="#"><h:graphicImage alt="social-link-4.jpg" library="images" name="social-link-4.jpg" /></a></li>
-					</ul>
-				</div> -->
 			</div>
 			<!-- Menu -->
 			<ui:include src="/pages/menu.xhtml" />
@@ -225,9 +216,9 @@
 	<div class="slider-container">
 		<div class="mp-slider">
 			<ul class="items">
-				<li><h:graphicImage alt="slide-1.png" library="images" name="slide-3.png" /></li>
-				<li><h:graphicImage alt="slide-2.png" library="images" name="slide-1.png" /></li>
-				<li><h:graphicImage alt="slide-3.png" library="images" name="slide-2.png" /></li>
+				<li><h:graphicImage alt="Portal Campo Feliz" library="images" name="slide-3.png" /></li>
+				<li><h:graphicImage alt="Placa Memorial" library="images" name="slide-2.png" /></li>
+				<li><h:graphicImage alt="Cementerio Campo Feliz" library="images" name="slide-4.png" /></li>
 			</ul>
 		</div>
 	</div>
@@ -235,42 +226,21 @@
 	<!-- Content -->
 	<section id="content">
 	<div class="ic"></div>
-	<ui:include src="/pages/servicios-principales.xhtml" />
+	<div class="container_24">
+		<div class="a1">
+			<h2>Nuestros Servicios:</h2>
+		</div>
+		<ui:include src="/pages/servicios-principales.xhtml" />
+	</div>
+	<div class="container_24">
+		<div class="a1">
+        	<h2>Noticias:</h2>
+        </div>
+		<ui:include src="/pages/noticias-principales.xhtml" />
+	</div>
 	<div class="otrocontainer_24">
 		<div class="indent-bot-1">
-			<div class="left">
-				<div class="otrobox-1">
-					<div class="inner">
-						<div class="box_title">
-							<h2 class="title" style="border: 0px solid #aaaaaa;">Noticias</h2>
-						</div>
-						<div class="box_content">
-						<ul>
-							<li><a href="#">Estuvimos en la feria ganadera.</a></li>
-							<li><a href="#">Contamos con nuevos servicios.</a></li>
-							<li><a href="#">El cuidado en nuestros perros.</a></li>
-							<li><a href="#">Proximos eventos en los que estaremos participando.</a></li>
-							<li><a href="#">Los gatos tan impredecibles.</a></li>
-							<li><a href="#">Consejos para cuidar a nuestros consentidos.</a></li>
-						</ul>
-						</div>
-						
-						<div class="box_title">
-							<h2 class="title" style="border: 0px solid #aaaaaa;">Homenaje</h2>
-						</div>
-							<div class="slider-container2">
-								<div class="mp-slider">
-									<ul class="items">
-										<li><h:graphicImage alt="1-1-12jpg.jpg" library="images" name="1-1-12jpg.jpg" /></li>
-										<li><h:graphicImage alt="1-4-7.jpg" library="images" name="1-4-7.jpg" /></li>
-										<li><h:graphicImage alt="2-8-15.jpg" library="images" name="2-8-15.jpg" /></li>
-									</ul>
-								</div>
-							</div>
-					</div>
-				</div>
-			</div>
-			<div class="center">
+			<div class="leftcontent">
 				<ui:insert name="content_page">
 					<h1>En construcción...</h1>
 				</ui:insert>
@@ -278,6 +248,21 @@
 			<div class="right">
 				<div class="otrobox-1">
 					<div class="inner2">
+						<div class="box_title">
+							<h2 class="title" style="border: 0px solid #aaaaaa;">Homenaje</h2>
+						</div>
+						<div class="slider-container2">
+							<div class="mp-slider">
+								<ul class="items">
+									<li><h:graphicImage alt="1-1-12jpg.jpg" library="images" name="1-1-12jpg.jpg" /></li>
+									<li><h:graphicImage alt="1-4-7.jpg" library="images" name="1-4-7.jpg" /></li>
+									<li><h:graphicImage alt="2-8-15.jpg" library="images" name="2-8-15.jpg" /></li>
+								</ul>
+							</div>
+						</div>
+						<div class="box_title">
+							<h2 class="title" style="border: 0px solid #aaaaaa;">Facebook</h2>
+						</div>
 						<div class="box_content">
 							<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FCampo-Feliz-Cementerio-de-Mascotas%2F257959247667793&amp;width&amp;height=500&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=true&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:560px;" allowTransparency="true"></iframe>
 						</div>
