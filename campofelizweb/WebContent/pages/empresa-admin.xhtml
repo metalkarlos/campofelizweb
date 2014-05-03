@@ -39,6 +39,7 @@
 	<div  class="content-page">
 	 <h:form id="form-contentpage" enctype="multipart/form-data">
         <p:growl id="mensajes" showDetail="true"  />
+        <h1 class="title ui-widget-header">Administración - Empresas</h1>
         <div class="inner-content">
 		     <p:panelGrid id="idgridcontenido" >	
 		        <p:row>
@@ -92,7 +93,7 @@
 		        </p:row>   
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		             <p:inputTextarea id="direccion" maxlength="500"   autoResize="true" style="width: 610px; height:85px;" value="#{empresaAdminBean.petempresa.direccion}"  />
+		             <p:inputTextarea id="direccion" maxlength="500"  required="true" requiredMessage="Ingresar Dirección"  autoResize="true" style="width: 610px; height:85px;" value="#{empresaAdminBean.petempresa.direccion}"  />
 		          </p:column>
 		        </p:row>
 		        <p:row>
@@ -132,7 +133,7 @@
 		        </p:row>
 		         <p:row>
 		          <p:column  styleClass="alto-columna">
-		             <p:inputText id="email" maxlength="100" value="#{empresaAdminBean.petempresa.email}" style="width: 300px;"  
+		             <p:inputText id="email" maxlength="100" value="#{empresaAdminBean.petempresa.email}" style="width: 400px;"  
 		                          validatorMessage="Formato de Correo Electrónico incorrecto">
 					 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 		             </p:inputText>

@@ -42,7 +42,7 @@
         <p:growl id="mensajes" showDetail="true"  />
         <h1 class="title ui-widget-header">Administración - Preguntas Frecuentes</h1>
         <div class="inner-content">
-		     <p:panelGrid id="idgridcontenido" >
+		     <p:panelGrid id="idgridcontenido"  >
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
 		            <h:outputLabel value="Pregunta" for="pregunta" />
@@ -50,7 +50,7 @@
 		        </p:row>   
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <p:inputText   id="pregunta" value="#{enunciadoAdminBean.petenunciadopregunta.descripcion}" style="width: 600px; font-weight:bold;" required="true" requiredMessage="Ingresar Pregunta" />
+		            <p:inputTextarea   id="pregunta" autoResize="true" maxlength="1000" value="#{enunciadoAdminBean.petenunciadopregunta.descripcion}" style="width: 600px; font-weight:bold; height:38px;" required="true" requiredMessage="Ingresar Pregunta" />
 		          </p:column>
 		        </p:row>   	
 		        <p:row>
@@ -71,7 +71,7 @@
 		        </p:row>   
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <p:inputTextarea  id="respuesta" value="#{enunciadoAdminBean.petenunciadorespuesta.descripcion}" maxlength="500" style="width: 400px;" required="true" requiredMessage="Ingresar Respuesta"/>
+		            <p:inputTextarea  id="respuesta" autoResize="true" value="#{enunciadoAdminBean.petenunciadorespuesta.descripcion}" maxlength="1000" style="width: 400px; height:78px;" required="true" requiredMessage="Ingresar Respuesta"/>
 		          </p:column>
 		        </p:row>  
 		        <p:row>

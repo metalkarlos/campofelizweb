@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.web.cementerio.pojo.annotations.Petempresa;
@@ -48,7 +49,8 @@ public class PetempresaDAO {
 		List<Petempresa> listPetempresa = null;
 		
 		Criteria criteria = session.createCriteria(Petempresa.class) 
-				.add(Restrictions.eq("setestado.idestado", idestado));
+				.add(Restrictions.eq("setestado.idestado", idestado))
+				.addOrder(Order.asc("idempresa"));
 		
 		listPetempresa =(List<Petempresa>)criteria.list();
 		
