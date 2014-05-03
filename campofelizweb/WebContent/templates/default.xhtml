@@ -106,6 +106,22 @@
 		.slider-container2 .mask {
 			border-radius:9px;
 		}
+		.inner-box {
+			margin-bottom: 10px;
+			box-shadow: 1px 0 5px #bbb;
+			border-radius: 7px 7px 7px 7px;
+			background-color: white;
+		}
+		.inner-box-title {   
+			margin-bottom:12px;
+			padding-bottom:2px;
+			line-height:19px;
+			height:35px;
+			background-image: linear-gradient(#dcdcdc, #bbb);
+			-moz-border-radius: 7px 7px 0 0;
+			-webkit-border-radius: 7px 7px 0 0;
+			border-radius: 7px 7px 0 0;
+		}
     </style>
 	<!-- Configuración del Calendario de la Agenda -->
 	<script type="text/javascript">
@@ -246,26 +262,26 @@
 				</ui:insert>
 			</div>
 			<div class="right">
-				<div class="otrobox-1">
-					<div class="inner2">
-						<div class="box_title">
-							<h2 class="title" style="border: 0px solid #aaaaaa;">Homenaje</h2>
+				<div class="inner-box">
+					<div class="inner-box-title">
+						<h2>Homenaje</h2>
+					</div>
+					<div class="slider-container2">
+						<div class="mp-slider">
+							<ul class="items">
+								<li><h:graphicImage alt="1-1-12jpg.jpg" library="images" name="1-1-12jpg.jpg" /></li>
+								<li><h:graphicImage alt="1-4-7.jpg" library="images" name="1-4-7.jpg" /></li>
+								<li><h:graphicImage alt="2-8-15.jpg" library="images" name="2-8-15.jpg" /></li>
+							</ul>
 						</div>
-						<div class="slider-container2">
-							<div class="mp-slider">
-								<ul class="items">
-									<li><h:graphicImage alt="1-1-12jpg.jpg" library="images" name="1-1-12jpg.jpg" /></li>
-									<li><h:graphicImage alt="1-4-7.jpg" library="images" name="1-4-7.jpg" /></li>
-									<li><h:graphicImage alt="2-8-15.jpg" library="images" name="2-8-15.jpg" /></li>
-								</ul>
-							</div>
-						</div>
-						<div class="box_title">
-							<h2 class="title" style="border: 0px solid #aaaaaa;">Facebook</h2>
-						</div>
-						<div class="box_content">
-							<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FCampo-Feliz-Cementerio-de-Mascotas%2F257959247667793&amp;width&amp;height=500&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=true&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:560px;" allowTransparency="true"></iframe>
-						</div>
+					</div>
+				</div>
+				<div class="inner-box">
+					<div class="inner-box-title">
+						<h2>Facebook</h2>
+					</div>
+					<div class="box_content">
+						<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FCampo-Feliz-Cementerio-de-Mascotas%2F257959247667793&amp;width&amp;height=500&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=true&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:560px;" allowTransparency="true"></iframe>
 					</div>
 				</div>
 			</div>
