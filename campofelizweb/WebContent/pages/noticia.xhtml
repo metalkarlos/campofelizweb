@@ -26,7 +26,11 @@
 			
 			<h1 class="title ui-widget-header">Noticias</h1>
 			<div class="inner-content">
-
+				<div style="text-align: right;">
+					<h:link value="[Editar]" styleClass="link2" outcome="noticia-admin.jsf" rendered="#{usuarioBean.autenticado}" >
+						<f:param name="idnoticia" value="#{noticiaBean.idnoticia}"></f:param>
+					</h:link>
+				</div>
 				<center>
 				<p:galleria id="idgalleria" value="#{noticiaBean.lisPetfotonoticia}" var="item" panelWidth="500" panelHeight="320">
 			        <p:graphicImage id="idfotos" value="#{noticiaBean.rutaImagenes}#{item.ruta}" style="max-height: 58px" />
@@ -46,9 +50,6 @@
 					<h:outputText id="fechaNoticia" value="#{noticiaBean.petnoticia.fecharegistro}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
-					<h:link value="[Editar]" styleClass="link2" style="float: right;" outcome="noticia-admin.jsf" rendered="#{usuarioBean.autenticado}" >
-						<f:param name="idnoticia" value="#{noticiaBean.idnoticia}"></f:param>
-					</h:link>
 				</div>
 				
 				<div class="cuerpo">
