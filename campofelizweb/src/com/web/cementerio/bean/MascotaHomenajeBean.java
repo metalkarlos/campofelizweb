@@ -66,6 +66,11 @@ public class MascotaHomenajeBean implements Serializable {
 			listpetfotomascota = new ArrayList<Petfotomascota>();
 			petmascotahomenaje = mascotaHomenajeBO.getPetmascotahomenajebyId(idmascota, 1,false);
 			listpetfotomascota = petfotomascotaBO.getListpetfotomascota(this.idmascota, 1);
+			if(listpetfotomascota.size()==0 && petmascotahomenaje.getRutafoto().equals("/mascota/huella.jpg")){
+				Petfotomascota petfotomascota = new Petfotomascota();
+				petfotomascota.setRuta(petmascotahomenaje.getRutafoto());
+				listpetfotomascota.add(petfotomascota);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");

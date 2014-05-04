@@ -5,10 +5,12 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
+
 
 public class PetmascotahomenajeDAO {
 	
@@ -45,6 +47,66 @@ public class PetmascotahomenajeDAO {
 		listPetmascotahomenaje = (List<Petmascotahomenaje>)criteria.list();
 		       
 		return listPetmascotahomenaje;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Petmascotahomenaje> lisPetmascotaBusquedaByPage(Session session, String[] texto, int pageSize, int pageNumber, int args[], int idestado) throws Exception {
+		List<Petmascotahomenaje> listPetmascotahomenaje = null;
+		
+		Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
+				 .add(Restrictions.eq("setestado.idestado", idestado));
+		
+		if(texto != null && texto.length > 0){
+			String query = "(";
+			for(int i=0;i<texto.length;i++)
+			{
+				query += "lower({alias}.nombre) like lower('%"+texto[i]+"%') ";
+				if(i<texto.length-1){
+					query += "or ";
+				}
+			}
+			query += ")";
+			
+			criteria.add(Restrictions.sqlRestriction(query));
+		}
+		criteria.addOrder(Order.desc("fechapublicacion"))
+		.setMaxResults(pageSize)
+		.setFirstResult(pageNumber);
+		
+		listPetmascotahomenaje = (List<Petmascotahomenaje>)criteria.list();
+		
+		if(listPetmascotahomenaje.size() >0 && !listPetmascotahomenaje.isEmpty()){
+			Criteria criteriaCount = session.createCriteria(Petmascotahomenaje.class)
+					.add(Restrictions.eq("setestado.idestado", idestado))
+					.setProjection( Projections.rowCount());
+			
+			if(texto != null && texto.length > 0){
+				String query = "(";
+				for(int i=0;i<texto.length;i++)
+				{
+					query += "lower({alias}.nombre) like lower('%"+texto[i]+"%') ";
+					if(i<texto.length-1){
+						query += "or ";
+					}
+				}
+				query += ")";
+				
+				criteria.add(Restrictions.sqlRestriction(query));
+			}
+				
+				criteriaCount.setMaxResults(pageSize)
+			    .setFirstResult(pageNumber);
+				
+				Object object = criteriaCount.uniqueResult();
+				int count = (object==null?0:Integer.parseInt(object.toString()));
+				args[0] = count;
+	  
+		}
+	    else{
+		   	args[0] = 0;
+		}
+		return listPetmascotahomenaje;
+		
 	}
 	
 	@SuppressWarnings("unchecked")

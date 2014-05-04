@@ -43,7 +43,7 @@
 	  	<h:form id="form-contentpage" enctype="multipart/form-data">
        		<p:growl id="mensajes"  showDetail="true"  />
             <h1 class="title ui-widget-header"> Administración - Homenaje Póstumo </h1>
-          	<div class="inner-content">
+             <div class="inner-content">
 		     <p:panelGrid id="idgridcontenido" >	   
 				<p:row>
 				  <p:column styleClass="alto-columna">
@@ -102,7 +102,7 @@
 				</p:row>
 				<p:row>
 				  <p:column styleClass="alto-columna">
-				  <p:inputText id="txtNombre" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.nombre}" style="width: 165px;"></p:inputText>
+				  <p:inputText id="txtNombre" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.nombre}" style="width: 165px;  text-transform:uppercase;"></p:inputText>
 				  </p:column>
 				</p:row>
 				
@@ -171,7 +171,7 @@
 				</p:row>
 				<p:row>
 				  <p:column styleClass="alto-columna">
-				   <p:inputTextarea  id="txtDedicatoria" maxlength="2000"   autoResize="true" style="width: 610px; height:85px;" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.dedicatoria}" />
+				   <p:inputTextarea  id="txtDedicatoria" maxlength="2000"   autoResize="true" style="width: 610px; height:225px;" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.dedicatoria}" />
 				  </p:column>
 				</p:row>
 				

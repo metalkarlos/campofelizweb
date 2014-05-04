@@ -18,7 +18,7 @@
 			.ui-panelgrid td {
 			   border: 0px;
 			}
-			.mascotas-content .cuerpo a {
+			.ui-widget-content a {
 				color: #ec8f23;
 				font-weight: bold;
 			}
@@ -32,51 +32,28 @@
 	<div  class="content-page">
 	 <h:form id="form-contentpage" enctype="multipart/form-data">
         <p:growl id="mensajes" showDetail="true"  autoUpdate="true"/>
- 		     <h1 class="title ui-widget-header">Homenaje Póstumo</h1>
- 		     <br/>
- 		     <p style="text-align:justify;">
-				Este espacio es un homenaje a las mascotas que han sido sepultadas o cremadas en Campo Feliz.
-				<br />
-				Gracias a sus dueños por confiar en nosotros.
-			</p>
-			<h:link value="[Nuevo]" style="float: right;" outcome="mascotahomenaje-admin.jsf" rendered="#{usuarioBean.autenticado}" >
+ 		    <h1 class="title ui-widget-header">Homenaje Póstumo</h1>
+ 		    <div style="float: right;margin: 20px 15px 0 0;">
+			<div id="search-form" >
+				<h:inputText id="txtbusqueda"  value="#{mascotasHomenajeBean.descripcionParam}" onblur="if(this.value==''){this.value='buscar por nombre de mascota'}" onfocus="if(this.value=='buscar por nombre de mascota'){this.value=''}" />
+				<h:commandLink styleClass="search-form-submit" >
+					<f:ajax render="resultadomascota" execute="txtbusqueda"></f:ajax>
+				</h:commandLink>
+			</div>
+			</div>
+			<span class="clear" />
+			<br />
+ 		    <h:link value="[Nueva Mascota]" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" outcome="mascotahomenaje-admin.jsf" rendered="#{usuarioBean.autenticado}" >
 			   <f:param name="idmascota" value="0"></f:param>
 			</h:link>
-			<p:panel id="panel-buscarmascota" >
-				    <p:panelGrid  id="panelgridcriterios" >
-				    <p:row >
-						<p:column  style="width: 100px">
-							<h:outputLabel value="Nombre Mascota:" />
-						</p:column>
-						<p:column >
-							<p:inputText id="idnombre" value="#{mascotasHomenajeBean.nombre}"  style="width: 300px" />
-						</p:column>
-					</p:row>
-					<p:row>
-						<p:column style="width: 100px">
-							<h:outputLabel value="Especie:" />
-						</p:column>
-						<p:column>
-						    <p:selectOneMenu id="idespeciemascota" style="width: 165px; align: center;" value="#{mascotasHomenajeBean.idespecie}" >
-							<f:selectItem itemLabel="Seleccione" itemValue="0"/>
-							<f:selectItems value="#{petespecieBean.listPetespecie}" var="especie" itemLabel="#{especie.nombre}" itemValue="#{especie.idespecie}"></f:selectItems>
-							</p:selectOneMenu>
-						</p:column>
-					</p:row>
-					</p:panelGrid>
-					<center>
-						<p:commandButton icon="ui-icon ui-icon-search" value="Buscar"  actionListener="#{mascotasHomenajeBean.buscarmascotahomenajebycriteria()}" update="resultadomascota" />
-					</center>
-					<br />
-			</p:panel>
-			
+			<br />
 			<div class="mascotas-content">
 			 <p:dataGrid styleClass="grid" id="resultadomascota" var="mascota" value="#{mascotasHomenajeBean.listpetmascotahomenaje}" columns="3"  
-				        rows="6" paginator="true"  paginatorPosition="bottom"
+				        rows="6" efect= "true" paginator="true"  paginatorPosition="bottom"
 				        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-				        rowsPerPageTemplate="9,12,15">  
+				        emptyMessage="No se encontraron registros">  
 				  <p:column>
-		        <p:panel header="#{mascota.nombre}" style="text-align:center">  
+		        <p:panel header="#{mascota.nombre}" style="text-align:center;">  
 		            <h:panelGrid columns="1" style="width:150px">  
 		            <table>
 		               <tr>

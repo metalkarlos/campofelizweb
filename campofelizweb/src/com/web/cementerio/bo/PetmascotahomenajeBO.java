@@ -12,6 +12,7 @@ import com.web.cementerio.dao.PetfotomascotaDAO;
 import com.web.cementerio.dao.PetmascotahomenajeDAO;
 import com.web.cementerio.pojo.annotations.Petfotomascota;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
+
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
@@ -52,6 +53,24 @@ public class PetmascotahomenajeBO {
 		}finally{
 			session.close();
 		}
+		
+		return listpetmascotahomenaje;
+	}
+	
+	public List<Petmascotahomenaje> lisPetmascotahomenajeBusquedaByPage(String[] texto, int pageSize, int pageNumber, int args[], int idestado) throws RuntimeException {
+		List<Petmascotahomenaje> listpetmascotahomenaje = null;
+		Session session = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			listpetmascotahomenaje = petmascotahomenajeDAO.lisPetmascotaBusquedaByPage(session, texto, pageSize, pageNumber, args, idestado);
+			
+		} catch (Exception e) {
+			 throw new RuntimeException(e);
+		}
+		finally{
+			session.close();
+		}
+		
 		
 		return listpetmascotahomenaje;
 	}
@@ -153,6 +172,7 @@ public class PetmascotahomenajeBO {
 			Integer idmascota = 0;
 			idmascota= petmascotahomenajeDAO.getMaxidpetmascotahomenaje(session);
 			petmascotahomenaje.setIdmascota(idmascota);
+			petmascotahomenaje.setNombre(petmascotahomenaje.getNombre().toUpperCase());
 			
 			Setestado setestado = new Setestado();
 			setestado.setIdestado(idestado);
