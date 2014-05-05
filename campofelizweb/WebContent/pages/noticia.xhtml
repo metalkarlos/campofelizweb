@@ -27,7 +27,8 @@
 			<h1 class="title ui-widget-header">Noticias</h1>
 			<div class="inner-content">
 				<div style="text-align: right;">
-					<h:link value="[Editar]" styleClass="link2" outcome="noticia_" >
+					<h:link value="[Editar]" styleClass="link2" outcome="noticia-admin.jsf" rendered="#{usuarioBean.autenticado}" >
+						<f:param name="idnoticia" value="#{noticiaBean.idnoticia}"></f:param>
 					</h:link>
 				</div>
 				<center>
