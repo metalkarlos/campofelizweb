@@ -6,7 +6,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	template="../templates/default_others.xhtml">
+	template="/WEB-INF/templates/default_others.xhtml">
 	
 	<ui:define name="head">
 			
@@ -27,8 +27,7 @@
 			<h1 class="title ui-widget-header">Noticias</h1>
 			<div class="inner-content">
 				<div style="text-align: right;">
-					<h:link value="[Editar]" styleClass="link2" outcome="noticia-admin.jsf" rendered="#{usuarioBean.autenticado}" >
-						<f:param name="idnoticia" value="#{noticiaBean.idnoticia}"></f:param>
+					<h:link value="[Editar]" styleClass="link2" outcome="noticia_" >
 					</h:link>
 				</div>
 				<center>
