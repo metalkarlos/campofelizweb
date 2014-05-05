@@ -33,9 +33,12 @@ public class Petguia implements java.io.Serializable {
 	private String titulo;
 	private String descripcion;
 	private String tag;
+	private String rutafoto;
 	private Date fecharegistro;
+	private Date fechamodificacion;
+	private Date fechapublicacion;
 	private String iplog;
-	private Set<?> petfotoguias = new HashSet<Object>(0);
+	private Set<Petfotoguia> petfotoguias = new HashSet<Petfotoguia>(0);
 
 	public Petguia() {
 	}
@@ -46,17 +49,21 @@ public class Petguia implements java.io.Serializable {
 	}
 
 	public Petguia(int idguia, Setestado setestado, Setusuario setusuario,
-			String titulo, String descripcion, String tag, Date fecharegistro,
-			String iplog, Set<?> petfotoguias) {
+			String titulo, String descripcion, String tag,  String rutafoto,
+			Date fecharegistro,	Date fechamodificacion,Date fechapublicacion,
+			String iplog, Set<Petfotoguia> petfotoguias) {
 		this.idguia = idguia;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.tag = tag;
+		this.rutafoto = rutafoto;
 		this.fecharegistro = fecharegistro;
 		this.iplog = iplog;
 		this.petfotoguias = petfotoguias;
+		this.fechamodificacion = fechamodificacion;
+		this.fechapublicacion = fechapublicacion;
 	}
 
 	@Id
@@ -107,6 +114,14 @@ public class Petguia implements java.io.Serializable {
 		this.descripcion = descripcion;
 	}
 
+	@Column(name = "rutafoto", length = 100)
+	public String getRutafoto() {
+		return this.rutafoto;
+	}
+
+	public void setRutafoto(String rutafoto) {
+		this.rutafoto = rutafoto;
+	}
 	@Column(name = "tag", length = 200)
 	public String getTag() {
 		return this.tag;
@@ -115,7 +130,7 @@ public class Petguia implements java.io.Serializable {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecharegistro", nullable = false, length = 29)
 	public Date getFecharegistro() {
@@ -125,7 +140,26 @@ public class Petguia implements java.io.Serializable {
 	public void setFecharegistro(Date fecharegistro) {
 		this.fecharegistro = fecharegistro;
 	}
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechamodificacion", length = 29)
+	public Date getFechamodificacion() {
+		return this.fechamodificacion;
+	}
 
+	public void setFechamodificacion(Date fechamodificacion) {
+		this.fechamodificacion = fechamodificacion;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechapublicacion",  length = 29)
+	public Date getFechapublicacion() {
+		return this.fechapublicacion;
+	}
+
+	public void setFechapublicacion(Date fechapublicacion) {
+		this.fechapublicacion = fechapublicacion;
+	}
+	
 	@Column(name = "iplog", length = 20)
 	public String getIplog() {
 		return this.iplog;
@@ -136,12 +170,80 @@ public class Petguia implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petguia", targetEntity=Petfotoguia.class)
-	public Set<?> getPetfotoguias() {
+	public Set<Petfotoguia> getPetfotoguias() {
 		return this.petfotoguias;
 	}
 
-	public void setPetfotoguias(Set<?> petfotoguias) {
+	public void setPetfotoguias(Set<Petfotoguia> petfotoguias) {
 		this.petfotoguias = petfotoguias;
 	}
 
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException{
+	  Petguia petguia = (Petguia) super.clone();
+	  
+	  return petguia;
+	}
+	
+	public Petguia clonar() throws Exception{
+		return (Petguia)this.clone();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result + idguia;
+		result = prime * result
+				+ ((rutafoto == null) ? 0 : rutafoto.hashCode());
+		result = prime * result
+				+ ((setestado == null) ? 0 : setestado.hashCode());
+		result = prime * result + ((tag == null) ? 0 : tag.hashCode());
+		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Petguia other = (Petguia) obj;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (idguia != other.idguia)
+			return false;
+		if (rutafoto == null) {
+			if (other.rutafoto != null)
+				return false;
+		} else if (!rutafoto.equals(other.rutafoto))
+			return false;
+		if (setestado == null) {
+			if (other.setestado != null)
+				return false;
+		} else if (!setestado.equals(other.setestado))
+			return false;
+		if (tag == null) {
+			if (other.tag != null)
+				return false;
+		} else if (!tag.equals(other.tag))
+			return false;
+		if (titulo == null) {
+			if (other.titulo != null)
+				return false;
+		} else if (!titulo.equals(other.titulo))
+			return false;
+		return true;
+	}
+	
+	
 }

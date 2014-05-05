@@ -33,21 +33,7 @@ public class PetmascotahomenajeDAO {
 	}
 	
 	
-	
-	@SuppressWarnings("unchecked")
-	public List<Petmascotahomenaje> getListpetmascotahomenaje(Session session, int idestado) throws Exception{
-		List<Petmascotahomenaje> listPetmascotahomenaje = null;
-		
-		Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
-				.add(Restrictions.eq("setestado.idestado",idestado));
-		
-		criteria.addOrder(Order.desc("fechapublicacion"))
-		.setMaxResults(6);
-		
-		listPetmascotahomenaje = (List<Petmascotahomenaje>)criteria.list();
-		       
-		return listPetmascotahomenaje;
-	}
+
 	
 	@SuppressWarnings("unchecked")
 	public List<Petmascotahomenaje> lisPetmascotaBusquedaByPage(Session session, String[] texto, int pageSize, int pageNumber, int args[], int idestado) throws Exception {

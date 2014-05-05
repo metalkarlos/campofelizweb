@@ -42,20 +42,7 @@ public class PetmascotahomenajeBO {
 		return petmascotahomenaje;
 	}
 	
-	public List<Petmascotahomenaje> getListpetmascotahomenaje(int idestado) throws Exception{
-		List<Petmascotahomenaje> listpetmascotahomenaje = null;
-		Session session = null;
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			listpetmascotahomenaje = petmascotahomenajeDAO.getListpetmascotahomenaje(session, idestado);
-		} catch (Exception e) {
-			throw new Exception(e);
-		}finally{
-			session.close();
-		}
-		
-		return listpetmascotahomenaje;
-	}
+
 	
 	public List<Petmascotahomenaje> lisPetmascotahomenajeBusquedaByPage(String[] texto, int pageSize, int pageNumber, int args[], int idestado) throws RuntimeException {
 		List<Petmascotahomenaje> listpetmascotahomenaje = null;

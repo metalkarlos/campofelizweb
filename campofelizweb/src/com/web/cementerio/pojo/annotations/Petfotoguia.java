@@ -33,6 +33,7 @@ public class Petfotoguia implements java.io.Serializable {
 	private String nombrearchivo;
 	private Integer perfil;
 	private Date fecharegistro;
+	private Date fechamodificacion;
 	private String iplog;
 
 	public Petfotoguia() {
@@ -47,7 +48,7 @@ public class Petfotoguia implements java.io.Serializable {
 	public Petfotoguia(int idfotoguia, Setestado setestado,
 			Setusuario setusuario, Petguia petguia, String descripcion,
 			String ruta, String nombrearchivo, Integer perfil,
-			Date fecharegistro, String iplog) {
+			Date fecharegistro, Date fechamodificacion, String iplog) {
 		this.idfotoguia = idfotoguia;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -57,6 +58,7 @@ public class Petfotoguia implements java.io.Serializable {
 		this.nombrearchivo = nombrearchivo;
 		this.perfil = perfil;
 		this.fecharegistro = fecharegistro;
+		this.fechamodificacion = fechamodificacion;
 		this.iplog = iplog;
 	}
 
@@ -146,6 +148,15 @@ public class Petfotoguia implements java.io.Serializable {
 		this.fecharegistro = fecharegistro;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechamodificacion", length = 29)
+	public Date getFechamodificacion() {
+		return this.fechamodificacion;
+	}
+
+	public void setFechamodificacion(Date fechamodificacion) {
+		this.fechamodificacion = fechamodificacion;
+	}
 	@Column(name = "iplog", length = 20)
 	public String getIplog() {
 		return this.iplog;
@@ -154,5 +165,64 @@ public class Petfotoguia implements java.io.Serializable {
 	public void setIplog(String iplog) {
 		this.iplog = iplog;
 	}
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		Petfotoguia petfotoguia = (Petfotoguia)super.clone();
+		return petfotoguia;
+	}
+	
+	public Petfotoguia clonar() throws Exception {
+		return (Petfotoguia)this.clone();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result + idfotoguia;
+		result = prime * result
+				+ ((nombrearchivo == null) ? 0 : nombrearchivo.hashCode());
+		result = prime * result + ((perfil == null) ? 0 : perfil.hashCode());
+		result = prime * result + ((ruta == null) ? 0 : ruta.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Petfotoguia other = (Petfotoguia) obj;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (idfotoguia != other.idfotoguia)
+			return false;
+		if (nombrearchivo == null) {
+			if (other.nombrearchivo != null)
+				return false;
+		} else if (!nombrearchivo.equals(other.nombrearchivo))
+			return false;
+		if (perfil == null) {
+			if (other.perfil != null)
+				return false;
+		} else if (!perfil.equals(other.perfil))
+			return false;
+		if (ruta == null) {
+			if (other.ruta != null)
+				return false;
+		} else if (!ruta.equals(other.ruta))
+			return false;
+		return true;
+	}
+
 
 }
