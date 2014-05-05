@@ -32,24 +32,20 @@
 	<div  class="content-page">
 	 <h:form id="form-contentpage" enctype="multipart/form-data">
         <p:growl id="mensajes" showDetail="true" />
-        <p:panel id="panel-empresascontent">
- 		    <h1 class="title ui-widget-header">Empresas</h1>
- 		    <br/>
- 		    <h:link value="[Nuevo]" style="float: right;" outcome="empresa-admin.jsf" rendered="#{usuarioBean.autenticado}" >
-			</h:link>
-			 <br/>
-		</p:panel>
+        <h1 class="title ui-widget-header">Empresas</h1>
+        <span class="clear" />
+        <br/>
+ 		<h:link value="[Nueva Empresa]" style="float: right;margin: 0 20px 20px 0;" styleClass="link2" outcome="empresa-admin.jsf" rendered="#{usuarioBean.autenticado}" />
+		<span class="clear" />
+		<br/>
+		
 		<div>
 		   <p:dataTable id="idTablaEmpresas" value="#{empresasBean.listpetemepresas}" var="empresa" rowKey="#{empresa.idempresa}" widgetVar="vartablaEmpresas"
 				paginator="true" rows="20" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				selection="#{empresasBean.petempresaseleccionada}" selectionMode="single"  emptyMessage="No se encontraron registros">
+				selection="#{empresasBean.petempresaseleccionada}" selectionMode="single"  emptyMessage="No se encontraron registros"  paginatorPosition="bottom">
 
 		   <p:ajax event="rowSelect" listener="#{empresasBean.onRowSelect}"/>
-		   				
-		   <f:facet name="header">  
-            Empresas  
-           </f:facet>
-				       
+		  	       
 	       <p:column >
 		       <f:facet name="header">  
 	            <h:outputText value="Código" />
