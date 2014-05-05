@@ -1,15 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PROCESS model-entity="JSFProcess">
- <PROCESS-ITEM NAME="rules:#pages#noticia.xhtml"
-  PATH="/pages/noticia.xhtml" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#pages#noticia.xhtml:0" NAME="item"
-   PATH="/pages/noticia.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT
-    ID="noticia_::#WEB-INF#pages#noticia-admin.xhtml" NAME="output"
-    PATH="/WEB-INF/pages/noticia-admin.xhtml"
-    TARGET="rules:#WEB-INF#pages#noticia-admin.xhtml" TITLE="noticia_" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#WEB-INF#pages#noticia-admin.xhtml"
-  PATH="/WEB-INF/pages/noticia-admin.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
-</PROCESS>
+<PROCESS model-entity="JSFProcess"/>
