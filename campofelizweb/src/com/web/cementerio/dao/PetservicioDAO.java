@@ -13,6 +13,15 @@ import com.web.cementerio.pojo.annotations.Petservicio;
 
 public class PetservicioDAO {
 
+	public int maxIdservicio(Session session) throws Exception {
+		int max=0;
+		
+		Object object = session.createQuery("select max(idservicio) as max from Petservicio ").uniqueResult();
+		max = (object==null?0:Integer.parseInt(object.toString()));
+		
+		return max;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Petservicio> lisPetservicioPrincipales(Session session) throws Exception {
 		List<Petservicio> lisPetservicio = null;
@@ -96,19 +105,23 @@ public class PetservicioDAO {
 	public Petservicio getPetservicioConObjetosById(Session session, int idservicio) throws Exception {
 		Petservicio petservicio = null;
 		
-		String hql = " from Petservicio as serv left join fetch serv.setestado as servestado ";
-		hql += " left join fetch serv.petfotoservicios as foto ";
-		hql += " left join fetch foto.setestado as fotoestado ";
-		hql += " where serv.idservicio = :idservicio ";
-		hql += " and servestado.idestado = 1 ";
-		hql += " and fotoestado.idestado = 1 ";
-
-		Query query = session.createQuery(hql)
-				.setInteger("idservicio", idservicio);
+		Criteria criteria = session.createCriteria(Petservicio.class, "serv")
+				.add( Restrictions.eq("serv.idservicio", idservicio))
+				.createAlias("serv.setestado", "servestado", Criteria.LEFT_JOIN, Restrictions.eq("servestado.idestado", 1))
+				.createAlias("serv.petfotoservicios", "foto", Criteria.LEFT_JOIN)
+				.createAlias("foto.setestado", "fotoestado", Criteria.LEFT_JOIN, Restrictions.eq("fotoestado.idestado", 1));
 		
-		petservicio = (Petservicio) query.uniqueResult();
+		petservicio = (Petservicio) criteria.uniqueResult();
 		
 		return petservicio;
+	}
+	
+	public void savePetservicio(Session session, Petservicio petservicio) throws Exception {
+		session.save(petservicio);
+	}
+	
+	public void updatePetservicio(Session session, Petservicio petservicio) throws Exception {
+		session.update(petservicio);
 	}
 	
 }

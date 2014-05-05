@@ -273,7 +273,7 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 		if (setusuario == null) {
 			if (other.setusuario != null)
 				return false;
-		} else if (!setusuario.equals(other.setusuario))
+		} else if (setusuario.getIdusuario() != other.setusuario.getIdusuario())
 			return false;
 		if (tag == null) {
 			if (other.tag != null)

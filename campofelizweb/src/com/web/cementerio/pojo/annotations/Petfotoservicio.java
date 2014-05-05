@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "petfotoservicio", schema = "pets")
-public class Petfotoservicio implements java.io.Serializable {
+public class Petfotoservicio implements java.io.Serializable, Cloneable {
 
 	/**
 	 * 
@@ -34,6 +34,7 @@ public class Petfotoservicio implements java.io.Serializable {
 	private Integer perfil;
 	private Date fecharegistro;
 	private String iplog;
+	private Date fechamodificacion;
 
 	public Petfotoservicio() {
 	}
@@ -48,7 +49,7 @@ public class Petfotoservicio implements java.io.Serializable {
 	public Petfotoservicio(int idfotoservicio, Setestado setestado,
 			Setusuario setusuario, Petservicio petservicio, String descripcion,
 			String ruta, String nombrearchivo, Integer perfil,
-			Date fecharegistro, String iplog) {
+			Date fecharegistro, String iplog, Date fechamodificacion) {
 		this.idfotoservicio = idfotoservicio;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -59,6 +60,7 @@ public class Petfotoservicio implements java.io.Serializable {
 		this.perfil = perfil;
 		this.fecharegistro = fecharegistro;
 		this.iplog = iplog;
+		this.fechamodificacion = fechamodificacion;
 	}
 
 	@Id
@@ -154,6 +156,25 @@ public class Petfotoservicio implements java.io.Serializable {
 
 	public void setIplog(String iplog) {
 		this.iplog = iplog;
+	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechamodificacion", length = 29)
+	public Date getFechamodificacion() {
+		return fechamodificacion;
+	}
+
+	public void setFechamodificacion(Date fechamodificacion) {
+		this.fechamodificacion = fechamodificacion;
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+	
+	public Petfotoservicio clonar() throws Exception {
+		return (Petfotoservicio)this.clone(); 
 	}
 
 }

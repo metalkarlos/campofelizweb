@@ -39,17 +39,26 @@ public class PetnoticiaDAO {
 	public Petnoticia getPetnoticiaConObjetosById(Session session, int idnoticia) throws Exception {
 		Petnoticia petnoticia = null;
 		
-		String hql = " from Petnoticia as noti left join fetch noti.setestado as notiestado ";
+		/*String hql = " from Petnoticia as noti ";
+		hql += " left join fetch noti.setestado as notiestado ";
+		hql += " and notiestado.idestado = 1 ";
 		hql += " left join fetch noti.petfotonoticias as foto ";
 		hql += " left join fetch foto.setestado as fotoestado ";
-		hql += " where noti.idnoticia = :idnoticia ";
-		hql += " and notiestado.idestado = 1 ";
 		hql += " and fotoestado.idestado = 1 ";
+		hql += " where noti.idnoticia = :idnoticia ";
 
 		Query query = session.createQuery(hql)
 				.setInteger("idnoticia", idnoticia);
 		
-		petnoticia = (Petnoticia) query.uniqueResult();
+		petnoticia = (Petnoticia) query.uniqueResult();*/
+		
+		Criteria criteria = session.createCriteria(Petnoticia.class, "noti")
+				.add( Restrictions.eq("noti.idnoticia", idnoticia))
+				.createAlias("noti.setestado", "notiestado", Criteria.LEFT_JOIN, Restrictions.eq("notiestado.idestado", 1))
+				.createAlias("noti.petfotonoticias", "foto", Criteria.LEFT_JOIN)
+				.createAlias("foto.setestado", "fotoestado", Criteria.LEFT_JOIN, Restrictions.eq("fotoestado.idestado", 1));
+		
+		petnoticia = (Petnoticia) criteria.uniqueResult();
 		
 		return petnoticia;
 	}

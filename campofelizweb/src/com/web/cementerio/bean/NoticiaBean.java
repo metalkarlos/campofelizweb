@@ -59,7 +59,7 @@ public class NoticiaBean implements Serializable {
 				PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
 				petnoticia = petnoticiaBO.getPetnoticiaConObjetosById(idnoticia);
 				
-				if(petnoticia.getPetfotonoticias() != null && petnoticia.getPetfotonoticias().size() > 0){
+				if(petnoticia != null && petnoticia.getPetfotonoticias() != null && petnoticia.getPetfotonoticias().size() > 0){
 					lisPetfotonoticia = new ArrayList<Petfotonoticia>(petnoticia.getPetfotonoticias());
 				}
 			} catch(Exception e) {
