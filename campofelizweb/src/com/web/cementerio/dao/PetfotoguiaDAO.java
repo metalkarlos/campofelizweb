@@ -14,7 +14,7 @@ public class PetfotoguiaDAO {
 	public int maxIdPetfotoguia(Session session) throws Exception {
 		int max=0;
 		
-		Object object = session.createQuery("select max(idfotoguia) as max from Petfotonguia ").uniqueResult();
+		Object object = session.createQuery("select max(idfotoguia) as max from Petfotoguia ").uniqueResult();
 		max = (object==null?0:Integer.parseInt(object.toString()));
 		
 		return max;

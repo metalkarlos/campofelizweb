@@ -56,7 +56,7 @@
 					<p:row>
 					<p:column>
 					<h:panelGroup id="idpanellabelgaleria">
-					<h:outputLabel id="lblFotos" value="Fotos" for="idgalleria" rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}" />
+					    <h:outputLabel id="lblFotos" value="Fotos" for="idgalleria" rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}" />
 					</h:panelGroup>
 					<h:panelGroup id="idpanelgaleria" styleClass="centrar">
 					<p:galleria id="idgalleria" value="#{noticiaAdminBean.lisPetfotonoticia}" var="item" transitionInterval="0" panelWidth="500" panelHeight="320" rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}">

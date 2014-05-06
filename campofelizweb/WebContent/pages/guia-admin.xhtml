@@ -55,26 +55,31 @@
 				   <p:inputText id="txtTitulo" value="#{guiaAdminBean.petguia.titulo}" style="width: 600px;"></p:inputText>
 				  </p:column>
 			   </p:row>
+			   
 			   <p:row>
+			   	 <p:column>
 			     <h:panelGroup id="idpanellabelgaleria">
 			         <h:outputLabel id="lblFotos" value="Fotos" for="idgalleria" rendered="#{guiaAdminBean.lisPetfotoguia.size() > 0}" />
 			     </h:panelGroup>	
-			     <p:galleria id="idgalleria" value="#{guiaAdminBean.lisPetfotoguia}" var="item" transitionInterval="0" panelWidth="500" panelHeight="320" rendered="#{guiaAdminBean.lisPetfotoguia.size() > 0}">
-			        <p:graphicImage id="idfotos" value="#{guiaAdminBean.rutaImagenes}#{item.ruta}" style="max-height: 58px;" />
-			        <p:galleriaContent> 
-			           <h:panelGrid columns="1" style="background-color: #eaeaea;height: 100%; width: 100%;" >
-			             <f:facet name="header">
-					       	<p:graphicImage id="idfoto" value="#{guiaAdminBean.rutaImagenes}#{item.ruta}" style="max-height: 300px; padding-top: 10px" />
-					     </f:facet>
-					     <p:commandButton id="idbuttonprincipal" title="Colocar como foto principal" icon="ui-icon ui-icon-person"  onclick="vardialogprincipal.show()" style="position:absolute;right:0px;top:30px;" update=":form-contentpage:idpanelprincipal" >
-					       	<f:setPropertyActionListener value="#{item}" target="#{guiaAdminBean.petfotoguiaSeleccionada}" />
-					     </p:commandButton>
-					     <p:commandButton id="idbuttondelete"  title="Eliminar foto permanentemente" icon="ui-icon ui-icon-trash" onclick="vardialogdelete.show()" style="position:absolute;right:0px;top:60px;" update=":form-contentpage:idpaneldelete">
-					       	<f:setPropertyActionListener value="#{item}" target="#{guiaAdminBean.petfotoguiaSeleccionada}" />
-					     </p:commandButton>  
-			          </h:panelGrid> 
-			       </p:galleriaContent>
-			     </p:galleria>
+			     <h:panelGroup id="idpanelgaleria" styleClass="centrar">
+			       <p:galleria id="idgalleria" value="#{guiaAdminBean.lisPetfotoguia}" var="item" transitionInterval="0" panelWidth="500" panelHeight="320" rendered="#{guiaAdminBean.lisPetfotoguia.size() > 0}">
+				        <p:graphicImage id="idfotos" value="#{guiaAdminBean.rutaImagenes}#{item.ruta}" style="max-height: 58px;" />
+				        <p:galleriaContent> 
+				           <h:panelGrid columns="1" style="background-color: #eaeaea;height: 100%; width: 100%;" >
+				             <f:facet name="header">
+						       	<p:graphicImage id="idfoto" value="#{guiaAdminBean.rutaImagenes}#{item.ruta}" style="max-height: 300px; padding-top: 10px" />
+						     </f:facet>
+						     <p:commandButton id="idbuttonprincipal" title="Colocar como foto principal" icon="ui-icon ui-icon-person"  onclick="vardialogprincipal.show()" style="position:absolute;right:0px;top:30px;" update=":form-contentpage:idpanelprincipal" >
+						       	<f:setPropertyActionListener value="#{item}" target="#{guiaAdminBean.petfotoguiaSeleccionada}" />
+						     </p:commandButton>
+						     <p:commandButton id="idbuttondelete"  title="Eliminar foto permanentemente" icon="ui-icon ui-icon-trash" onclick="vardialogdelete.show()" style="position:absolute;right:0px;top:60px;" update=":form-contentpage:idpaneldelete">
+						       	<f:setPropertyActionListener value="#{item}" target="#{guiaAdminBean.petfotoguiaSeleccionada}" />
+						     </p:commandButton>  
+				          </h:panelGrid> 
+				       </p:galleriaContent>
+			      </p:galleria>
+			     </h:panelGroup> 
+			     </p:column>
 			   </p:row>
 			   
 			   <p:row>

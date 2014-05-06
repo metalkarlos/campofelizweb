@@ -61,8 +61,8 @@ public class GuiaAdminBean  implements Serializable{
 	@PostConstruct
 	public void initGuiaAdminBean() {
 		FacesUtil facesUtil = new FacesUtil();
-		idguia = Integer.parseInt(facesUtil.getParametroUrl("idguia").toString());
-		
+		//idguia = Integer.parseInt(facesUtil.getParametroUrl("idguia").toString());
+		idguia= (facesUtil.getParametroUrl("idguia")==null?0:Integer.parseInt(facesUtil.getParametroUrl("idguia").toString()));
 		if(idguia > 0){
 			consultaGuia();
 		}
