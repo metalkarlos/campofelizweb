@@ -43,7 +43,7 @@
 			</div>
 			<span class="clear" />
 			<br />
- 		    <h:link value="[Nueva Mascota]" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" outcome="mascotahomenaje-admin.jsf" rendered="#{usuarioBean.autenticado}" >
+ 		    <h:link value="[Nueva Mascota]" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" outcome="/admin/mascotahomenaje-admin" rendered="#{usuarioBean.autenticado}" >
 			   <f:param name="idmascota" value="0"></f:param>
 			</h:link>
 			<br />
@@ -66,7 +66,7 @@
 		  			  </tr>
 		  			  <tr>
 		  			   <td >
-		  			      <h:link   style="float: center; padding: 10px 0 0" value="Leer Más"  outcome="mascotahomenaje?faces-redirect=true" >
+		  			      <h:link   style="float: center; padding: 10px 0 0" value="Leer Más"  outcome="/pages/mascotahomenaje" >
 						  <f:param name="idmascota" value="#{mascota.idmascota}"></f:param>
 						</h:link>
 		  			   </td>

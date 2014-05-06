@@ -125,7 +125,7 @@
 			<div class="area-botones">
 			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
 			renderedButtonEliminar="#{servicioAdminBean.idservicio > 0}" onclickButtonEliminar="vardialogdeleteservicio.show()" 
-			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('servicios.jsf');"
+			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" actionButtonCancelar="/pages/servicios"
 			renderedButtonNewItem="false" />
 			</div>
 			<p:dialog id="iddialogprincipal" header="Foto Principal" closable="true" widgetVar="vardialogprincipal" modal="true" style="min-height: 80px; width: 450px">

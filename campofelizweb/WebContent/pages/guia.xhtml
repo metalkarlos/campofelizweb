@@ -27,7 +27,8 @@
 			<h1 class="title ui-widget-header">Cómo decir Adiós</h1>
 			<div class="inner-content">
 				<div style="text-align: right;">
-					<h:link value="[Editar]" styleClass="link2" outcome="guia_" >
+					<h:link value="[Editar]" styleClass="link2" outcome="/admin/guia-admin" rendered="#{usuarioBean.autenticado}" >
+						<f:param name="idguia" value="#{guiaBean.idguia}"></f:param>
 					</h:link>
 				</div>
 				<center>

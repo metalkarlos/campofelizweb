@@ -180,7 +180,7 @@
 			<div class="area-botones">
 			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
 			renderedButtonEliminar="#{mascotaHomenajeAdminBean.idmascota > 0}" onclickButtonEliminar="vardialogdeletemascota.show()" 
-			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('mascotashomenaje.jsf');"
+			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" actionButtonCancelar="/pages/mascotashomenaje" 
 			renderedButtonNewItem="false" />
 			</div>	
 			<p:dialog id="iddialogprincipal" header="Foto Principal" closable="true" widgetVar="vardialogprincipal" modal="true" style="min-height: 80px; width: 450px">

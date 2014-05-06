@@ -43,7 +43,7 @@
         <p:growl id="mensajes" showDetail="true" />
           <h1 class="title ui-widget-header">Preguntas Frecuentes</h1>
  		   <br/>
- 		  <h:link value="[Nueva Pregunta/Respuesta]" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" outcome="preguntas-admin.jsf" rendered="#{usuarioBean.autenticado}" >
+ 		  <h:link value="[Nueva Pregunta/Respuesta]" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" outcome="/admin/preguntas-admin" rendered="#{usuarioBean.autenticado}" >
  		    <f:param name="idenunciado" value="0"></f:param>
 		  </h:link>
 		  <span class="clear" />
@@ -53,13 +53,13 @@
 	         </p:column>
 	           
 		     <p:column style="width: 60px;" rendered="#{usuarioBean.autenticado}">
-		        <h:link value="[Editar]" styleClass="link2" style="float: right;" outcome="preguntas-admin.jsf" rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
+		        <h:link value="[Editar]" styleClass="link2" style="float: right;" outcome="/admin/preguntas-admin" rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
 		       	<f:param name="idenunciado" value="#{enunciado.idenunciado}"></f:param>
 		          </h:link>
 	         </p:column>
 	              
 	         <p:column style="width: 60px;"  rendered="#{usuarioBean.autenticado}">
-   	            <h:link value="[Eliminar]" styleClass="link2" style="float:right; "  outcome="preguntas-admin.jsf"  rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
+   	            <h:link value="[Eliminar]" styleClass="link2" style="float:right; "  outcome="/admin/preguntas-admin"  rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
    	              	<f:param name="idenunciado" value="#{enunciado.idenunciado}"></f:param>
    	            </h:link>	
 	         </p:column>

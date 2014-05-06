@@ -27,7 +27,7 @@
 			<h1 class="title ui-widget-header">Servicios</h1>
 			<div class="inner-content">
 				<div style="text-align: right;">
-					<h:link value="[Editar]" styleClass="link2" outcome="servicio-admin.jsf" rendered="#{usuarioBean.autenticado}" >
+					<h:link value="[Editar]" styleClass="link2" outcome="/admin/servicio-admin" rendered="#{usuarioBean.autenticado}" >
 						<f:param name="idservicio" value="#{servicioBean.idservicio}"></f:param>
 					</h:link>
 				</div>

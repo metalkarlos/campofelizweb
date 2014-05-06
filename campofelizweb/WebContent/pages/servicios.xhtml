@@ -46,7 +46,7 @@
 			</div>
 			<span class="clear" />
 			<br />
-			<h:link value="[Nuevo Servicio]" outcome="servicio-admin.jsf" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" rendered="#{usuarioBean.autenticado}" >
+			<h:link value="[Nuevo Servicio]" outcome="/admin/servicio-admin" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" rendered="#{usuarioBean.autenticado}" >
 				<f:param name="idservicio" value="0"></f:param>
 			</h:link>
 			<p:dataGrid styleClass="gridServicios" id="gridServicios" value="#{serviciosBean.lisPetservicio}" var="servicio" columns="#{serviciosBean.columnsGrid}" rows="#{serviciosBean.rowsGrid}" paginator="true" effect="true" 
@@ -61,7 +61,7 @@
 							<p class="p1" style="text-align: justify;">#{fn:substring(servicio.descripcion, 0, 200)}...</p>
 						</div>
 						<div class="alignright p3">
-	                        <h:link value="Leer Más" outcome="servicio?faces-redirect=true" >
+	                        <h:link value="Leer Más" outcome="/pages/servicio" >
 								<f:param name="idservicio" value="#{servicio.idservicio}"></f:param>
 							</h:link>
 	                    </div>
