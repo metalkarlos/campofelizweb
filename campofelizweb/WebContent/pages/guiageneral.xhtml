@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="../templates/default_others.xhtml">
+	
+	<ui:define name="head">
+		<title>Cómo decir Adiós</title>
+		<style type="text/css">
+			.inner-content h1  {
+				color: #66ad23;
+			}
+			.gridNoticias {
+				padding: 10px 0;
+			}
+		</style>
+
+	</ui:define>
+	
+	<ui:define name="content_page">
+		<div class="content-page">
+		<h:form id="form-contentpage">
+			<p:growl id="mensajes" showDetail="true" />
+			
+			<h1 class="title ui-widget-header">Cómo decir Adiós</h1>
+			<div style="float: right;margin: 20px 15px 0 0;">
+			<div id="search-form" >
+				<h:inputText id="txtbusqueda" value="#{guiaGeneralBean.descripcionParam}" onblur="if(this.value==''){this.value='buscar'}" onfocus="if(this.value=='buscar'){this.value=''}" />
+				<h:commandLink styleClass="search-form-submit" >
+					<f:ajax render="gridGuia" execute="txtbusqueda"></f:ajax>
+				</h:commandLink>
+			</div>
+			</div>
+			<span class="clear" />
+			<br />
+			<h:link value="[Nuevo]" outcome="guia-admin.jsf" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" rendered="#{usuarioBean.autenticado}" >
+				<f:param name="idguia" value="0"></f:param>
+			</h:link>
+			<p:dataGrid styleClass="gridNoticias" id="gridGuia" value="#{guiaGeneralBean.lisPetguia}" var="guia" columns="1" rows="3" paginator="true" effect="true" 
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				emptyMessage="No se encontraron registros" paginatorPosition="bottom">
+				<p:column>
+				  <div class="inner-content">
+						<div class="titulo3">#{guia.titulo}</div>
+					
+					</div>
+		        </p:column>
+		    </p:dataGrid>    		
+       </h:form>
+     </div>
+   </ui:define>    			
+	
+</ui:composition>
+	

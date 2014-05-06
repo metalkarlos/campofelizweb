@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default_others.xhtml">
+	
+	<ui:define name="head">
+			
+		<title>Cómo decir Adiós</title>
+		
+		<style type="text/css">
+			.inner-content {
+				padding-top: 14px;
+			}
+		</style>
+	</ui:define>
+	
+	<ui:define name="content_page">
+		<div class="content-page">
+		<h:form id="form-contentpage">
+			<p:growl id="mensajes" showDetail="true" />
+			
+			<h1 class="title ui-widget-header">Cómo decir Adiós</h1>
+			<div class="inner-content">
+				<div style="text-align: right;">
+					<h:link value="[Editar]" styleClass="link2" outcome="guia_" >
+					</h:link>
+				</div>
+				<center>
+				<p:galleria id="idgalleria" value="#{guiaBean.petguia.petfotoguias}" var="item" panelWidth="500" panelHeight="320">
+			        <p:graphicImage id="idfotos" value="#{guiaBean.rutaImagenes}#{item.ruta}" style="max-height: 58px" />
+			        <p:galleriaContent>  
+			            <h:panelGrid columns="1" style="background-color: #eaeaea;height: 100%; width: 100%;" >  
+					        <f:facet name="header">
+				            	<p:graphicImage id="idfoto" value="#{guiaBean.rutaImagenes}#{item.ruta}" style="max-height: 300px; padding-top: 10px" />
+					        </f:facet>
+					        <h:outputText value="" />
+					        <h:outputText value="" />
+					    </h:panelGrid>
+					</p:galleriaContent>
+				</p:galleria>
+				</center>
+				
+				<div class="titulo2">
+					<h:outputText id="fechaPublicacion" value="#{guiaBean.petguia.fechapublicacion}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</div>
+				
+				<div class="cuerpo">
+					<div class="titulo2">
+						#{guiaBean.petguia.titulo}
+					</div>
+					<div>
+						<p>
+							<h:outputText value="#{guiaBean.petguia.descripcion}" escape="false" />
+						</p>
+					</div>
+				</div>
+				
+				<center>
+				<div class="fb-comments" data-href="https://www.facebook.com/pages/Campo-Feliz-Cementerio-de-Mascotas/257959247667793" data-numposts="5" data-colorscheme="light"></div>
+				</center>
+			</div>
+		</h:form>
+		</div>
+	</ui:define>
+	
+</ui:composition>

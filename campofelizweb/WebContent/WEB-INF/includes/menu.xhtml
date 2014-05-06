@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:form id="form-menupage">
+		<div id='cssmenu'>
+			<ul>
+				<li><h:link outcome="home.jsf" value="Inicio" /></li>
+				<li><h:link outcome="quienessomos.jsf" >Quienes Somos</h:link></li>
+				<li class='has-sub'><a href='#'><span>Servicios</span></a>
+					<ul>
+						<li><h:link outcome="servicios.jsf" >Nuestros Servicios</h:link></li>
+						<li><a href='#'><span>Encuesta de Satisfacción</span></a></li>
+						<li class='last'><a href='#'><span>Cotización</span></a></li>
+					</ul></li>
+				<li><a href='#'><span>Cementerio Virtual</span></a></li>
+				<li><h:link outcome="mascotashomenaje.jsf">Homenaje Póstumo</h:link></li>
+				<li><h:link outcome="noticias.jsf">Noticias</h:link></li>
+				<li><a href='#'><span>Cómo decir Adiós</span></a></li>
+				<li><h:link outcome="preguntas.jsf">Preguntas Frecuentes</h:link></li>
+				<li class='last'><h:link outcome="empresas.jsf"><span>Contáctenos</span></h:link></li>
+			</ul>
+		</div>
+	</h:form>
+</ui:composition>
