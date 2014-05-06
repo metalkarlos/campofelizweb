@@ -63,8 +63,9 @@ PetguiaDAO petguiaDAO;
 	
 	
 	
-	public void ingresarPetguiaBO(Petguia petguia,int idestado, UploadedFile uploadedFile) throws Exception{
+	public boolean ingresarPetguiaBO(Petguia petguia,int idestado, UploadedFile uploadedFile) throws Exception{
 		Session session = null;
+		boolean ok = false;
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
@@ -102,6 +103,7 @@ PetguiaDAO petguiaDAO;
 			}
 			
 			session.getTransaction().commit();
+			ok = true;
 			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
@@ -109,6 +111,7 @@ PetguiaDAO petguiaDAO;
 		}finally {
 			session.close();
 		}
+		return ok;
 	}
 	
 	public boolean modificarPetguiaeBO(Petguia petguia,Petguia petguiaclone,UploadedFile uploadedFile,

@@ -2,18 +2,22 @@ package com.web.cementerio.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import com.web.cementerio.bo.PetguiaBO;
+
 import com.web.cementerio.pojo.annotations.Petfotoguia;
+import com.web.cementerio.pojo.annotations.Petfotonoticia;
 import com.web.cementerio.pojo.annotations.Petguia;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
@@ -96,6 +100,87 @@ public class GuiaAdminBean  implements Serializable{
 		}
 	}
 
+	
+	public void handleFileUpload(FileUploadEvent event) {
+		try{
+			uploadedFile = event.getFile();
+			streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
+			
+			FacesUtil facesUtil = new FacesUtil();
+			UsuarioBean usuarioBean = (UsuarioBean)facesUtil.getSessionBean("usuarioBean");
+			usuarioBean.setStreamedContent(streamedContent);
+			facesUtil.setSessionBean("usuarioBean", usuarioBean);
+			fotoSubida = true;
+			
+			new MessageUtil().showInfoMessage("Foto en memoria!", event.getFile().getFileName());
+		}catch(Exception x){
+			x.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
+	}
+	
+	public void ponerFotoPrincipal(){
+		petguia.setRutafoto(petfotoguiaSeleccionada.getRuta());
+		petfotoguiaSeleccionada = new Petfotoguia();
+		new MessageUtil().showInfoMessage("Listo!", "Se ha seleccionado como foto principal");
+	}
+	
+	public void quitarFotoGaleria(){
+		lisPetfotoguia.remove(petfotoguiaSeleccionada);
+		petfotoguiaSeleccionada = new Petfotoguia();
+	}
+	
+	public void borrarFotoSubida(){
+		streamedContent = null;
+		uploadedFile = null;
+		fotoSubida = false;
+	}
+	
+	public void grabar(){
+		try{
+			boolean ok = false;
+			
+			PetguiaBO petguiaBO = new PetguiaBO();
+			Petfotonoticia petfotonoticia = new Petfotonoticia();
+			
+			if(fotoSubida && descripcionFoto != null && descripcionFoto.trim().length() > 0){
+				petfotonoticia.setDescripcion(descripcionFoto);
+			}
+			
+			if(idguia == 0){
+				ok = petguiaBO.ingresarPetguiaBO(petguia,1,  uploadedFile);
+			}else{
+				//ok = petguiaBO.modificar(petnoticia, petnoticiaClon, lisPetfotonoticia, lisPetfotonoticiaClon, petfotonoticia, uploadedFile);
+			}
+			
+			if(ok){
+				new MessageUtil().showInfoMessage("Listo!", "Datos grabados con Exito!");
+			}else{
+				new MessageUtil().showInfoMessage("Aviso", "No existen cambios que guardar");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
+	}
+	
+	public String eliminar(){
+		String paginaRetorno = null;
+		
+		try{
+			PetguiaBO petguiaBO = new PetguiaBO();
+			
+			petguiaBO.eliminarBO(petguia, lisPetfotoguiaClon,2);
+
+			paginaRetorno = "noticias?faces-redirect=true";
+		}catch(Exception e){
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
+		
+		return paginaRetorno;
+	}
+
 	public Petguia getPetguia() {
 		return petguia;
 	}
@@ -174,6 +259,16 @@ public class GuiaAdminBean  implements Serializable{
 
 	public void setFotoSubida(boolean fotoSubida) {
 		this.fotoSubida = fotoSubida;
+	}
+
+
+	public int getIdguia() {
+		return idguia;
+	}
+
+
+	public void setIdguia(int idguia) {
+		this.idguia = idguia;
 	}
 	
 	
