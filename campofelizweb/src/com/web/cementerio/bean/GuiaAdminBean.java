@@ -28,9 +28,8 @@ import com.web.util.MessageUtil;
 @ManagedBean
 @ViewScoped
 public class GuiaAdminBean  implements Serializable{
-
 	
-	private static final long serialVersionUID = -9142652616171071320L;
+	private static final long serialVersionUID = -1314030580304673400L;
 	private int idguia;
 	private Petguia petguia;
 	private Petguia petguiaClon;
@@ -52,11 +51,13 @@ public class GuiaAdminBean  implements Serializable{
 		lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
 		petfotoguiaSeleccionada =  new Petfotoguia(0, new Setestado(), new Setusuario(), new Petguia(), null, null, null, null, null, null, null);
 		fotoSubida =false;
-		
+		descripcionFoto="";
+		rutaImagenes="";
+		idguia=0;
 		cargarRutaImagenes();
 	}
 	
-	
+	 
 	@PostConstruct
 	public void initGuiaAdminBean() {
 		FacesUtil facesUtil = new FacesUtil();

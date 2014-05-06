@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "petfotoguia", schema = "pets")
-public class Petfotoguia implements java.io.Serializable {
+public class Petfotoguia implements java.io.Serializable, Cloneable {
 
 	/**
 	 * 

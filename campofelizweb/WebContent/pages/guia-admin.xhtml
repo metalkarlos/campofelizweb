@@ -10,7 +10,7 @@
 	xmlns:my="http://java.sun.com/jsf/composite/components/buttons">
 	
 	<ui:define name="head">
-	   <title>Mantenimiento de Noticias</title>
+	   <title>Administración - Como decir Adiós</title>
 		
 		<style type="text/css">
 			.inner-content {
@@ -24,6 +24,10 @@
 			.ui-panelgrid tr, .ui-panelgrid td {
 				border: none;
 				padding: 0 10px;
+			}
+			.ui-panelgrid table, .ui-widget table {
+				border: none;
+			
 			}
 			.ui-panelgrid .alto-columna {
 				padding-bottom: 15px;
@@ -43,7 +47,6 @@
 		<h:form id="form-contentpage" enctype="multipart/form-data">
 			<p:growl id="mensajes" showDetail="true" />
 			<h1 class="title ui-widget-header">Administración - Como decir Adiós</h1>
-			
 			<div class="inner-content">
 			 <p:panelGrid id="idgridcontenido" >
 			   <p:row>
@@ -78,18 +81,19 @@
 				<p:column>
 					<h:outputLabel value="Agregar Foto" for="idSubeFotos" /><br />
 					<p:panel id="pnlPrevia" styleClass="panel-previa">
-					<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" style="max-height: 100px;" rendered="#{guiaAdmin.fotoSubida}" />
-					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{guiaAdmin.borrarFotoSubida()}" update="pnlPrevia, idpaneltextdescfoto" rendered="#{guiaAdminBean.fotoSubida}" />
+					<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" style="max-height: 100px;" rendered="#{guiaAdminBean.fotoSubida}" />
+					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{guiaAdminBean.borrarFotoSubida()}" update="pnlPrevia, idpaneltextdescfoto" rendered="#{guiaAdminBean.fotoSubida}" />
 					</p:panel>
-					<p:fileUpload id="idSubeFotos" fileUploadListener="#{guiaAdmin.handleFileUpload}" mode="advanced" 
-					update="mensajes, pnlPrevia, idpaneltextdescfoto" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
+					<p:fileUpload id="idSubeFotos" fileUploadListener="#{guiaAdminBean.handleFileUpload}" mode="advanced"  cancelLabel="Cancelar" 
+					uploadLabel="Subir Foto" label="Elegir Foto"
+					update="mensajes, pnlPrevia"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
 				</p:column>
 			  </p:row>
 			  
 			  <p:row>
 				<p:column>
 					<h:panelGroup id="idpaneltextdescfoto">
-					<h:outputLabel value="Descripción de la Foto" for="txtObservacionFoto" rendered="#{guiaAdmin.fotoSubida}" />
+					<h:outputLabel value="Descripción de la Foto" for="txtObservacionFoto" rendered="#{guiaAdminBean.fotoSubida}" />
 					<p:inputTextarea id="txtObservacionFoto" value="#{guiaAdminBean.descripcionFoto}" maxlength="500" autoResize="false" rendered="#{guiaAdminBean.fotoSubida}" />
 					</h:panelGroup>
 				</p:column>
@@ -129,7 +133,7 @@
            <div class="area-botones">
 			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
 			renderedButtonEliminar="#{guiaAdminBean.idguia> 0}" onclickButtonEliminar="vardialogdeletenoticia.show()" 
-			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('noticias.jsf');"
+			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('guiageneral.jsf');"
 			renderedButtonNewItem="false" />
 			</div>
 
