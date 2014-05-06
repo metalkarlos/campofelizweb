@@ -68,9 +68,18 @@
    <param-value>51200</param-value>
   </init-param>
  </filter>
+ <filter>
+  <description>Clase con la validacion para accesar a las paginas de administrador</description>
+  <filter-name>Acceso Paginas Admin</filter-name>
+  <filter-class>com.web.faces.filters.AdminPagesAccessFilter</filter-class>
+ </filter>
  <filter-mapping>
   <filter-name>PrimeFaces FileUpload Filter</filter-name>
   <servlet-name>Faces Servlet</servlet-name>
+ </filter-mapping>
+ <filter-mapping>
+  <filter-name>Acceso Paginas Admin</filter-name>
+  <url-pattern>/admin/*</url-pattern>
  </filter-mapping>
  <servlet>
   <servlet-name>imageServlet</servlet-name>
@@ -92,11 +101,11 @@
  <servlet-mapping>
   <servlet-name>Faces Servlet</servlet-name>
   <url-pattern>*.jsf</url-pattern>
- </servlet-mapping> 
+ </servlet-mapping>
  <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>*.faces</url-pattern>
-  </servlet-mapping> 
+  <servlet-name>Faces Servlet</servlet-name>
+  <url-pattern>*.faces</url-pattern>
+ </servlet-mapping>
  <servlet-mapping>
   <servlet-name>Faces Servlet</servlet-name>
   <url-pattern>*.xhtml</url-pattern>
@@ -111,4 +120,28 @@
  <welcome-file-list>
   <welcome-file>/index.jsp</welcome-file>
  </welcome-file-list>
+ <!-- <security-constraint>
+  <display-name>Administrador</display-name>
+  <web-resource-collection>
+   <web-resource-name>paginas-admin</web-resource-name>
+   <description>Carpeta con opciones para el administrador unicamente</description>
+   <url-pattern>/admin/*</url-pattern>
+   <http-method>PUT</http-method>
+   <http-method>DELETE</http-method>
+   <http-method>GET</http-method>
+   <http-method>POST</http-method>
+  </web-resource-collection>
+  <auth-constraint>
+   <description>usuario permitido</description>
+   <role-name>china</role-name>
+  </auth-constraint>
+ </security-constraint> 
+ <login-config>
+  <auth-method>BASIC</auth-method>
+  <realm-name>file</realm-name>
+ </login-config>
+ <security-role>
+  <description>Administra el sitio, tiene acceso a las paginas de mantenimiento</description>
+  <role-name>china</role-name>
+ </security-role> -->
 </web-app>
