@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default_others.xhtml">
+	
+	<ui:define name="head">
+			
+		<title>Contáctenos</title>
+		
+		<style type="text/css">
+			.inner-content {
+				padding-top: 14px;
+			}
+		</style>
+	</ui:define>
+	
+	<ui:define name="contenido">
+		<h:form id="form-contentpage">
+			<p:growl id="mensajes" showDetail="true" />
+			
+			<div class="wrapper">
+	        	<article class="grid_7 suffix_1">
+	            	<h2>Contact info:</h2>
+	                <div class="map-container img-box">
+	                    <iframe src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Brooklyn,+New+York,+NY,+United+States&amp;aq=0&amp;sll=37.0625,-95.677068&amp;sspn=61.282355,146.513672&amp;ie=UTF8&amp;hq=&amp;hnear=Brooklyn,+Kings,+New+York&amp;ll=40.649974,-73.950005&amp;spn=0.01628,0.025663&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>
+	                </div>
+	                <strong class="str-4">Pet clinic</strong>
+	                <dl class="adress">
+	                	<dt>8901 Marmora Road, Glasgow, D04 89GR</dt>
+	                    <dd><span>Telephone:</span><strong>+1 959 603 6035</strong></dd>
+	                    <dd><span>Fax:</span><strong>+1 504 889 9898</strong></dd>
+	                    <dd><span>Email:</span><a href="#">mail@demolink.org</a></dd>
+	                </dl>  
+	            </article>
+	            <article class="grid_16">
+	            	<h2>Contact form:</h2>
+	                <div id="contact-form" >
+	                  <fieldset>
+	                    <label class="name">
+	                        <span>Full name:</span>
+	                        <input type="text" />
+	                    </label>
+	                    <label class="email">
+	                      <span>Email:</span>
+	                      <input type="email" />
+	                    </label>
+	                    <label class="message">
+	                      <span>Message:</span>	
+	                      <textarea></textarea>
+	                    </label>
+	                    <div class="btns">
+	                        <a class="link" onClick="document.getElementById('contact-form').reset()">Clear</a>
+	                        <a class="link" onClick="document.getElementById('contact-form').submit()">Send</a> 
+	                    </div>
+	                  </fieldset>
+	                </div>
+	            </article>
+	        </div>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>
