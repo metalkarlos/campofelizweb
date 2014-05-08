@@ -20,12 +20,11 @@
 	</ui:define>
 	
 	<ui:define name="contenido">
-		<h:form id="form-contentpage">
 			<p:growl id="mensajes" showDetail="true" />
 			
 			<div class="wrapper">
 	        	<article class="grid_7 suffix_1">
-	            	<h2>Contact info:</h2>
+	            	<h2>Información:</h2>
 	                <div class="map-container img-box">
 	                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d865.67323092412!2d-79.9230596!3d-2.142675!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses!2s!4v1399518446029" width="600" height="450" frameborder="0" style="border:0"></iframe>
 	                </div>
@@ -38,8 +37,8 @@
 	                </dl>  
 	            </article>
 	            <article class="grid_16">
-	            	<h2>Contact form:</h2>
-	                <div id="contact-form" >
+	            	<h2>Contáctenos - Campo Feliz:</h2>
+	                <h:form id="form1" class="contact-form" >
 	                  <fieldset>
 	                    <label class="name">
 	                        <span>Full name:</span>
@@ -54,14 +53,51 @@
 	                      <textarea></textarea>
 	                    </label>
 	                    <div class="btns">
-	                        <a class="link" onClick="document.getElementById('contact-form').reset()">Clear</a>
-	                        <a class="link" onClick="document.getElementById('contact-form').submit()">Send</a> 
+	                        <a class="link" onClick="document.getElementById('form1').reset()">Clear</a>
+	                        <a class="link" onClick="document.getElementById('form1').submit()">Send</a> 
 	                    </div>
 	                  </fieldset>
-	                </div>
+	                </h:form>
 	            </article>
 	        </div>
-		</h:form>
+	        <div class="wrapper">
+	        	<article class="grid_7 suffix_1">
+	            	<h2>Información:</h2>
+	                <div class="map-container img-box">
+	                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d865.67323092412!2d-79.9230596!3d-2.142675!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses!2s!4v1399518446029" width="600" height="450" frameborder="0" style="border:0"></iframe>
+	                </div>
+	                <strong class="str-4">Pet clinic</strong>
+	                <dl class="adress">
+	                	<dt>8901 Marmora Road, Glasgow, D04 89GR</dt>
+	                    <dd><span>Telephone:</span><strong>+1 959 603 6035</strong></dd>
+	                    <dd><span>Fax:</span><strong>+1 504 889 9898</strong></dd>
+	                    <dd><span>Email:</span><a href="#">mail@demolink.org</a></dd>
+	                </dl>  
+	            </article>
+	            <article class="grid_16">
+	            	<h2>Contáctenos - Veterinaria Burgos:</h2>
+	                <h:form id="form2" class="contact-form" >
+	                  <fieldset>
+	                    <label class="name">
+	                        <span>Full name:</span>
+	                        <input type="text" />
+	                    </label>
+	                    <label class="email">
+	                      <span>Email:</span>
+	                      <input type="email" />
+	                    </label>
+	                    <label class="message">
+	                      <span>Message:</span>	
+	                      <textarea></textarea>
+	                    </label>
+	                    <div class="btns">
+	                        <a class="link" onClick="document.getElementById('form2').reset()">Clear</a>
+	                        <a class="link" onClick="document.getElementById('form2').submit()">Send</a> 
+	                    </div>
+	                  </fieldset>
+	                </h:form>
+	            </article>
+	        </div>
 	</ui:define>
 	
 </ui:composition>
