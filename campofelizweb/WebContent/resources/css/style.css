@@ -406,10 +406,10 @@ body header {background:url(../resources/images/header-bg.png) center 0 no-repea
 }
 .col-elem {
 	/*display:inline-block;*/
-	width:235px;
+	/*width:235px;*/
 	text-align:right;
 	font-family: 'Open Sans', sans-serif;
-	font-size:12px;
+	font-size:14px;
 	line-height:21px;
 	color:#454545;
 	text-transform:uppercase;
@@ -420,7 +420,7 @@ body header {background:url(../resources/images/header-bg.png) center 0 no-repea
 }
 .phone {
 	display:inline-block;
-	font-size:18px;
+	font-size:15px;
 	line-height:22px;
 	color:#ec8f23;
 	margin:-3px 0 0 0;
