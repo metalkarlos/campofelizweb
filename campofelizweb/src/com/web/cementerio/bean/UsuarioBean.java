@@ -7,7 +7,9 @@ import javax.faces.bean.SessionScoped;
 
 import org.primefaces.model.StreamedContent;
 
+import com.web.cementerio.bo.PetempresaBO;
 import com.web.cementerio.bo.SetusuarioBO;
+import com.web.cementerio.pojo.annotations.Petempresa;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
 import com.web.util.FileUtil;
@@ -28,11 +30,23 @@ public class UsuarioBean implements Serializable{
 	private String sid;
 	private boolean autenticado;
 	private StreamedContent streamedContent;
+	private Petempresa petempresa;
 	
 	public UsuarioBean(){
 		ip = new FacesUtil().getIp();
 		sid = new FacesUtil().getSid();
 		setUsuario = new Setusuario();
+		petempresa = new Petempresa();
+		
+		consultarEmpresa();
+	}
+	
+	private void consultarEmpresa() {
+		try{
+			petempresa = new PetempresaBO().getPetempresabyId(1, 1);
+		}catch(Exception re){
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
 	}
 
 	public void setSetUsuario(Setusuario setUsuario) {
@@ -141,6 +155,14 @@ public class UsuarioBean implements Serializable{
 
 	public void setStreamedContent(StreamedContent streamedContent) {
 		this.streamedContent = streamedContent;
+	}
+
+	public Petempresa getPetempresa() {
+		return petempresa;
+	}
+
+	public void setPetempresa(Petempresa petempresa) {
+		this.petempresa = petempresa;
 	}
 	
 }
