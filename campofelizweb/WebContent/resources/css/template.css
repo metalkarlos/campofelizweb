@@ -20,7 +20,7 @@
 	text-align: -webkit-center;
 	text-align: -moz-center;
 }
-textarea {
+.inner-content textarea {
 	max-width: 600px; 
 	min-width: 600px; 
 	overflow-y: visible; 

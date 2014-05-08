@@ -204,7 +204,14 @@ h2 span {
 		padding:22px 25px 11px 25px;
 		position:relative;
 	}
-	.box-1 h3 {padding-bottom:10px;}
+	.box-1 .inner2 {
+		border-radius:7px 7px 0 0;
+		/*background:url(../resources/images/box-1-bg.gif) no-repeat center 0 #fff;*/
+		/*padding:0px 5px 11px;*/
+		background-color: white;
+		position:relative;
+	}
+	.box-1 h3, .box-1 h6 {padding-bottom:10px;}
 .button-box {
 	display:inline-block;
 	background:url(../resources/images/button-box-tail.gif) repeat-x 0 0;
