@@ -1,143 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	template="/WEB-INF/templates/default_others.xhtml"
-	xmlns:my="http://java.sun.com/jsf/composite/components/buttons">
-
-
+	template="/WEB-INF/templates/default_others.xhtml">
+	
 	<ui:define name="head">
-		<title>Campo Feliz - Contáctenos</title>
+			
+		<title>Contáctenos</title>
 		
 		<style type="text/css">
 			.inner-content {
-				padding: 30px 0;
-				/*line-height: 300%;*/
-			}
-			label {
-				font-weight: bold;
-				font-size: 15px;
-			}
-			.ui-panelgrid tr, .ui-panelgrid td {
-				border: none;
-				padding: 0 10px;
-			}
-			.ui-panelgrid .alto-columna {
-				padding-bottom: 15px;
-			}
-			.area-botones {
-				margin: 0 0 25px 25px;
-			}
-			.panel-previa .ui-panel-content {
-				padding: 0;
-			}
-			.textarea{
-			  min-width: 125px;
-			  min-height: 195px
+				padding-top: 14px;
 			}
 		</style>
-	</ui:define>	
-
-
-	<ui:define name="content_page">
-	<div  class="content-page">
-	 <h:form id="form-contentpage" enctype="multipart/form-data">
-        <p:growl id="mensajes" showDetail="true"  />
-         <h1 class="title ui-widget-header">Contactenos</h1>
-        
-        <div class="wrapper">
-        <br/>
-        <article class="grid_7 suffix_1">
-        <div align="left">
-             <p:panelGrid>
-               <p:row>
-                <p:column>
-                   <h:outputLabel value="Dirección " for="direccion"/>
-                </p:column>
-                <p:column>
-                  <h:outputText  id="direccion" value="#{contactenosBean.petempresa.direccion}" />
-                </p:column>
-               </p:row>
-               <p:row>
-               <p:column>
-                   <h:outputLabel value="Teléfono "  for ="telefono"/>
-               </p:column>    
-               <p:column>    
-                   <h:outputText id="telefono" value="#{contactenosBean.petempresa.telefono}"/>
-                </p:column>
-               </p:row>
-               <p:row>
-               <p:column>
-                   <h:outputLabel value="Celular " for="celular" />
-                  </p:column>    
-               <p:column> 
-                   <h:outputText id="celular" value="#{contactenosBean.petempresa.celular}"/>
-                </p:column>
-               </p:row>
-             </p:panelGrid> 
-          </div>
-         
-       </article>
-        <article class="grid_16">
-          <div  class="map-container img-box">
-            <p:panelGrid  >
-               <p:row>
-                <p:column>
-                   <h:outputLabel value="Nombres " for="nombres"/>
-                </p:column>
-                <p:column>
-                  <p:inputText  id="nombres" value="#{contactenosBean.nombres}" style="width: 255px;" />
-                </p:column>
-               </p:row>
-               <p:row>
-               <p:column>
-                   <h:outputLabel value="Apellidos "  for ="apellido"/>
-               </p:column>    
-               <p:column>    
-                   <p:inputText id="apellido" value="#{contactenosBean.apellidos}" style="width: 255px;"/>
-                </p:column>
-               </p:row>
-               <p:row>
-               <p:column>
-                   <h:outputLabel value="Correo " for="correo" />
-                  </p:column>    
-               <p:column> 
-                   <p:inputText id="correo" value="#{contactenosBean.correo}" style="width: 255px;"/>
-                </p:column>
-               </p:row>
-               <p:row>
-               <p:column>
-                   <h:outputLabel value="Mensaje " for="mensaje" />
-               </p:column>    
-               <p:column> 
-                   <p:inputTextarea styleClass="textarea" id="mensaje" value="#{contactenosBean.mensaje}"  style="width: 255px; height:255px"/>
-                </p:column>
-               </p:row>
-               <p:row>
-               <p:column>
-               <!--   <p:captcha label="Captcha"/> -->   
-               </p:column>
-               </p:row>
-             </p:panelGrid> 
-           
-          </div>
-          
-           <div class="area-botones">
-			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Enviar" onclickButtonAceptar="#" 
-			renderedButtonEliminar="false" onclickButtonEliminar="#" 
-			renderedButtonCancelar="true" labelButtonCancelar="Limpiar" onclickButtonCancelar="#"
-			renderedButtonNewItem="false" />
-		</div>
-          
-        </article>
-        </div>
-         
-        
-     </h:form>
-     </div>
-     </ui:define>   
+	</ui:define>
 	
-</ui:composition>	
+	<ui:define name="contenido">
+			<p:growl id="mensajes" showDetail="true" />
+			
+			<div class="wrapper">
+	        	<article class="grid_7 suffix_1">
+	            	<h2>Información:</h2>
+	                <div class="map-container img-box">
+	                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d865.67323092412!2d-79.9230596!3d-2.142675!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses!2s!4v1399518446029" width="600" height="450" frameborder="0" style="border:0"></iframe>
+	                </div>
+	                <strong class="str-4">Pet clinic</strong>
+	                <dl class="adress">
+	                	<dt>8901 Marmora Road, Glasgow, D04 89GR</dt>
+	                    <dd><span>Telephone:</span><strong>+1 959 603 6035</strong></dd>
+	                    <dd><span>Fax:</span><strong>+1 504 889 9898</strong></dd>
+	                    <dd><span>Email:</span><a href="#">mail@demolink.org</a></dd>
+	                </dl>  
+	            </article>
+	            <article class="grid_16">
+	            	<h2>Contáctenos - Campo Feliz:</h2>
+	                <h:form id="form1" class="contact-form" >
+	                  <fieldset>
+	                    <label class="name">
+	                        <span>Full name:</span>
+	                        <input type="text" />
+	                    </label>
+	                    <label class="email">
+	                      <span>Email:</span>
+	                      <input type="email" />
+	                    </label>
+	                    <label class="message">
+	                      <span>Message:</span>	
+	                      <textarea></textarea>
+	                    </label>
+	                    <div class="btns">
+	                        <a class="link" onClick="document.getElementById('form1').reset()">Clear</a>
+	                        <a class="link" onClick="document.getElementById('form1').submit()">Send</a> 
+	                    </div>
+	                  </fieldset>
+	                </h:form>
+	            </article>
+	        </div>
+	        <div class="wrapper">
+	        	<article class="grid_7 suffix_1">
+	            	<h2>Información:</h2>
+	                <div class="map-container img-box">
+	                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d865.67323092412!2d-79.9230596!3d-2.142675!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses!2s!4v1399518446029" width="600" height="450" frameborder="0" style="border:0"></iframe>
+	                </div>
+	                <strong class="str-4">Pet clinic</strong>
+	                <dl class="adress">
+	                	<dt>8901 Marmora Road, Glasgow, D04 89GR</dt>
+	                    <dd><span>Telephone:</span><strong>+1 959 603 6035</strong></dd>
+	                    <dd><span>Fax:</span><strong>+1 504 889 9898</strong></dd>
+	                    <dd><span>Email:</span><a href="#">mail@demolink.org</a></dd>
+	                </dl>  
+	            </article>
+	            <article class="grid_16">
+	            	<h2>Contáctenos - Veterinaria Burgos:</h2>
+	                <h:form id="form2" class="contact-form" >
+	                  <fieldset>
+	                    <label class="name">
+	                        <span>Full name:</span>
+	                        <input type="text" />
+	                    </label>
+	                    <label class="email">
+	                      <span>Email:</span>
+	                      <input type="email" />
+	                    </label>
+	                    <label class="message">
+	                      <span>Message:</span>	
+	                      <textarea></textarea>
+	                    </label>
+	                    <div class="btns">
+	                        <a class="link" onClick="document.getElementById('form2').reset()">Clear</a>
+	                        <a class="link" onClick="document.getElementById('form2').submit()">Send</a> 
+	                    </div>
+	                  </fieldset>
+	                </h:form>
+	            </article>
+	        </div>
+	</ui:define>
+	
+</ui:composition>
