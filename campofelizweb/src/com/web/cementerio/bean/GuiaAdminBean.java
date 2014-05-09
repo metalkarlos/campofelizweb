@@ -2,6 +2,7 @@ package com.web.cementerio.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class GuiaAdminBean  implements Serializable{
 	private UploadedFile uploadedFile;
 	private String descripcionFoto;
 	private boolean fotoSubida;
+	private int indice;
 	
 	
 
@@ -48,7 +50,6 @@ public class GuiaAdminBean  implements Serializable{
 		petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null);
 		petguiaClon = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null);
 		lisPetfotoguia = new ArrayList<Petfotoguia>();
-		lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
 		petfotoguiaSeleccionada =  new Petfotoguia(0, new Setestado(), new Setusuario(), new Petguia(), null, null, null, null, null, null, null);
 		fotoSubida =false;
 		descripcionFoto="";
@@ -65,6 +66,7 @@ public class GuiaAdminBean  implements Serializable{
 		idguia= (facesUtil.getParametroUrl("idguia")==null?0:Integer.parseInt(facesUtil.getParametroUrl("idguia").toString()));
 		if(idguia > 0){
 			consultaGuia();
+			
 		}
 	}
 	
@@ -86,9 +88,9 @@ public class GuiaAdminBean  implements Serializable{
 				if(petguia != null && petguia.getIdguia() > 0){
 					petguiaClon = petguia.clonar();
 					
-					if(petguia.getPetfotoguias() != null && petguia.getPetfotoguias().size() > 0){
+					if(petguia.getPetfotoguias() != null && !petguia.getPetfotoguias().isEmpty()){
 						lisPetfotoguia = new ArrayList<Petfotoguia>(petguia.getPetfotoguias());
-						
+						lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
 						for(Petfotoguia petfotoguia : lisPetfotoguia){
 							lisPetfotoguiaClon.add(petfotoguia.clonar());
 						}
@@ -101,19 +103,41 @@ public class GuiaAdminBean  implements Serializable{
 		}
 	}
 
+	public void clonarobjetos(){
+		try {
+			lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
+			indice =0;
+			if(!lisPetfotoguia.isEmpty()){
+				for(Petfotoguia petfotoguia:lisPetfotoguia){
+					lisPetfotoguiaClon.add(petfotoguia.clonar());
+					indice++;
+				}
+			}
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+				new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			}
+		
+	}
+	
 	
 	public void handleFileUpload(FileUploadEvent event) {
 		try{
-			uploadedFile = event.getFile();
-			streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
-			
-			FacesUtil facesUtil = new FacesUtil();
-			UsuarioBean usuarioBean = (UsuarioBean)facesUtil.getSessionBean("usuarioBean");
-			usuarioBean.setStreamedContent(streamedContent);
-			facesUtil.setSessionBean("usuarioBean", usuarioBean);
-			fotoSubida = true;
-			
-			new MessageUtil().showInfoMessage("Foto en memoria!", event.getFile().getFileName());
+			if (event.getFile().getSize() < 100000){
+				uploadedFile = event.getFile();
+				streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
+				
+				FacesUtil facesUtil = new FacesUtil();
+				UsuarioBean usuarioBean = (UsuarioBean)facesUtil.getSessionBean("usuarioBean");
+				usuarioBean.setStreamedContent(streamedContent);
+				facesUtil.setSessionBean("usuarioBean", usuarioBean);
+				fotoSubida = true;
+				
+				new MessageUtil().showInfoMessage("Foto en memoria!", event.getFile().getFileName());
+			}else{
+				new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 1MB");
+			}	
 		}catch(Exception x){
 			x.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
@@ -138,31 +162,50 @@ public class GuiaAdminBean  implements Serializable{
 	}
 	
 	public void grabar(){
-		try{
+	 try{
+		if(validarcampos()){
 			boolean ok = false;
 			
 			PetguiaBO petguiaBO = new PetguiaBO();
 			Petfotonoticia petfotonoticia = new Petfotonoticia();
-			
+				
 			if(fotoSubida && descripcionFoto != null && descripcionFoto.trim().length() > 0){
 				petfotonoticia.setDescripcion(descripcionFoto);
 			}
-			
+				
 			if(idguia == 0){
 				ok = petguiaBO.ingresarPetguiaBO(petguia,1,  uploadedFile);
 			}else{
-				//ok = petguiaBO.modificar(petnoticia, petnoticiaClon, lisPetfotonoticia, lisPetfotonoticiaClon, petfotonoticia, uploadedFile);
+				ok = petguiaBO.modificar(petguia, petguiaClon, lisPetfotoguia, lisPetfotoguiaClon,2,uploadedFile);
 			}
-			
+				
 			if(ok){
 				new MessageUtil().showInfoMessage("Listo!", "Datos grabados con Exito!");
 			}else{
 				new MessageUtil().showInfoMessage("Aviso", "No existen cambios que guardar");
 			}
-		}catch(Exception e){
-			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
+	}catch(Exception e){
+		e.printStackTrace();
+		new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+	  }
+	}
+	
+	
+	public boolean validarcampos(){
+		boolean ok = true;
+		Date fechaactual = new Date();
+		if(petguia.getTitulo()==null|| petguia.getTitulo().length()==0){
+			ok = false;
+			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el Título del artículo");
+		}else if(petguia.getDescripcion()==null|| petguia.getDescripcion().length()==0){
+			ok = false;
+			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contendio del artículo");
+		}else if (petguia.getFechapublicacion().after(fechaactual)){
+			ok = false;
+			new MessageUtil().showInfoMessage("Info", "Fecha de publicación no pueder ser mayor a la fecha de hoy");
+		}		
+		return ok;
 	}
 	
 	public String eliminar(){
@@ -173,7 +216,7 @@ public class GuiaAdminBean  implements Serializable{
 			
 			petguiaBO.eliminarBO(petguia, lisPetfotoguiaClon,2);
 
-			paginaRetorno = "noticias?faces-redirect=true";
+			paginaRetorno = "guiageneral?faces-redirect=true";
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
@@ -270,6 +313,16 @@ public class GuiaAdminBean  implements Serializable{
 
 	public void setIdguia(int idguia) {
 		this.idguia = idguia;
+	}
+
+
+	public int getIndice() {
+		return indice;
+	}
+
+
+	public void setIndice(int indice) {
+		this.indice = indice;
 	}
 	
 	

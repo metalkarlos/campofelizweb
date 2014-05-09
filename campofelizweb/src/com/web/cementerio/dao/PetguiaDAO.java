@@ -9,6 +9,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.web.cementerio.pojo.annotations.Petguia;
+import com.web.cementerio.pojo.annotations.Petnoticia;
 
 
 public class PetguiaDAO {
@@ -21,9 +22,18 @@ public class PetguiaDAO {
 				
 			    Petguia petguia=null;
 			
-				petguia  = (Petguia) session.createCriteria(Petguia.class)
+				/*petguia  = (Petguia) session.createCriteria(Petguia.class)
 			    .createAlias("petfotoguia", "e")
-			    .add( Restrictions.eq("idguia", idguia) ).uniqueResult();
+			    .add( Restrictions.eq("idguia", idguia) ).uniqueResult();*/
+			    Criteria criteria = session.createCriteria(Petguia.class, "g")
+						.add( Restrictions.eq("g.idguia", idguia))
+						.createAlias("g.setestado", "gestado", Criteria.LEFT_JOIN, Restrictions.eq("gestado.idestado", idestado))
+						.createAlias("g.petfotoguias", "foto", Criteria.LEFT_JOIN)
+						.createAlias("foto.setestado", "fotoestado", Criteria.LEFT_JOIN, Restrictions.eq("fotoestado.idestado", idestado));
+			   
+				
+			    petguia= (Petguia)criteria.uniqueResult();
+				
 				
 				return petguia;
 			}
