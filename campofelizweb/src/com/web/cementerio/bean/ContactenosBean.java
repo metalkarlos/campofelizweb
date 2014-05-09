@@ -19,6 +19,7 @@ public class ContactenosBean implements Serializable {
 	
 	private static final long serialVersionUID = 4207311339845311723L;
 	private Petempresa petempresa;
+	private Petempresa petempresaVeterinaria;
 	private String nombres;
 	private String apellidos;
 	private String correo;
@@ -32,6 +33,7 @@ public class ContactenosBean implements Serializable {
 
 	public void inicializar(){
 		petempresa = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
+		petempresaVeterinaria = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
 		nombres = null;
 		apellidos = null;
 		correo = null;
@@ -40,7 +42,8 @@ public class ContactenosBean implements Serializable {
 	public void consultar(){
 		try {
 			PetempresaBO petempresaBO= new PetempresaBO();
-			petempresa = petempresaBO.getPetempresabyTipo(1, 1);	
+			petempresa = petempresaBO.getPetempresabyTipo(1, 1);
+			petempresaVeterinaria = petempresaBO.getPetempresabyTipo(1, 2);
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
@@ -54,6 +57,14 @@ public class ContactenosBean implements Serializable {
 
 	public void setPetempresa(Petempresa petempresa) {
 		this.petempresa = petempresa;
+	}
+
+	public Petempresa getPetempresaVeterinaria() {
+		return petempresaVeterinaria;
+	}
+
+	public void setPetempresaVeterinaria(Petempresa petempresaVeterinaria) {
+		this.petempresaVeterinaria = petempresaVeterinaria;
 	}
 
 	public String getNombres() {
