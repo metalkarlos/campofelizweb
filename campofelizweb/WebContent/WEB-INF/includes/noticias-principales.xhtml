@@ -3,6 +3,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
@@ -16,7 +17,9 @@
 							<p>#{fn:substring(noticia.descripcion, 0, 100)}...</p>
 							<div class="btn-container">
 								<div class="button-box">
-									<h:link styleClass="button" outcome="/pages/noticias" >Leer más</h:link>
+									<h:link styleClass="button" outcome="/pages/noticia" value="Leer más" >
+										<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
+									</h:link>
 								</div>
 							</div>
 						</div>
