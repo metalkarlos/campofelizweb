@@ -114,8 +114,7 @@ PetguiaDAO petguiaDAO;
 		return ok;
 	}
 	
-	public boolean modificarPetguiaeBO(Petguia petguia,Petguia petguiaclone,UploadedFile uploadedFile,
-											  List<Petfotoguia> listPetfotoguia, List<Petfotoguia> listPetfotoguiaclone,int idestado) throws Exception{
+	public boolean modificar(Petguia petguia,Petguia petguiaclone,List<Petfotoguia> listPetfotoguia, List<Petfotoguia> listPetfotoguiaclone,int idestado,UploadedFile uploadedFile) throws Exception{
 		Session session = null;
 		boolean ok = false;
 		try {
@@ -287,6 +286,7 @@ PetguiaDAO petguiaDAO;
 		PetfotoguiaDAO petfotoguiaDAO = new PetfotoguiaDAO();
 		FacesUtil facesUtil = new FacesUtil();
 		FileUtil fileUtil = new FileUtil();
+		
 		try {
 			for (Petfotoguia petfotoguia : lisPetfotoguiaclone){
 				

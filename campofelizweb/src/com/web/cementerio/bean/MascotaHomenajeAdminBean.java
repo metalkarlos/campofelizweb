@@ -45,8 +45,6 @@ import com.web.util.MessageUtil;
 		private StreamedContent streamedContent;
 		private UploadedFile    uploadedFile;
 		private int indice;
-		private int indiceagregar;
-		private int indiceeliminar;
 		private int idmascota;
 		private String rutaImagenes;
 		private boolean fotoSubida;
@@ -81,8 +79,6 @@ import com.web.util.MessageUtil;
 			listpetfotomascota = new ArrayList<Petfotomascota>();
 			rutaImagenes ="";
 			indice =0;
-			indiceeliminar =0;
-			indiceagregar =0;
 			idmascota =0;
 			fotoSubida=false;
 			streamedContent = null;
@@ -327,16 +323,6 @@ import com.web.util.MessageUtil;
 		}
 
 		
-		public int getIndiceeliminar() {
-			return indiceeliminar;
-		}
-
-
-		public void setIndiceeliminar(int indiceeliminar) {
-			this.indiceeliminar = indiceeliminar;
-		}
-		
- 
 		public Petmascotahomenaje getPetmascotahomenajeclone() {
 			return petmascotahomenajeclone;
 		}
@@ -358,15 +344,6 @@ import com.web.util.MessageUtil;
 			this.listpetfotomascotaclone = listpetfotomascotaclone;
 		}
 
-
-		public int getIndiceagregar() {
-			return indiceagregar;
-		}
-
-
-		public void setIndiceagregar(int indiceagregar) {
-			this.indiceagregar = indiceagregar;
-		}
 
 		public int getIdmascota() {
 			return idmascota;

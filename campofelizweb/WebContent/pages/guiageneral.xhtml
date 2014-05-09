@@ -46,8 +46,11 @@
 				emptyMessage="No se encontraron registros" paginatorPosition="bottom">
 				<p:column>
 				  <div class="inner-content">
-						<div class="titulo3">#{guia.titulo}</div>
-					
+						 <h:link  styleClass="titulo3" style="height:40px" value="#{guia.titulo}" outcome="guia">
+						     <f:param name="idguia" value="#{guia.idguia}"></f:param>
+						 </h:link>
+						  
+						
 					</div>
 		        </p:column>
 		    </p:dataGrid>    		
