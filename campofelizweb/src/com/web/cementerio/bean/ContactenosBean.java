@@ -9,6 +9,7 @@ import com.web.cementerio.bo.PetempresaBO;
 import com.web.cementerio.pojo.annotations.Petempresa;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
+import com.web.util.MailUtil;
 import com.web.util.MessageUtil;
 
 
@@ -49,6 +50,16 @@ public class ContactenosBean implements Serializable {
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 		
+	}
+	
+	public void enviar(){
+		try{
+			MailUtil mailUtil = new MailUtil();
+			mailUtil.enviarMail(this.correo, "Información - CampoFeliz.com", this.mensaje);
+		}catch(Exception e){
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
 	}
 
 	public Petempresa getPetempresa() {

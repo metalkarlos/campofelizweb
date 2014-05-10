@@ -38,23 +38,23 @@
 	            </article>
 	            <article class="grid_16">
 	            	<h2>Contáctenos - Campo Feliz:</h2>
-	                <h:form id="form1" class="contact-form" >
+	                <h:form id="form-mail" class="contact-form" >
 	                  <fieldset>
 	                    <label class="name">
 	                        <span>Nombres:</span>
-	                        <input type="text" />
+	                        <p:inputText id="txtNombres" value="#{contactenosBean.nombres}"></p:inputText>
 	                    </label>
 	                    <label class="email">
 	                      <span>Email:</span>
-	                      <input type="email" />
+	                      <p:inputText id="txtEmail" value="#{contactenosBean.correo}"></p:inputText>
 	                    </label>
 	                    <label class="message">
 	                      <span>Mensaje:</span>	
-	                      <textarea></textarea>
+	                      <p:inputTextarea id="txtMensaje" value="#{contactenosBean.mensaje}" maxlength="500" autoResize="false" />
 	                    </label>
 	                    <div class="btns">
-	                        <a class="link" onClick="document.getElementById('form1').reset()">Clear</a>
-	                        <a class="link" onClick="document.getElementById('form1').submit()">Send</a> 
+	                        <a class="link" onclick="document.getElementById('form-mail').reset()">Limpiar</a>
+	                        <p:commandLink id="lnkEnviar" styleClass="link" value="Enviar" action="#{contactenosBean.enviar()}" update=":mensajes" ></p:commandLink> 
 	                    </div>
 	                  </fieldset>
 	                </h:form>
