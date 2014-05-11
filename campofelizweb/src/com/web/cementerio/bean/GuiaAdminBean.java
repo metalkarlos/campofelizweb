@@ -47,8 +47,8 @@ public class GuiaAdminBean  implements Serializable{
 	
 
 	public GuiaAdminBean(){
-		petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null);
-		petguiaClon = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null);
+		petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
+		petguiaClon = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, null, null,false, null);
 		lisPetfotoguia = new ArrayList<Petfotoguia>();
 		petfotoguiaSeleccionada =  new Petfotoguia(0, new Setestado(), new Setusuario(), new Petguia(), null, null, null, null, null, null, null);
 		fotoSubida =false;
@@ -82,6 +82,7 @@ public class GuiaAdminBean  implements Serializable{
 	public void consultaGuia(){
 		if(this.idguia > 0){
 			try {
+				lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
 				PetguiaBO petguiaBO = new PetguiaBO();
 				petguia = petguiaBO.getPetguiabyId(idguia, 1);
 				
@@ -90,7 +91,7 @@ public class GuiaAdminBean  implements Serializable{
 					
 					if(petguia.getPetfotoguias() != null && !petguia.getPetfotoguias().isEmpty()){
 						lisPetfotoguia = new ArrayList<Petfotoguia>(petguia.getPetfotoguias());
-						lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
+						
 						for(Petfotoguia petfotoguia : lisPetfotoguia){
 							lisPetfotoguiaClon.add(petfotoguia.clonar());
 						}
@@ -103,24 +104,6 @@ public class GuiaAdminBean  implements Serializable{
 		}
 	}
 
-	public void clonarobjetos(){
-		try {
-			lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
-			indice =0;
-			if(!lisPetfotoguia.isEmpty()){
-				for(Petfotoguia petfotoguia:lisPetfotoguia){
-					lisPetfotoguiaClon.add(petfotoguia.clonar());
-					indice++;
-				}
-			}
-			
-			} catch (Exception e) {
-				e.printStackTrace();
-				new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-			}
-		
-	}
-	
 	
 	public void handleFileUpload(FileUploadEvent event) {
 		try{

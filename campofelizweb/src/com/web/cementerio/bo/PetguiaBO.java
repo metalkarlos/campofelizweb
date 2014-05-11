@@ -42,6 +42,22 @@ PetguiaDAO petguiaDAO;
 	}
 	
 
+	public List<Petguia> getlistPetguiaPrincipal(boolean principal, int idestado) throws Exception{
+		List<Petguia> listPetguia=null;
+		Session session = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			listPetguia = petguiaDAO.getListpetguiaByPrincipal(session, principal, idestado);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+		finally{
+			session.close();
+		}
+		return listPetguia;
+		
+	}
+	
 	
 	public List<Petguia> lisPetguiaBusquedaByPage(String[] texto, int pageSize, int pageNumber, int args[], int idestado) throws RuntimeException {
 		List<Petguia> listpetguia = null;

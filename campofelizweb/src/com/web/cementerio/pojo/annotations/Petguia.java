@@ -38,6 +38,7 @@ public class Petguia implements java.io.Serializable, Cloneable {
 	private Date fechamodificacion;
 	private Date fechapublicacion;
 	private String iplog;
+	private boolean principal;
 	private Set<Petfotoguia> petfotoguias = new HashSet<Petfotoguia>(0);
 
 	public Petguia() {
@@ -51,7 +52,7 @@ public class Petguia implements java.io.Serializable, Cloneable {
 	public Petguia(int idguia, Setestado setestado, Setusuario setusuario,
 			String titulo, String descripcion, String tag,  String rutafoto,
 			Date fecharegistro,	Date fechamodificacion,Date fechapublicacion,
-			String iplog, Set<Petfotoguia> petfotoguias) {
+			String iplog, boolean principal, Set<Petfotoguia> petfotoguias) {
 		this.idguia = idguia;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -60,10 +61,13 @@ public class Petguia implements java.io.Serializable, Cloneable {
 		this.tag = tag;
 		this.rutafoto = rutafoto;
 		this.fecharegistro = fecharegistro;
-		this.iplog = iplog;
-		this.petfotoguias = petfotoguias;
 		this.fechamodificacion = fechamodificacion;
 		this.fechapublicacion = fechapublicacion;
+		this.iplog = iplog;
+		this.principal = principal;
+		this.petfotoguias = petfotoguias;
+		
+		
 	}
 
 	@Id
@@ -169,6 +173,14 @@ public class Petguia implements java.io.Serializable, Cloneable {
 		this.iplog = iplog;
 	}
 
+	public boolean isPrincipal() {
+		return principal;
+	}
+
+	public void setPrincipal(boolean principal) {
+		this.principal = principal;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petguia", targetEntity=Petfotoguia.class)
 	public Set<Petfotoguia> getPetfotoguias() {
 		return this.petfotoguias;
@@ -196,12 +208,12 @@ public class Petguia implements java.io.Serializable, Cloneable {
 		int result = 1;
 		result = prime * result
 				+ ((descripcion == null) ? 0 : descripcion.hashCode());
-		result = prime * result + idguia;
+		result = prime
+				* result
+				+ ((fechapublicacion == null) ? 0 : fechapublicacion.hashCode());
+		result = prime * result + (principal ? 1231 : 1237);
 		result = prime * result
 				+ ((rutafoto == null) ? 0 : rutafoto.hashCode());
-		result = prime * result
-				+ ((setestado == null) ? 0 : setestado.hashCode());
-		result = prime * result + ((tag == null) ? 0 : tag.hashCode());
 		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
 		return result;
 	}
@@ -220,22 +232,17 @@ public class Petguia implements java.io.Serializable, Cloneable {
 				return false;
 		} else if (!descripcion.equals(other.descripcion))
 			return false;
-		if (idguia != other.idguia)
+		if (fechapublicacion == null) {
+			if (other.fechapublicacion != null)
+				return false;
+		} else if (!fechapublicacion.equals(other.fechapublicacion))
+			return false;
+		if (principal != other.principal)
 			return false;
 		if (rutafoto == null) {
 			if (other.rutafoto != null)
 				return false;
 		} else if (!rutafoto.equals(other.rutafoto))
-			return false;
-		if (setestado == null) {
-			if (other.setestado != null)
-				return false;
-		} else if (!setestado.equals(other.setestado))
-			return false;
-		if (tag == null) {
-			if (other.tag != null)
-				return false;
-		} else if (!tag.equals(other.tag))
 			return false;
 		if (titulo == null) {
 			if (other.titulo != null)
@@ -244,6 +251,8 @@ public class Petguia implements java.io.Serializable, Cloneable {
 			return false;
 		return true;
 	}
+
+	
 	
 	
 }

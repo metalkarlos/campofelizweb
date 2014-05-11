@@ -9,7 +9,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.web.cementerio.pojo.annotations.Petguia;
-import com.web.cementerio.pojo.annotations.Petnoticia;
 
 
 public class PetguiaDAO {
@@ -38,7 +37,25 @@ public class PetguiaDAO {
 				return petguia;
 			}
 		
+		@SuppressWarnings("unchecked")
+		public List<Petguia> getListpetguiaByPrincipal(Session session, boolean principal, int idestado) throws Exception {
+			
+		    List<Petguia> listpetguia=null;
 		
+			/*petguia  = (Petguia) session.createCriteria(Petguia.class)
+		    .createAlias("petfotoguia", "e")
+		    .add( Restrictions.eq("idguia", idguia) ).uniqueResult();*/
+		    Criteria criteria = session.createCriteria(Petguia.class)
+		    		.add(Restrictions.eq("principal", principal))
+		    		.add(Restrictions.eq("setestado.idestado", idestado));
+					
+		   
+		    criteria.addOrder(Order.desc("fechapublicacion"));
+		    listpetguia= (List<Petguia>)criteria.list();
+			
+			
+			return listpetguia;
+		}
 	
 		
 		@SuppressWarnings("unchecked")
@@ -50,16 +67,20 @@ public class PetguiaDAO {
 			
 			if(texto != null && texto.length > 0){
 				String query = "(";
+				
 				for(int i=0;i<texto.length;i++)
 				{
-					query += "lower({alias}.descripcion) like lower('%"+texto[i]+"%') ";
+					query += "lower({alias}.titulo) like lower('%"+texto[i]+"%') or lower({alias}.descripcion) like lower('%"+texto[i]+"%')";
 					if(i<texto.length-1){
 						query += "or ";
+					
 					}
 				}
 				query += ")";
 				
+				
 				criteria.add(Restrictions.sqlRestriction(query));
+				
 			}
 			criteria.addOrder(Order.desc("fechapublicacion"))
 			.setMaxResults(pageSize)
@@ -74,16 +95,21 @@ public class PetguiaDAO {
 				
 				if(texto != null && texto.length > 0){
 					String query = "(";
+					
 					for(int i=0;i<texto.length;i++)
 					{
-						query += "lower({alias}.descripcion) like lower('%"+texto[i]+"%') ";
+						query += "lower({alias}.titulo) like lower('%"+texto[i]+"%') or lower({alias}.descripcion) like lower('%"+texto[i]+"%')";
+					
 						if(i<texto.length-1){
 							query += "or ";
+					
 						}
 					}
 					query += ")";
 					
+					
 					criteria.add(Restrictions.sqlRestriction(query));
+					
 				}
 					
 					criteriaCount.setMaxResults(pageSize)

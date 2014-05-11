@@ -25,11 +25,15 @@ public class GuiaGeneralBean  implements Serializable{
 
 	private String rutaImagenes;
 	private LazyDataModel<Petguia> lisPetguia;
+	private List<Petguia>listPetguiaprincipal;
 	private String descripcionParam;
 	
 	public GuiaGeneralBean(){
+		descripcionParam="buscar";
 		cargarRutaImagenes();
-		consultarNoticias();
+		consultarGuiabyPrincipal();
+		consultarGuia();
+		
 	}
 
 	private void cargarRutaImagenes(){
@@ -41,8 +45,21 @@ public class GuiaGeneralBean  implements Serializable{
 		}
 	}
 	
+	public void consultarGuiabyPrincipal(){
+		try {
+			PetguiaBO petguiaBO = new PetguiaBO();
+			listPetguiaprincipal = new ArrayList<Petguia>();
+			listPetguiaprincipal = petguiaBO.getlistPetguiaPrincipal(true, 1);
+		} catch (Exception e) {
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
+		
+	}
+	
+	
 	@SuppressWarnings("serial")
-	public void consultarNoticias(){
+	public void consultarGuia(){
 		try
 		{
 			lisPetguia = new LazyDataModel<Petguia>() {
@@ -107,5 +124,13 @@ public class GuiaGeneralBean  implements Serializable{
 
 	public void setDescripcionParam(String descripcionParam) {
 		this.descripcionParam = descripcionParam;
+	}
+
+	public List<Petguia> getListPetguiaprincipal() {
+		return listPetguiaprincipal;
+	}
+
+	public void setListPetguiaprincipal(List<Petguia> listPetguiaprincipal) {
+		this.listPetguiaprincipal = listPetguiaprincipal;
 	}
 }
