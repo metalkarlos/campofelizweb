@@ -55,7 +55,51 @@ public class ContactenosBean implements Serializable {
 	public void enviar(){
 		try{
 			MailUtil mailUtil = new MailUtil();
-			mailUtil.enviarMail(this.correo, "Información - CampoFeliz.com", this.mensaje);
+			
+			//formatear el contenido para el administrador de correo
+			String contenido = "";
+			contenido += "<html>";
+			contenido += "<body>";
+			contenido += "<center><h1>Ha recibido un mensaje de la página de contáctenos</h1></center>";
+			contenido += "<table style='width: 100%'>";
+			contenido += "<tr>";
+			contenido += "<td style='width: 150px;'><strong>Nombres: </strong></td><td>" + nombres + "</td>";
+			contenido += "</tr>";
+			contenido += "<tr>";	
+			contenido += "<td><strong>Email: </strong></td><td>" + correo + "</td>";
+			contenido += "</tr>";
+			contenido += "<tr>";
+			contenido += "<td colspan='2'><p style='text-align: justify;padding: 10px 0 0 0'>" + mensaje + "</p></td>";
+			contenido += "</tr>";
+			contenido += "</table>";
+			contenido += "</body>";
+			contenido += "</html>";
+			
+			//enviar al administrador de correo
+			mailUtil.enviarMail(null, "Información - Campo Feliz", contenido);
+			
+			//formatear el contenido para el remitente de correo
+			String contenido2 = "";
+			contenido2 += "<html>";
+			contenido2 += "<body>";
+			contenido2 += "<center><h1>Campo Feliz Cementerio de Mascotas</h1></center>";
+			contenido2 += "<p style='text-align: justify;padding: 10px 0 0 0'>Gracias por comunicarte con nosotros! En breve te estaremos respondiendo.</p>";
+			contenido2 += "<table style='width: 100%'>";
+			contenido2 += "<tr>";
+			contenido2 += "<td style='width: 150px;'><strong>Nombres: </strong></td><td>" + nombres + "</td>";
+			contenido2 += "</tr>";
+			contenido2 += "<tr>";	
+			contenido2 += "<td><strong>Email: </strong></td><td>" + correo + "</td>";
+			contenido2 += "</tr>";
+			contenido2 += "<tr>";
+			contenido2 += "<td colspan='2'><p style='text-align: justify;padding: 10px 0 0 0'>" + mensaje + "</p></td>";
+			contenido2 += "</tr>";
+			contenido2 += "</table>";
+			contenido2 += "</body>";
+			contenido2 += "</html>";
+			
+			//enviar respuesta al remitente
+			mailUtil.enviarMail(this.correo, "Información - Campo Feliz", contenido2);
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
