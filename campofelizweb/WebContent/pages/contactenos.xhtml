@@ -20,7 +20,7 @@
 	</ui:define>
 	
 	<ui:define name="contenido">
-			<p:growl id="mensajes" showDetail="true" />
+			<p:messages id="mensajes" autoUpdate="true"></p:messages>
 			
 			<div class="wrapper">
 	        	<article class="grid_7 suffix_1">
@@ -42,19 +42,22 @@
 	                  <fieldset>
 	                    <label class="name">
 	                        <span>Nombres:</span>
-	                        <p:inputText id="txtNombres" value="#{contactenosBean.nombres}"></p:inputText>
+	                        <p:inputText id="txtNombres" value="#{contactenosBean.nombres}" required="true" requiredMessage="Ingrese sus Nombres" label="Nombres"></p:inputText>
 	                    </label>
 	                    <label class="email">
 	                      <span>Email:</span>
-	                      <p:inputText id="txtEmail" value="#{contactenosBean.correo}"></p:inputText>
+	                      <p:inputText id="txtEmail" value="#{contactenosBean.correo}" required="true" requiredMessage="Ingresar Correo Electronico"
+							validatorMessage="Formato de Correo Electrónico incorrecto">
+	                      	<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+	                      </p:inputText>
 	                    </label>
 	                    <label class="message">
 	                      <span>Mensaje:</span>	
-	                      <p:inputTextarea id="txtMensaje" value="#{contactenosBean.mensaje}" maxlength="500" autoResize="false" />
+	                      <p:inputTextarea id="txtMensaje" value="#{contactenosBean.mensaje}" maxlength="500" autoResize="false" required="true" requiredMessage="Ingrese su Mensaje" />
 	                    </label>
 	                    <div class="btns">
 	                        <a class="link" onclick="document.getElementById('form-mail').reset()">Limpiar</a>
-	                        <p:commandLink id="lnkEnviar" styleClass="link" value="Enviar" action="#{contactenosBean.enviar()}" update=":mensajes" ></p:commandLink> 
+	                        <p:commandLink id="lnkEnviar" styleClass="link" value="Enviar" action="#{contactenosBean.enviar()}" update=":mensajes, :form-mail:txtNombres,:form-mail:txtEmail,:form-mail:txtMensaje" ></p:commandLink>
 	                    </div>
 	                  </fieldset>
 	                </h:form>
