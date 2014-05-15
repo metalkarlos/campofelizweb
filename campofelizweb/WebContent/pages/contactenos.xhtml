@@ -55,6 +55,7 @@
 	                      <span>Mensaje:</span>	
 	                      <p:inputTextarea id="txtMensaje" value="#{contactenosBean.mensaje}" maxlength="500" autoResize="false" required="true" requiredMessage="Ingrese su Mensaje" />
 	                    </label>
+	                    <!-- <p:captcha label="Captcha"/> -->
 	                    <div class="btns">
 	                        <a class="link" onclick="document.getElementById('form-mail').reset()">Limpiar</a>
 	                        <p:commandLink id="lnkEnviar" styleClass="link" value="Enviar" action="#{contactenosBean.enviar()}" update=":mensajes, :form-mail:txtNombres,:form-mail:txtEmail,:form-mail:txtMensaje" ></p:commandLink>
