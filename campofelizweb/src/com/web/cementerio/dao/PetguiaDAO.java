@@ -20,20 +20,18 @@ public class PetguiaDAO {
 		public Petguia getPetguiaById(Session session, int idguia, int idestado) throws Exception {
 				
 			    Petguia petguia=null;
-			
-				/*petguia  = (Petguia) session.createCriteria(Petguia.class)
-			    .createAlias("petfotoguia", "e")
-			    .add( Restrictions.eq("idguia", idguia) ).uniqueResult();*/
 			    Criteria criteria = session.createCriteria(Petguia.class, "g")
 						.add( Restrictions.eq("g.idguia", idguia))
 						.createAlias("g.setestado", "gestado", Criteria.LEFT_JOIN, Restrictions.eq("gestado.idestado", idestado))
 						.createAlias("g.petfotoguias", "foto", Criteria.LEFT_JOIN)
+						.add( Restrictions.eq("fotoestado.idestado", idestado))
 						.createAlias("foto.setestado", "fotoestado", Criteria.LEFT_JOIN, Restrictions.eq("fotoestado.idestado", idestado));
+						
 			   
-				
+			    //.addOrder(Order.asc("foto.idfotoguia"))
 			    petguia= (Petguia)criteria.uniqueResult();
 				
-				
+			    
 				return petguia;
 			}
 		
@@ -42,10 +40,7 @@ public class PetguiaDAO {
 			
 		    List<Petguia> listpetguia=null;
 		
-			/*petguia  = (Petguia) session.createCriteria(Petguia.class)
-		    .createAlias("petfotoguia", "e")
-		    .add( Restrictions.eq("idguia", idguia) ).uniqueResult();*/
-		    Criteria criteria = session.createCriteria(Petguia.class)
+			Criteria criteria = session.createCriteria(Petguia.class)
 		    		.add(Restrictions.eq("principal", principal))
 		    		.add(Restrictions.eq("setestado.idestado", idestado));
 					

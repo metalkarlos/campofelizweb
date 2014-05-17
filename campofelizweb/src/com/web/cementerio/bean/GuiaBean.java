@@ -22,7 +22,7 @@ public class GuiaBean implements Serializable{
 	private int idguia;
 	private Petguia petguia;
 	private String rutaImagenes;
-	//private List<Petfotonoticia> lisPetguia;
+
 	
 	public GuiaBean(){
 		cargarRutaImagenes();
@@ -53,9 +53,7 @@ public class GuiaBean implements Serializable{
 				PetguiaBO petguiaBO = new PetguiaBO();
 				petguia= petguiaBO.getPetguiabyId(idguia, 1);
 				
-				/*if(petnoticia.getPetfotonoticias() != null && petnoticia.getPetfotonoticias().size() > 0){
-					lisPetfotonoticia = new ArrayList<Petfotonoticia>(petnoticia.getPetfotonoticias());
-				}*/
+				
 			} catch(Exception e) {
 				e.printStackTrace();
 				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
