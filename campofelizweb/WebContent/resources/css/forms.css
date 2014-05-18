@@ -47,7 +47,7 @@
 	position:relative;
 	overflow:hidden;
 }
-.contact-form span {
+.contact-form .span {
 	float:left;
 	width:65px;
 	margin:6px 4px 0 0;
