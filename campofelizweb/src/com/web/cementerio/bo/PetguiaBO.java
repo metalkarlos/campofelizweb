@@ -108,7 +108,7 @@ PetguiaDAO petguiaDAO;
 			petguia.setFecharegistro(fecharegistro);
 			petguia.setIplog(usuarioBean.getIp());
 			
-			if(uploadedFile ==null){
+			if(petguia.getRutafoto() ==null){
 			 petguia.setRutafoto("/mascota/huella.jpg");	
 			}
 			
@@ -158,10 +158,12 @@ PetguiaDAO petguiaDAO;
 			   ok = true;
 			}
 			
-			if(!(listPetfotoguiaclone.isEmpty() && listPetfotoguiaclone.isEmpty()) && (listPetfotoguia.size() != listPetfotoguia.size())){
+			
+			if( ((!listPetfotoguiaclone.isEmpty()) && (!listPetfotoguia.isEmpty())) && (listPetfotoguia.size() != listPetfotoguiaclone.size())){
 		       modificarPetfotoguia(session,idestado, listPetfotoguia, listPetfotoguiaclone,petguia, uploadedFile) ;
 		       ok = true;
-			}
+			}	
+			
 			
 			if(ok){
 				session.getTransaction().commit();

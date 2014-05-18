@@ -49,28 +49,24 @@
 				<f:param name="idguia" value="0"></f:param>
 			</h:link>
 			<br />
-			<center>
-			  <div>
-				<p:galleria id="contentGalleria" value="#{guiaGeneralBean.listPetguiaprincipal}" var="imagen" panelWidth="280" panelHeight="200"
-				            frameWidth="125" frameHeight="125" effect="clip">
-					 
-				<p>  
-				    #{imagen.titulo}
-				</p> 
-			    <h:link  value="" outcome="guia" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" >
+   		    <h:panelGroup id="idpanelgaleria" styleClass="centrar">
+			 <p:galleria id="contentGalleria" value="#{guiaGeneralBean.listPetguiaprincipal}" var="imagen" panelWidth="240" panelHeight="160"
+			            frameWidth="125" frameHeight="125" effect="clip">
+			    <h:link  value="" outcome="guia" styleClass="link2" style="float: center;" >
+			        <p>   #{imagen.titulo} </p> 
 					<f:param name="idguia" value="#{imagen.idguia}"></f:param>
 					<p:graphicImage id="playerImage" value="#{guiaGeneralBean.rutaImagenes}#{imagen.rutafoto}" alt="#" title="#"/>
 				</h:link>
 				</p:galleria>
-			  </div>
-			</center>
+			  </h:panelGroup>
+			
 			<br />
 			<p:dataGrid styleClass="grid" id="resultadoGuia" value="#{guiaGeneralBean.lisPetguia}" var="guia" columns="1" rows="3" paginator="true" effect="true" 
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				emptyMessage="No se encontraron registros" paginatorPosition="bottom">
 				<p:column>
 				  <div class="inner-content">
-				   		 <p:graphicImage id="Imagen" value="#{guiaGeneralBean.rutaImagenes}#{guia.rutafoto}" height="55" width="65"/>
+				   		 <p:graphicImage id="Imagen" value="#{guiaGeneralBean.rutaImagenes}#{guia.rutafoto}" height="35" width="45"/>
 						 <h:link  styleClass="titulo3" style="height:40px" value="#{guia.titulo}" outcome="guia">
 						     <f:param name="idguia" value="#{guia.idguia}"></f:param>
 						 </h:link>

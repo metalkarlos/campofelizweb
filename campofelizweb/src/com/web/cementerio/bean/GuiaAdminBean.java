@@ -48,7 +48,6 @@ public class GuiaAdminBean  implements Serializable{
 
 	public GuiaAdminBean(){
 		petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
-		petguiaClon = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, null, null,false, null);
 		lisPetfotoguia = new ArrayList<Petfotoguia>();
 		petfotoguiaSeleccionada =  new Petfotoguia(0, new Setestado(), new Setusuario(), new Petguia(), null, null, null, null, null, null, null);
 		fotoSubida =false;
@@ -82,6 +81,7 @@ public class GuiaAdminBean  implements Serializable{
 	public void consultaGuia(){
 		if(this.idguia > 0){
 			try {
+				petguiaClon = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, null, null,false, null);
 				lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
 				PetguiaBO petguiaBO = new PetguiaBO();
 				petguia = petguiaBO.getPetguiabyId(idguia, 1);
@@ -119,7 +119,7 @@ public class GuiaAdminBean  implements Serializable{
 				
 				new MessageUtil().showInfoMessage("Foto en memoria!", event.getFile().getFileName());
 			}else{
-				new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 1MB");
+				new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 100KB");
 			}	
 		}catch(Exception x){
 			x.printStackTrace();
@@ -158,8 +158,16 @@ public class GuiaAdminBean  implements Serializable{
 				
 			if(idguia == 0){
 				ok = petguiaBO.ingresarPetguiaBO(petguia,1,  uploadedFile);
+				petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
+				lisPetfotoguia = new ArrayList<Petfotoguia>();
+				petguiaClon= new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
+				lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
 			}else{
 				ok = petguiaBO.modificar(petguia, petguiaClon, lisPetfotoguia, lisPetfotoguiaClon,2,uploadedFile);
+				petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
+				lisPetfotoguia = new ArrayList<Petfotoguia>();
+				petguiaClon= new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
+				lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
 			}
 				
 			if(ok){
@@ -181,7 +189,13 @@ public class GuiaAdminBean  implements Serializable{
 		if(petguia.getTitulo()==null|| petguia.getTitulo().length()==0){
 			ok = false;
 			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el Título del artículo");
-		}else if(petguia.getDescripcion()==null|| petguia.getDescripcion().length()==0){
+		}
+		else if((streamedContent ==null && petguia.getIdguia()==0)||(streamedContent ==null && lisPetfotoguia.size()==0 && petguia.getIdguia()>0)){
+			ok = false;
+			new MessageUtil().showInfoMessage("Info", "Es necesario subir foto asociada al artículo");
+		}
+		
+		else if(petguia.getDescripcion()==null|| petguia.getDescripcion().length()==0){
 			ok = false;
 			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contendio del artículo");
 		}else if (petguia.getFechapublicacion().after(fechaactual)){
@@ -198,8 +212,13 @@ public class GuiaAdminBean  implements Serializable{
 			PetguiaBO petguiaBO = new PetguiaBO();
 			
 			petguiaBO.eliminarBO(petguia, lisPetfotoguiaClon,2);
-
-			paginaRetorno = "guiageneral?faces-redirect=true";
+			
+			petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
+			petguiaClon= new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
+			lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
+			paginaRetorno = "/pages/guiageneral?faces-redirect=true";
+			
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
