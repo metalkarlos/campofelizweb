@@ -20,7 +20,7 @@
 	</ui:define>
 	
 	<ui:define name="contenido">
-			<p:messages id="mensajes" autoUpdate="true"></p:messages>
+			<p:messages id="mensajes" showDetail="true"></p:messages>
 			
 			<div class="wrapper">
 	        	<article class="grid_7 suffix_1">
@@ -31,9 +31,9 @@
 	                <strong class="str-4">#{contactenosBean.petempresa.nombre}</strong>
 	                <dl class="adress">
 	                	<dt>#{contactenosBean.petempresa.direccion}</dt>
-	                    <dd><span>Teléfono:</span><strong>#{contactenosBean.petempresa.telefono}</strong></dd>
-	                    <dd><span>Celular:</span><strong>#{contactenosBean.petempresa.celular}</strong></dd>
-	                    <dd><span>Email:</span><a href="#">#{contactenosBean.petempresa.email}</a></dd>
+	                    <dd><span class="span">Teléfono:</span><strong>#{contactenosBean.petempresa.telefono}</strong></dd>
+	                    <dd><span class="span">Celular:</span><strong>#{contactenosBean.petempresa.celular}</strong></dd>
+	                    <dd><span class="span">Email:</span><a href="#">#{contactenosBean.petempresa.email}</a></dd>
 	                </dl>  
 	            </article>
 	            <article class="grid_16">
@@ -41,29 +41,32 @@
 	                <h:form id="form-mail" class="contact-form" >
 	                  <fieldset>
 	                    <label class="name">
-	                        <span>Nombres:</span>
+	                        <span class="span">Nombres:</span>
 	                        <p:inputText id="txtNombres" value="#{contactenosBean.nombres}" required="true" requiredMessage="Ingrese sus Nombres" label="Nombres"></p:inputText>
 	                    </label>
 	                    <label class="email">
-	                      <span>Email:</span>
-	                      <p:inputText id="txtEmail" value="#{contactenosBean.correo}" required="true" requiredMessage="Ingresar Correo Electronico"
+	                      <span class="span">Email:</span>
+	                      <p:inputText id="txtEmail" value="#{contactenosBean.correo}" required="true" requiredMessage="Ingresar Email"
 							validatorMessage="Formato de Correo Electrónico incorrecto">
 	                      	<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 	                      </p:inputText>
 	                    </label>
 	                    <label class="message">
-	                      <span>Mensaje:</span>	
+	                      <span class="span">Mensaje:</span>	
 	                      <p:inputTextarea id="txtMensaje" value="#{contactenosBean.mensaje}" maxlength="500" autoResize="false" required="true" requiredMessage="Ingrese su Mensaje" />
 	                    </label>
-	                    <!-- <p:captcha label="Captcha"/> -->
+	                    <div align="right" style="padding:15px 0 0 0;">
+	                    <p:captcha id="idcaptcha" label="Captcha" required="true" requiredMessage="Ingrese el código captcha en el recuadro" />
+	                    </div>
 	                    <div class="btns">
 	                        <a class="link" onclick="document.getElementById('form-mail').reset()">Limpiar</a>
-	                        <p:commandLink id="lnkEnviar" styleClass="link" value="Enviar" action="#{contactenosBean.enviar()}" update=":mensajes, :form-mail:txtNombres,:form-mail:txtEmail,:form-mail:txtMensaje" ></p:commandLink>
+	                        <p:commandLink id="lnkEnviar" styleClass="link" value="Enviar" action="#{contactenosBean.enviar()}" update=":mensajes, :form-mail:txtNombres,:form-mail:txtEmail,:form-mail:idcaptcha,:form-mail:txtMensaje" ></p:commandLink>
 	                    </div>
 	                  </fieldset>
 	                </h:form>
 	            </article>
 	        </div>
+	        
 	        <div class="wrapper">
 	        	<article class="grid_7 suffix_1">
 	            	<h2>Veterinaria:</h2>
