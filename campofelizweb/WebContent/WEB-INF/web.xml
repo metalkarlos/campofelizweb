@@ -56,14 +56,14 @@
   <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
   <param-value>true</param-value>
  </context-param>
- <!-- <context-param>
+ <context-param>
   <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
-  <param-value>YOUR_PRIVATE_KEY</param-value>
+  <param-value>6LfmtPMSAAAAAE___SISFO_uBTM_L3wIrJk1-0og</param-value>
  </context-param>
  <context-param>
   <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
-  <param-value>YOUR_PUBLIC_KEY</param-value>
- </context-param> -->
+  <param-value>6LfmtPMSAAAAAAh-656nLMj3oHSXuNlAq_p0baJ1</param-value>
+ </context-param>
  <context-param>
   <param-name>primefaces.THEME</param-name>
   <param-value>none</param-value>
