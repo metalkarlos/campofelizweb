@@ -28,7 +28,7 @@ public class BreadCrumbBean {
 			"preguntas.jsf",
 			"contactenos.jsf");
 	
-	private String[][] ruta = {{"Quienes Somos","home.jsf;#"},
+	private String[][] ruta = {{"Home;Quienes Somos","home.jsf;#"},
 			{"Home;Servicios","home.jsf;#"},
 			{"Home;Servicios;Servicio","home.jsf;servicios.jsf;#"},
 			{"Home;Encuesta","home.jsf;#"},
