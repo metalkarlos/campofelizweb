@@ -1,9 +1,12 @@
 package com.web.faces.listeners;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.servlet.http.HttpServletRequest;
 
+import com.web.cementerio.bean.BreadCrumbBean;
 import com.web.cementerio.bean.UsuarioBean;
 import com.web.util.FacesUtil;
 
@@ -28,6 +31,27 @@ public class SecurityPhaseListener implements PhaseListener {
 				usuarioBean.setStreamedContent(null);
 				new FacesUtil().setSessionBean("usuarioBean", usuarioBean);
 			}
+			
+			FacesUtil facesUtil = new FacesUtil();
+			BreadCrumbBean breadCrumbBean = (BreadCrumbBean) facesUtil.getSessionBean("breadCrumbBean");
+			
+			if(breadCrumbBean == null){
+				breadCrumbBean = new BreadCrumbBean();
+				facesUtil.setSessionBean("breadCrumbBean", breadCrumbBean);
+			}
+			
+			FacesContext facesContext = phaseEvent.getFacesContext();
+			HttpServletRequest request = (HttpServletRequest)facesContext.getExternalContext().getRequest();
+			String[] urlarray = request.getRequestURI().split("/");
+			int x=-1;
+			for(int i=0;i<urlarray.length;i++){
+				if(urlarray[i].endsWith(".jsf")){
+					x=i;
+					break;
+				}
+			}
+			String pagina = urlarray[x];
+			breadCrumbBean.armarBreadCrumb(pagina);
 		}
 	}
 
