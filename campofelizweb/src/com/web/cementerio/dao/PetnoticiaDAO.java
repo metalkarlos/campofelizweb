@@ -1,6 +1,8 @@
 package com.web.cementerio.dao;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -9,6 +11,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import com.web.cementerio.pojo.annotations.Petfotonoticia;
 import com.web.cementerio.pojo.annotations.Petnoticia;
 
 public class PetnoticiaDAO {
@@ -39,26 +42,24 @@ public class PetnoticiaDAO {
 	public Petnoticia getPetnoticiaConObjetosById(Session session, int idnoticia) throws Exception {
 		Petnoticia petnoticia = null;
 		
-		/*String hql = " from Petnoticia as noti ";
-		hql += " left join fetch noti.setestado as notiestado ";
-		hql += " and notiestado.idestado = 1 ";
-		hql += " left join fetch noti.petfotonoticias as foto ";
-		hql += " left join fetch foto.setestado as fotoestado ";
-		hql += " and fotoestado.idestado = 1 ";
-		hql += " where noti.idnoticia = :idnoticia ";
-
-		Query query = session.createQuery(hql)
-				.setInteger("idnoticia", idnoticia);
-		
-		petnoticia = (Petnoticia) query.uniqueResult();*/
-		
 		Criteria criteria = session.createCriteria(Petnoticia.class, "noti")
 				.add( Restrictions.eq("noti.idnoticia", idnoticia))
-				.createAlias("noti.setestado", "notiestado", Criteria.LEFT_JOIN, Restrictions.eq("notiestado.idestado", 1))
-				.createAlias("noti.petfotonoticias", "foto", Criteria.LEFT_JOIN)
-				.createAlias("foto.setestado", "fotoestado", Criteria.LEFT_JOIN, Restrictions.eq("fotoestado.idestado", 1));
+				.add( Restrictions.eq("noti.setestado.idestado", 1))
+				.createAlias("noti.petfotonoticias", "foto", Criteria.LEFT_JOIN);
 		
 		petnoticia = (Petnoticia) criteria.uniqueResult();
+		
+		if(petnoticia.getPetfotonoticias() != null && petnoticia.getPetfotonoticias().size() > 0){
+			
+				Set<Petfotonoticia> tmp = new HashSet<Petfotonoticia>();
+				for(Petfotonoticia foto : petnoticia.getPetfotonoticias()){
+					if(foto.getSetestado().getIdestado() == 1){
+						tmp.add(foto);
+					}
+				}
+				petnoticia.setPetfotonoticias(tmp);
+				
+		}
 		
 		return petnoticia;
 	}
