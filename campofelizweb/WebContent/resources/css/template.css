@@ -39,7 +39,7 @@
 /*------------primefaces----------------*/
 .title {
 	height: 30px;
-	padding: 8px 0 0 0; /*20px;*/
+	padding: 20px 0 0 0;
 }
 .ui-widget-header {
 	border: 1px solid #a8a8a8;
@@ -56,6 +56,7 @@
 }
 .content-page .ui-widget-header {
 	border: none;
+	background: none;
 }
 .content-page .ui-widget-content {
 	border: none;
@@ -175,7 +176,8 @@ header {
 	/*padding-top: 10px;*/
 }
 .content-page h1 {
-	font-size: 1.6em;
+	font-size: 2em;
+	font-weight: bold;
 	-moz-border-radius-topleft: 7px;
 	-webkit-border-top-left-radius: 7px;
 	border-top-left-radius: 7px;
