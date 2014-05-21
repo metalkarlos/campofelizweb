@@ -35,6 +35,14 @@
 			.indent-bot {
 				margin:10px 0 20px 0;
 			}
+			.ui-breadcrumb {
+				margin: 15px 15px 0;
+				background: none;
+				border: none;
+			}
+			.ui-breadcrumb a{
+				/*color: #ec8f23;*/
+			}
 		</style>
 
 		<!-- Configuración del Calendario de la Agenda -->
@@ -161,6 +169,7 @@
 			<ui:insert name="contenido">
 			<div class="indent-bot-1">
 				<div class="leftcontent">
+					<p:breadCrumb id="breadcrumb" model="#{breadCrumbBean.breadCrumb}"></p:breadCrumb>
 					<ui:insert name="content_page">
 						<h1>En construcción...</h1>
 					</ui:insert>
