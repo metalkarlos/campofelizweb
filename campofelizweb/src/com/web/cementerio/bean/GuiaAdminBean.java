@@ -18,7 +18,6 @@ import org.primefaces.model.UploadedFile;
 import com.web.cementerio.bo.PetguiaBO;
 
 import com.web.cementerio.pojo.annotations.Petfotoguia;
-import com.web.cementerio.pojo.annotations.Petfotonoticia;
 import com.web.cementerio.pojo.annotations.Petguia;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
@@ -150,20 +149,15 @@ public class GuiaAdminBean  implements Serializable{
 			boolean ok = false;
 			
 			PetguiaBO petguiaBO = new PetguiaBO();
-			Petfotonoticia petfotonoticia = new Petfotonoticia();
-				
-			if(fotoSubida && descripcionFoto != null && descripcionFoto.trim().length() > 0){
-				petfotonoticia.setDescripcion(descripcionFoto);
-			}
 				
 			if(idguia == 0){
-				ok = petguiaBO.ingresarPetguiaBO(petguia,1,  uploadedFile);
+				ok = petguiaBO.ingresarPetguiaBO(petguia,1,  uploadedFile,descripcionFoto);
 				petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
 				lisPetfotoguia = new ArrayList<Petfotoguia>();
 				petguiaClon= new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
 				lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
 			}else{
-				ok = petguiaBO.modificar(petguia, petguiaClon, lisPetfotoguia, lisPetfotoguiaClon,2,uploadedFile);
+				ok = petguiaBO.modificar(petguia, petguiaClon, lisPetfotoguia, lisPetfotoguiaClon,2,uploadedFile,descripcionFoto);
 				petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
 				lisPetfotoguia = new ArrayList<Petfotoguia>();
 				petguiaClon= new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
@@ -190,10 +184,10 @@ public class GuiaAdminBean  implements Serializable{
 			ok = false;
 			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el Título del artículo");
 		}
-		else if((streamedContent ==null && petguia.getIdguia()==0)||(streamedContent ==null && lisPetfotoguia.size()==0 && petguia.getIdguia()>0)){
+		/*else if((streamedContent ==null && petguia.getIdguia()==0)||(streamedContent ==null && lisPetfotoguia.size()==0 && petguia.getIdguia()>0)){
 			ok = false;
 			new MessageUtil().showInfoMessage("Info", "Es necesario subir foto asociada al artículo");
-		}
+		}*/
 		
 		else if(petguia.getDescripcion()==null|| petguia.getDescripcion().length()==0){
 			ok = false;

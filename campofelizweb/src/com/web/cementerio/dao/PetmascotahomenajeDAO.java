@@ -33,6 +33,18 @@ public class PetmascotahomenajeDAO {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
+	public List<Petmascotahomenaje> lisPetmascotaPrincipal(Session session, int idestado) throws Exception{
+		List<Petmascotahomenaje> listPetmascotahomenaje=null;
+		
+		Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
+				.add(Restrictions.eq("setestado.idestado", idestado))
+				.addOrder(Order.desc("fechapublicacion"))
+				.setMaxResults(3);
+		listPetmascotahomenaje = (List<Petmascotahomenaje>)criteria.list();
+		return listPetmascotahomenaje;
+	}
+	
 
 	
 	@SuppressWarnings("unchecked")

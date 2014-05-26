@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<style type="text/css">
+	
+	/********************** Slider ************************/
+		.mp-slider .items {display:none;}
+		
+		.mp-slider {
+			overflow:visible !important;
+		}
+		.slider-container2 {
+			position:relative;
+			z-index:1;
+			height:100%;
+			/*width:100%;*/
+			width:150px;
+			margin:0 auto;
+			padding:0 0 52px 0;
+		}
+		.slider-container2 .pic, .mp-slider {
+			border-radius:9px;
+			box-shadow:0 0 5px #d4d4d4;
+		}
+		.slider-container2 .mp-slider .items .imagen{
+			height:150px;
+			width:150px;
+		}
+		.slider-container2 .mask {
+			border-radius:9px;
+		}
+		.pagination {
+			position:absolute;
+			bottom:-29px;
+			left:0;
+			right:0;
+			text-align:center;
+		}
+			.pagination li {
+				display:inline-block;
+				margin:0 1px;
+			}
+				.pagination li a {
+					display:block;
+					width:20px;
+					height:20px;
+					background:url(../resources/images/slider-pagination.png) no-repeat right 0;
+				}
+					.pagination li.current a, .pagination li a:hover {
+						display:block;
+						width:20px;
+						height:20px;
+						background:url(../resources/images/slider-pagination.png) no-repeat 0 0;
+					}
+		/********************** Navigation ************************/
+			
+          
+     </style>
+
+	<h:form id="form-mascotaspage">
+	<p:graphicImage value="\imagenes\campo-feliz.jpg" />
+	     <div align="center">
+		 <p:imageSwitch  effect="shuffle"  speed="350">
+			<ui:repeat value="#{mascotasPrincipalBean.lisPetmascotahomenaje}" var="imagen" >
+		        <p:graphicImage value="#{mascotasPrincipalBean.rutaImagenes}#{imagen.rutafoto}" width="255px" height="255px"/>
+		    </ui:repeat>
+		</p:imageSwitch>
+	    </div>	
+	</h:form>
+	
+</ui:composition>	

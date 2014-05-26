@@ -95,20 +95,26 @@ import com.web.util.MessageUtil;
 		}
 		public void grabar() {
 			try {
+				boolean ok = false;
 				if(validarcampos()){
+					
 					PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
 					
 					if(petmascotahomenaje.getIdmascota()==0){
-						petmascotahomenajeBO.ingresarPetmascotahomenajeBO(petmascotahomenaje, 1,uploadedFile);
+						ok = petmascotahomenajeBO.ingresarPetmascotahomenajeBO(petmascotahomenaje, 1,uploadedFile);
 						new MessageUtil().showInfoMessage("Exito", "Información registrada");
 						inicializarobjetos();
 						
 				    }else if(petmascotahomenaje.getIdmascota()>0){
 					  //objeto petmascotahomenaje se ha modificado
-					  if(petmascotahomenajeBO.modificarPetmascotahomenajeBO(petmascotahomenaje,petmascotahomenajeclone,uploadedFile,listpetfotomascota,listpetfotomascotaclone,2)){
+					  ok = petmascotahomenajeBO.modificarPetmascotahomenajeBO(petmascotahomenaje,petmascotahomenajeclone,uploadedFile,listpetfotomascota,listpetfotomascotaclone,2);
 						 new MessageUtil().showInfoMessage("Exito", "Información modificada");
 						 inicializarobjetos();
-					  }
+				  }
+				  if(ok){
+					new MessageUtil().showInfoMessage("Listo!", "Datos grabados con Exito!");
+				  }else{
+					new MessageUtil().showInfoMessage("Aviso", "No existen cambios que guardar");
 				  }
 				}
 			} catch (Exception e) {
@@ -133,7 +139,7 @@ import com.web.util.MessageUtil;
 					
 					new MessageUtil().showInfoMessage("Foto en memoria!",uploadedFile.getFileName());
 				}else{
-					new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 1MB");
+					new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 100KB");
 				}
 				
 				

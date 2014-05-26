@@ -76,6 +76,21 @@ public class PetmascotahomenajeBO {
 	   return listpetmascotahomenaje;
 	}
 	
+	public List<Petmascotahomenaje>lisPetmascotaPrincipal(int idestado)throws Exception{
+		List<Petmascotahomenaje> listpetmascotahomenaje = null;
+		Session session = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			listpetmascotahomenaje = petmascotahomenajeDAO.lisPetmascotaPrincipal(session, idestado);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}finally{
+			session.close();
+		}
+		return listpetmascotahomenaje;
+	}
+	
+	
 	
 	public void eliminarBO(Petmascotahomenaje petmascotahomenaje,List<Petfotomascota> listpetfotomascotaclone, int idestado)throws Exception{
 		Session session = null;
@@ -146,9 +161,9 @@ public class PetmascotahomenajeBO {
 	}
 	
 	
-	public void ingresarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,int idestado, UploadedFile uploadedFile) throws Exception{
+	public boolean ingresarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,int idestado, UploadedFile uploadedFile) throws Exception{
 		Session session = null;
-		
+		boolean ok = false;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -181,10 +196,11 @@ public class PetmascotahomenajeBO {
 			petmascotahomenajeDAO.ingresarPetmascotahomenaje(session, petmascotahomenaje);
 			
 			if(uploadedFile !=null){
-			  ingresarPetfotomascota(session, 1, petmascotahomenaje,uploadedFile);
+			  ingresarPetfotomascota(session, idestado, petmascotahomenaje,uploadedFile);
 			}
 			
 			session.getTransaction().commit();
+			ok = true;
 			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
@@ -192,6 +208,7 @@ public class PetmascotahomenajeBO {
 		}finally {
 			session.close();
 		}
+		return ok;
 	}
 	
 	public boolean modificarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,Petmascotahomenaje petmascotahomenajeclone,UploadedFile uploadedFile,

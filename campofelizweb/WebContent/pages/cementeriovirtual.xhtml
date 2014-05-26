@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default_admin.xhtml"
+	xmlns:my="http://java.sun.com/jsf/composite/components/buttons">
+
+
+   <ui:define name="head">
+		<title>Cementerio Virtual</title>
+		<style type="text/css">
+			.inner-content h1  {
+				color: #66ad23;
+				
+			}
+			 .inner-content .titulo3 {
+	            border-bottom: 0px;
+	            margin:20px;
+	         }
+	
+			.gridNoticias {
+				padding: 10px 0;
+			}
+		</style>
+
+	</ui:define>
+	
+	
+	<ui:define name="content_page">
+		<div class="content-page">
+		<h:form id="form-contentpage">
+			<p:growl id="mensajes" showDetail="true" />
+			
+			<h1 class="title ui-widget-header">Cementerio Virtual</h1>
+			<br />
+			
+			 <p:imageSwitch  effect="shuffle" >
+				<ui:repeat value="#{mascotasPrincipalBean.lisPetmascotahomenaje}" var="imagen" >
+			        <p:graphicImage value="#{mascotasPrincipalBean.rutaImagenes}#{imagen.rutafoto}" width="255px" height="255px"/>
+			    </ui:repeat>
+			</p:imageSwitch>
+	</h:form>
+	</div>
+	</ui:define>		
+	
+	</ui:composition>

@@ -18,20 +18,19 @@ public class PetguiaDAO {
 		}
 		
 		public Petguia getPetguiaById(Session session, int idguia, int idestado) throws Exception {
-				
+
 			    Petguia petguia=null;
 			    Criteria criteria = session.createCriteria(Petguia.class, "g")
 						.add( Restrictions.eq("g.idguia", idguia))
 						.createAlias("g.setestado", "gestado", Criteria.LEFT_JOIN, Restrictions.eq("gestado.idestado", idestado))
 						.createAlias("g.petfotoguias", "foto", Criteria.LEFT_JOIN)
-						.add( Restrictions.eq("fotoestado.idestado", idestado))
 						.createAlias("foto.setestado", "fotoestado", Criteria.LEFT_JOIN, Restrictions.eq("fotoestado.idestado", idestado));
+			            //.add( Restrictions.eq("fotoestado.idestado", idestado));
 						
 			   
 			    //.addOrder(Order.asc("foto.idfotoguia"))
+			   
 			    petguia= (Petguia)criteria.uniqueResult();
-				
-			    
 				return petguia;
 			}
 		

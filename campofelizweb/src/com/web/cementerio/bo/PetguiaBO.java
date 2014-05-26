@@ -79,7 +79,7 @@ PetguiaDAO petguiaDAO;
 	
 	
 	
-	public boolean ingresarPetguiaBO(Petguia petguia,int idestado, UploadedFile uploadedFile) throws Exception{
+	public boolean ingresarPetguiaBO(Petguia petguia,int idestado, UploadedFile uploadedFile, String descripcionFoto) throws Exception{
 		Session session = null;
 		boolean ok = false;
 		
@@ -108,6 +108,7 @@ PetguiaDAO petguiaDAO;
 			petguia.setFecharegistro(fecharegistro);
 			petguia.setIplog(usuarioBean.getIp());
 			
+			
 			if(petguia.getRutafoto() ==null){
 			 petguia.setRutafoto("/mascota/huella.jpg");	
 			}
@@ -115,7 +116,7 @@ PetguiaDAO petguiaDAO;
 			petguiaDAO.savePetguia(session, petguia);
 			
 			if(uploadedFile !=null){
-			  ingresarPetfotoguia(session, 1, petguia,uploadedFile);
+			  ingresarPetfotoguia(session, 1, petguia,uploadedFile,descripcionFoto);
 			}
 			
 			session.getTransaction().commit();
@@ -130,7 +131,7 @@ PetguiaDAO petguiaDAO;
 		return ok;
 	}
 	
-	public boolean modificar(Petguia petguia,Petguia petguiaclone,List<Petfotoguia> listPetfotoguia, List<Petfotoguia> listPetfotoguiaclone,int idestado,UploadedFile uploadedFile) throws Exception{
+	public boolean modificar(Petguia petguia,Petguia petguiaclone,List<Petfotoguia> listPetfotoguia, List<Petfotoguia> listPetfotoguiaclone,int idestado,UploadedFile uploadedFile, String descripcionFoto) throws Exception{
 		Session session = null;
 		boolean ok = false;
 		try {
@@ -154,12 +155,12 @@ PetguiaDAO petguiaDAO;
 				ok = true;
 			}
 			if(uploadedFile !=null){
-			   ingresarPetfotoguia(session, 1, petguia,uploadedFile);
+			   ingresarPetfotoguia(session, 1, petguia,uploadedFile, descripcionFoto);
 			   ok = true;
 			}
 			
 			
-			if( ((!listPetfotoguiaclone.isEmpty()) && (!listPetfotoguia.isEmpty())) && (listPetfotoguia.size() != listPetfotoguiaclone.size())){
+			if( listPetfotoguia.size() != listPetfotoguiaclone.size()){
 		       modificarPetfotoguia(session,idestado, listPetfotoguia, listPetfotoguiaclone,petguia, uploadedFile) ;
 		       ok = true;
 			}	
@@ -245,7 +246,7 @@ PetguiaDAO petguiaDAO;
 		
 	}
 
-	public void ingresarPetfotoguia(Session session, int idestado, Petguia petguia,  UploadedFile uploadedFile)throws Exception{
+	public void ingresarPetfotoguia(Session session, int idestado, Petguia petguia,  UploadedFile uploadedFile, String descripcionFoto)throws Exception{
 		PetfotoguiaDAO petfotoguiaDAO = new PetfotoguiaDAO();
 		Petfotoguia petfotoguia = new Petfotoguia();
 		try {
@@ -267,7 +268,10 @@ PetguiaDAO petguiaDAO;
 			petfotoguia.setFecharegistro(fecharegistro);
 			petfotoguia.setIplog(usuarioBean.getSetUsuario().getIplog());
 					
-			
+			//Descripcion foto
+			if(descripcionFoto != null && descripcionFoto.trim().length() > 0){
+				petfotoguia.setDescripcion(descripcionFoto);
+			}
 					
 			//foto en disco
 			FileUtil fileUtil = new FileUtil();
