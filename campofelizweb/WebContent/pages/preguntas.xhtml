@@ -46,9 +46,10 @@
  		    <f:param name="idenunciado" value="0"></f:param>
 		  </h:link>
 		  <span class="clear" />
-		  <p:dataTable var="enunciado" value="#{enunciadosBean.listpetvenunciado}" > 
-	         <p:column style="width: 480px;" >
-	            <h:outputText  value="#{enunciado.descripcion}"/>
+		  <p:dataTable var="enunciado" value="#{enunciadosBean.listpetvenunciado}" >
+		  	<p:column style="width: 480px;" >
+		  		<h:outputText  value="#{enunciado.descripcion}" style="font-weight: bold;" rendered="#{enunciado.idpadre == 0}" />
+		  		<h:outputText  value="#{enunciado.descripcion}" rendered="#{enunciado.idpadre != 0}"/>
 	         </p:column>
 	           
 		     <p:column style="width: 60px;" rendered="#{usuarioBean.autenticado}">
