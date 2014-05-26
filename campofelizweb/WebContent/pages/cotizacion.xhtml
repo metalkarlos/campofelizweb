@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default_others.xhtml">
+	
+	<ui:define name="head">
+			
+		<title>Cotización</title>
+		
+		<style type="text/css">
+			.inner-content {
+				padding-top: 14px;
+			}
+			.inner-content textarea {
+				max-width: none;
+				width: 100%;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+			.ui-panelgrid tr, .ui-panelgrid td {
+				border: none;
+				padding: 0 10px;
+			}
+		</style>
+	</ui:define>
+	
+	<ui:define name="content_page">
+		<div class="content-page">
+		<h:form id="form-contentpage">
+			<div class="inner-content">
+				<p:messages id="mensajes" showDetail="true"></p:messages>
+			
+				<h2>Solicita una Cotización</h2>
+				<div class="contact-form">
+					<fieldset>
+	                    <label class="name">
+	                        <span class="span">Nombres:</span>
+	                        <p:inputText id="txtNombres" value="#{cotizacionBean.nombres}" required="true" requiredMessage="Ingrese sus Nombres" label="Nombres"></p:inputText>
+	                    </label>
+	                    <label class="lastname">
+	                        <span class="span">Apellidos:</span>
+	                        <p:inputText id="txtApellidos" value="#{cotizacionBean.apellidos}" required="true" requiredMessage="Ingrese sus Apellidos" label="Apellidos"></p:inputText>
+	                    </label>
+	                    <label class="email">
+	                      <span class="span">Email:</span>
+	                      <p:inputText id="txtEmail" value="#{cotizacionBean.correo}" required="true" requiredMessage="Ingresar Email" label="Email"
+							validatorMessage="Formato de Correo Electrónico incorrecto">
+	                      	<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+	                      </p:inputText>
+	                    </label>
+					</fieldset>
+				</div>
+				<br />
+				<label>Servicios:</label>
+		        <h:selectManyCheckbox value="#{cotizacionBean.lisPetservicioSeleccionados}" layout="pageDirection" style="margin-left: 15px;">
+		        	<f:selectItems value="#{cotizacionBean.lisPetservicio}" var="servicio" itemLabel="#{servicio}" itemValue="#{servicio}" />
+		        </h:selectManyCheckbox>
+		        <br />
+		        <label>Otros Servicios:</label>
+				<p:inputTextarea id="txtOtrosServicios" value="#{cotizacionBean.otrosServicios}" maxlength="1000" autoResize="false" />
+				
+				<div align="right" style="padding:15px 0 0 0;">
+					<p:captcha id="idcaptcha" label="Captcha" required="true" requiredMessage="Ingrese el código captcha en el recuadro" />
+				</div>
+				
+				<div class="btns">
+                    <p:commandLink id="lnkEnviar" styleClass="link" value="Enviar" action="#{cotizacionBean.enviar()}" update=":form-contentpage:mensajes,:form-contentpage:txtNombres,:form-contentpage:txtApellidos,:form-contentpage:txtEmail,:form-contentpage:idcaptcha" ></p:commandLink>
+                </div>
+			</div>
+		</h:form>
+		</div>
+	</ui:define>
+	
+</ui:composition>
