@@ -209,10 +209,6 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 		result = prime * result + (principal ? 1231 : 1237);
 		result = prime * result
 				+ ((rutafoto == null) ? 0 : rutafoto.hashCode());
-		result = prime * result
-				+ ((setestado == null) ? 0 : setestado.hashCode());
-		result = prime * result
-				+ ((setusuario == null) ? 0 : setusuario.hashCode());
 		result = prime * result + ((tag == null) ? 0 : tag.hashCode());
 		return result;
 	}
@@ -264,16 +260,6 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 			if (other.rutafoto != null)
 				return false;
 		} else if (!rutafoto.equals(other.rutafoto))
-			return false;
-		if (setestado == null) {
-			if (other.setestado != null)
-				return false;
-		} else if (!setestado.equals(other.setestado))
-			return false;
-		if (setusuario == null) {
-			if (other.setusuario != null)
-				return false;
-		} else if (setusuario.getIdusuario() != other.setusuario.getIdusuario())
 			return false;
 		if (tag == null) {
 			if (other.tag != null)

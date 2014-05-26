@@ -18,6 +18,11 @@
 			.gridNoticias {
 				padding: 10px 0;
 			}
+			img {
+				padding: 4px;
+				border: 1px solid rgb(221, 221, 221);
+				background-color: rgb(245, 245, 245);
+			}
 		</style>
 	</ui:define>
 	
@@ -55,7 +60,7 @@
 								</h:outputText>
 							</div>
 							<div>
-								<p>
+								<p class="parrafo">
 									<h:outputText value="#{fn:substring(noticia.descripcion, 0, 300)} [...]" escape="false" /> 
 									<h:link style="float: right; padding: 10px 0 0" value="Leer Más" outcome="/pages/noticia" >
 										<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
