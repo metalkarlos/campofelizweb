@@ -191,7 +191,7 @@ header {
 	line-height: normal;
 }
 .inner-content {
-	margin: 15px 15px 0 15px;
+	margin: 0px 15px 0 15px;
 }
 .inner-content h1, .inner-content .titulo3, .inner-content .titulo2 {
 	border-bottom: 1px solid #dddddd;/*#666666;*/
@@ -243,6 +243,9 @@ header {
 	border-bottom: 0px;
 	font-size: 25px;
 	line-height: normal;
+}
+.parrafo {
+	font-size:15px;
 }
 			
 /*------Menu------*/
