@@ -85,7 +85,7 @@
 				<p:column>
 				<h:outputLabel value="Agregar Foto" for="idSubeFotos" /><br />
 				<p:panel id="pnlPrevia" styleClass="panel-previa">
-				<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" style="max-height: 100px;" rendered="#{guiaAdminBean.fotoSubida}" />
+				<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" styleClass="imagen"  rendered="#{guiaAdminBean.fotoSubida}" />
 				<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{guiaAdminBean.borrarFotoSubida()}" update="pnlPrevia, idpaneltextdescfoto" rendered="#{guiaAdminBean.fotoSubida}" />
 				</p:panel>
 				<p:fileUpload id="idSubeFotos" fileUploadListener="#{guiaAdminBean.handleFileUpload}" mode="advanced"  label="Elegir Foto" cancelLabel="Cancelar" uploadLabel="Subir  Foto"

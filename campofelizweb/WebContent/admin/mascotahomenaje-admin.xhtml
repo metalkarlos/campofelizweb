@@ -86,7 +86,7 @@
 				<p:row>
 					<p:column styleClass="alto-columna">
 					<p:panel id="pnlPrevia" styleClass="panel-previa">
-					<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" style="max-height: 100px;" rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
+					<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" styleClass="imagen"  rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
 					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{mascotaHomenajeAdminBean.borrarFotoSubida()}" update="pnlPrevia" rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
 					</p:panel>
 					<p:fileUpload id="idSubeFotos" fileUploadListener="#{mascotaHomenajeAdminBean.handleFileUpload}" mode="advanced"  cancelLabel="Cancelar" 
@@ -102,7 +102,7 @@
 				</p:row>
 				<p:row>
 				  <p:column styleClass="alto-columna">
-				  <p:inputText id="txtNombre" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.nombre}" style="width: 165px;  text-transform:uppercase;"></p:inputText>
+				  <p:inputText id="txtNombre" maxlength="100"  value="#{mascotaHomenajeAdminBean.petmascotahomenaje.nombre}" style="width: 165px;  text-transform:uppercase;"></p:inputText>
 				  </p:column>
 				</p:row>
 				
@@ -160,7 +160,7 @@
 				</p:row>
 				<p:row>
 				  <p:column styleClass="alto-columna">
-				   <p:inputText id="txtFamilia" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.familia}" style="width: 195px;"></p:inputText>
+				   <p:inputText id="txtFamilia" maxlength="100" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.familia}" style="width: 195px;"></p:inputText>
 				  </p:column>
 				</p:row>
 				
@@ -171,7 +171,7 @@
 				</p:row>
 				<p:row>
 				  <p:column styleClass="alto-columna">
-				   <p:inputTextarea  id="txtDedicatoria" maxlength="2000"   autoResize="true" style="width: 610px; height:225px;" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.dedicatoria}" />
+				   <p:inputTextarea  id="txtDedicatoria" maxlength="1000"   autoResize="true" style="width: 610px; height:225px;" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.dedicatoria}" />
 				  </p:column>
 				</p:row>
 				

@@ -609,6 +609,9 @@ iframe {
 	text-transform:uppercase;
 }
 
+.imagen{
+	max-height: 100px;
+}
 /******************** Footer ******************/
 footer {
 	width:950px;
