@@ -41,6 +41,22 @@ public class PetservicioBO {
 		return lisPetservicio;
 	}
 	
+	public List<Petservicio> lisPetservicio() throws Exception {
+		List<Petservicio> lisPetservicio = null;
+		Session session = null;
+	
+		try{
+			session = HibernateUtil.getSessionFactory().openSession();
+			lisPetservicio = petservicioDAO.lisPetservicio(session);
+		}catch(Exception e){
+			throw new Exception(e);
+		}finally{
+			session.close();
+		}
+		
+		return lisPetservicio;
+	}
+	
 	public List<Petservicio> lisPetservicioBusquedaByPage(String[] texto, int pageSize, int pageNumber, int args[]) throws RuntimeException {
 		List<Petservicio> lisPetservicio = null;
 		Session session = null;
@@ -66,6 +82,24 @@ public class PetservicioBO {
 		try{
             session = HibernateUtil.getSessionFactory().openSession();
             petservicio = petservicioDAO.getPetservicioConObjetosById(session, idservicio);
+        }
+        catch(Exception ex){
+            throw new Exception(ex);
+        }
+        finally{
+            session.close();
+        }
+		
+		return petservicio;
+	}
+	
+	public Petservicio getPetservicioById(int idservicio) throws Exception {
+		Petservicio petservicio = null;
+		Session session = null;
+		
+		try{
+            session = HibernateUtil.getSessionFactory().openSession();
+            petservicio = petservicioDAO.getPetservicioById(session, idservicio);
         }
         catch(Exception ex){
             throw new Exception(ex);
