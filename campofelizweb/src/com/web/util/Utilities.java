@@ -2,6 +2,7 @@ package com.web.util;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.util.Map;
 
@@ -54,6 +55,18 @@ public class Utilities {
 				}
 			}
 		}*/
+	}
+	
+	public String cifrar(String texto) throws Exception {
+		MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] hash = md.digest(texto.getBytes("UTF-8"));
+       
+        StringBuilder sb = new StringBuilder(2*hash.length);
+        for(byte b : hash){
+            sb.append(String.format("%02x", b&0xff));
+        }
+		
+		return sb.toString();
 	}
 	
 }
