@@ -14,6 +14,7 @@ import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
 import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
+import com.web.util.Utilities;
 
 @ManagedBean
 @SessionScoped
@@ -89,7 +90,9 @@ public class UsuarioBean implements Serializable{
 		String strRedirect = null;
 		
 		try{
-			setUsuario = new SetusuarioBO().getByUserPasswd(username, password);
+			Utilities utilities = new Utilities();
+			String cifrado = utilities.cifrar(password);
+			setUsuario = new SetusuarioBO().getByUserPasswd(username, cifrado);
 			
 			if(setUsuario!=null && setUsuario.getIdusuario()>0){
 				autenticado = true;
