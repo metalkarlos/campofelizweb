@@ -26,10 +26,10 @@ public class AdminPagesAccessFilter implements Filter {
         
         if (usuarioBean == null || !usuarioBean.isAutenticado()) {
             String contextPath = ((HttpServletRequest)servletRequest).getContextPath();
-            ((HttpServletResponse)servletResponse).sendRedirect(contextPath + "/pages/adminweb.xhtml");
+            ((HttpServletResponse)servletResponse).sendRedirect(contextPath + "/pages/adminweb.jsf");
+        }else{
+        	filterChain.doFilter(servletRequest, servletResponse);
         }
-         
-        filterChain.doFilter(servletRequest, servletResponse);
 	}
 
 	@Override
