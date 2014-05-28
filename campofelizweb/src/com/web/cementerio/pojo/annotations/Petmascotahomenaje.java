@@ -42,7 +42,7 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 	private Date fecharegistro;
 	private Date fechamodificacion;
 	private String iplog;
-	private Set<?> petfotomascotas = new HashSet<Object>(0);
+	private Set<Petfotomascota> petfotomascotas = new HashSet<Petfotomascota>(0);
 
 	public Petmascotahomenaje() {
 	}
@@ -57,7 +57,7 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 			Date fechanacimiento, Date fechafallecimiento, Date fechapublicacion,
 			String familia,String dedicatoria, String tag, String rutafoto,Date fecharegistro,
 			Date fechamodificacion,String iplog,
-			Set<?> petfotomascotas) {
+			Set<Petfotomascota> petfotomascotas) {
 		this.idmascota = idmascota;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -220,11 +220,11 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petmascotahomenaje", targetEntity=Petfotomascota.class)
-	public Set<?> getPetfotomascotas() {
+	public Set<Petfotomascota> getPetfotomascotas() {
 		return this.petfotomascotas;
 	}
 
-	public void setPetfotomascotas(Set<?> petfotomascotas) {
+	public void setPetfotomascotas(Set<Petfotomascota> petfotomascotas) {
 		this.petfotomascotas = petfotomascotas;
 	}
 

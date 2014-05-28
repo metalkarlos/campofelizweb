@@ -1,6 +1,8 @@
 package com.web.cementerio.dao;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -8,7 +10,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-
+import com.web.cementerio.pojo.annotations.Petfotomascota;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
 
 
@@ -18,17 +20,33 @@ public class PetmascotahomenajeDAO {
 		
 		Petmascotahomenaje petmascotahomenaje = null;
 		if (!especie){
-			Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
-					 .add(Restrictions.eq("idmascota", idmascota))
-					 .add(Restrictions.eq("setestado.idestado", idestado));
-					
+			Criteria criteria = session.createCriteria(Petmascotahomenaje.class, "masc")
+					 .add(Restrictions.eq("masc.idmascota", idmascota))
+					 .add(Restrictions.eq("masc.setestado.idestado", idestado))
+					 .createAlias("masc.petfotomascotas", "foto", Criteria.LEFT_JOIN);
+			
 			petmascotahomenaje = (Petmascotahomenaje) criteria.uniqueResult();
 	
 		}else{
-	          petmascotahomenaje  = (Petmascotahomenaje) session.createCriteria(Petmascotahomenaje.class)
-	          .createAlias("petespecie", "e")
-	          .add( Restrictions.eq("idmascota", idmascota) ).uniqueResult();
+			 Criteria criteria = session.createCriteria(Petmascotahomenaje.class, "masc")
+					 .add(Restrictions.eq("masc.idmascota", idmascota))
+					 .createAlias("masc.petespecie", "e")
+					 .add(Restrictions.eq("masc.setestado.idestado", idestado))
+					 .createAlias("masc.petfotomascotas", "foto", Criteria.LEFT_JOIN);
+			
+			 petmascotahomenaje = (Petmascotahomenaje) criteria.uniqueResult();
+			 
 		}
+		
+		if((!petmascotahomenaje.getPetfotomascotas().isEmpty()) && petmascotahomenaje.getPetfotomascotas().size()>0){
+			Set<Petfotomascota> tmp = new HashSet<Petfotomascota>();
+			
+			for(Petfotomascota petfoto:petmascotahomenaje.getPetfotomascotas()){
+			    tmp.add(petfoto);	
+			}
+			petmascotahomenaje.setPetfotomascotas(tmp);
+		}
+
 		return petmascotahomenaje;
 	}
 	

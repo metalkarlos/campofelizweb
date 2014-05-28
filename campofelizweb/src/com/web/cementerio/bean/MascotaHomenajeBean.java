@@ -8,7 +8,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import com.web.cementerio.bo.PetfotomascotaBO;
 import com.web.cementerio.bo.PetmascotahomenajeBO;
 import com.web.cementerio.pojo.annotations.Petespecie;
 import com.web.cementerio.pojo.annotations.Petfotomascota;
@@ -61,15 +60,13 @@ public class MascotaHomenajeBean implements Serializable {
 	public void consultarMascotaHomenaje(){
 		try {
 			PetmascotahomenajeBO mascotaHomenajeBO= new PetmascotahomenajeBO();
-			PetfotomascotaBO petfotomascotaBO = new PetfotomascotaBO();
 			petmascotahomenaje = new Petmascotahomenaje();
 			listpetfotomascota = new ArrayList<Petfotomascota>();
 			petmascotahomenaje = mascotaHomenajeBO.getPetmascotahomenajebyId(idmascota, 1,false);
-			listpetfotomascota = petfotomascotaBO.getListpetfotomascota(this.idmascota, 1);
-			if(listpetfotomascota.size()==0 && petmascotahomenaje.getRutafoto().equals("/mascota/huella.jpg")){
+			if(petmascotahomenaje.getPetfotomascotas().size()==0 && petmascotahomenaje.getRutafoto().equals("/mascota/huella.jpg")){
 				Petfotomascota petfotomascota = new Petfotomascota();
 				petfotomascota.setRuta(petmascotahomenaje.getRutafoto());
-				listpetfotomascota.add(petfotomascota);
+				petmascotahomenaje.getPetfotomascotas().add(petfotomascota);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

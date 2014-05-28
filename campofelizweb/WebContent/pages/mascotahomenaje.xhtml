@@ -15,22 +15,47 @@
 			.inner-content {
 				padding-top: 0px;
 			}
+			
+			.inner-content .cuerpo .titulo2 {
+			   font-size: 28px;
+			   color: #7B7B7B;
+			   padding: 1px 0px;
+			   margin: 5px 0px;
+			   text-align: center;
+			}
+			
 			.ui-panelgrid .alto-columna {
 				padding-bottom: 15px;
 			}
 			
 			.ui-widget-content a {
-			color:#7B7B7B;
+			    color:#7B7B7B;
 			}
 			
-			.inner-content .titulo2{
-			   padding: 1px 0px;
-			   margin: 5px 0px;
+			.ui-widget-content p {
+				font-style: oblique;
+			    font-family: Times New Roman,Arial,Helvetica;
+			    font-size: 19px;
+			    font-weight: bold;
+			    padding-bottom: 18px;
+			    letter-spacing: 0.7px;
+			    line-height: 150%;
+			    color: #66AD23;
 			}
+			
 			.ui-panelgrid td {
-			  border:none;
+			    border:none;
 			}
 			
+			.textolabel{
+				text-align: center;
+				font-size: 13px;
+				font-weight: bold;
+			}
+			
+			.textocontenido{
+			  font-size: 13px;
+			}
 			
 		</style>
 	</ui:define>
@@ -49,7 +74,7 @@
 			 </div>
 		   
 	 		 <center>
-	 		    <p:galleria  id="idgalleria" value="#{mascotaHomenajeBean.listpetfotomascota}" var="item" panelWidth="500" panelHeight="320" showCaption="true" >
+	 		    <p:galleria  id="idgalleria" value="#{mascotaHomenajeBean.petmascotahomenaje.petfotomascotas}" var="item" panelWidth="500" panelHeight="320" showCaption="true" >
 				        <p:graphicImage id="idfotos" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" style="max-height: 58px" />
 				        <p:galleriaContent>  
 				            <h:panelGrid columns="1" style="background-color: #eaeaea;height: 100%; width: 60%;" >  
@@ -61,7 +86,6 @@
 				</p:galleria>
 	 		 </center>
 	 		 <div class="titulo2">
-	 		      <h:link value="[Regresar]"  styleClass="link2" style="float: right;margin: 0 20px 20px 0;" outcome="/pages/mascotashomenaje"  />
 	 		      <h:link value="[Editar]" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" outcome="/admin/mascotahomenaje-admin" rendered="#{usuarioBean.autenticado}" >
 					<f:param name="idmascota" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascota}"></f:param>
 				  </h:link>
@@ -81,19 +105,19 @@
 				
 					 <p:row>
 					   	<p:column styleClass="alto-columna" style="text-align:center;" >
-					   	   <h:outputLabel  value="Familia"  for="txtFamilia" />
+					   	   <h:outputLabel styleClass="textolabel" value="Familia"  for="txtFamilia" />
 					    </p:column>
 					    <p:column styleClass="alto-columna">
-					   	   <h:outputText id="txtFamilia"  value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
+					   	   <h:outputText  styleClass="textocontenido" id="txtFamilia"  value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
 					    </p:column>
 					 </p:row>
 				 
 					<p:row>
 					   	<p:column styleClass="alto-columna"  style="text-align:center;">
-					   	   <h:outputLabel value="Fecha nacimiento" for="calFechanacimiento" />
+					   	   <h:outputLabel styleClass="textolabel" value="Fecha nacimiento" for="calFechanacimiento" />
 					    </p:column>
 					    <p:column>
-					   	   <h:outputText id="calFechanacimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechanacimiento}">
+					   	   <h:outputText styleClass="textocontenido" id="calFechanacimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechanacimiento}">
 					   	   	<f:convertDateTime pattern="dd/MM/yyyy" />
 					   	   </h:outputText>
 					    </p:column>
@@ -102,10 +126,10 @@
 				 
 					 <p:row>
 					   	<p:column styleClass="alto-columna" style="text-align:center;">
-					   	   <h:outputLabel value="Fecha fallecimiento" for="calFechafallecimiento" />
+					   	   <h:outputLabel styleClass="textolabel" value="Fecha fallecimiento" for="calFechafallecimiento" />
 					    </p:column>
 					    <p:column>
-					   	   <h:outputText  id="calFechafallecimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechafallecimiento}">
+					   	   <h:outputText styleClass="textocontenido"  id="calFechafallecimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechafallecimiento}">
 					   	    <f:convertDateTime pattern="dd/MM/yyyy" />
 					   	   </h:outputText>
 					    </p:column>
