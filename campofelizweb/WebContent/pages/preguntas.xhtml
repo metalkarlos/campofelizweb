@@ -9,6 +9,7 @@
 	
     <ui:define name="head">
 		<title>Campo Feliz - Preguntas Frecuentes</title>
+		
 		<style type="text/css">
 			.ui-widget-content {
 				border: 0px;
@@ -33,8 +34,25 @@
                  color :none;
                  background: none;
             }
+            .pregunta{
+                font-weight: bold;
+				margin-bottom: 5px;
+				color: #66AD23;
+				border-bottom: 1px dotted 
+            }
+            .ui-datatable .ui-datatable-data td div.ui-dt-c{
+            	padding: 4px 25px;
+				overflow: hidden;
+				text-align: justify;
+            }
+            .ocultatexto {
+			    text-indent:-666em;
+			    overflow:hidden;
+			}
            
-		</style>
+        </style>
+		
+        
 	</ui:define>	
 	
 	<ui:define name="content_page">
@@ -46,16 +64,19 @@
  		    <f:param name="idenunciado" value="0"></f:param>
 		  </h:link>
 		  <span class="clear" />
+		  
 		  <p:dataTable var="enunciado" value="#{enunciadosBean.listpetvenunciado}" >
-		  	<p:column style="width: 480px;" >
-		  		<h:outputText  value="#{enunciado.descripcion}" style="font-weight: bold;" rendered="#{enunciado.idpadre == 0}" />
-		  		<h:outputText  value="#{enunciado.descripcion}" rendered="#{enunciado.idpadre != 0}"/>
+		    
+		  	<p:column style="width: 480px;"  >
+		  	    <h:graphicImage library="images" name="huella.png" rendered="#{enunciado.idpadre == 0}"  />
+			 	<h:outputText  styleClass="pregunta" value="#{enunciado.descripcion}"  rendered="#{enunciado.idpadre == 0}" /> 
+			 	<h:outputText  styleClass="respuesta" value="#{enunciado.descripcion}"  rendered="#{enunciado.idpadre > 0}" escape="false"/>
 	         </p:column>
 	           
 		     <p:column style="width: 60px;" rendered="#{usuarioBean.autenticado}">
 		        <h:link value="[Editar]" styleClass="link2" style="float: right;" outcome="/admin/preguntas-admin" rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
 		       	<f:param name="idenunciado" value="#{enunciado.idenunciado}"></f:param>
-		          </h:link>
+	            </h:link>
 	         </p:column>
 	              
 	         <p:column style="width: 60px;"  rendered="#{usuarioBean.autenticado}">

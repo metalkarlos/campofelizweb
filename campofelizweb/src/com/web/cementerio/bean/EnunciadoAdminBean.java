@@ -98,8 +98,8 @@ public class EnunciadoAdminBean implements Serializable {
 				   listpetenunciadoclone = new ArrayList<Petenunciado>();
 				   new MessageUtil().showInfoMessage("Exito", "Información modificada");
 				}
-				petenunciadopregunta = new Petenunciado(0, new Setestado(),new Setusuario(), null, null, 0, null, null,null, null);
-				petenunciadorespuesta = new Petenunciado(0, new Setestado(),new Setusuario(), null, null, 0, null, null,null, null);
+				petenunciadopregunta = new Petenunciado(0, new Setestado(),new Setusuario(), 'P', null, 0, null, null,null, null);
+				petenunciadorespuesta = new Petenunciado(0, new Setestado(),new Setusuario(), 'R', null, 0, null, null,null, null);
 			}	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -116,8 +116,8 @@ public class EnunciadoAdminBean implements Serializable {
 				listpetenunciado.add(1,petenunciadorespuesta);
 				petenunciadoBO.eliminar(listpetenunciado, 2);
 				new MessageUtil().showInfoMessage("Exito", "Registro eliminado");
-				petenunciadopregunta = new Petenunciado(0, new Setestado(),new Setusuario(), null, null, 0, null, null,null, null);
-				petenunciadorespuesta = new Petenunciado(0, new Setestado(),new Setusuario(), null, null, 0, null, null,null, null);
+				petenunciadopregunta = new Petenunciado(0, new Setestado(),new Setusuario(), 'P', null, 0, null, null,null, null);
+				petenunciadorespuesta = new Petenunciado(0, new Setestado(),new Setusuario(), 'R', null, 0, null, null,null, null);
 				listpetenunciadoclone = new ArrayList<Petenunciado>();
 			}	
 			paginaRetorno = "preguntas?faces-redirect=true";
