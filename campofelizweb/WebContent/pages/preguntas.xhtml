@@ -49,11 +49,26 @@
 			    text-indent:-666em;
 			    overflow:hidden;
 			}
+			.items * {
+				display: block;
+			}
+			.icon-pregunta {
+				float: left;
+				padding-right: 5px;
+			}
+			.respuesta {
+				display: none;
+				padding-left: 5px;
+				clear: both;
+			}
+			.pregunta, .icon-pregunta {
+				padding-top: 10px;
+			}
         </style>
 		
         <script type="text/javascript">
 			function mostrarOcultar(item){
-				/*alert($(item).next().text());*/
+				var a = $(item).next();
 				$(item).next().toggle();
 			}
 		</script>
@@ -69,16 +84,16 @@
  		    <f:param name="idenunciado" value="0"></f:param>
 		  </h:link>
 		  <span class="clear" />
-		  <div>
+		  <div class="items">
 		  <ui:repeat value="#{enunciadosBean.listpetvenunciado}" var="enunciado">
-		  	    <h:graphicImage styleClass="icon-pregunta" library="images" alt="#{enunciado.descripcion}" name="huella.png" rendered="#{enunciado.idpadre == 0}"  />
-			 	<p:commandLink onclick="mostrarOcultar(this)" styleClass="pregunta" value="#{enunciado.descripcion}" rendered="#{enunciado.idpadre == 0}"></p:commandLink>
+			  	<h:graphicImage styleClass="icon-pregunta" library="images" alt="#{enunciado.descripcion}" name="huella.png" rendered="#{enunciado.idpadre == 0}"  />
+				<p:commandLink onclick="mostrarOcultar(this)" styleClass="pregunta" value="#{enunciado.descripcion}" rendered="#{enunciado.idpadre == 0}"  ></p:commandLink>
 			 	<h:outputText  styleClass="respuesta" value="#{enunciado.descripcion}"  rendered="#{enunciado.idpadre > 0}" escape="false"/>
 	           
 		        <h:link value="[Editar]" styleClass="link2" outcome="/admin/preguntas-admin" rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
 		       	<f:param name="idenunciado" value="#{enunciado.idenunciado}"></f:param>
 	            </h:link>
-	              
+	            
    	            <h:link value="[Eliminar]" styleClass="link2" outcome="/admin/preguntas-admin"  rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
    	              	<f:param name="idenunciado" value="#{enunciado.idenunciado}"></f:param>
    	            </h:link>
