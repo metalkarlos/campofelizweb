@@ -38,7 +38,7 @@
                 font-weight: bold;
 				margin-bottom: 5px;
 				color: #66AD23;
-				border-bottom: 1px dotted 
+				border-bottom: 1px dotted; 
             }
             .ui-datatable .ui-datatable-data td div.ui-dt-c{
             	padding: 4px 25px;
@@ -49,10 +49,14 @@
 			    text-indent:-666em;
 			    overflow:hidden;
 			}
-           
         </style>
 		
-        
+        <script type="text/javascript">
+			function mostrarOcultar(item){
+				/*alert($(item).next().text());*/
+				$(item).next().toggle();
+			}
+		</script>
 	</ui:define>	
 	
 	<ui:define name="content_page">
@@ -60,32 +64,27 @@
 	 <h:form id="form-contentpage" enctype="multipart/form-data">
         <p:growl id="mensajes" showDetail="true" />
  		   <br/>
+ 		   <div class="inner-content">
  		  <h:link value="[Nueva Pregunta/Respuesta]" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" outcome="/admin/preguntas-admin" rendered="#{usuarioBean.autenticado}" >
  		    <f:param name="idenunciado" value="0"></f:param>
 		  </h:link>
 		  <span class="clear" />
-		  
-		  <p:dataTable var="enunciado" value="#{enunciadosBean.listpetvenunciado}" >
-		    
-		  	<p:column style="width: 480px;"  >
-		  	    <h:graphicImage library="images" name="huella.png" rendered="#{enunciado.idpadre == 0}"  />
-			 	<h:outputText  styleClass="pregunta" value="#{enunciado.descripcion}"  rendered="#{enunciado.idpadre == 0}" /> 
+		  <div>
+		  <ui:repeat value="#{enunciadosBean.listpetvenunciado}" var="enunciado">
+		  	    <h:graphicImage styleClass="icon-pregunta" library="images" alt="#{enunciado.descripcion}" name="huella.png" rendered="#{enunciado.idpadre == 0}"  />
+			 	<p:commandLink onclick="mostrarOcultar(this)" styleClass="pregunta" value="#{enunciado.descripcion}" rendered="#{enunciado.idpadre == 0}"></p:commandLink>
 			 	<h:outputText  styleClass="respuesta" value="#{enunciado.descripcion}"  rendered="#{enunciado.idpadre > 0}" escape="false"/>
-	         </p:column>
 	           
-		     <p:column style="width: 60px;" rendered="#{usuarioBean.autenticado}">
-		        <h:link value="[Editar]" styleClass="link2" style="float: right;" outcome="/admin/preguntas-admin" rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
+		        <h:link value="[Editar]" styleClass="link2" outcome="/admin/preguntas-admin" rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
 		       	<f:param name="idenunciado" value="#{enunciado.idenunciado}"></f:param>
 	            </h:link>
-	         </p:column>
 	              
-	         <p:column style="width: 60px;"  rendered="#{usuarioBean.autenticado}">
-   	            <h:link value="[Eliminar]" styleClass="link2" style="float:right; "  outcome="/admin/preguntas-admin"  rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
+   	            <h:link value="[Eliminar]" styleClass="link2" outcome="/admin/preguntas-admin"  rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
    	              	<f:param name="idenunciado" value="#{enunciado.idenunciado}"></f:param>
-   	            </h:link>	
-	         </p:column>
-	      </p:dataTable>
-	         
+   	            </h:link>
+	      </ui:repeat>
+	      </div>
+			</div>
 	</h:form>
    </div>
    </ui:define>
