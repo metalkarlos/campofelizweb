@@ -5,15 +5,11 @@ package com.web.cementerio.bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-
-
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
-
 import com.web.cementerio.bo.PetinformacionBO;
 import com.web.cementerio.pojo.annotations.Petinformacion;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
+import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -25,89 +21,36 @@ public class QuienesSomosBean implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = -3186508458073717263L;
 	private Petinformacion petinformacion;
-	private UploadedFile uploadedFile;
-
+	private String rutaImagenes;
+	private String rutaImagenpequeña;	
+	
 	public QuienesSomosBean() {
 		petinformacion = new Petinformacion(0, new Setestado(), new Setusuario(), null, null, null, null, null, null,null, null, null, null, null);
-		
 		consultarInformacion();
+		cargarRutaImagenes();
+		rutaImagenpequeña = rutaImagenes+"/informacion/01-06-2014-campofeliz.jpg";
+	}
+	
+	private void cargarRutaImagenes(){
+		try {
+			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
+		} catch (Exception e) {
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
 	}
 	
 	private void consultarInformacion(){
 		try{
 			PetinformacionBO petinformacionBO = new PetinformacionBO();
 			petinformacion = petinformacionBO.getPetinformacionById(1);
+			petinformacion.setFotoquienessomos(petinformacion.getFotoquienessomos().trim());
+			petinformacion.setFotoantecedentes(petinformacion.getFotoantecedentes().trim());
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showErrorMessage("Error", "Lamentamos que tenga inconvenientes");
 		}
-	}
-	
-	public void subirimagen(){
-		if (uploadedFile !=null){
-			petinformacion.setFotoquienessomos("/resources/images/"+uploadedFile.getFileName());
-			new MessageUtil().showInfoMessage("Info", "Foto: "+uploadedFile.getFileName()+" subida con éxito");
-			
-		}
-	}
-	public void subir(FileUploadEvent event){
-		if (event.getFile() !=null){
-			long tamaño = event.getFile().getSize();
-			String parametro = (String)event.getComponent().getAttributes().get("tipo");
-			
-			if (tamaño<100000) {
-			  if (parametro.equals("1")){	
-			      petinformacion.setFotoquienessomos("/resources/images/"+event.getFile().getFileName());
-			  }else{
-				  petinformacion.setFotoantecedentes("/resources/images/"+event.getFile().getFileName());
-			  }
-				  
-			  new MessageUtil().showInfoMessage("Info", "Foto: "+event.getFile().getFileName()+" subida con éxito");
-			}else{
-			  new MessageUtil().showInfoMessage("Info", "El tamaño de la imagen debe ser menor a 1MB");
-			}
-			
-		}
-	}
-	public void guardarPetinformacion(){
-		try{
-			 if (validarcampos()){
-				if (petinformacion.getIdinformacion() > 0) {
-					PetinformacionBO petinformacionBO = new PetinformacionBO();
-					petinformacionBO.actualizarPetinformacion(petinformacion);
-					
-					new MessageUtil().showInfoMessage("Exito", "Registro actualizado");
-				}
-			 }else{
-				 new MessageUtil().showInfoMessage("Informacion", "Es necesario ingresar toda la información");
-			 }
-				 
-		}catch (Exception e){
-			e.printStackTrace();
-			new MessageUtil().showErrorMessage("Error", "Lamentamos que tenga inconvenientes");
-		}
-		
-		
-	}
-	
-	private boolean validarcampos(){
-		boolean ok = true;
-		 if(petinformacion.getQuienessomos()==null || petinformacion.getQuienessomos().length() ==0 ){
-			ok = false;
-		 } else if (petinformacion.getAntecendentes()==null || petinformacion.getAntecendentes().length() ==0 ){
-		    ok = false;
-		 } else if (petinformacion.getMision()==null || petinformacion.getMision().length() ==0 ){
-			ok = false;
-		 }else if (petinformacion.getVision()==null || petinformacion.getVision().length() ==0 ){
-			ok = false;
-		 }else if (petinformacion.getTag()==null || petinformacion.getTag().length() ==0 ){
-			ok = false;	
-		 }else if (petinformacion.getFotoantecedentes()==null || petinformacion.getFotoantecedentes().length() ==0 ){
-			ok = false;	
-		 }else if (petinformacion.getFotoquienessomos()==null || petinformacion.getFotoquienessomos().length() ==0 ){
-			ok = false;	
-		 }
-		return ok;
 	}
 	
 	public Petinformacion getPetinformacion() {
@@ -118,12 +61,21 @@ public class QuienesSomosBean implements java.io.Serializable {
 		this.petinformacion = petinformacion;
 	}
 
-	public UploadedFile getUploadedFile() {
-		return uploadedFile;
+
+	public String getRutaImagenes() {
+		return rutaImagenes;
 	}
 
-	public void setUploadedFile(UploadedFile uploadedFile) {
-		this.uploadedFile = uploadedFile;
+	public void setRutaImagenes(String rutaImagenes) {
+		this.rutaImagenes = rutaImagenes;
+	}
+
+	public String getRutaImagenpequeña() {
+		return rutaImagenpequeña;
+	}
+
+	public void setRutaImagenpequeña(String rutaImagenpequeña) {
+		this.rutaImagenpequeña = rutaImagenpequeña;
 	}
 
 	

@@ -42,7 +42,9 @@ public class PetmascotahomenajeDAO {
 			Set<Petfotomascota> tmp = new HashSet<Petfotomascota>();
 			
 			for(Petfotomascota petfoto:petmascotahomenaje.getPetfotomascotas()){
-			    tmp.add(petfoto);	
+				if(petfoto.getSetestado().getIdestado() == idestado){
+					tmp.add(petfoto);
+				}
 			}
 			petmascotahomenaje.setPetfotomascotas(tmp);
 		}

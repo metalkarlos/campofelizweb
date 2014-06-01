@@ -1,6 +1,8 @@
 package com.web.cementerio.dao;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -8,6 +10,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import com.web.cementerio.pojo.annotations.Petfotoguia;
 import com.web.cementerio.pojo.annotations.Petguia;
 
 
@@ -22,15 +25,23 @@ public class PetguiaDAO {
 			    Petguia petguia=null;
 			    Criteria criteria = session.createCriteria(Petguia.class, "g")
 						.add( Restrictions.eq("g.idguia", idguia))
-						.createAlias("g.setestado", "gestado", Criteria.LEFT_JOIN, Restrictions.eq("gestado.idestado", idestado))
-						.createAlias("g.petfotoguias", "foto", Criteria.LEFT_JOIN)
-						.createAlias("foto.setestado", "fotoestado", Criteria.LEFT_JOIN, Restrictions.eq("fotoestado.idestado", idestado));
-			            //.add( Restrictions.eq("fotoestado.idestado", idestado));
+						.add( Restrictions.eq("g.setestado.idestado", idestado))
+						.createAlias("g.petfotoguias", "foto", Criteria.LEFT_JOIN);
 						
 			   
-			    //.addOrder(Order.asc("foto.idfotoguia"))
-			   
 			    petguia= (Petguia)criteria.uniqueResult();
+			    
+			    if((!petguia.getPetfotoguias().isEmpty()) && petguia.getPetfotoguias().size()>0){
+			    	Set<Petfotoguia> tmp = new HashSet<Petfotoguia>();
+			       
+			    	for(Petfotoguia petfotoguia: petguia.getPetfotoguias()){
+			    		if(petfotoguia.getSetestado().getIdestado() == idestado){
+			    			tmp.add(petfotoguia);
+			    		}
+			    	}
+			    	petguia.setPetfotoguias(tmp);
+			    }
+			    
 				return petguia;
 			}
 		

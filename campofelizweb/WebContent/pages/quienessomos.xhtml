@@ -19,35 +19,60 @@
 
 	<ui:define name="content_page">
 		<h:form id="form-contentpage" enctype="multipart/form-data">
-			<div class="box_title">
-				<h2  class="title" style="border: 0px solid #aaaaaa;">Quienes Somos</h2>
+		   <div class="inner-content">
+		   
+		     <div class="cuerpo">
+			     <div class="box_title">
+				    <div class="titulo2">
+						Quienes Somos
+					</div>
+					</div>
+					<div>
+					  
+					   <p:lightBox  styleClass="imagebox" id="lighbox1"> 
+						    <h:outputLink value="#{quienesSomosBean.rutaImagenes}#{quienesSomosBean.petinformacion.fotoquienessomos}" title="Campo Feliz"> 
+						        <h:graphicImage value="#{quienesSomosBean.rutaImagenpequeña}" id="nature1" style="height:250px; width: 220px" /> 
+						    </h:outputLink>
+						     <h:outputLink value="#{quienesSomosBean.rutaImagenes}#{quienesSomosBean.petinformacion.fotoantecedentes}" title="Keiko"> 
+						        <h:graphicImage value="#{quienesSomosBean.rutaImagenes}#{quienesSomosBean.petinformacion.fotoantecedentes}" id="nature2" style="height: 250px; width: 280px" /> 
+						    </h:outputLink>
+					   </p:lightBox>
+					   
+					   
+					   
+					   <p class="parrafo">
+						<h:outputText value="#{quienesSomosBean.petinformacion.quienessomos}" escape="false" />
+					   </p>
+				</div>
 			</div>
-			<p:graphicImage id="idfotoquienessomos" value="#{quienesSomosBean.petinformacion.fotoquienessomos}" style="max-height: 100%" />
-			<p style="text-align:justify;">
-				#{quienesSomosBean.petinformacion.quienessomos}
-			</p>
-			<div class="box_title">
-				<h2  class="title" style="border: 0px solid #aaaaaa;">Antecedentes</h2>
-			</div>
-			<p:graphicImage id="idfotoantecedentes" value="#{quienesSomosBean.petinformacion.fotoantecedentes}" style="max-height: 100%" />
-			<p style="text-align:justify;">
-				#{quienesSomosBean.petinformacion.antecendentes}
-			</p>
 			
-			<div class="box_title">
-				<h2 class="title" style="border: 0px solid #aaaaaa;">Misión</h2>
+			<div class="cuerpo">
+			     <div class="box_title">
+				    <div class="titulo2">
+						Misión
+					</div>
+					</div>
+					<div>
+					   <p class="parrafo">
+						<h:outputText value="#{quienesSomosBean.petinformacion.mision}" escape="false" />
+					   </p>
+				</div>
 			</div>
-			<p style="text-align:justify;">
-				#{quienesSomosBean.petinformacion.mision}
-			</p>
 			
-			<div class="box_title">
-				<h2 class="title" style="border: 0px solid #aaaaaa;">Visión</h2>
+			
+			<div class="cuerpo">
+			     <div class="box_title">
+				    <div class="titulo2">
+						Visión
+					</div>
+					</div>
+					<div>
+					   <p class="parrafo">
+						<h:outputText value="#{quienesSomosBean.petinformacion.vision}" escape="false" />
+					   </p>
+				</div>
 			</div>
-			<p style="text-align:justify;">
-				#{quienesSomosBean.petinformacion.vision}
-			</p>
-			
+		   </div>
 		</h:form>
 	</ui:define>
 </ui:composition>
