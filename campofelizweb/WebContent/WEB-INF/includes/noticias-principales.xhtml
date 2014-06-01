@@ -14,7 +14,7 @@
 					<div class="box-1">
 						<div class="inner">
 							<h3 class="str-3" >#{noticia.titulo}</h3>
-							<p>#{fn:substring(noticia.descripcion, 0, 100)}...</p>
+							<p><h:outputText value="#{fn:substring(noticia.descripcion, 0, 100)}..." escape="false" /></p>
 							<div class="btn-container">
 								<div class="button-box">
 									<h:link styleClass="button" outcome="/pages/noticia" value="Leer más" >

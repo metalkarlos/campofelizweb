@@ -49,7 +49,7 @@
 			    text-indent:-666em;
 			    overflow:hidden;
 			}
-			.items * {
+			.items .pregunta {
 			    display: block;
 			    text-align: justify;
 			}
@@ -97,17 +97,19 @@
 		  <span class="clear" />
 		  <div class="items">
 		  <ui:repeat value="#{enunciadosBean.listpetvenunciado}" var="enunciado">
-			  	<h:graphicImage styleClass="icon-pregunta" library="images" alt="#{enunciado.descripcion}" name="huella.png" rendered="#{enunciado.idpadre == 0}"  />
-				<p:commandLink   onclick="mostrarOcultar(this)" styleClass="pregunta" value="#{enunciado.descripcion}" rendered="#{enunciado.idpadre == 0}"  ></p:commandLink>
-			 	<h:outputText  styleClass="respuesta" value="#{enunciado.descripcion}"  rendered="#{enunciado.idpadre > 0}" escape="false"/>
-	        
-		        <h:link value="[Editar]" styleClass="link2" outcome="/admin/preguntas-admin" rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
+		  		<p:outputPanel style="display:flex;position: relative;top: 28px;left: 523px;" rendered="#{enunciado.idpadre == 0}">
+			  	<h:link value="[Editar]" styleClass="link2" outcome="/admin/preguntas-admin" rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
 		       	<f:param name="idenunciado" value="#{enunciado.idenunciado}"></f:param>
 	            </h:link>
 	            
    	            <h:link value="[Eliminar]" styleClass="link2" outcome="/admin/preguntas-admin"  rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
    	              	<f:param name="idenunciado" value="#{enunciado.idenunciado}"></f:param>
    	            </h:link>
+   	            </p:outputPanel>
+   	            
+			  	<h:graphicImage styleClass="icon-pregunta" library="images" alt="#{enunciado.descripcion}" name="huella.png" rendered="#{enunciado.idpadre == 0}"  />
+				<p:commandLink   onclick="mostrarOcultar(this)" styleClass="pregunta" value="#{enunciado.descripcion}" rendered="#{enunciado.idpadre == 0}"  ></p:commandLink>
+			 	<h:outputText  styleClass="respuesta" value="#{enunciado.descripcion}"  rendered="#{enunciado.idpadre > 0}" escape="false"/>
 	      </ui:repeat>
 	      </div>
 			</div>

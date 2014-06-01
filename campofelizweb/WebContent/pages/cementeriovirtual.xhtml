@@ -34,16 +34,16 @@
 		<h:form id="form-contentpage">
 			<p:growl id="mensajes" showDetail="true" />
 			
-			<h1 class="title ui-widget-header">Cementerio Virtual</h1>
+			<h1 class="title ui-widget-header">Instalaciones</h1>
 			<br />
 			
 			<center>
 				<p:galleria id="idgalleria" value="#{cementerioVirtualBean.listPetguia}" var="item" panelWidth="500" panelHeight="320">
-			        <p:graphicImage id="idfotos" value="#{item.titulo}" style="max-height: 58px" />
+			        <p:graphicImage id="idfotos" value="#{cementerioVirtualBean.rutaImagenes}#{item.titulo}" style="max-height: 58px" />
 			        <p:galleriaContent>  
 			            <h:panelGrid columns="1" style="background-color: #eaeaea;height: 100%; width: 100%;" >  
 					        <f:facet name="header">
-				            	<p:graphicImage id="idfoto" value="#{item.titulo}" style="max-height: 300px; padding-top: 10px" />
+				            	<p:graphicImage id="idfoto" value="#{cementerioVirtualBean.rutaImagenes}#{item.titulo}" style="max-height: 300px; padding-top: 10px" />
 					        </f:facet>
 					        <h:outputText value="" />
 					        <h:outputText value="" />

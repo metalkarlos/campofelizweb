@@ -26,6 +26,7 @@ public class BreadCrumbBean {
 			"noticias.jsf",
 			"noticia.jsf",
 			"guiageneral.jsf",
+			"guia.jsf",
 			"preguntas.jsf",
 			"contactenos.jsf");
 	
@@ -40,6 +41,7 @@ public class BreadCrumbBean {
 			{"Home;Noticias","home.jsf;#"},
 			{"Home;Noticias;Noticia","home.jsf;noticias.jsf;#"},
 			{"Home;Guía General","home.jsf;#"},
+			{"Home;Guía General;Cómo Decir Adiós","home.jsf;guiageneral.jsf;#"},
 			{"Home;Preguntas Frecuentes","home.jsf;#"},
 			{"Home;Contáctenos","home.jsf;contactenos.jsf"}};
 	

@@ -10,6 +10,8 @@ import javax.faces.bean.ViewScoped;
 import com.web.cementerio.pojo.annotations.Petguia;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
+import com.web.util.FileUtil;
+import com.web.util.MessageUtil;
 
 
 @ManagedBean
@@ -23,19 +25,27 @@ public class CementerioVirtualBean implements Serializable {
 
 	
 	private List<Petguia> listPetguia;
-	 
+	private String rutaImagenes;
 
  
     public CementerioVirtualBean() {
     	listPetguia = new ArrayList<Petguia>();
  
-    	listPetguia.add(new Petguia(0,new Setestado(),new Setusuario(),"imagenes/instalaciones/01-06-2014-campo-santo.jpg", null,null,null,null,null,null,null,false,null));
-    	listPetguia.add(new Petguia(1,new Setestado(),new Setusuario(),"imagenes/instalaciones/01-06-2014-entrada.jpg", null,null,null,null,null,null,null,false,null));
-    	listPetguia.add(new Petguia(2,new Setestado(),new Setusuario(),"imagenes/instalaciones/01-06-2014-lapida-01.jpg", null,null,null,null,null,null,null,false,null));
+    	listPetguia.add(new Petguia(0,new Setestado(),new Setusuario(),"/instalaciones/01-06-2014-campo-santo.jpg", null,null,null,null,null,null,null,false,null));
+    	listPetguia.add(new Petguia(1,new Setestado(),new Setusuario(),"/instalaciones/01-06-2014-entrada.jpg", null,null,null,null,null,null,null,false,null));
+    	listPetguia.add(new Petguia(2,new Setestado(),new Setusuario(),"/instalaciones/01-06-2014-lapida-01.jpg", null,null,null,null,null,null,null,false,null));
     	
+    	cargarRutaImagenes();
     }
 
-
+    private void cargarRutaImagenes(){
+		try {
+			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
+		} catch (Exception e) {
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
+	}
 
 	public List<Petguia> getListPetguia() {
 		return listPetguia;
@@ -47,6 +57,12 @@ public class CementerioVirtualBean implements Serializable {
 		this.listPetguia = listPetguia;
 	}
 
-	
+	public String getRutaImagenes() {
+		return rutaImagenes;
+	}
+
+	public void setRutaImagenes(String rutaImagenes) {
+		this.rutaImagenes = rutaImagenes;
+	}
     
 }

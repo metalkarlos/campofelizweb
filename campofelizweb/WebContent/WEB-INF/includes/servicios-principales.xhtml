@@ -14,7 +14,7 @@
 					<div class="box-1">
 						<div class="inner">
 							<h3 class="str-3" >#{servicio.nombre}</h3>
-							<p>#{fn:substring(servicio.descripcion, 0, 100)}...</p>
+							<p><h:outputText value="#{fn:substring(servicio.descripcion, 0, 100)}..." escape="false" /></p>
 							<div class="btn-container">
 								<div class="button-box">
 									<h:link styleClass="button" outcome="/pages/servicio" value="Leer más" >
