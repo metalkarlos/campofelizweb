@@ -32,6 +32,7 @@ public class Setusuario implements java.io.Serializable {
 	private String clave;
 	private Date fecharegistro;
 	private String iplog;
+	private Date fechamodificacion;
 
 	public Setusuario() {
 	}
@@ -43,7 +44,7 @@ public class Setusuario implements java.io.Serializable {
 
 	public Setusuario(int idusuario, Setestado setestado, Setperfil setperfil,
 			String nombre, String descripcion, String clave,
-			Date fecharegistro, String iplog) {
+			Date fecharegistro, String iplog, Date fechamodificacion) {
 		this.idusuario = idusuario;
 		this.setestado = setestado;
 		this.setperfil = setperfil;
@@ -52,6 +53,7 @@ public class Setusuario implements java.io.Serializable {
 		this.clave = clave;
 		this.fecharegistro = fecharegistro;
 		this.iplog = iplog;
+		this.fechamodificacion = fechamodificacion;
 	}
 
 	@Id
@@ -84,7 +86,7 @@ public class Setusuario implements java.io.Serializable {
 		this.setperfil = setperfil;
 	}
 
-	@Column(name = "nombre", length = 20)
+	@Column(name = "nombre", unique = true, nullable = false, length = 20)
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -102,7 +104,7 @@ public class Setusuario implements java.io.Serializable {
 		this.descripcion = descripcion;
 	}
 
-	@Column(name = "clave", length = 30)
+	@Column(name = "clave", nullable = false, length = 30)
 	public String getClave() {
 		return this.clave;
 	}
@@ -128,6 +130,16 @@ public class Setusuario implements java.io.Serializable {
 
 	public void setIplog(String iplog) {
 		this.iplog = iplog;
+	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechamodificacion",  length = 29)
+	public Date getFechamodificacion() {
+		return this.fechamodificacion;
+	}
+
+	public void setFechamodificacion(Date fechamodificacion) {
+		this.fechamodificacion = fechamodificacion;
 	}
 
 	@Override
@@ -194,6 +206,11 @@ public class Setusuario implements java.io.Serializable {
 			if (other.setperfil != null)
 				return false;
 		} else if (setperfil.getIdperfil() != other.setperfil.getIdperfil())
+			return false;
+		if (fechamodificacion == null) {
+			if (other.fechamodificacion != null)
+				return false;
+		} else if (!fechamodificacion.equals(other.fechamodificacion))
 			return false;
 		return true;
 	}

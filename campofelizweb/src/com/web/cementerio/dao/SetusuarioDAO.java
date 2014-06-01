@@ -12,12 +12,28 @@ public class SetusuarioDAO {
 		Setusuario setusuario = null;
 		
 		Criteria criteria = session.createCriteria(Setusuario.class);
-		criteria.add( Restrictions.like("nombre", nombre) );
-		criteria.add( Restrictions.like("clave", clave) );
+		criteria.add( Restrictions.eq("nombre", nombre) );
+		criteria.add( Restrictions.eq("clave", clave) );
 		
 		setusuario = (Setusuario) criteria.uniqueResult();
 		
 		return setusuario;
 	}
+	
+	public Setusuario getSetusuarioByUsuario(Session session, String usuario) throws Exception {
+		Setusuario setusuario = null;
+		
+		Criteria criteria = session.createCriteria(Setusuario.class);
+		criteria.add( Restrictions.eq("nombre", usuario) );
+		
+		setusuario = (Setusuario) criteria.uniqueResult();
+		
+		return setusuario;
+	}
+	
+	public void updateSetusuario(Session session, Setusuario setusuario) throws Exception {
+		session.update(setusuario);
+	}
+		
 	
 }

@@ -117,27 +117,22 @@
 	<h:body>
 		<h:form id="form-content">
 		
-		<p:focus for="txtusuario"></p:focus>
+		<p:focus for="txtclavenueva"></p:focus>
 		<div class="header-logging">
 		</div>
 		<div class="box-loggin">
 			<p:messages id="mensajes" showDetail="true"></p:messages>
 			<div class="box-loggin-header">
-				<h1>Administración</h1>
+				<h1>Cambio de Clave</h1>
 			</div>
 			<div class="box-loggin-body">
-				<h:outputLabel value="Usuario:" for="txtusuario" />
-				<p:inputText id="txtusuario" value="#{usuarioBean.username}" required="true" requiredMessage="Ingrese Usuario" label="Usuario"></p:inputText>
+				<h:outputLabel value="Clave Nueva:" for="txtclavenueva" />
+				<p:password id="txtclavenueva" value="#{cambiarClaveBean.claveNueva}" required="true" requiredMessage="Ingrese Clave Nueva" label="Clave Nueva"></p:password>
 				
-				<h:outputLabel value="Clave:" for="txtclave" />
-				<p:password id="txtclave" value="#{usuarioBean.password}" required="true" requiredMessage="Ingrese Clave" label="Clave"></p:password>
+				<h:outputLabel value="Vuelva a ingresar la Clave:" for="txtclavenuevarep" />
+				<p:password id="txtclavenuevarep" value="#{cambiarClaveBean.claveNuevaRep}" required="true" requiredMessage="Vuelva a Ingresar la Clave" label="Repita Clave Nueva"></p:password>
 				
-				<p:commandButton id="btnentrar" value="Entrar" action="#{usuarioBean.login()}" update=":form-content:mensajes" process=":form-content:txtusuario, :form-content:txtclave"></p:commandButton>
-				<p:commandLink id="idOlvidoClave" style="float: right;padding-top:7px;" styleClass="link" value="Olvidé mi clave" ></p:commandLink>
-				<p:overlayPanel id="clavePanel" for="idOlvidoClave" hideEffect="fade" widgetVar="varClavePanel">
-			        <p:captcha id="idcaptcha" label="Captcha" required="true" requiredMessage="Ingrese el código captcha en el recuadro" />
-					<p:commandLink id="lnkEnviar" styleClass="link" value="Enviar" action="#{usuarioBean.enviarOlvidoClave()}" update=":form-content:mensajes, :form-content:idcaptcha" process=":form-content:idcaptcha, @(input:not(:password))" oncomplete="varClavePanel.hide()"></p:commandLink>
-			    </p:overlayPanel>
+				<p:commandButton id="btnenviar" value="Enviar" action="#{cambiarClaveBean.cambiarClave()}" update=":form-content:mensajes" ></p:commandButton>
 			</div>
 		</div>
 		<div class="footer-logging">

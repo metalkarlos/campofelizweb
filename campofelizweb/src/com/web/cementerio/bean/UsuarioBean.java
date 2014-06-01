@@ -1,6 +1,7 @@
 package com.web.cementerio.bean;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -8,11 +9,14 @@ import javax.faces.bean.SessionScoped;
 import org.primefaces.model.StreamedContent;
 
 import com.web.cementerio.bo.PetempresaBO;
+import com.web.cementerio.bo.SetpeticionclaveBO;
 import com.web.cementerio.bo.SetusuarioBO;
 import com.web.cementerio.pojo.annotations.Petempresa;
+import com.web.cementerio.pojo.annotations.Setpeticionclave;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
 import com.web.util.FileUtil;
+import com.web.util.MailUtil;
 import com.web.util.MessageUtil;
 import com.web.util.Utilities;
 
@@ -89,24 +93,42 @@ public class UsuarioBean implements Serializable{
 	public String login(){
 		String strRedirect = null;
 		
-		try{
-			Utilities utilities = new Utilities();
-			String cifrado = utilities.cifrar(password);
-			setUsuario = new SetusuarioBO().getByUserPasswd(username, cifrado);
-			
-			if(setUsuario!=null && setUsuario.getIdusuario()>0){
-				autenticado = true;
+		if(validacionOk()){
+			try{
+				Utilities utilities = new Utilities();
+				String cifrado = utilities.cifrar(password);
+				setUsuario = new SetusuarioBO().getByUserPasswd(username, cifrado);
 				
-				FileUtil fileUtil = new FileUtil();
-				strRedirect = fileUtil.getPropertyValue("home");
-			}else{
-				new MessageUtil().showWarnMessage("Autenticación fallida","Usuario o Contraseña no existen.");
+				if(setUsuario!=null && setUsuario.getIdusuario()>0){
+					autenticado = true;
+					
+					FileUtil fileUtil = new FileUtil();
+					strRedirect = fileUtil.getPropertyValue("home");
+				}else{
+					new MessageUtil().showWarnMessage("Autenticación fallida","Usuario o Contraseña no existen.");
+				}
+			}catch(Exception re){
+				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 			}
-		}catch(Exception re){
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 		
 		return strRedirect;
+	}
+	
+	private boolean validacionOk(){
+		boolean ok = false;
+		
+		if(username != null && username.trim().length() > 0){
+			if(password != null && password.trim().length() > 0){
+				ok = true;
+			}else{
+				new MessageUtil().showWarnMessage("Ingrese la Clave", null);
+			}
+		}else{
+			new MessageUtil().showWarnMessage("Ingrese su Usuario", null);
+		}
+		
+		return ok;
 	}
 	
 	public String logout(){
@@ -115,8 +137,8 @@ public class UsuarioBean implements Serializable{
 		try{
 			facesUtil.logout();
 			FileUtil fileUtil = new FileUtil();
-			String strLogin = fileUtil.getPropertyValue("home");
-			facesUtil.redirect(strLogin);
+			String home = fileUtil.getPropertyValue("home");
+			facesUtil.redirect(home);
 		}catch(Exception re){
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
@@ -124,19 +146,85 @@ public class UsuarioBean implements Serializable{
 		return "";
 	}
 	
-	public String homePage(){
-		String homePage = null;
+	public void enviarOlvidoClave(){
+		if(validacionOlvidoClaveOk()){
+			if(usuarioExiste()){
+				try{
+					//generar uid
+					UUID uid = UUID.randomUUID();
+					
+					Setpeticionclave setpeticionclave = new Setpeticionclave();
+					setpeticionclave.setUid(uid);
+					setpeticionclave.setUsuario(username);
+					
+					SetpeticionclaveBO setpeticionclaveBO = new SetpeticionclaveBO();
+					
+					//insertar en tabla uid y fechaexpiracion
+					boolean ok = setpeticionclaveBO.ingresar(setpeticionclave);
+					
+					if(ok){
+						//enviar mail verificacion
+						MailUtil mailUtil = new MailUtil();
+						
+						//formatear el contenido para el administrador de correo
+						String formulario = "http://localhost:8080/campofelizweb/pages/cambiarclave.jsf";
+						String contenido = "";
+						contenido += "<html>";
+						contenido += "<body>";
+						contenido += "<center><h1>Olvido de Clave</h1></center>";
+						contenido += String.format("<p>Ha solicitado cambiar la clave del usuario: <strong>%s</strong>.</p>", username);
+						contenido += "<p>De click en el siguiente link para acceder al formulario de cambio de clave.</p>";
+						contenido += String.format("<a href='%s?uid=%s'>%s?uid=%s</a>", formulario,uid,formulario,uid);
+						contenido += "<p>Este link tiene una validez de <strong>5 minutos<strong>.</p>";
+						contenido += "<p>Si ud no ha solicitado el cambio de clave ignore este correo.</p>";
+						contenido += String.format("<p>IP desde dónde se realizó la petición: <strong>%s</strong>.</p>", ip);
+						contenido += "</body>";
+						contenido += "</html>";
+						
+						//enviar al administrador de correo
+						mailUtil.enviarMail(null, "Información - Campo Feliz", contenido);
+						//mostrar mensaje en pantalla se ha enviado mail
+						new MessageUtil().showInfoMessage("Se ha enviado un link de confirmación a su cuenta de correo", "");
+					}else{
+						new MessageUtil().showInfoMessage("No se ha podido enviar la solicitud. Intente en unos minutos", "");
+					}
+				}catch(Exception e){
+					e.printStackTrace();
+					new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+				}
+			}
+		}
+	}
+	
+	private boolean validacionOlvidoClaveOk(){
+		boolean ok = false;
+		
+		if(username != null && username.trim().length() > 0){
+			ok = true;
+		}else{
+			new MessageUtil().showWarnMessage("Ingrese su Usuario", "");
+		}
+		
+		return ok;
+	}
+	
+	private boolean usuarioExiste(){
+		boolean ok = false;
 		
 		try{
-			FileUtil fileUtil = new FileUtil();
-			homePage = fileUtil.getPropertyValue("home");
-		}
-		catch(Exception e){
-			e.printStackTrace();
+			SetusuarioBO setusuarioBO = new SetusuarioBO();
+			Setusuario setusuario = setusuarioBO.getSetusuarioByUsuario(username);
+			
+			if(setusuario != null && setusuario.getIdusuario() > 0){
+				ok = true;
+			}else{
+				new MessageUtil().showWarnMessage("Usuario no existe", "");
+			}
+		}catch(Exception re){
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 		
-		return homePage;
+		return ok;
 	}
 	
 	public String redirect(){
@@ -167,5 +255,5 @@ public class UsuarioBean implements Serializable{
 	public void setPetempresa(Petempresa petempresa) {
 		this.petempresa = petempresa;
 	}
-	
+
 }
