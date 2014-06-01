@@ -86,4 +86,11 @@ public class FacesUtil {
 		return paramValue;
 	}
 	
+	public void redirectByPropertyFileKey(String Key) throws Exception {
+		FileUtil fileUtil = new FileUtil();
+		String value = fileUtil.getPropertyValue(Key);
+		
+		FacesUtil facesUtil = new FacesUtil();
+		facesUtil.redirect(value);
+	}
 }
