@@ -18,6 +18,7 @@ public class Petvenunciado implements java.io.Serializable {
 	private String descripcion;
 	private Character tipo;
 	private Integer idpadre;
+	private Integer orden;
 	private String tag;
 	private Date fecharegistro;
 	
@@ -25,11 +26,12 @@ public class Petvenunciado implements java.io.Serializable {
 		
 	}
 	
-    public Petvenunciado(Integer idenunciado,String descripcion,Character tipo,Integer idpadre, String tag, Date fecharegistro){
+    public Petvenunciado(Integer idenunciado,String descripcion,Character tipo,Integer idpadre,Integer orden, String tag, Date fecharegistro){
 		this.idenunciado = idenunciado;
 		this.descripcion = descripcion;
 		this.tipo = tipo;
 		this.idpadre = idpadre;
+		this.orden = orden;
 		this.tag = tag;
 		this.fecharegistro = fecharegistro;
 	}
@@ -70,6 +72,15 @@ public class Petvenunciado implements java.io.Serializable {
 	public void setIdpadre(Integer idpadre) {
 		this.idpadre = idpadre;
 	}
+	@Column(name = "orden",  nullable = false)
+	public Integer getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Integer orden) {
+		this.orden = orden;
+	}
+
 	@Column(name = "tag", length = 200)
 	public String getTag() {
 		return tag;

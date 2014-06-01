@@ -30,6 +30,7 @@ public class Petenunciado implements java.io.Serializable, Cloneable {
 	private Character tipo;
 	private String descripcion;
 	private Integer idpadre;
+	private Integer orden;
 	private Date fecharegistro;
 	private Date fechamodificacion;
 	private String iplog;
@@ -45,13 +46,14 @@ public class Petenunciado implements java.io.Serializable, Cloneable {
 
 	public Petenunciado(int idenunciado, Setestado setestado,
 			Setusuario setusuario, Character tipo, String descripcion,
-			Integer idpadre, Date fecharegistro, Date fechamodificacion, String iplog, String tag) {
+			Integer idpadre, Integer orden,Date fecharegistro, Date fechamodificacion, String iplog, String tag) {
 		this.idenunciado = idenunciado;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
 		this.tipo = tipo;
 		this.descripcion = descripcion;
 		this.idpadre = idpadre;
+		this.orden = orden;
 		this.fecharegistro = fecharegistro;
 		this.fechamodificacion = fechamodificacion;
 		this.iplog = iplog;
@@ -115,6 +117,15 @@ public class Petenunciado implements java.io.Serializable, Cloneable {
 		this.idpadre = idpadre;
 	}
 
+	@Column(name = "orden")
+	public Integer getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Integer orden) {
+		this.orden = orden;
+	}
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecharegistro", nullable = false, length = 29)
 	public Date getFecharegistro() {
@@ -172,6 +183,7 @@ public class Petenunciado implements java.io.Serializable, Cloneable {
 				+ ((descripcion == null) ? 0 : descripcion.hashCode());
 		result = prime * result + idenunciado;
 		result = prime * result + ((idpadre == null) ? 0 : idpadre.hashCode());
+		result = prime * result + ((orden == null) ? 0 : orden.hashCode());
 		result = prime * result + ((tag == null) ? 0 : tag.hashCode());
 		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
 		return result;
@@ -197,6 +209,11 @@ public class Petenunciado implements java.io.Serializable, Cloneable {
 			if (other.idpadre != null)
 				return false;
 		} else if (!idpadre.equals(other.idpadre))
+			return false;
+		if (orden == null) {
+			if (other.orden != null)
+				return false;
+		} else if (!orden.equals(other.orden))
 			return false;
 		if (tag == null) {
 			if (other.tag != null && !other.tag.equals(""))

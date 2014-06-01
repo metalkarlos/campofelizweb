@@ -50,19 +50,29 @@
 			    overflow:hidden;
 			}
 			.items * {
-				display: block;
+			    display: block;
+			    text-align: justify;
 			}
 			.icon-pregunta {
 				float: left;
 				padding-right: 5px;
 			}
 			.respuesta {
-				display: none;
+			    display: none;
 				padding-left: 5px;
 				clear: both;
 			}
+			
+			.respuesta:after {
+				    content:"\a";
+				    white-space:pre;
+				}
 			.pregunta, .icon-pregunta {
 				padding-top: 10px;
+				
+			}
+			.inner-content{
+			   text-align: justify;
 			}
         </style>
 		
@@ -87,9 +97,9 @@
 		  <div class="items">
 		  <ui:repeat value="#{enunciadosBean.listpetvenunciado}" var="enunciado">
 			  	<h:graphicImage styleClass="icon-pregunta" library="images" alt="#{enunciado.descripcion}" name="huella.png" rendered="#{enunciado.idpadre == 0}"  />
-				<p:commandLink onclick="mostrarOcultar(this)" styleClass="pregunta" value="#{enunciado.descripcion}" rendered="#{enunciado.idpadre == 0}"  ></p:commandLink>
+				<p:commandLink   onclick="mostrarOcultar(this)" styleClass="pregunta" value="#{enunciado.descripcion}" rendered="#{enunciado.idpadre == 0}"  ></p:commandLink>
 			 	<h:outputText  styleClass="respuesta" value="#{enunciado.descripcion}"  rendered="#{enunciado.idpadre > 0}" escape="false"/>
-	           
+	        
 		        <h:link value="[Editar]" styleClass="link2" outcome="/admin/preguntas-admin" rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
 		       	<f:param name="idenunciado" value="#{enunciado.idenunciado}"></f:param>
 	            </h:link>

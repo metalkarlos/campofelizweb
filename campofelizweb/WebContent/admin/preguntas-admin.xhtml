@@ -45,6 +45,16 @@
 		     <p:panelGrid id="idgridcontenido"  >
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
+		            <h:outputLabel value="Orden" for="orden" />
+		          </p:column>
+		        </p:row>  
+		        <p:row>
+		          <p:column  styleClass="alto-columna">
+		            <p:inputText   id="orden" maxlength="2" value="#{enunciadoAdminBean.petenunciadopregunta.orden}" style="width:30px;" required="true" requiredMessage="Ingresar Orden" />
+		          </p:column>
+		        </p:row>   
+		        <p:row>
+		          <p:column  styleClass="alto-columna">
 		            <h:outputLabel value="Pregunta" for="pregunta" />
 		          </p:column>
 		        </p:row>   
