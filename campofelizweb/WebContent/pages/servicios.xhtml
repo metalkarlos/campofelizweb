@@ -60,7 +60,7 @@
 						<div class="wrapper">
 							<p:graphicImage id="idfoto" title="#{servicio.nombre}" value="#{serviciosBean.rutaImagenes}#{servicio.rutafoto}" style="max-height: 150px; max-width: 150px;" styleClass="img-indent-1" />
 							<p class="p2"><strong class="str-1">#{servicio.nombre}</strong></p>
-							<p class="p1" style="text-align: justify;">#{fn:substring(servicio.descripcion, 0, 200)}...</p>
+							<p class="p1" style="text-align: justify;"><h:outputText value="#{fn:substring(servicio.descripcion, 0, 200)} [...]" escape="false" /></p>
 						</div>
 						<div class="alignright p3">
 	                        <h:link value="Leer Más" outcome="/pages/servicio" >
