@@ -61,7 +61,7 @@
 							</div>
 							<div>
 								<p class="parrafo">
-									<h:outputText value="#{fn:substring(noticia.descripcion, 0, 300)} [...]" escape="false" /> 
+									<h:outputText value="#{fn:substring(noticia.descripcionNoTags, 0, 300)} [...]" escape="false" /> 
 									<h:link style="float: right; padding: 10px 0 0" value="Leer Más" outcome="/pages/noticia" >
 										<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
 									</h:link>
