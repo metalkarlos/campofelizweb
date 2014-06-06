@@ -93,7 +93,9 @@ import com.web.util.MessageUtil;
 				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 			}
 		}
-		public void grabar() {
+		
+		public String  grabar() {
+			String paginaRetorno = null;
 			try {
 				boolean ok = false;
 				if(validarcampos()){
@@ -102,25 +104,26 @@ import com.web.util.MessageUtil;
 					
 					if(petmascotahomenaje.getIdmascota()==0){
 						ok = petmascotahomenajeBO.ingresarPetmascotahomenajeBO(petmascotahomenaje, 1,uploadedFile);
-						new MessageUtil().showInfoMessage("Exito", "Información registrada");
 						inicializarobjetos();
 						
 				    }else if(petmascotahomenaje.getIdmascota()>0){
 					  //objeto petmascotahomenaje se ha modificado
 					  ok = petmascotahomenajeBO.modificarPetmascotahomenajeBO(petmascotahomenaje,petmascotahomenajeclone,uploadedFile,listpetfotomascota,listpetfotomascotaclone,2);
-						 new MessageUtil().showInfoMessage("Exito", "Información modificada");
 						 inicializarobjetos();
 				  }
 				  if(ok){
-					new MessageUtil().showInfoMessage("Listo!", "Datos grabados con Exito!");
+					  paginaRetorno="/pages/mascotashomenaje?faces-redirect=true"; 
+					//new MessageUtil().showInfoMessage("Listo!", "Datos grabados con Exito!");
 				  }else{
-					new MessageUtil().showInfoMessage("Aviso", "No existen cambios que guardar");
+					  paginaRetorno="/pages/mascotashomenaje?faces-redirect=true"; 
+					//new MessageUtil().showInfoMessage("Aviso", "No existen cambios que guardar");
 				  }
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 			}
+			return paginaRetorno;
 		}
 		
 		
@@ -276,9 +279,9 @@ import com.web.util.MessageUtil;
 				PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
 				
 				petmascotahomenajeBO.eliminarBO(petmascotahomenaje, listpetfotomascotaclone, 2);
-				new MessageUtil().showInfoMessage("Exito", "Mascota eliminada");
-				inicializarobjetos();
-				paginaRetorno = "mascotashomenaje?faces-redirect=true";
+				//new MessageUtil().showInfoMessage("Exito", "Mascota eliminada");
+				//inicializarobjetos();
+				paginaRetorno = "/pages/mascotashomenaje?faces-redirect=true";
 				
 			}catch(Exception e){
 				e.printStackTrace();

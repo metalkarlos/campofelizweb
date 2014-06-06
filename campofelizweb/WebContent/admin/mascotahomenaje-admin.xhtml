@@ -10,7 +10,7 @@
 
 	<ui:define name="head">
 	
-		<title>Mantenimiento de Mascotas</title>
+		<title>Administración - Homenaje Póstumo</title>
 	
 		<style type="text/css">
 			.inner-content {
@@ -34,6 +34,28 @@
 			.panel-previa .ui-panel-content {
 				padding: 0;
 			}
+			
+			.imagenprincipal {
+			  border-radius: 15px;
+			  vertical-align: top;
+			  padding:  5px 10px 5px 10px;
+			  width: 370px;
+			  height:355px;
+			}  
+			.panelimagen{
+			   background-color: #eaeaea;
+			   height: 100%; 
+			   width: 100%; 
+			} 
+			
+			.inner-content .imagen{
+			   height: 170px;
+			   width: 110px;
+			   padding: 5px 5px 5px 5px;
+			   margin: 0px 3px 10px 0;
+			   box-shadow: 1px 0px 5px #BBB;
+			   border-radius: 5px;
+			}
 		</style>
 		
 	</ui:define>
@@ -42,29 +64,45 @@
 	  <div class="content-page">
 	  	<h:form id="form-contentpage" enctype="multipart/form-data">
        		<p:growl id="mensajes"  showDetail="true"  />
-            <h1 class="title ui-widget-header"> Administración - Homenaje Póstumo </h1>
+            <h1 class="title ui-widget-header">Administración - Homenaje Póstumo</h1>
              <div class="inner-content">
 		     <p:panelGrid id="idgridcontenido" >	   
 				<p:row>
 				  <p:column styleClass="alto-columna">
-				  <h:outputLabel value="Código"  />
+				  <h:outputLabel value="Código" for="txtCodigo" />
 				  </p:column>
 				</p:row>
 				
 				<p:row>
 				  <p:column styleClass="alto-columna">
-				  <h:outputLabel id="txtCodigo" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascota}" style="width: 100px;"></h:outputLabel>
+				  <h:outputText id="txtCodigo" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascota}" style="width: 100px;"/>
 				  </p:column>
 				</p:row>
 					
 				<p:row>
 					<p:column styleClass="centrar">
-					<p:galleria id="idgalleria" value="#{mascotaHomenajeAdminBean.listpetfotomascota}" var="item" transitionInterval="0" panelWidth="500" panelHeight="320" styleClass="ui-widget-content ui-corner-all">
-				        <p:graphicImage id="idfotos" value="#{mascotaHomenajeAdminBean.rutaImagenes}#{item.ruta}" style="max-height: 58px;" />
+				
+				    <!-- 
+					<p:lightBox styleClass="imagebox" height="320px">
+					  <ui:repeat var="imagen" value= "#{mascotaHomenajeAdminBean.listpetfotomascota}">
+					     <h:outputLink value="/campofelizweb#{mascotaHomenajeAdminBean.rutaImagenes}#{imagen.ruta}" title="#{imagen.descripcion}">
+					        <p:graphicImage value="#{mascotaHomenajeAdminBean.rutaImagenes}#{imagen.ruta}" styleClass="imagen"/>
+					     </h:outputLink>
+					  
+					  </ui:repeat>
+					  
+					</p:lightBox>
+					
+					 -->
+					
+					<p:galleria id="idgalleria" value="#{mascotaHomenajeAdminBean.listpetfotomascota}" var="item" panelWidth="500" panelHeight="380"  styleClass="ui-widget-content ui-corner-all">
+				       
+				        <p:graphicImage  id="idfotos" value="#{mascotaHomenajeAdminBean.rutaImagenes}#{item.ruta}"  />
+				       
 				        <p:galleriaContent>  
-				            <h:panelGrid columns="1" style="background-color: #eaeaea;height: 100%; width: 100%;" >  
+				            <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">  
 						        <f:facet name="header">
-					            	<p:graphicImage id="idfoto" value="#{mascotaHomenajeAdminBean.rutaImagenes}#{item.ruta}" style="max-height: 300px; padding-top: 10px" />
+					            	<p:graphicImage styleClass="imagenprincipal" id="idfoto" value="#{mascotaHomenajeAdminBean.rutaImagenes}#{item.ruta}" />
 						        </f:facet>
 						        <p:commandButton id="idbuttonprincipal" title="Colocar como foto principal" icon="ui-icon ui-icon-person"  onclick="vardialogprincipal.show()" style="position:absolute;right:0px;top:30px;" update=":form-contentpage:idpanelprincipal" >
 						        	<f:setPropertyActionListener value="#{item}" target="#{mascotaHomenajeAdminBean.petfotomascotaselected}" />
@@ -75,6 +113,7 @@
 						    </h:panelGrid>
 						</p:galleriaContent>
 					</p:galleria>
+				
 					</p:column>
 				</p:row>
 				 
@@ -86,7 +125,7 @@
 				<p:row>
 					<p:column styleClass="alto-columna">
 					<p:panel id="pnlPrevia" styleClass="panel-previa">
-					<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" styleClass="imagen"  rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
+					<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}"  rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
 					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{mascotaHomenajeAdminBean.borrarFotoSubida()}" update="pnlPrevia" rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
 					</p:panel>
 					<p:fileUpload id="idSubeFotos" fileUploadListener="#{mascotaHomenajeAdminBean.handleFileUpload}" mode="advanced"  cancelLabel="Cancelar" 
@@ -223,7 +262,7 @@
 					<p:panelGrid id="idpanel2grabar" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{mascotaHomenajeAdminBean.grabar()}" oncomplete="vardialoggrabar.hide()" update="mensajes" />
+						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{mascotaHomenajeAdminBean.grabar()}" oncomplete="vardialoggrabar.hide()" update=":form-contentpage:mensajes" />
 						<p:commandButton id="idcancelargrabar" value="Cancelar" onclick="vardialoggrabar.hide()" />
 						</p:column>
 						</p:row>
@@ -239,7 +278,7 @@
 					<p:panelGrid id="idpanel2deletemascota" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmardeletemascota" value="Confirmar" action="#{mascotaHomenajeAdminBean.eliminar()}" oncomplete="vardialogdeletemascota.hide()" update="mensajes" />
+						<p:commandButton id="idconfirmardeletemascota" value="Confirmar" action="#{mascotaHomenajeAdminBean.eliminar()}" oncomplete="vardialogdeletemascota.hide()" update=":form-contentpage:mensajes" />
 						<p:commandButton id="idcancelardeletenmascota" value="Cancelar" onclick="vardialogdeletemascota.hide()" />
 						</p:column>
 						</p:row>

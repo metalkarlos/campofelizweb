@@ -20,7 +20,7 @@
 			   font-size: 28px;
 			   color: #7B7B7B;
 			   padding: 1px 0px;
-			   margin: 5px 0px;
+			   margin: 10px 20px 20px 0px;
 			   text-align: center;
 			}
 			
@@ -48,7 +48,7 @@
 			}
 			
 			.textolabel{
-				text-align: center;
+				text-align: right;
 				font-size: 13px;
 				font-weight: bold;
 			}
@@ -57,6 +57,22 @@
 			  font-size: 13px;
 			}
 			
+			.imagenprincipal {
+			  border-radius: 15px;
+			  vertical-align: top;
+			  padding:  5px 10px 5px 10px;
+			  width: 370px;
+			  height:355px;
+			}  
+			
+			.ancho{
+			  width: 150px;
+			}
+			.imagenrecordatorio{
+			  max-height: 22px;
+			  max-width: 25px;
+			  padding: 0px 5px 0px 0px;
+			}
 		</style>
 	</ui:define>
 	
@@ -73,27 +89,30 @@
 				 </div>
 			 </div>
 		   
-	 		 <center>
-	 		    <p:galleria  id="idgalleria" value="#{mascotaHomenajeBean.petmascotahomenaje.petfotomascotas}" var="item" panelWidth="500" panelHeight="320" showCaption="true" >
-				        <p:graphicImage id="idfotos" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" style="max-height: 58px" />
-				        <p:galleriaContent>  
-				            <h:panelGrid columns="1" style="background-color: #eaeaea;height: 100%; width: 60%;" >  
-						        <f:facet name="header">
-					            	<p:graphicImage id="idfoto" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" style="max-height: 300px;" />
-						        </f:facet>
-						    </h:panelGrid>
-						</p:galleriaContent>
-				</p:galleria>
-	 		 </center>
-	 		 <div class="titulo2">
+		      <div >
 	 		      <h:link value="[Editar]" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" outcome="/admin/mascotahomenaje-admin" rendered="#{usuarioBean.autenticado}" >
 					<f:param name="idmascota" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascota}"></f:param>
 				  </h:link>
 	 		 </div>
+	 		 <center>
+	 		  	<div>
+	 		    <p:galleria  id="idgalleria" value="#{mascotaHomenajeBean.petmascotahomenaje.petfotomascotas}" var="item" panelWidth="500" panelHeight="380" showCaption="true" >
+				        <p:graphicImage id="idfotos" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" style="max-height: 58px" />
+				        <p:galleriaContent>  
+				            <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">  
+						        <f:facet name="header">
+					            	<p:graphicImage id="idfoto" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" styleClass="imagenprincipal" />
+						        </f:facet>
+						    </h:panelGrid>
+						</p:galleriaContent>
+				</p:galleria>
+				</div>
+	 		 </center>
+	 		
 	 		
 	 		<center>	 
-	 		 <div style="height: 100%; width:60%;">
-	 		 	<p:panelGrid id="panelgridcontenido"  >
+	 		  <div style="width:380px;" >
+	 		 	<p:panelGrid id="panelgridcontenido" >
 			 	
 					  <p:row>
 					  	<p:column colspan="2" styleClass="alto-columna">
@@ -104,8 +123,8 @@
 					  </p:row>
 				
 					 <p:row>
-					   	<p:column styleClass="alto-columna" style="text-align:center;" >
-					   	   <h:outputLabel styleClass="textolabel" value="Familia"  for="txtFamilia" />
+					   	<p:column styleClass="alto-columna ancho" style="text-align:right;" >
+					   	   <h:outputLabel styleClass="textolabel" value="Familia:"  for="txtFamilia" />
 					    </p:column>
 					    <p:column styleClass="alto-columna">
 					   	   <h:outputText  styleClass="textocontenido" id="txtFamilia"  value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
@@ -113,11 +132,12 @@
 					 </p:row>
 				 
 					<p:row>
-					   	<p:column styleClass="alto-columna"  style="text-align:center;">
-					   	   <h:outputLabel styleClass="textolabel" value="Fecha nacimiento" for="calFechanacimiento" />
+					   	<p:column styleClass="alto-columna"  style="text-align:right;">
+					   	   <h:outputLabel styleClass="textolabel" value="Fecha nacimiento:" for="calFechanacimiento" />
 					    </p:column>
 					    <p:column>
-					   	   <h:outputText styleClass="textocontenido" id="calFechanacimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechanacimiento}">
+					       <p:graphicImage id="idfotonacimiento" value="#{mascotaHomenajeBean.rutaImagenes}#{mascotaHomenajeBean.rutaimagennacimiento}" styleClass="imagenrecordatorio" />
+					       <h:outputText styleClass="textocontenido" id="calFechanacimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechanacimiento}">
 					   	   	<f:convertDateTime pattern="dd/MM/yyyy" />
 					   	   </h:outputText>
 					    </p:column>
@@ -125,10 +145,11 @@
 				 
 				 
 					 <p:row>
-					   	<p:column styleClass="alto-columna" style="text-align:center;">
-					   	   <h:outputLabel styleClass="textolabel" value="Fecha fallecimiento" for="calFechafallecimiento" />
+					   	<p:column styleClass="alto-columna" style="text-align:right;">
+					   	   <h:outputLabel styleClass="textolabel" value="Fecha fallecimiento:" for="calFechafallecimiento" />
 					    </p:column>
 					    <p:column>
+					       <p:graphicImage id="idfotofalecimiento" value="#{mascotaHomenajeBean.rutaImagenes}#{mascotaHomenajeBean.rutaimagenfallecimiento}" styleClass="imagenrecordatorio" />
 					   	   <h:outputText styleClass="textocontenido"  id="calFechafallecimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechafallecimiento}">
 					   	    <f:convertDateTime pattern="dd/MM/yyyy" />
 					   	   </h:outputText>

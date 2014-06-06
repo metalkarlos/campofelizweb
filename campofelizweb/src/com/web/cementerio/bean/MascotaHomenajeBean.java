@@ -30,12 +30,23 @@ public class MascotaHomenajeBean implements Serializable {
 	private List<Petfotomascota> listpetfotomascota;
 	private int idmascota;
 	private String rutaImagenes;
+	private String rutaimagenfallecimiento;
+	private String rutaimagennacimiento;
 	
 	
+	public String getRutaimagennacimiento() {
+		return rutaimagennacimiento;
+	}
+
+	public void setRutaimagennacimiento(String rutaimagennacimiento) {
+		this.rutaimagennacimiento = rutaimagennacimiento;
+	}
+
 	public MascotaHomenajeBean() {
 		inicializarobjetos();
 		cargarRutaImagenes();
-		
+		rutaimagenfallecimiento = "/mascota/cruz.png";
+		rutaimagennacimiento = "/mascota/estrella.png";
 	}
 	
 	private void cargarRutaImagenes(){
@@ -123,6 +134,14 @@ public class MascotaHomenajeBean implements Serializable {
 
 	public void setRutaImagenes(String rutaImagenes) {
 		this.rutaImagenes = rutaImagenes;
+	}
+
+	public String getRutaimagenfallecimiento() {
+		return rutaimagenfallecimiento;
+	}
+
+	public void setRutaimagenfallecimiento(String rutaimagenfallecimiento) {
+		this.rutaimagenfallecimiento = rutaimagenfallecimiento;
 	}
 	
 
