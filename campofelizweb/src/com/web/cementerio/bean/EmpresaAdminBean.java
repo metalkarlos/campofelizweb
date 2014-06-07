@@ -59,19 +59,22 @@ public class EmpresaAdminBean implements Serializable {
 		}
 	}
 	
-	public void grabar(){
+	public String grabar(){
+		String paginaRetorno = null;
 		PetempresaBO petempresaBO = new PetempresaBO();
 		try {
 			if(validarcampos()){
 				if(petempresa.getIdempresa()==0){
 					petempresaBO.grabar(petempresa, 1);
 					petempresa = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
-					new MessageUtil().showInfoMessage("Exito", "Información registrada");
+					//new MessageUtil().showInfoMessage("Exito", "Información registrada");
+					paginaRetorno="/pages/empresas?faces-redirect=true"; 
 				}else if(petempresa.getIdempresa() >0){
 					if(petempresaBO.modificar(petempresa, petempresaclone, 1)){
 						petempresa = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
 						petempresaclone = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
-						new MessageUtil().showInfoMessage("Exito", "Información modificada");
+						paginaRetorno="/pages/empresas?faces-redirect=true"; 
+						//new MessageUtil().showInfoMessage("Exito", "Información modificada");
 						
 					}
 				}
@@ -80,7 +83,10 @@ public class EmpresaAdminBean implements Serializable {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
+		return paginaRetorno;
 	}
+	
+	
 	
 	public String eliminar(){
 		PetempresaBO petempresaBO = new PetempresaBO();

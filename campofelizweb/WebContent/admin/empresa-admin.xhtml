@@ -44,107 +44,72 @@
 		     <p:panelGrid id="idgridcontenido" >	
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Código" for="idempresa" />
-		          </p:column>
-		        </p:row>   
-		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		             <h:outputText  id="idempresa" value="#{empresaAdminBean.petempresa.idempresa}" style="width: 100px;" />
+		            <h:outputLabel value="Código" for="idempresa" /><br />
+		            <h:outputText  id="idempresa" value="#{empresaAdminBean.petempresa.idempresa}" style="width: 100px;" />
 		          </p:column>
 		        </p:row>
-		         <p:row>
-		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Tipo" for="listipo" />
-		          </p:column>
-		        </p:row>   
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		             <p:selectOneMenu id="listipo" style="width: 165px; align: center;" value="#{empresaAdminBean.petempresa.tipoempresa}" >
-					 <f:selectItem itemLabel="Seleccione" itemValue="0"/>
-					 <f:selectItem itemLabel="Matriz" itemValue="1"/>
-					 <f:selectItem itemLabel="Sucursal" itemValue="2"/>
+		            <h:outputLabel value="Tipo" for="listipo" /><br />
+		            <p:selectOneMenu id="listipo" style="width: 165px; align: center;" value="#{empresaAdminBean.petempresa.tipoempresa}" >
+					    <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+						<f:selectItem itemLabel="Matriz" itemValue="1"/>
+						<f:selectItem itemLabel="Sucursal" itemValue="2"/>
 				    </p:selectOneMenu>
 		          </p:column>
 		        </p:row>
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Nombre" for="nombre" />
-		          </p:column>
-		        </p:row>   
-		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		             <p:inputText id="nombre" maxlength="200" value="#{empresaAdminBean.petempresa.nombre}" style="width: 300px;" />
-		          </p:column>
-		        </p:row>
-		         <p:row>
-		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Descripción" for="descripcion" />
-		          </p:column>
-		        </p:row>   
-		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		             <p:inputTextarea id="descripcion" maxlength="500"  autoResize="true" style="width: 610px; height:105px;"  value="#{empresaAdminBean.petempresa.descripcion}"  />
+		            <h:outputLabel value="Nombre" for="nombre" /><br />
+		            <p:inputText id="nombre" maxlength="200" value="#{empresaAdminBean.petempresa.nombre}" style="width: 300px;" />
 		          </p:column>
 		        </p:row>
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Dirección" for="direccion" />
-		          </p:column>
-		        </p:row>   
-		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		             <p:inputTextarea id="direccion" maxlength="500"  required="true" requiredMessage="Ingresar Dirección"  autoResize="true" style="width: 610px; height:85px;" value="#{empresaAdminBean.petempresa.direccion}"  />
+		            <h:outputLabel value="Dirección" for="direccion" /><br />
+		            <p:inputTextarea id="direccion" maxlength="500"  required="true" requiredMessage="Ingresar Dirección"  autoResize="true" style="width: 610px; height:85px;" value="#{empresaAdminBean.petempresa.direccion}"  />
 		          </p:column>
 		        </p:row>
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Teléfono" for="telefono" />
-		          </p:column>
-		        </p:row>   
-		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		             <p:inputText id="telefono" maxlength="40" value="#{empresaAdminBean.petempresa.telefono}" style="width: 300px;" />
-		          </p:column>
-		        </p:row>
-		         <p:row>
-		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Celular" for="celular" />
-		          </p:column>
-		        </p:row>   
-		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		             <p:inputText id="celular" maxlength="40" value="#{empresaAdminBean.petempresa.celular}" style="width: 300px;" />
+		            <h:outputLabel value="Horario de Atención" for="descripcion" /><br />
+		            <p:inputTextarea id="descripcion" maxlength="500"  autoResize="true" style="width: 610px; height:105px;"  value="#{empresaAdminBean.petempresa.descripcion}"  />
 		          </p:column>
 		        </p:row>
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		              <h:outputLabel value="Página web" for="paginaweb" />
-		          </p:column>
-		        </p:row>
-		         <p:row>
-		          <p:column  styleClass="alto-columna">
-		             <p:inputText id="paginaweb" maxlength="200" value="#{empresaAdminBean.petempresa.paginaweb}" style="width: 400px;" />
+		            <h:outputLabel value="Teléfono" for="telefono" /><br />
+		            <p:inputText id="telefono" maxlength="40" value="#{empresaAdminBean.petempresa.telefono}" style="width: 300px;" />
 		          </p:column>
 		        </p:row>
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		              <h:outputLabel value="Correo electrónico" for="email" />
+		            <h:outputLabel value="Celular" for="celular" /><br />
+		            <p:inputText id="celular" maxlength="40" value="#{empresaAdminBean.petempresa.celular}" style="width: 300px;" />
 		          </p:column>
 		        </p:row>
-		         <p:row>
+		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		             <p:inputText id="email" maxlength="100" value="#{empresaAdminBean.petempresa.email}" style="width: 400px;"  
+		             <h:outputLabel value="Página web" for="paginaweb" /><br />
+		             <p:inputText id="paginaweb" maxlength="200" value="#{empresaAdminBean.petempresa.paginaweb}" style="width: 610px;" />
+		          </p:column>
+		        </p:row>
+		        <p:row>
+		          <p:column  styleClass="alto-columna">
+		              <h:outputLabel value="Correo electrónico" for="email" /><br />
+		              <p:inputText id="email" maxlength="100" value="#{empresaAdminBean.petempresa.email}" style="width: 610px;"  
 		                          validatorMessage="Formato de Correo Electrónico incorrecto">
 					 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 		             </p:inputText>
 		          </p:column>
 		        </p:row>
+		         
 		     </p:panelGrid>
 		</div>     
         <div class="area-botones">
 			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
 			renderedButtonEliminar="#{empresaAdminBean.idempresa > 0}" onclickButtonEliminar="vardialogdeleteempresa.show()" 
-			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" actionButtonCancelar="/pages/empresas"
+			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" actionButtonCancelar="/pages/empresas" 
 			renderedButtonNewItem="false" />
 		</div>
 		

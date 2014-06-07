@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 
@@ -43,9 +44,9 @@ public class EmpresasBean implements Serializable{
 		}
 	}
 
-	public void onRowSelect(SelectEvent event) throws Exception{
+	public void onUserRowSelect(SelectEvent event) throws Exception{
 		FacesUtil facesUtil = new FacesUtil();
-		facesUtil.redirect("empresa-admin.jsf?faces-redirect=true&idempresa="+petempresaseleccionada.getIdempresa());
+		facesUtil.redirect("../admin/empresa-admin.jsf?faces-redirect=true&idempresa="+petempresaseleccionada.getIdempresa());
 	}
 	
 	public List<Petempresa> getListpetemepresas() {

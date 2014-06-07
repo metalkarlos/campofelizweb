@@ -40,39 +40,39 @@
 		<br/>
 		
 		<div>
-		   <p:dataTable id="idTablaEmpresas" value="#{empresasBean.listpetemepresas}" var="empresa" rowKey="#{empresa.idempresa}" widgetVar="vartablaEmpresas"
+		   <p:dataTable id="idTablaEmpresas" value="#{empresasBean.listpetemepresas}" var="empresa" rowKey="#{empresa.idempresa}"  
 				paginator="true" rows="20" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				selection="#{empresasBean.petempresaseleccionada}" selectionMode="single"  emptyMessage="No se encontraron registros"  paginatorPosition="bottom">
 
-		   <p:ajax event="rowSelect" listener="#{empresasBean.onRowSelect}"/>
-		  	       
-	       <p:column >
-		       <f:facet name="header">  
-	            <h:outputText value="Código" />
-	           </f:facet>
-	           <h:outputText value="#{empresa.idempresa}" />
-	       </p:column>
-
-           <p:column >
-		       <f:facet name="header">  
-	            <h:outputText value="Nombre" />
-	           </f:facet>
-	           <h:outputText value="#{empresa.nombre}" />
-	       </p:column>				      
-				        
-		   <p:column >
-		       <f:facet name="header">  
-	            <h:outputText value="Dirección" />
-	           </f:facet>
-	           <h:outputText value="#{empresa.direccion}" />
-	       </p:column>	
-	       
-	        <p:column >
-		       <f:facet name="header">  
-	            <h:outputText value="Teléfono" />
-	           </f:facet>
-	           <h:outputText value="#{empresa.telefono}" />
-	       </p:column>	
+			   <p:ajax event="rowSelect" listener="#{empresasBean.onUserRowSelect}"  process="@this" update=":form-contentpage:idTablaEmpresas" />
+			  	       
+		       <p:column >
+			       <f:facet name="header">  
+		            <h:outputText value="Código" />
+		           </f:facet>
+		           <h:outputText value="#{empresa.idempresa}" />
+		       </p:column>
+	
+	           <p:column >
+			       <f:facet name="header">  
+		            <h:outputText value="Nombre" />
+		           </f:facet>
+		           <h:outputText value="#{empresa.nombre}" />
+		       </p:column>				      
+					        
+			   <p:column >
+			       <f:facet name="header">  
+		            <h:outputText value="Dirección" />
+		           </f:facet>
+		           <h:outputText value="#{empresa.direccion}" />
+		       </p:column>	
+		       
+		        <p:column >
+			       <f:facet name="header">  
+		            <h:outputText value="Teléfono" />
+		           </f:facet>
+		           <h:outputText value="#{empresa.telefono}" />
+		       </p:column>	
 	       
 		   </p:dataTable>
 		</div>
