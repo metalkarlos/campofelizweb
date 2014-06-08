@@ -109,7 +109,7 @@
         <div class="area-botones">
 			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
 			renderedButtonEliminar="#{empresaAdminBean.idempresa > 0}" onclickButtonEliminar="vardialogdeleteempresa.show()" 
-			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" actionButtonCancelar="/pages/empresas" 
+			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('../pages/empresas.jsf');" 
 			renderedButtonNewItem="false" />
 		</div>
 		
