@@ -99,7 +99,7 @@
 		              <h:outputLabel value="Correo electrónico" for="email" /><br />
 		              <p:inputText id="email" maxlength="100" value="#{empresaAdminBean.petempresa.email}" style="width: 610px;"  
 		                          validatorMessage="Formato de Correo Electrónico incorrecto">
-					 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+					 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]|^$" />
 		             </p:inputText>
 		          </p:column>
 		        </p:row>
