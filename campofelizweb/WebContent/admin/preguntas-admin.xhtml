@@ -81,7 +81,7 @@
 		        </p:row>   
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <p:editor  id="respuesta" autoResize="true" value="#{enunciadoAdminBean.petenunciadorespuesta.descripcion}" maxlength="2000" style="width: 600px;" required="true" requiredMessage="Ingresar Respuesta"/>
+		            <p:editor  id="respuesta" autoResize="true" value="#{enunciadoAdminBean.petenunciadorespuesta.descripcion}" maxlength="2000" width="600" required="true" requiredMessage="Ingresar Respuesta"/>
 		          </p:column>
 		        </p:row>  
 		        <p:row>
@@ -99,7 +99,7 @@
 		 <div class="area-botones">
 			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
 			renderedButtonEliminar="#{enunciadoAdminBean.idenunciado > 0}" onclickButtonEliminar="vardialogdelete.show()" 
-			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" actionButtonCancelar="/pages/preguntas"
+			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('../pages/preguntas.jsf');" 
 			renderedButtonNewItem="false" />
 		</div>  
 		

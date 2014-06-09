@@ -118,8 +118,9 @@ public class PetenunciadoBO {
 		
 	}
 	
-	public void modificar(List<Petenunciado> listpetenunciado, int idestado)throws Exception{
+	public boolean modificar(List<Petenunciado> listpetenunciado, int idestado)throws Exception{
 		Session session = null;
+		boolean ok = false;
 		try {
 			
 			session = HibernateUtil.getSessionFactory().openSession();
@@ -143,9 +144,11 @@ public class PetenunciadoBO {
 			    petenunciado.setIplog(usuarioBean.getIp());
 			    
 			    petenunciadoDAO.modificar(session, petenunciado);
+			    ok =true;
 			}
-			
-			session.getTransaction().commit();
+			if(ok){
+				session.getTransaction().commit();
+			}	
 			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
@@ -153,7 +156,7 @@ public class PetenunciadoBO {
 		}finally{
 			session.close();
 		}
-		
+		return ok;
 	}
 	
 	public void eliminar (List<Petenunciado> listpetenunciado, int idestado)throws Exception{
