@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "petinformacion", schema = "pets")
-public class Petinformacion implements java.io.Serializable {
+public class Petinformacion implements java.io.Serializable, Cloneable {
 
 	/**
 	 * 
@@ -34,13 +34,14 @@ public class Petinformacion implements java.io.Serializable {
 	private String mision;
 	private String vision;
 	private String antecendentes;
+	private String rutafoto;
 	private String fotoquienessomos;
 	private String fotoantecedentes;
 	private Date fecharegistro;
 	private Date fechamodificacion;
 	private String iplog;
 	private String tag;
-	private Set<?> petfotoinformacions = new HashSet<Object>(0);
+	private Set<Petfotoinformacion> petfotoinformaciones = new HashSet<Petfotoinformacion>(0);
 
 	public Petinformacion() {
 	}
@@ -54,9 +55,9 @@ public class Petinformacion implements java.io.Serializable {
 
 	public Petinformacion(int idinformacion, Setestado setestado,
 			Setusuario setusuario, String quienessomos, String mision,
-			String vision, String antecendentes, String fotoantecedentes,
+			String vision, String antecendentes, String rutafoto,String fotoantecedentes,
 			String fotoquienessomos,Date fecharegistro,Date fechamodificacion,
-			String iplog, String tag, Set<?> petfotoinformacions) {
+			String iplog, String tag, Set<Petfotoinformacion> petfotoinformaciones) {
 		this.idinformacion = idinformacion;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -64,11 +65,12 @@ public class Petinformacion implements java.io.Serializable {
 		this.mision = mision;
 		this.vision = vision;
 		this.antecendentes = antecendentes;
+		this.rutafoto = rutafoto;
 		this.fecharegistro = fecharegistro;
 		this.fechamodificacion = fechamodificacion;
 		this.iplog = iplog;
 		this.tag = tag;
-		this.petfotoinformacions = petfotoinformacions;
+		this.petfotoinformaciones = petfotoinformaciones;
 		this.fotoantecedentes = fotoantecedentes;
 		this.fotoquienessomos = fotoquienessomos;
 	}
@@ -139,6 +141,7 @@ public class Petinformacion implements java.io.Serializable {
 		this.vision = vision;
 	}
 
+	
 	@Column(name = "antecendentes", length = 5000)
 	public String getAntecendentes() {
 		return this.antecendentes;
@@ -148,6 +151,15 @@ public class Petinformacion implements java.io.Serializable {
 		this.antecendentes = antecendentes;
 	}
 
+	@Column(name = "rutafoto", length = 100)
+	public String getRutafoto() {
+		return this.rutafoto;
+	}
+
+	public void setRutafoto(String rutafoto) {
+		this.rutafoto = rutafoto;
+	}
+	
 	@Column (name = "fotoantecedentes",length = 100)
 	public String getFotoantecedentes(){
 		return this.fotoantecedentes;
@@ -198,12 +210,70 @@ public class Petinformacion implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "petinformacion", targetEntity=Petfotoinformacion.class)
-	public Set<?> getPetfotoinformacions() {
-		return this.petfotoinformacions;
+	public Set<Petfotoinformacion> getPetfotoinformaciones() {
+		return this.petfotoinformaciones;
 	}
 
-	public void setPetfotoinformacions(Set<?> petfotoinformacions) {
-		this.petfotoinformacions = petfotoinformacions;
+	public void setPetfotoinformaciones(Set<Petfotoinformacion> petfotoinformaciones) {
+		this.petfotoinformaciones = petfotoinformaciones;
 	}
 
+	@Override
+	protected Object clone() throws CloneNotSupportedException{
+	  Petinformacion petinformacion = (Petinformacion) super.clone();
+	  return petinformacion;
+	}
+	
+	public Petinformacion clonar() throws Exception{
+		return (Petinformacion)this.clone();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((mision == null) ? 0 : mision.hashCode());
+		result = prime * result
+				+ ((quienessomos == null) ? 0 : quienessomos.hashCode());
+		result = prime * result + ((tag == null) ? 0 : tag.hashCode());
+		result = prime * result + ((vision == null) ? 0 : vision.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Petinformacion other = (Petinformacion) obj;
+		if (mision == null) {
+			if (other.mision != null)
+				return false;
+		} else if (!mision.equals(other.mision))
+			return false;
+		if (quienessomos == null) {
+			if (other.quienessomos != null)
+				return false;
+		} else if (!quienessomos.equals(other.quienessomos))
+			return false;
+		if (tag == null) {
+			if (other.tag != null)
+				return false;
+		} else if (!tag.equals(other.tag))
+			return false;
+		if (vision == null) {
+			if (other.vision != null)
+				return false;
+		} else if (!vision.equals(other.vision))
+			return false;
+		return true;
+	}
+	
+	
+	
+	
+	
 }

@@ -22,13 +22,14 @@ public class QuienesSomosBean implements java.io.Serializable {
 	private static final long serialVersionUID = -3186508458073717263L;
 	private Petinformacion petinformacion;
 	private String rutaImagenes;
-	private String rutaImagenpequeña;	
+		
 	
 	public QuienesSomosBean() {
-		petinformacion = new Petinformacion(0, new Setestado(), new Setusuario(), null, null, null, null, null, null,null, null, null, null, null);
-		consultarInformacion();
+		petinformacion = new Petinformacion(0, new Setestado(), new Setusuario(), null, null, null, null, null, null,null, null,null, null, null, null);
 		cargarRutaImagenes();
-		rutaImagenpequeña = rutaImagenes+"/informacion/01-06-2014-campofeliz.jpg";
+		consultarInformacion();
+	
+	
 	}
 	
 	private void cargarRutaImagenes(){
@@ -43,10 +44,7 @@ public class QuienesSomosBean implements java.io.Serializable {
 	private void consultarInformacion(){
 		try{
 			PetinformacionBO petinformacionBO = new PetinformacionBO();
-			petinformacion = petinformacionBO.getPetinformacionById(1);
-			petinformacion.setFotoquienessomos(petinformacion.getFotoquienessomos().trim());
-			petinformacion.setFotoantecedentes(petinformacion.getFotoantecedentes().trim());
-			
+			petinformacion = petinformacionBO.getPetinformacionById(1,1);
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showErrorMessage("Error", "Lamentamos que tenga inconvenientes");
@@ -70,16 +68,5 @@ public class QuienesSomosBean implements java.io.Serializable {
 		this.rutaImagenes = rutaImagenes;
 	}
 
-	public String getRutaImagenpequeña() {
-		return rutaImagenpequeña;
-	}
-
-	public void setRutaImagenpequeña(String rutaImagenpequeña) {
-		this.rutaImagenpequeña = rutaImagenpequeña;
-	}
-
-	
-	
-	
 	
 }

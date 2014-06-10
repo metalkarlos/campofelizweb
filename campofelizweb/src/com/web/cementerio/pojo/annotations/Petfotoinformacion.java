@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "petfotoinformacion", schema = "pets")
-public class Petfotoinformacion implements java.io.Serializable {
+public class Petfotoinformacion implements java.io.Serializable, Cloneable {
 
 	/**
 	 * 
@@ -33,6 +33,7 @@ public class Petfotoinformacion implements java.io.Serializable {
 	private String nombrearchivo;
 	private Integer perfil;
 	private Date fecharegistro;
+	private Date fechamodificacion;
 	private String iplog;
 
 	public Petfotoinformacion() {
@@ -48,7 +49,7 @@ public class Petfotoinformacion implements java.io.Serializable {
 	public Petfotoinformacion(int idfotoinformacion, Setestado setestado,
 			Petinformacion petinformacion, Setusuario setusuario,
 			String descripcion, String ruta, String nombrearchivo,
-			Integer perfil, Date fecharegistro, String iplog) {
+			Integer perfil, Date fecharegistro, Date fechamodificacion, String iplog) {
 		this.idfotoinformacion = idfotoinformacion;
 		this.setestado = setestado;
 		this.petinformacion = petinformacion;
@@ -58,6 +59,7 @@ public class Petfotoinformacion implements java.io.Serializable {
 		this.nombrearchivo = nombrearchivo;
 		this.perfil = perfil;
 		this.fecharegistro = fecharegistro;
+		this.fechamodificacion = fechamodificacion;
 		this.iplog = iplog;
 	}
 
@@ -147,6 +149,15 @@ public class Petfotoinformacion implements java.io.Serializable {
 		this.fecharegistro = fecharegistro;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fechamodificacion", nullable = false, length = 29)
+	public Date getFechamodificacion() {
+		return this.fechamodificacion;
+	}
+
+	public void setFechamodificacion(Date fechamodificacion) {
+		this.fechamodificacion = fechamodificacion;
+	}
 	@Column(name = "iplog", length = 20)
 	public String getIplog() {
 		return this.iplog;
@@ -156,4 +167,56 @@ public class Petfotoinformacion implements java.io.Serializable {
 		this.iplog = iplog;
 	}
 
+	@Override
+	protected Object clone() throws CloneNotSupportedException{
+	  Petfotoinformacion petfotoinformacion = (Petfotoinformacion) super.clone();
+	  return petfotoinformacion;
+	}
+	
+	public Petfotoinformacion clonar() throws Exception{
+		return (Petfotoinformacion)this.clone();
+	}
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result
+				+ ((nombrearchivo == null) ? 0 : nombrearchivo.hashCode());
+		result = prime * result + ((ruta == null) ? 0 : ruta.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Petfotoinformacion other = (Petfotoinformacion) obj;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (nombrearchivo == null) {
+			if (other.nombrearchivo != null)
+				return false;
+		} else if (!nombrearchivo.equals(other.nombrearchivo))
+			return false;
+		if (ruta == null) {
+			if (other.ruta != null)
+				return false;
+		} else if (!ruta.equals(other.ruta))
+			return false;
+		return true;
+	}
+
+	
+	
 }

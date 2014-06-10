@@ -9,7 +9,7 @@
 	xmlns:my="http://java.sun.com/jsf/composite/components/buttons">
 	
 	<ui:define name="head">
-		<title>Administración - Empresas</title>
+		<title>Administración - Contáctenos</title>
 		<style type="text/css">
 			.inner-content {
 				padding: 30px 0;
@@ -39,18 +39,18 @@
 	<div  class="content-page">
 	 <h:form id="form-contentpage" enctype="multipart/form-data">
         <p:growl id="mensajes" showDetail="true"  />
-        <h1 class="title ui-widget-header">Administración - Empresas</h1>
+        <h1 class="title ui-widget-header">Administración - Contáctenos</h1>
         <div class="inner-content">
 		     <p:panelGrid id="idgridcontenido" >	
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Código" for="idempresa" /><br />
+		            <h:outputLabel value="Código" for="idempresa" /><br/><br/>
 		            <h:outputText  id="idempresa" value="#{empresaAdminBean.petempresa.idempresa}" style="width: 100px;" />
 		          </p:column>
 		        </p:row>
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Tipo" for="listipo" /><br />
+		            <h:outputLabel value="Tipo" for="listipo"/><br/><br/>
 		            <p:selectOneMenu id="listipo" style="width: 165px; align: center;" value="#{empresaAdminBean.petempresa.tipoempresa}" >
 					    <f:selectItem itemLabel="Seleccione" itemValue="0"/>
 						<f:selectItem itemLabel="Matriz" itemValue="1"/>
@@ -60,43 +60,43 @@
 		        </p:row>
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Nombre" for="nombre" /><br />
+		            <h:outputLabel value="Nombre" for="nombre" /><br/><br/>
 		            <p:inputText id="nombre" maxlength="200" value="#{empresaAdminBean.petempresa.nombre}" style="width: 300px;" />
 		          </p:column>
 		        </p:row>
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Dirección" for="direccion" /><br />
+		            <h:outputLabel value="Dirección" for="direccion" /><br/><br/>
 		            <p:inputTextarea id="direccion" maxlength="500"  required="true" requiredMessage="Ingresar Dirección"  autoResize="true" style="width: 610px; height:85px;" value="#{empresaAdminBean.petempresa.direccion}"  />
 		          </p:column>
 		        </p:row>
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Horario de Atención" for="descripcion" /><br />
+		            <h:outputLabel value="Horario de Atención" for="descripcion" /><br/><br/>
 		            <p:inputTextarea id="descripcion" maxlength="500"  autoResize="true" style="width: 610px; height:105px;"  value="#{empresaAdminBean.petempresa.descripcion}"  />
 		          </p:column>
 		        </p:row>
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Teléfono" for="telefono" /><br />
+		            <h:outputLabel value="Teléfono" for="telefono" /><br/><br/>
 		            <p:inputText id="telefono" maxlength="40" value="#{empresaAdminBean.petempresa.telefono}" style="width: 300px;" />
 		          </p:column>
 		        </p:row>
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Celular" for="celular" /><br />
+		            <h:outputLabel value="Celular" for="celular" /><br/><br/>
 		            <p:inputText id="celular" maxlength="40" value="#{empresaAdminBean.petempresa.celular}" style="width: 300px;" />
 		          </p:column>
 		        </p:row>
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		             <h:outputLabel value="Página web" for="paginaweb" /><br />
+		             <h:outputLabel value="Página web" for="paginaweb" /><br/><br/>
 		             <p:inputText id="paginaweb" maxlength="200" value="#{empresaAdminBean.petempresa.paginaweb}" style="width: 610px;" />
 		          </p:column>
 		        </p:row>
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
-		              <h:outputLabel value="Correo electrónico" for="email" /><br />
+		              <h:outputLabel value="Correo electrónico" for="email" /><br/><br/>
 		              <p:inputText id="email" maxlength="100" value="#{empresaAdminBean.petempresa.email}" style="width: 610px;"  
 		                          validatorMessage="Formato de Correo Electrónico incorrecto">
 					 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]|^$" />
@@ -108,8 +108,8 @@
 		</div>     
         <div class="area-botones">
 			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
-			renderedButtonEliminar="#{empresaAdminBean.idempresa > 0}" onclickButtonEliminar="vardialogdeleteempresa.show()" 
-			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('../pages/empresas.jsf');" 
+			renderedButtonEliminar="false" 
+			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('empresas.jsf');" 
 			renderedButtonNewItem="false" />
 		</div>
 		

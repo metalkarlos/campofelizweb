@@ -1,22 +1,20 @@
 package com.web.cementerio.bean;
 
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 
-import com.web.util.FacesUtil;
-import com.web.util.MessageUtil;
 import com.web.cementerio.bo.PetempresaBO;
 import com.web.cementerio.pojo.annotations.Petempresa;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
+import com.web.util.FacesUtil;
+import com.web.util.MessageUtil;
 
 @ManagedBean
 @ViewScoped

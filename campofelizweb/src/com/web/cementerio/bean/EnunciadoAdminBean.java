@@ -68,9 +68,10 @@ public class EnunciadoAdminBean implements Serializable {
 		
 	}
 	
-	public void grabar(){
+	public String  grabar(){
 		PetenunciadoBO petenunciadoBO = new PetenunciadoBO();
 		List<Petenunciado> listpetenunciado = new ArrayList<Petenunciado>();
+		String paginaRetorno = null;
 		try {
 			if(validarcampos()){
 				if(idenunciado ==0){
@@ -78,7 +79,7 @@ public class EnunciadoAdminBean implements Serializable {
 				   petenunciadorespuesta.setOrden(petenunciadopregunta.getOrden());
 				   listpetenunciado.add(1,petenunciadorespuesta);
 				   petenunciadoBO.grabar(listpetenunciado, 1);	
-				   new MessageUtil().showInfoMessage("Exito", "Información registrada");
+				   //new MessageUtil().showInfoMessage("Exito", "Información registrada");
 				   
 				}else if(idenunciado >0){
 				  for(Petenunciado petenunciadoclone: listpetenunciadoclone){
@@ -98,18 +99,21 @@ public class EnunciadoAdminBean implements Serializable {
 					  }
 					  indice++;
 					}
-					
-				   petenunciadoBO.modificar(listpetenunciado, 1);	
-				   listpetenunciadoclone = new ArrayList<Petenunciado>();
-				   new MessageUtil().showInfoMessage("Exito", "Información modificada");
+				   if((listpetenunciado.size()>0) && (!listpetenunciado.isEmpty())){	
+					   if (petenunciadoBO.modificar(listpetenunciado, 1)){
+						  listpetenunciadoclone = new ArrayList<Petenunciado>();	  
+					   }
+				   }
 				}
 				petenunciadopregunta = new Petenunciado(0, new Setestado(),new Setusuario(), 'P', null, 0, 0,null, null,null, null);
 				petenunciadorespuesta = new Petenunciado(0, new Setestado(),new Setusuario(), 'R', null, 0,0, null, null,null, null);
+				paginaRetorno="../pages/preguntas?faces-redirect=true";	   	 
 			}	
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
+		return paginaRetorno;
 	}
 	
 	public String eliminar(){

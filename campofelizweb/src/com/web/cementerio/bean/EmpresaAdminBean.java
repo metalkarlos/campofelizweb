@@ -68,12 +68,12 @@ public class EmpresaAdminBean implements Serializable {
 					petempresaBO.grabar(petempresa, 1);
 					petempresa = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
 					//new MessageUtil().showInfoMessage("Exito", "Información registrada");
-					paginaRetorno="/pages/empresas?faces-redirect=true"; 
+					paginaRetorno="empresas?faces-redirect=true"; 
 				}else if(petempresa.getIdempresa() >0){
 					if(petempresaBO.modificar(petempresa, petempresaclone, 1)){
 						petempresa = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
 						petempresaclone = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
-						paginaRetorno="/pages/empresas?faces-redirect=true"; 
+						paginaRetorno="empresas?faces-redirect=true"; 
 						//new MessageUtil().showInfoMessage("Exito", "Información modificada");
 						
 					}

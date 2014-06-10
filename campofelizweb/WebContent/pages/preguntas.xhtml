@@ -38,7 +38,7 @@
                 font-weight: bold;
 				margin-bottom: 5px;
 				color: #66AD23;
-				border-bottom: 1px dotted; 
+				
             }
             .ui-datatable .ui-datatable-data td div.ui-dt-c{
             	padding: 4px 25px;
@@ -71,9 +71,17 @@
 			.pregunta, .icon-pregunta {
 				padding-top: 10px;
 				
+				
 			}
 			.inner-content{
 			   text-align: justify;
+			}
+			.link2{
+			  margin-bottom: 15px;
+			}
+			.iconimagen{
+			  width: 18px;
+			  height: 18px;
 			}
         </style>
 		
@@ -107,12 +115,13 @@
    	            </h:link>
    	            </p:outputPanel>
    	            
-			  	<h:graphicImage styleClass="icon-pregunta" library="images" alt="#{enunciado.descripcion}" name="huella.png" rendered="#{enunciado.idpadre == 0}"  />
+			  	<h:graphicImage styleClass="icon-pregunta iconimagen" library="images" alt="#{enunciado.descripcion}" name="huella.png" rendered="#{enunciado.idpadre == 0}"  />
 				<p:commandLink   onclick="mostrarOcultar(this)" styleClass="pregunta" value="#{enunciado.descripcion}" rendered="#{enunciado.idpadre == 0}"  ></p:commandLink>
 			 	<h:outputText  styleClass="respuesta" value="#{enunciado.descripcion}"  rendered="#{enunciado.idpadre > 0}" escape="false"/>
 	      </ui:repeat>
+	      <br/>
 	      </div>
-			</div>
+		 </div>
 	</h:form>
    </div>
    </ui:define>
