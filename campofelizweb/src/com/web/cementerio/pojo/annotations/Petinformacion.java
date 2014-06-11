@@ -34,9 +34,6 @@ public class Petinformacion implements java.io.Serializable, Cloneable {
 	private String mision;
 	private String vision;
 	private String antecendentes;
-	private String rutafoto;
-	private String fotoquienessomos;
-	private String fotoantecedentes;
 	private Date fecharegistro;
 	private Date fechamodificacion;
 	private String iplog;
@@ -65,14 +62,11 @@ public class Petinformacion implements java.io.Serializable, Cloneable {
 		this.mision = mision;
 		this.vision = vision;
 		this.antecendentes = antecendentes;
-		this.rutafoto = rutafoto;
 		this.fecharegistro = fecharegistro;
 		this.fechamodificacion = fechamodificacion;
 		this.iplog = iplog;
 		this.tag = tag;
-		this.petfotoinformaciones = petfotoinformaciones;
-		this.fotoantecedentes = fotoantecedentes;
-		this.fotoquienessomos = fotoquienessomos;
+		this.petfotoinformaciones = petfotoinformaciones;		
 	}
 
 	@Id
@@ -114,15 +108,6 @@ public class Petinformacion implements java.io.Serializable, Cloneable {
 		this.quienessomos = quienessomos;
 	}
 	
-	@Column(name = "fotoquienessomos",nullable = false, length = 100)
-	public String getFotoquienessomos(){
-		return this.fotoquienessomos;
-	}
-	
-    public void setFotoquienessomos(String fotoquienessomos){
-    	this.fotoquienessomos = fotoquienessomos;
-    }
-	
 	@Column(name = "mision", length = 2000)
 	public String getMision() {
 		return this.mision;
@@ -151,25 +136,6 @@ public class Petinformacion implements java.io.Serializable, Cloneable {
 		this.antecendentes = antecendentes;
 	}
 
-	@Column(name = "rutafoto", length = 100)
-	public String getRutafoto() {
-		return this.rutafoto;
-	}
-
-	public void setRutafoto(String rutafoto) {
-		this.rutafoto = rutafoto;
-	}
-	
-	@Column (name = "fotoantecedentes",length = 100)
-	public String getFotoantecedentes(){
-		return this.fotoantecedentes;
-	}
-	
-	public void setFotoantecedentes(String fotoantecedentes){
-		this.fotoantecedentes = fotoantecedentes;
-	}
-	
-	
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecharegistro", nullable = false, length = 29)

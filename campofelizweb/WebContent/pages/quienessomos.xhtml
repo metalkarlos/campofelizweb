@@ -14,6 +14,13 @@
 			.box_title  { 
 				height: 60px;
 			}
+			.imagengalleria{
+			   height: 280px; 
+			   padding-top: 0px; 
+			   width:500px; 
+			   border-radius: 10px;
+			   margin-left: 60px;
+			}
 		</style>
 	</ui:define>
 
@@ -36,12 +43,12 @@
 				<div>
 				 <p:row>
 				 <p:column>
-				    <p:galleria id="idgalleria" value="#{quienesSomosBean.petinformacion.petfotoinformaciones}" var="item" panelWidth="500" panelHeight="320" rendered="#{quienesSomosBean.petinformacion.petfotoinformaciones.size() > 0}">
-				       <p:graphicImage  id="idfotos" value="#{quienesSomosBean.rutaImagenes}#{item.ruta}" style="max-height: 58px;"   />
+				    <p:galleria id="idgalleria" value="#{quienesSomosBean.petinformacion.petfotoinformaciones}" var="item" panelWidth="600" panelHeight="330" rendered="#{quienesSomosBean.petinformacion.petfotoinformaciones.size() > 0}">
+				       <p:graphicImage  id="idfotos" value="#{quienesSomosBean.rutaImagenes}#{item.ruta}" style="max-height: 58px;"/>
 				       <p:galleriaContent>  
-				        <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB; height: 100%; width: 100%;">  
+				        <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB; height: 300px; width: 600px; ">  
 				        <f:facet name="header">
-				       	<p:graphicImage  id="idfoto" value="#{quienesSomosBean.rutaImagenes}#{item.ruta}" style="max-height: 300px; padding-top: 10px; padding-left:20px;"/>
+				       	<p:graphicImage  id="idfoto" value="#{quienesSomosBean.rutaImagenes}#{item.ruta}" styleClass="imagengalleria"/>
 				        </f:facet>
 				        </h:panelGrid>
 				 	</p:galleriaContent>

@@ -119,16 +119,30 @@ public class QuienesSomosAdminBean implements Serializable {
 	
 	public boolean validarcampos(){
 		boolean ok = true;
-		if(petinformacion.getQuienessomos()==null|| petinformacion.getQuienessomos().length()==0){
-			ok = false;
+		String textoquienessomos= (petinformacion.getQuienessomos()!=null ? petinformacion.getQuienessomos().replaceAll("\\<.*?\\>", "") : "" );
+		String textomision= (petinformacion.getMision()!=null ? petinformacion.getMision().replaceAll("\\<.*?\\>", "") : "" );
+		String textovision= (petinformacion.getVision()!=null ? petinformacion.getVision().replaceAll("\\<.*?\\>", "") : "" );
+		if(textoquienessomos.equals("")){
+		    ok = false;
 			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contenido de Quienes Somos");
-		}else if(petinformacion.getMision()==null|| petinformacion.getMision().length()==0){
+		}else if(textomision.equals("")){
 			ok = false;
 			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contenido de Misión");
 			
-		}else if(petinformacion.getVision()==null|| petinformacion.getVision().length()==0){
+		}else if(textovision.equals("")){
 			ok = false;
 			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contenido de Visión");
+		}else if(Integer.valueOf(textoquienessomos.length())>2000){
+			ok = false;
+			new MessageUtil().showInfoMessage("Info", "Contenido de Quienes Somos ha sobrepasado el límite de 2000 caracteres");
+		}
+		else if(Integer.valueOf(textomision.length())>2000){
+			ok = false;
+			new MessageUtil().showInfoMessage("Info", "Contenido de Misión ha sobrepasado el límite de 2000 caracteres");
+		}
+		else if(Integer.valueOf(textovision.length())>2000){
+			ok = false;
+			new MessageUtil().showInfoMessage("Info", "Contenido de Visión Somos ha sobrepasado el límite de 2000 caracteres");
 		}
 		return ok;
 	}	
@@ -188,13 +202,8 @@ public class QuienesSomosAdminBean implements Serializable {
 	
 	public void quitarFoto(){
 		if (petfotoinformacionselected !=null){
-			if (!petfotoinformacionselected.getRuta().equals(petinformacion.getRutafoto())){
-				petinformacion.getPetfotoinformaciones().remove(petfotoinformacionselected);
-				new MessageUtil().showInfoMessage("Info", "Foto: "+petfotoinformacionselected.getNombrearchivo()+" ha sido eliminada de la galería");	
-			}
-			else {
-				new MessageUtil().showInfoMessage("Info", "No se puede eliminar foto que ha sido seleccionada como foto de perfil, cambie de foto de perfil y vuelva a intentarlo");
-			}
+			petinformacion.getPetfotoinformaciones().remove(petfotoinformacionselected);
+			new MessageUtil().showInfoMessage("Info", "Foto: "+petfotoinformacionselected.getNombrearchivo()+" ha sido eliminada de la galería");	
 			petfotoinformacionselected= new Petfotoinformacion();
 		}
 		
