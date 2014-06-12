@@ -352,7 +352,7 @@ header{
 	position:relative;
 	z-index:2;	
 }
-body header {background:url(../resources/images/header-bg.png) center 0 no-repeat;background-position-y: 150px;}
+body header {background:url(../resources/images/header-bg.png) center 0 no-repeat;background-position-y: 70px;}
 	header .innerheader {
 		width:950px;
 		margin:0 auto;
