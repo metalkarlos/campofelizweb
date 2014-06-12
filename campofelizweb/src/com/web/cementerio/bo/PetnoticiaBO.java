@@ -142,6 +142,10 @@ public class PetnoticiaBO {
 			//Si subio foto se crea en disco y en base
 			if(uploadedFile != null){
 				creaFotoDiscoBD(petnoticia, petfotonoticia, uploadedFile, session);
+				//se setea la ruta de la foto tambien en petnoticia.rutafoto
+				petnoticia.setRutafoto(petfotonoticia.getRuta());
+				//update
+				petnoticiaDAO.updatePetnoticia(session, petnoticia);
 			}
 			
 			session.getTransaction().commit();

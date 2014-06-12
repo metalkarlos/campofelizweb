@@ -140,6 +140,10 @@ public class PetservicioBO {
 			//Si subio foto se crea en disco y en base
 			if(uploadedFile != null){
 				creaFotoDiscoBD(petservicio, petfotoservicio, uploadedFile, session);
+				//se setea la ruta de la foto tambien en petnoticia.rutafoto
+				petservicio.setRutafoto(petfotoservicio.getRuta());
+				//update
+				petservicioDAO.updatePetservicio(session, petservicio);
 			}
 			
 			session.getTransaction().commit();
