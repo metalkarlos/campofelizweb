@@ -46,9 +46,8 @@ public class FacesUtil {
 		return facesContext;
 	}
 
-	public void redirect(String view) throws Exception{
-		if(view != null){
-			String url = getFacesContext().getExternalContext().getRequestContextPath()+"/pages"+"/"+view;
+	public void redirect(String url) throws Exception{
+		if(url != null){
 			getFacesContext().getExternalContext().redirect(url);
 		}
 	}
