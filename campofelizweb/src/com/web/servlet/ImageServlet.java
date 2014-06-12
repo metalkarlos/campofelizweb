@@ -54,23 +54,27 @@ public class ImageServlet extends HttpServlet {
         // Get requested image by path info.
         String requestedImage = request.getPathInfo();
 
+        File image = null;
+        
         // Check if file name is actually supplied to the request URI.
         if (requestedImage == null) {
             // Do your thing if the image is not supplied to the request URI.
             // Throw an exception, or send 404, or show default/warning image, or just ignore it.
-            response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404.
-            return;
+            //response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404.
+            //return;
+        	image = new File(getServletContext().getRealPath("/resources/images/huella.jpg"));
+        }else{
+	        // Decode the file name (might contain spaces and on) and prepare file object.
+	        image = new File(imagePath, URLDecoder.decode(requestedImage, "UTF-8"));
         }
-
-        // Decode the file name (might contain spaces and on) and prepare file object.
-        File image = new File(imagePath, URLDecoder.decode(requestedImage, "UTF-8"));
 
         // Check if file actually exists in filesystem.
         if (!image.exists()) {
             // Do your thing if the file appears to be non-existing.
             // Throw an exception, or send 404, or show default/warning image, or just ignore it.
-            response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404.
-            return;
+            //response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404.
+            //return;
+        	image = new File(getServletContext().getRealPath("/resources/images/huella.jpg"));
         }
 
         // Get content type by filename.
