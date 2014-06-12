@@ -146,6 +146,8 @@ public class NoticiaAdminBean implements Serializable {
 			
 			if(idnoticia == 0){
 				ok = petnoticiaBO.ingresar(petnoticia, petfotonoticia, uploadedFile);
+				FacesUtil facesUtil = new FacesUtil();
+				facesUtil.redirect("../pages/noticias.jsf");
 			}else{
 				ok = petnoticiaBO.modificar(petnoticia, petnoticiaClon, lisPetfotonoticia, lisPetfotonoticiaClon, petfotonoticia, uploadedFile);
 			}
