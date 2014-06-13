@@ -1,8 +1,6 @@
 package com.web.cementerio.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -27,7 +25,7 @@ public class MascotaHomenajeBean implements Serializable {
 	 */
 	private static final long serialVersionUID = -5791044831809774834L;
 	private Petmascotahomenaje petmascotahomenaje;
-	private List<Petfotomascota> listpetfotomascota;
+	private Petfotomascota     petfotomascota;//hacer pruebas lihgt box
 	private int idmascota;
 	private String rutaImagenes;
 	private String rutaimagenfallecimiento;
@@ -71,14 +69,7 @@ public class MascotaHomenajeBean implements Serializable {
 	public void consultarMascotaHomenaje(){
 		try {
 			PetmascotahomenajeBO mascotaHomenajeBO= new PetmascotahomenajeBO();
-			petmascotahomenaje = new Petmascotahomenaje();
-			listpetfotomascota = new ArrayList<Petfotomascota>();
 			petmascotahomenaje = mascotaHomenajeBO.getPetmascotahomenajebyId(idmascota, 1,false);
-			if(petmascotahomenaje.getPetfotomascotas().size()==0 && petmascotahomenaje.getRutafoto().equals("/mascota/huella.jpg")){
-				Petfotomascota petfotomascota = new Petfotomascota();
-				petfotomascota.setRuta(petmascotahomenaje.getRutafoto());
-				petmascotahomenaje.getPetfotomascotas().add(petfotomascota);
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
@@ -88,15 +79,13 @@ public class MascotaHomenajeBean implements Serializable {
 	public void inicializarobjetos(){
 		
 		petmascotahomenaje = new Petmascotahomenaje(0, new Setestado(), new Setusuario(), new Petespecie(), null, null, null, null, null, null, null, null, null, null, null, null );
+		petfotomascota = new Petfotomascota();
 		Petespecie petespecie = new Petespecie();
 		petmascotahomenaje.setPetespecie(petespecie);
-		listpetfotomascota = new ArrayList<Petfotomascota>();
 		idmascota =0;
 		rutaImagenes = "";
 	
 	}
-	
-	
 	
 	public Petmascotahomenaje getPetmascotahomenaje() {
 		return petmascotahomenaje;
@@ -105,17 +94,6 @@ public class MascotaHomenajeBean implements Serializable {
 	public void setPetmascotahomenaje(Petmascotahomenaje petmascotahomenaje) {
 		this.petmascotahomenaje = petmascotahomenaje;
 	}
-
-
-	public List<Petfotomascota> getListpetfotomascota() {
-		return listpetfotomascota;
-	}
-
-
-	public void setListpetfotomascota(List<Petfotomascota> listpetfotomascota) {
-		this.listpetfotomascota = listpetfotomascota;
-	}
-
 
 
 	public int getIdmascota() {
@@ -142,6 +120,14 @@ public class MascotaHomenajeBean implements Serializable {
 
 	public void setRutaimagenfallecimiento(String rutaimagenfallecimiento) {
 		this.rutaimagenfallecimiento = rutaimagenfallecimiento;
+	}
+
+	public Petfotomascota getPetfotomascota() {
+		return petfotomascota;
+	}
+
+	public void setPetfotomascota(Petfotomascota petfotomascota) {
+		this.petfotomascota = petfotomascota;
 	}
 	
 

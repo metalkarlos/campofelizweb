@@ -1,26 +1,19 @@
 	package com.web.cementerio.bean;
 
 	import java.io.Serializable;
-import java.util.ArrayList;
-
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-
-
-
-	import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
-	import com.web.cementerio.bo.PetfotomascotaBO;
 import com.web.cementerio.bo.PetmascotahomenajeBO;
-
 import com.web.cementerio.pojo.annotations.Petespecie;
 import com.web.cementerio.pojo.annotations.Petfotomascota;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
@@ -40,11 +33,8 @@ import com.web.util.MessageUtil;
 		private Petmascotahomenaje petmascotahomenaje;
 		private Petmascotahomenaje petmascotahomenajeclone;
 		private Petfotomascota     petfotomascotaselected;
-		private List<Petfotomascota> listpetfotomascota;
-		private List<Petfotomascota> listpetfotomascotaclone;
 		private StreamedContent streamedContent;
 		private UploadedFile    uploadedFile;
-		private int indice;
 		private int idmascota;
 		private String rutaImagenes;
 		private boolean fotoSubida;
@@ -72,13 +62,10 @@ import com.web.util.MessageUtil;
 		
 		public void inicializarobjetos(){
 			petmascotahomenaje = new Petmascotahomenaje(0, new Setestado(), new Setusuario(), new Petespecie(), null, null, null, null, null, null, null, null, null, null, null, null );
-			Petespecie petespecie = new Petespecie();
-			petmascotahomenaje.setPetespecie(petespecie);
+			petmascotahomenaje.setPetespecie(new Petespecie());
 			petmascotahomenaje.setFechapublicacion(new Date());
 			petfotomascotaselected = new Petfotomascota(0,new Setestado(),new Petmascotahomenaje(),new Setusuario(),null,null,null,0,null,null,null);
-			listpetfotomascota = new ArrayList<Petfotomascota>();
 			rutaImagenes ="";
-			indice =0;
 			idmascota =0;
 			fotoSubida=false;
 			streamedContent = null;
@@ -94,43 +81,35 @@ import com.web.util.MessageUtil;
 			}
 		}
 		
-		public String  grabar() {
-			String paginaRetorno = null;
+		public void  grabar() {
 			try {
-				boolean ok = false;
 				if(validarcampos()){
 					
 					PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
 					
 					if(petmascotahomenaje.getIdmascota()==0){
-						ok = petmascotahomenajeBO.ingresarPetmascotahomenajeBO(petmascotahomenaje, 1,uploadedFile);
-						inicializarobjetos();
-						
+						petmascotahomenajeBO.ingresarPetmascotahomenajeBO(petmascotahomenaje, 1,uploadedFile);
 				    }else if(petmascotahomenaje.getIdmascota()>0){
 					  //objeto petmascotahomenaje se ha modificado
-					  ok = petmascotahomenajeBO.modificarPetmascotahomenajeBO(petmascotahomenaje,petmascotahomenajeclone,uploadedFile,listpetfotomascota,listpetfotomascotaclone,2);
-						 inicializarobjetos();
+					  petmascotahomenajeBO.modificarPetmascotahomenajeBO(petmascotahomenaje,petmascotahomenajeclone,uploadedFile,2);
+						 
 				  }
-				  if(ok){
-					  paginaRetorno="/pages/mascotashomenaje?faces-redirect=true"; 
-					//new MessageUtil().showInfoMessage("Listo!", "Datos grabados con Exito!");
-				  }else{
-					  paginaRetorno="/pages/mascotashomenaje?faces-redirect=true"; 
-					//new MessageUtil().showInfoMessage("Aviso", "No existen cambios que guardar");
-				  }
+					inicializarobjetos();
+					FacesUtil facesUtil = new FacesUtil();
+					facesUtil.redirect("../pages/mascotashomenaje.jsf");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 			}
-			return paginaRetorno;
+			
 		}
 		
 		
 		public void handleFileUpload(FileUploadEvent event) {
 			try{
 				
-				if (event.getFile().getSize() < 100000){
+				if (event.getFile().getSize() < 10000){
 					uploadedFile = event.getFile();
 					streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
 					
@@ -168,7 +147,7 @@ import com.web.util.MessageUtil;
 		public void quitarFoto(){
 			if (petfotomascotaselected !=null){
 				if (!petfotomascotaselected.getRuta().equals(petmascotahomenaje.getRutafoto())){
-					listpetfotomascota.remove(petfotomascotaselected);
+					petmascotahomenaje.getPetfotomascotas().remove(petfotomascotaselected);
 					new MessageUtil().showInfoMessage("Info", "Foto: "+petfotomascotaselected.getNombrearchivo()+" ha sido eliminada de la galería");	
 				}
 				else {
@@ -237,12 +216,7 @@ import com.web.util.MessageUtil;
 		public void consultar(){
 			try {
 				PetmascotahomenajeBO mascotaHomenajeBO= new PetmascotahomenajeBO();
-				petmascotahomenaje = new Petmascotahomenaje();
 				petmascotahomenaje = mascotaHomenajeBO.getPetmascotahomenajebyId(idmascota, 1,true);
-				
-				listpetfotomascota = new ArrayList<Petfotomascota>();
-				PetfotomascotaBO petfotomascotaBO = new PetfotomascotaBO();
-				listpetfotomascota = petfotomascotaBO.getListpetfotomascota(this.idmascota, 1);
 				
 			} catch (Exception e) {
 		      e.printStackTrace();
@@ -254,13 +228,12 @@ import com.web.util.MessageUtil;
 		
 		public void clonarobjetos(){
 			try {
-				listpetfotomascotaclone = new ArrayList<Petfotomascota>();
 				petmascotahomenajeclone = petmascotahomenaje.clonar();
-				indice =0;
-				if(!listpetfotomascota.isEmpty()){
-					for(Petfotomascota petfotomascota:listpetfotomascota){
-						listpetfotomascotaclone.add(petfotomascota.clonar());
-						indice++;
+				petmascotahomenajeclone.setPetfotomascotas( new HashSet<Petfotomascota>(0) );
+				if((!petmascotahomenaje.getPetfotomascotas().isEmpty()) && (petmascotahomenaje.getPetfotomascotas().size()>0)){
+					for(Petfotomascota petfotomascota:petmascotahomenaje.getPetfotomascotas()){
+						petmascotahomenajeclone.getPetfotomascotas().add(petfotomascota);
+						
 					}
 				}
 				
@@ -277,10 +250,8 @@ import com.web.util.MessageUtil;
 			
 			try{
 				PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
-				
-				petmascotahomenajeBO.eliminarBO(petmascotahomenaje, listpetfotomascotaclone, 2);
-				//new MessageUtil().showInfoMessage("Exito", "Mascota eliminada");
-				//inicializarobjetos();
+				petmascotahomenajeBO.eliminarPetmascotahomenajeBO(petmascotahomenaje, petmascotahomenaje.getPetfotomascotas(), 2);
+				inicializarobjetos();
 				paginaRetorno = "/pages/mascotashomenaje?faces-redirect=true";
 				
 			}catch(Exception e){
@@ -302,16 +273,6 @@ import com.web.util.MessageUtil;
 		}
 
 
-		public List<Petfotomascota> getListpetfotomascota() {
-			return listpetfotomascota;
-		}
-
-
-		public void setListpetfotomascota(List<Petfotomascota> listpetfotomascota) {
-			this.listpetfotomascota = listpetfotomascota;
-		}
-
-
 		public Petfotomascota getPetfotomascotaselected() {
 			return petfotomascotaselected;
 		}
@@ -319,16 +280,6 @@ import com.web.util.MessageUtil;
 
 		public void setPetfotomascotaselected(Petfotomascota petfotomascotaselected) {
 			this.petfotomascotaselected = petfotomascotaselected;
-		}
-
-		
-		public int getIndice() {
-			return indice;
-		}
-
-
-		public void setIndice(int indice) {
-			this.indice = indice;
 		}
 
 		
@@ -341,18 +292,6 @@ import com.web.util.MessageUtil;
 				Petmascotahomenaje petmascotahomenajeclone) {
 			this.petmascotahomenajeclone = petmascotahomenajeclone;
 		}
-
-
-		public List<Petfotomascota> getListpetfotomascotaclone() {
-			return listpetfotomascotaclone;
-		}
-
-
-		public void setListpetfotomascotaclone(
-				List<Petfotomascota> listpetfotomascotaclone) {
-			this.listpetfotomascotaclone = listpetfotomascotaclone;
-		}
-
 
 		public int getIdmascota() {
 			return idmascota;
