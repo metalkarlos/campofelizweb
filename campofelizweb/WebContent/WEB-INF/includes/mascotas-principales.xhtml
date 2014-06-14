@@ -13,13 +13,13 @@
     </style>
 
 	<h:form id="form-mascotaspage">
-	     <div align="center">
-			 <p:imageSwitch  effect="shuffle"  speed="350">
+	    <div align="center">
+			 <p:imageSwitch  effect="scrollLeft"  speed="1000">
 				<ui:repeat value="#{mascotasPrincipalBean.lisPetmascotahomenaje}" var="imagen" >
 			        <p:graphicImage value="#{mascotasPrincipalBean.rutaImagenes}#{imagen.rutafoto}" width="255px" height="255px"/>
 			    </ui:repeat>
 			</p:imageSwitch>
-	    </div>	
+	    </div>
 	</h:form>
 	
 </ui:composition>	
