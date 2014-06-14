@@ -116,7 +116,7 @@
    	            </p:outputPanel>
    	            
 			  	<h:graphicImage styleClass="icon-pregunta iconimagen" library="images" alt="#{enunciado.descripcion}" name="huella.png" rendered="#{enunciado.idpadre == 0}"  />
-				<p:commandLink   onclick="mostrarOcultar(this)" styleClass="pregunta" value="#{enunciado.descripcion}" rendered="#{enunciado.idpadre == 0}"  ></p:commandLink>
+				<p:commandLink   onclick="mostrarOcultar(this)" styleClass="pregunta" value="#{enunciado.orden}  #{enunciado.descripcion}" rendered="#{enunciado.idpadre == 0}"  ></p:commandLink>
 			 	<h:outputText  styleClass="respuesta" value="#{enunciado.descripcion}"  rendered="#{enunciado.idpadre > 0}" escape="false"/>
 	      </ui:repeat>
 	      <br/>

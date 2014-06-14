@@ -42,12 +42,6 @@
 			  width: 370px;
 			  height:355px;
 			}  
-			.panelimagen{
-			   background-color: #eaeaea;
-			   height: 100%; 
-			   width: 100%; 
-			} 
-			
 			.inner-content .imagen{
 			   height: 170px;
 			   width: 110px;
@@ -82,20 +76,7 @@
 				<p:row>
 					<p:column styleClass="centrar">
 				
-				    <!-- 
-					<p:lightBox styleClass="imagebox" height="320px">
-					  <ui:repeat var="imagen" value= "#{mascotaHomenajeAdminBean.listpetfotomascota}">
-					     <h:outputLink value="/campofelizweb#{mascotaHomenajeAdminBean.rutaImagenes}#{imagen.ruta}" title="#{imagen.descripcion}">
-					        <p:graphicImage value="#{mascotaHomenajeAdminBean.rutaImagenes}#{imagen.ruta}" styleClass="imagen"/>
-					     </h:outputLink>
-					  
-					  </ui:repeat>
-					  
-					</p:lightBox>
-					
-					 -->
-					
-					<p:galleria id="idgalleria" value="#{mascotaHomenajeAdminBean.listpetfotomascota}" var="item" panelWidth="500" panelHeight="380"  styleClass="ui-widget-content ui-corner-all">
+					<p:galleria id="idgalleria" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.petfotomascotas}" var="item" panelWidth="500" panelHeight="380"  styleClass="ui-widget-content ui-corner-all">
 				       
 				        <p:graphicImage  id="idfotos" value="#{mascotaHomenajeAdminBean.rutaImagenes}#{item.ruta}"  />
 				       
@@ -141,7 +122,7 @@
 				</p:row>
 				<p:row>
 				  <p:column styleClass="alto-columna">
-				  <p:inputText id="txtNombre" maxlength="100"  value="#{mascotaHomenajeAdminBean.petmascotahomenaje.nombre}" style="width: 165px;  text-transform:uppercase;"></p:inputText>
+				  <p:inputText id="txtNombre" maxlength="100"  value="#{mascotaHomenajeAdminBean.petmascotahomenaje.nombre}" style="width: 600px;  text-transform:uppercase;"></p:inputText>
 				  </p:column>
 				</p:row>
 				
@@ -199,7 +180,7 @@
 				</p:row>
 				<p:row>
 				  <p:column styleClass="alto-columna">
-				   <p:inputText id="txtFamilia" maxlength="100" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.familia}" style="width: 195px;"></p:inputText>
+				   <p:inputText id="txtFamilia" maxlength="100" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.familia}" style="width: 600px; text-transform:uppercase;" ></p:inputText>
 				  </p:column>
 				</p:row>
 				
@@ -210,7 +191,7 @@
 				</p:row>
 				<p:row>
 				  <p:column styleClass="alto-columna">
-				   <p:inputTextarea  id="txtDedicatoria" maxlength="1000"   autoResize="true" style="width: 610px; height:225px;" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.dedicatoria}" />
+				   <p:editor  id="txtDedicatoria" maxlength="1000"   autoResize="true"  value="#{mascotaHomenajeAdminBean.petmascotahomenaje.dedicatoria}" width="600"  controls="bold italic underline  undo redo  cut copy paste " />
 				  </p:column>
 				</p:row>
 				
@@ -219,7 +200,7 @@
 			<div class="area-botones">
 			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
 			renderedButtonEliminar="#{mascotaHomenajeAdminBean.idmascota > 0}" onclickButtonEliminar="vardialogdeletemascota.show()" 
-			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" actionButtonCancelar="/pages/mascotashomenaje" 
+			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('../pages/mascotashomenaje.jsf');" 
 			renderedButtonNewItem="false" />
 			</div>	
 			<p:dialog id="iddialogprincipal" header="Foto Principal" closable="true" widgetVar="vardialogprincipal" modal="true" style="min-height: 80px; width: 450px">
@@ -272,7 +253,7 @@
 			
 			<p:dialog id="iddialogdeletemascota"  header="Eliminar Mascota" closable="true" widgetVar="vardialogdeletemascota" modal="true" style="min-height: 80px; width: 450px">
 				<h:panelGrid id="idpaneldeletenoticia" columns="2" width="100%">
-					<h:outputText id="idlabeldeletemascota" value="Confirme si desea eliminar la mascota" />
+					<h:outputText id="idlabeldeletemascota" value="Confirme si desea eliminar el registro" />
 					<h:outputText value="" />
 					<h:outputText value="" />
 					<p:panelGrid id="idpanel2deletemascota" style="width: 100%; text-align: right;">

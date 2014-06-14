@@ -22,6 +22,8 @@
 			   padding: 1px 0px;
 			   margin: 10px 20px 20px 0px;
 			   text-align: center;
+			   letter-spacing: 0.9px;
+			   text-shadow: 1px 0px #BBB;
 			}
 			
 			.ui-panelgrid .alto-columna {
@@ -51,6 +53,7 @@
 				text-align: right;
 				font-size: 13px;
 				font-weight: bold;
+				text-shadow: 1px 0px #BBB;	
 			}
 			
 			.textocontenido{
@@ -101,7 +104,12 @@
 				        <p:galleriaContent>  
 				            <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">  
 						        <f:facet name="header">
-					            	<p:graphicImage id="idfoto" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" styleClass="imagenprincipal" />
+					                 
+					            	 <p:commandLink update=":form-contentpage:detail" oncomplete="vardialogimagenes.show()">
+				            	   	   <p:graphicImage id="idfoto" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" styleClass="imagenprincipal" />
+                                       <f:setPropertyActionListener value="#{item}" target="#{mascotaHomenajeBean.petfotomascota}" />
+			   			            </p:commandLink>
+			   			            
 						        </f:facet>
 						    </h:panelGrid>
 						</p:galleriaContent>
@@ -116,8 +124,9 @@
 			 	
 					  <p:row>
 					  	<p:column colspan="2" styleClass="alto-columna">
-					    	<p style="text-align:center;">	
-					    	   "#{mascotaHomenajeBean.petmascotahomenaje.dedicatoria}"
+					    	<p style="text-align:center;">
+					    	   <h:outputText value="#{mascotaHomenajeBean.petmascotahomenaje.dedicatoria}" escape="false" />	
+					    	   
 					    	</p>
 					  	</p:column>
 					  </p:row>
@@ -169,6 +178,27 @@
 		   
 	 		
  		 </div>
+ 		 
+ 		 <p:dialog  widgetVar="vardialogimagenes" >
+ 		  
+			<!-- <h:outputText id="detail" value="hOLA" /> -->
+			
+			<!-- 
+			<p:lightBox id="detail"  >
+			 
+					  <h:outputLink value="/campofelizweb#{mascotaHomenajeBean.rutaImagenes}#{mascotaHomenajeBean.petfotomascota.ruta}" >
+					       <p:graphicImage value="#{mascotaHomenajeBean.rutaImagenes}#{mascotaHomenajeBean.petfotomascota.ruta}"  height="250px"/>
+					   </h:outputLink>
+					  
+			 		  
+					  
+			</p:lightBox>
+				 -->
+				  <p:graphicImage id="detail"  value="#{mascotaHomenajeBean.rutaImagenes}#{mascotaHomenajeBean.petfotomascota.ruta}" style="max-height:50%"/>
+		 </p:dialog>
+ 	
+ 		 
+ 		 
 	  </h:form>
 	  </div>
 	</ui:define>

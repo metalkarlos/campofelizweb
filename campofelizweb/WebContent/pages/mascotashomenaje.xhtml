@@ -26,9 +26,17 @@
 				padding: 10px 0;
 			}
 			.ui-panel .ui-panel-title {
-			    letter-spacing: 0.7px;
+			    letter-spacing: 0.9px;
 			    font-size: 13px;
+			    text-shadow: 1px 0px #BBB;
 			}
+			.imagendatagrid{
+			   border-radius: 10px;
+               box-shadow: 1px 0px 5px #BBB;
+               height: 180px;
+               width: 170px;
+			}
+		
 		</style>
 	</ui:define>
 
@@ -61,10 +69,13 @@
 		            <table>
 		               <tr>
 		                <td>
-		                  <p:graphicImage alt="foto-homenaje póstumo" value="#{mascotasHomenajeBean.rutaImagenes}#{mascota.rutafoto}" height="150px" width="170px"/>   
+		                  <h:link  outcome="/pages/mascotahomenaje" >
+		                  <p:graphicImage alt="foto-homenaje póstumo" value="#{mascotasHomenajeBean.rutaImagenes}#{mascota.rutafoto}" styleClass="imagendatagrid"/>
+		                  <f:param name="idmascota" value="#{mascota.idmascota}"></f:param>
+		                  </h:link>   
 		  				</td>
-		  				<td>
-		  				   <h:outputText style="height:40px" value="#{fn:substring(mascota.dedicatoria, 0, 60)} [...]"/>
+		  				<td style="padding-bottom: 10px;">
+		  				   <h:outputText style="height:40px;"   value="#{fn:substring(mascota.dedicatoria, 0, 60)} [...]" escape="false"/>
 		  				   <h:link   style="float: center; padding: 10px 0 0" value="Leer Más"  outcome="/pages/mascotahomenaje" >
 						   <f:param name="idmascota" value="#{mascota.idmascota}"></f:param>
 						   </h:link>
@@ -76,6 +87,7 @@
   				</p:column>
    			 </p:dataGrid>  
           </div>
+          <br />
       </h:form>
      </div>
     </ui:define>
