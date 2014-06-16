@@ -68,10 +68,10 @@ public class EnunciadoAdminBean implements Serializable {
 		
 	}
 	
-	public String  grabar(){
+	public void  grabar(){
 		PetenunciadoBO petenunciadoBO = new PetenunciadoBO();
 		List<Petenunciado> listpetenunciado = new ArrayList<Petenunciado>();
-		String paginaRetorno = null;
+		
 		try {
 			if(validarcampos()){
 				if(idenunciado ==0){
@@ -107,16 +107,17 @@ public class EnunciadoAdminBean implements Serializable {
 				}
 				petenunciadopregunta = new Petenunciado(0, new Setestado(),new Setusuario(), 'P', null, 0, 0,null, null,null, null);
 				petenunciadorespuesta = new Petenunciado(0, new Setestado(),new Setusuario(), 'R', null, 0,0, null, null,null, null);
-				paginaRetorno="../pages/preguntas?faces-redirect=true";	   	 
+				FacesUtil facesUtil = new FacesUtil();
+				facesUtil.redirect("../pages/preguntas.jsf");	   	 
 			}	
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
-		return paginaRetorno;
+		
 	}
 	
-	public String eliminar(){
+	public void eliminar(){
 		PetenunciadoBO petenunciadoBO = new PetenunciadoBO();
 		List<Petenunciado> listpetenunciado = new ArrayList<Petenunciado>();
 		try {
@@ -124,28 +125,30 @@ public class EnunciadoAdminBean implements Serializable {
 				listpetenunciado.add(0,petenunciadopregunta);
 				listpetenunciado.add(1,petenunciadorespuesta);
 				petenunciadoBO.eliminar(listpetenunciado, 2);
-				new MessageUtil().showInfoMessage("Exito", "Registro eliminado");
 				petenunciadopregunta = new Petenunciado(0, new Setestado(),new Setusuario(), 'P', null, 0,0, null, null,null, null);
 				petenunciadorespuesta = new Petenunciado(0, new Setestado(),new Setusuario(), 'R', null, 0,0, null, null,null, null);
 				listpetenunciadoclone = new ArrayList<Petenunciado>();
+				FacesUtil facesUtil = new FacesUtil();
+				facesUtil.redirect("../pages/preguntas.jsf");	  
 			}	
-			paginaRetorno = "preguntas?faces-redirect=true";
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return paginaRetorno;
+		
 	}
 	
 	public boolean validarcampos(){
 		boolean ok = true;
+		String textorespuesta= (petenunciadorespuesta.getDescripcion()!=null ? petenunciadorespuesta.getDescripcion().replaceAll("\\<.*?\\>", "") : "" );
 	    if(petenunciadopregunta.getDescripcion()== null || petenunciadopregunta.getDescripcion().length() ==0){
 	    	ok = false;
 	    	new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contenido de la pregunta");
 	    }
-	    else if(petenunciadorespuesta.getDescripcion()== null || petenunciadorespuesta.getDescripcion().length() ==0){
-	    	ok = false;
-	    	new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contenido de la respuesta");
-	    }
+	    else if(textorespuesta.equals("")){
+		    ok = false;
+			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contenido de la respuesta");
+		}
 	    else if(petenunciadopregunta.getOrden()<=0){
 	    	ok = false;
 	    	new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el orden de presentación de la pregunta");
