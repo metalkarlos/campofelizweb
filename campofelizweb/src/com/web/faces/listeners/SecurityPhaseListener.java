@@ -26,13 +26,26 @@ public class SecurityPhaseListener implements PhaseListener {
 	
 	public void afterPhase(PhaseEvent phaseEvent) {
 		if(phaseEvent.getPhaseId() == PhaseId.RESTORE_VIEW){
+			FacesContext facesContext = phaseEvent.getFacesContext();
 			UsuarioBean usuarioBean = (UsuarioBean) new FacesUtil().getSessionBean("usuarioBean");
+			FacesUtil facesUtil = new FacesUtil();
+			
+			//limpia espacio usado por foto vista previa del upload
 			if(usuarioBean != null && usuarioBean.getStreamedContent() != null){
 				usuarioBean.setStreamedContent(null);
-				new FacesUtil().setSessionBean("usuarioBean", usuarioBean);
+				facesUtil.setSessionBean("usuarioBean", usuarioBean);
 			}
 			
-			FacesUtil facesUtil = new FacesUtil();
+			//si ingresa a login y ya esta logoneado redirecciona a home
+			boolean loginPage = facesContext.getViewRoot().getViewId().equals("/pages/adminweb.xhtml");
+			if(loginPage && usuarioBean != null && usuarioBean.isAutenticado()){
+				try{
+					facesContext.getExternalContext().redirect("home.jsf");
+					return;
+				}catch(Exception e){}
+			}
+			
+			//arma la navegacion de paginas visitadas
 			BreadCrumbBean breadCrumbBean = (BreadCrumbBean) facesUtil.getSessionBean("breadCrumbBean");
 			
 			if(breadCrumbBean == null){
@@ -40,7 +53,6 @@ public class SecurityPhaseListener implements PhaseListener {
 				facesUtil.setSessionBean("breadCrumbBean", breadCrumbBean);
 			}
 			
-			FacesContext facesContext = phaseEvent.getFacesContext();
 			HttpServletRequest request = (HttpServletRequest)facesContext.getExternalContext().getRequest();
 			String[] urlarray = request.getRequestURI().split("/");
 			int x=-1;
