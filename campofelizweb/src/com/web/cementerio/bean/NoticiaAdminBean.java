@@ -108,8 +108,6 @@ public class NoticiaAdminBean implements Serializable {
 			usuarioBean.setStreamedContent(streamedContent);
 			facesUtil.setSessionBean("usuarioBean", usuarioBean);
 			fotoSubida = true;
-			
-			new MessageUtil().showInfoMessage("Foto en memoria!", event.getFile().getFileName());
 		}catch(Exception x){
 			x.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
