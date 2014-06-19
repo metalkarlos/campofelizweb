@@ -59,31 +59,30 @@ public class EmpresaAdminBean implements Serializable {
 		}
 	}
 	
-	public String grabar(){
-		String paginaRetorno = null;
+	public void grabar(){
 		PetempresaBO petempresaBO = new PetempresaBO();
 		try {
 			if(validarcampos()){
 				if(petempresa.getIdempresa()==0){
 					petempresaBO.grabar(petempresa, 1);
 					petempresa = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
-					//new MessageUtil().showInfoMessage("Exito", "Información registrada");
-					paginaRetorno="empresas?faces-redirect=true"; 
+ 
 				}else if(petempresa.getIdempresa() >0){
 					if(petempresaBO.modificar(petempresa, petempresaclone, 1)){
 						petempresa = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
 						petempresaclone = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
-						paginaRetorno="empresas?faces-redirect=true"; 
-						//new MessageUtil().showInfoMessage("Exito", "Información modificada");
+						
 						
 					}
 				}
+				FacesUtil facesUtil = new FacesUtil();
+				facesUtil.redirect("empresas.jsf");	 
 			}	
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
-		return paginaRetorno;
+		
 	}
 	
 	
@@ -109,10 +108,15 @@ public class EmpresaAdminBean implements Serializable {
 	
 	public boolean validarcampos(){
 	   boolean ok = true;
+	   String textohorario= (petempresa.getDescripcion()!=null ? petempresa.getDescripcion().replaceAll("\\<.*?\\>", "") : "" );
 	   if(petempresa.getTipoempresa()==0){
 		   ok = false;
 		   new MessageUtil().showInfoMessage("Info", "Es necesario seleccionar el tipo de la empresa");
 	   }
+	   else  if(textohorario.equals("")){
+		    ok = false;
+			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el horario de atención");
+		}
 	   else if(petempresa.getNombre()==null|| petempresa.getNombre().length()==0){
 		   ok = false;
 		   new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el Nombre de la empresa");

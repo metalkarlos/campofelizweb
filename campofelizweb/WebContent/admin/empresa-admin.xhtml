@@ -73,7 +73,7 @@
 		        <p:row>
 		          <p:column  styleClass="alto-columna">
 		            <h:outputLabel value="Horario de Atención" for="descripcion" /><br/><br/>
-		            <p:inputTextarea id="descripcion" maxlength="500"  autoResize="true" style="width: 610px; height:105px;"  value="#{empresaAdminBean.petempresa.descripcion}"  />
+		            <p:editor id="descripcion" maxlength="500"    width="600"  value="#{empresaAdminBean.petempresa.descripcion}" controls="bold italic underline  undo redo  cut copy paste" />
 		          </p:column>
 		        </p:row>
 		        <p:row>
