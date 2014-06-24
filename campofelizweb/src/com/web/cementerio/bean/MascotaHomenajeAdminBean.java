@@ -108,8 +108,8 @@ import com.web.util.MessageUtil;
 		
 		public void handleFileUpload(FileUploadEvent event) {
 			try{
-				
-				if (event.getFile().getSize() < 10000){
+				//Tamaño imagen menor a 100KB
+				if (event.getFile().getSize() < 100000){
 					uploadedFile = event.getFile();
 					streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
 					

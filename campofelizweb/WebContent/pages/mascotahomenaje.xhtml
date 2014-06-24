@@ -73,10 +73,14 @@
 			}
 			.imagenrecordatorio{
 			  max-height: 22px;
-			  max-width: 25px;
+			  max-width: 22px;
 			  padding: 0px 5px 0px 0px;
 			}
+			
+			
 		</style>
+		
+   	
 	</ui:define>
 	
    <ui:define name="content_page">
@@ -98,84 +102,36 @@
 				  </h:link>
 	 		 </div>
 	 		 <center>
-	 		  	<div>
-	 		    <p:galleria  id="idgalleria" value="#{mascotaHomenajeBean.petmascotahomenaje.petfotomascotas}" var="item" panelWidth="500" panelHeight="380" showCaption="true" >
-				        <p:graphicImage id="idfotos" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" style="max-height: 58px" />
+	 		  	
+					 
+			
+			<p:galleria id="idgalleria" value="#{mascotaHomenajeBean.petmascotahomenaje.petfotomascotas}" var="item" panelWidth="500" panelHeight="380"  styleClass="ui-widget-content ui-corner-all">
+				       
+				        <p:graphicImage  id="idfotos" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}"  />
+				       
 				        <p:galleriaContent>  
 				            <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">  
-						        <f:facet name="header">
-					                 
-					            	 <p:commandLink update=":form-contentpage:detail" oncomplete="vardialogimagenes.show()">
-				            	   	   <p:graphicImage id="idfoto" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" styleClass="imagenprincipal" />
-                                       <f:setPropertyActionListener value="#{item}" target="#{mascotaHomenajeBean.petfotomascota}" />
-			   			            </p:commandLink>
-			   			            
-						        </f:facet>
+						        <p:lightBox styleClass="imagebox" height="320px">
+						          <h:outputLink  value="/campofelizweb#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" title="#{item.descripcion}">
+					            	<p:graphicImage styleClass="imagenprincipal" id="idfoto" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" />
+					            </h:outputLink>	
+						        </p:lightBox>
 						    </h:panelGrid>
 						</p:galleriaContent>
-				</p:galleria>
-				</div>
+			</p:galleria>
+		
+			
+					
+					
+					
+					
+				
+				
+				
 	 		 </center>
 	 		
 	 		
-	 		<center>	 
-	 		  <div style="width:380px;" >
-	 		 	<p:panelGrid id="panelgridcontenido" >
-			 	
-					  <p:row>
-					  	<p:column colspan="2" styleClass="alto-columna">
-					    	<p style="text-align:center;">
-					    	   <h:outputText value="#{mascotaHomenajeBean.petmascotahomenaje.dedicatoria}" escape="false" />	
-					    	   
-					    	</p>
-					  	</p:column>
-					  </p:row>
-				
-					 <p:row>
-					   	<p:column styleClass="alto-columna ancho" style="text-align:right;" >
-					   	   <h:outputLabel styleClass="textolabel" value="Familia:"  for="txtFamilia" />
-					    </p:column>
-					    <p:column styleClass="alto-columna">
-					   	   <h:outputText  styleClass="textocontenido" id="txtFamilia"  value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
-					    </p:column>
-					 </p:row>
-				 
-					<p:row>
-					   	<p:column styleClass="alto-columna"  style="text-align:right;">
-					   	   <h:outputLabel styleClass="textolabel" value="Fecha nacimiento:" for="calFechanacimiento" />
-					    </p:column>
-					    <p:column>
-					       <p:graphicImage id="idfotonacimiento" value="#{mascotaHomenajeBean.rutaImagenes}#{mascotaHomenajeBean.rutaimagennacimiento}" styleClass="imagenrecordatorio" />
-					       <h:outputText styleClass="textocontenido" id="calFechanacimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechanacimiento}">
-					   	   	<f:convertDateTime pattern="dd/MM/yyyy" />
-					   	   </h:outputText>
-					    </p:column>
-					 </p:row>
-				 
-				 
-					 <p:row>
-					   	<p:column styleClass="alto-columna" style="text-align:right;">
-					   	   <h:outputLabel styleClass="textolabel" value="Fecha fallecimiento:" for="calFechafallecimiento" />
-					    </p:column>
-					    <p:column>
-					       <p:graphicImage id="idfotofalecimiento" value="#{mascotaHomenajeBean.rutaImagenes}#{mascotaHomenajeBean.rutaimagenfallecimiento}" styleClass="imagenrecordatorio" />
-					   	   <h:outputText styleClass="textocontenido"  id="calFechafallecimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechafallecimiento}">
-					   	    <f:convertDateTime pattern="dd/MM/yyyy" />
-					   	   </h:outputText>
-					    </p:column>
-					 </p:row>
-				 
-				  </p:panelGrid>
-				 </div>
-			</center>
-		
-	 	
 	 		
-	 		
-	 		 <center>
-				<div class="fb-comments" data-href="https://www.facebook.com/pages/Campo-Feliz-Cementerio-de-Mascotas/257959247667793" data-numposts="5" data-colorscheme="light"></div>
-		    </center>
-		   
 	 		
  		 </div>
  		 
@@ -202,4 +158,7 @@
 	  </h:form>
 	  </div>
 	</ui:define>
+	
+	
+	
 </ui:composition>	

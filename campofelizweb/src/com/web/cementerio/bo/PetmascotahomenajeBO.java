@@ -111,8 +111,9 @@ public class PetmascotahomenajeBO {
 			petmascotahomenajeDAO.ingresarPetmascotahomenaje(session, petmascotahomenaje);
 			
 			if(uploadedFile !=null){
-			  ingresarPetfotomascota(session, idestado, petmascotahomenaje,uploadedFile);
-			  petmascotahomenajeDAO.modificarPetmascotahomenaje(session, petmascotahomenaje);
+			  if(ingresarPetfotomascota(session, idestado, petmascotahomenaje,uploadedFile)){
+			     petmascotahomenajeDAO.modificarPetmascotahomenaje(session, petmascotahomenaje);
+			   }
 			}
 			
 			session.getTransaction().commit();
@@ -145,12 +146,13 @@ public class PetmascotahomenajeBO {
 				setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
 				petmascotahomenaje.setSetusuario(setusuario);
 		
-				
 				petmascotahomenajeDAO.modificarPetmascotahomenaje(session, petmascotahomenaje);
 				ok = true;
 			}
 			if(uploadedFile !=null){
-			   ingresarPetfotomascota(session, 1, petmascotahomenaje,uploadedFile);
+			   if(ingresarPetfotomascota(session, 1,petmascotahomenaje,uploadedFile)){
+			     petmascotahomenajeDAO.modificarPetmascotahomenaje(session, petmascotahomenaje);
+			    }
 			   ok = true;
 			}
 			
@@ -173,9 +175,10 @@ public class PetmascotahomenajeBO {
 	
 	
 
-	public void ingresarPetfotomascota(Session session, int idestado, Petmascotahomenaje petmascotahomenaje,  UploadedFile uploadedFile)throws Exception{
+	public boolean ingresarPetfotomascota(Session session, int idestado,Petmascotahomenaje petmascotahomenaje,  UploadedFile uploadedFile)throws Exception{
 		PetfotomascotaDAO petfotomascotaDAO = new PetfotomascotaDAO();
 		Petfotomascota petfotomascota = new Petfotomascota();
+		 boolean rutamodificada=false;
 		try {
 			petfotomascota.setPetmascotahomenaje(petmascotahomenaje);
 			Date fecharegistro = new Date();
@@ -201,9 +204,8 @@ public class PetmascotahomenajeBO {
 			FileUtil fileUtil = new FileUtil();
 			FacesUtil facesUtil = new FacesUtil();
 			Calendar fecha = Calendar.getInstance();
-			Integer mes =0;
-			mes = fecha.get(Calendar.MONTH);
-			mes = mes+1;	
+			int mes = Integer.valueOf(fecha.get(Calendar.MONTH))+1;
+			//mes = mes+1;	
 					
 			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 			String rutaMascota =  "/mascota/" + fecha.get(Calendar.YEAR);
@@ -212,7 +214,10 @@ public class PetmascotahomenajeBO {
 			String rutaCompleta = rutaImagenes + rutaMascota;
 			//asignar ruta y nombre de archivo en objeto
 			petfotomascota.setRuta(rutaMascota+"/"+nombreArchivo);
-			petmascotahomenaje.setRutafoto(petfotomascota.getRuta());
+			if(petmascotahomenaje.getRutafoto()==null){
+			  petmascotahomenaje.setRutafoto(petfotomascota.getRuta());
+			  rutamodificada = true;
+			}
 			petfotomascota.setNombrearchivo(uploadedFile.getFileName().toLowerCase());
 			
 			petfotomascotaDAO.ingresarFotomascota(session, petfotomascota);
@@ -228,7 +233,7 @@ public class PetmascotahomenajeBO {
 			session.getTransaction().rollback();
 			throw new Exception(e);
 		}
-	
+	  return rutamodificada;
 	}
 	
 	
