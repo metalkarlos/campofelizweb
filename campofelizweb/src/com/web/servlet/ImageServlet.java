@@ -19,23 +19,16 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/ImageServlet")
 public class ImageServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-	// Constants ----------------------------------------------------------------------------------
 
-    private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
-
-    // Properties ---------------------------------------------------------------------------------
-
+	private static final long serialVersionUID = 2505646493843988772L;
+	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
     private String imagePath;
-
-    // Actions ------------------------------------------------------------------------------------
 
     public void init() throws ServletException {
 
         // Define base path somehow. You can define it as init-param of the servlet.
         try {
-			this.imagePath = getServletContext().getInitParameter("imagesDirectory");//"/Repositorio/Images";
+			this.imagePath = getServletContext().getInitParameter("imagesDirectory");
 		} catch (Exception e) {
 			throw new ServletException(e);
 		}

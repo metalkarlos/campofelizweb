@@ -11,7 +11,7 @@ public class HibernateUtil {
 		try {
             // Create the SessionFactory from [hibernate].cfg.xml
             FileUtil fileUtil = new FileUtil();
-            String resource = fileUtil.getPropertyValue("postgrescfgfile");
+            String resource = fileUtil.getPropertyValue("hibernate-config");
             //String resource = "postgresql.cfg.xml";
 			return new Configuration().configure(resource).buildSessionFactory();
 		} catch (Throwable ex) {

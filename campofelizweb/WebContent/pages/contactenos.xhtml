@@ -63,7 +63,7 @@
 	                    </div>
 	                    <div class="btns">
 	                        <a class="link" onclick="document.getElementById('form-mail').reset()">Limpiar</a>
-	                        <p:commandLink id="lnkEnviar" styleClass="link" value="Enviar" action="#{contactenosBean.enviar()}" update=":mensajes, :form-mail:txtNombres,:form-mail:txtEmail,:form-mail:idcaptcha,:form-mail:txtMensaje" ></p:commandLink>
+	                        <p:commandLink id="lnkEnviar" styleClass="link" value="Enviar" action="#{contactenosBean.enviar()}" update=":mensajes, :form-mail:txtNombres,:form-mail:txtEmail,:form-mail:idcaptcha,:form-mail:txtMensaje" oncomplete="Recaptcha.reload();"></p:commandLink>
 	                    </div>
 	                  </fieldset>
 	                </h:form>

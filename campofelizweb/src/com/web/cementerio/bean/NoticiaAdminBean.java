@@ -144,14 +144,13 @@ public class NoticiaAdminBean implements Serializable {
 			
 			if(idnoticia == 0){
 				ok = petnoticiaBO.ingresar(petnoticia, petfotonoticia, uploadedFile);
-				FacesUtil facesUtil = new FacesUtil();
-				facesUtil.redirect("../pages/noticias.jsf");
 			}else{
 				ok = petnoticiaBO.modificar(petnoticia, petnoticiaClon, lisPetfotonoticia, lisPetfotonoticiaClon, petfotonoticia, uploadedFile);
 			}
 			
 			if(ok){
-				new MessageUtil().showInfoMessage("Listo!", "Datos grabados con Exito!");
+				FacesUtil facesUtil = new FacesUtil();
+				facesUtil.redirect("../pages/noticias.jsf");
 			}else{
 				new MessageUtil().showInfoMessage("Aviso", "No existen cambios que guardar");
 			}

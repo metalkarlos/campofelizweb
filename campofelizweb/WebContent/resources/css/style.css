@@ -1,6 +1,6 @@
-@import url("/campofelizweb/resources/css/grid.css");
-@import url("/campofelizweb/resources/css/reset.css");
-@import url("/campofelizweb/resources/css/forms.css");
+@import url("../resources/css/grid.css");
+@import url("../resources/css/reset.css");
+@import url("../resources/css/forms.css");
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,400italic);
 @import url(http://fonts.googleapis.com/css?family=Felipa);
 
@@ -352,12 +352,12 @@ header{
 	position:relative;
 	z-index:2;	
 }
-body header {background:url(../resources/images/header-bg.png) center 0 no-repeat;background-position-y: 70px;}
-	header .innerheader {
-		width:950px;
-		margin:0 auto;
-		padding:0 0 10px 0;
-	}
+/*body header {background:url(../resources/images/header-bg.png) center 0 no-repeat;background-position-y: 70px;}*/
+header .innerheader {
+	width:950px;
+	margin:0 auto;
+	padding:0 0 10px 0;
+}
 .logo {
 	display:inline-block;
 	padding:0 !important;

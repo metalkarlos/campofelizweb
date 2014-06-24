@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 
 import com.web.cementerio.bo.PetservicioBO;
 import com.web.cementerio.pojo.annotations.Petservicio;
+import com.web.util.FacesUtil;
 import com.web.util.MailUtil;
 import com.web.util.MessageUtil;
 
@@ -143,6 +144,9 @@ public class CotizacionBean implements Serializable {
 				
 				//enviar respuesta al remitente
 				mailUtil.enviarMail(this.correo, "Cotización - Campo Feliz", contenido2);
+				
+				FacesUtil facesUtil = new FacesUtil();
+				facesUtil.redirect("home.jsf");
 			}catch(Exception e){
 				e.printStackTrace();
 				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");

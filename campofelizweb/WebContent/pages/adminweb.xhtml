@@ -135,8 +135,8 @@
 				<p:commandButton id="btnentrar" value="Entrar" action="#{usuarioBean.login()}" update=":form-content:mensajes" process=":form-content:txtusuario, :form-content:txtclave"></p:commandButton>
 				<p:commandLink id="idOlvidoClave" style="float: right;padding-top:7px;" styleClass="link" value="Olvidé mi clave" ></p:commandLink>
 				<p:overlayPanel id="clavePanel" for="idOlvidoClave" hideEffect="fade" widgetVar="varClavePanel">
-			        <p:captcha id="idcaptcha" label="Captcha" required="true" requiredMessage="Ingrese el código captcha en el recuadro" />
-					<p:commandLink id="lnkEnviar" styleClass="link" value="Enviar" action="#{usuarioBean.enviarOlvidoClave()}" update=":form-content:mensajes, :form-content:idcaptcha" process=":form-content:idcaptcha, @(input:not(:password))" oncomplete="varClavePanel.hide()"></p:commandLink>
+			        <p:captcha id="idcaptcha" label="Captcha" required="true" requiredMessage="Ingrese el código captcha en el recuadro" language="es" />
+					<p:commandLink id="lnkEnviar" styleClass="link" value="Enviar" action="#{usuarioBean.enviarOlvidoClave()}" update=":form-content:mensajes, :form-content:idcaptcha" process=":form-content:idcaptcha, @(input:not(:password))" oncomplete="varClavePanel.hide();Recaptcha.reload();"></p:commandLink>
 			    </p:overlayPanel>
 			</div>
 		</div>

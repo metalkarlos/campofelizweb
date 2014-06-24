@@ -9,6 +9,7 @@ import com.web.cementerio.bo.PetempresaBO;
 import com.web.cementerio.pojo.annotations.Petempresa;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
+import com.web.util.FacesUtil;
 import com.web.util.MailUtil;
 import com.web.util.MessageUtil;
 
@@ -100,6 +101,9 @@ public class ContactenosBean implements Serializable {
 			
 			//enviar respuesta al remitente
 			mailUtil.enviarMail(this.correo, "Información - Campo Feliz", contenido2);
+			
+			FacesUtil facesUtil = new FacesUtil();
+			facesUtil.redirect("home.jsf");
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");

@@ -17,6 +17,14 @@ public class FacesUtil {
 		return request.getRemoteAddr();
 	}
 	
+	public String getClientIp(){
+		String ipAddress = request.getHeader("X-FORWARDED-FOR");  
+	   if (ipAddress == null) {  
+		   ipAddress = request.getRemoteAddr();  
+	   }
+		return ipAddress;
+	}
+	
 	public String getSid(){
 		return request.getSession().getId();
 	}
@@ -91,5 +99,21 @@ public class FacesUtil {
 		
 		FacesUtil facesUtil = new FacesUtil();
 		facesUtil.redirect(value);
+	}
+	
+	public String getHostDomain(){
+		String urlCompleta = request.getRequestURL().toString();
+		String urlPagina = request.getRequestURI();
+		String urlDomain = urlCompleta.replace(urlPagina, "");
+		
+		return urlDomain;
+	}
+	
+	public String getUrlProyecto(){
+		String urlCompleta = request.getRequestURL().toString();
+		String urlPagina = request.getServletPath();
+		String urlProyecto = urlCompleta.replace(urlPagina, "");
+		
+		return urlProyecto;
 	}
 }

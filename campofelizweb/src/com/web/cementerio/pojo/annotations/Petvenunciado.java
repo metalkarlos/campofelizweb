@@ -10,7 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "petvenunciado", schema = "pets")
+@Table(name = "petvenunciado")
 public class Petvenunciado implements java.io.Serializable {
 	private static final long serialVersionUID = 3054030871709700295L; 
 

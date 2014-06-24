@@ -151,7 +151,8 @@ public class ServicioAdminBean implements Serializable {
 			}
 			
 			if(ok){
-				new MessageUtil().showInfoMessage("Listo!", "Datos grabados con Exito!");
+				FacesUtil facesUtil = new FacesUtil();
+				facesUtil.redirect("../pages/servicios.jsf");
 			}else{
 				new MessageUtil().showInfoMessage("Aviso", "No existen cambios que guardar");
 			}

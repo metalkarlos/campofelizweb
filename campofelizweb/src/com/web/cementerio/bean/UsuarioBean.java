@@ -38,7 +38,7 @@ public class UsuarioBean implements Serializable{
 	private Petempresa petempresa;
 	
 	public UsuarioBean(){
-		ip = new FacesUtil().getIp();
+		ip = new FacesUtil().getClientIp();
 		sid = new FacesUtil().getSid();
 		setUsuario = new Setusuario();
 		petempresa = new Petempresa();
@@ -163,9 +163,10 @@ public class UsuarioBean implements Serializable{
 					if(ok){
 						//enviar mail verificacion
 						MailUtil mailUtil = new MailUtil();
+						FacesUtil facesUtil = new FacesUtil();
 						
 						//formatear el contenido para el administrador de correo
-						String formulario = "http://localhost:8080/campofelizweb/pages/cambiarclave.jsf";
+						String formulario = facesUtil.getHostDomain() + "/campofelizweb/pages/cambiarclave.jsf";//"http://localhost:8080/campofelizweb/pages/cambiarclave.jsf";
 						String contenido = "";
 						contenido += "<html>";
 						contenido += "<body>";
@@ -180,7 +181,7 @@ public class UsuarioBean implements Serializable{
 						contenido += "</html>";
 						
 						//enviar al administrador de correo
-						mailUtil.enviarMail(null, "Información - Campo Feliz", contenido);
+						mailUtil.enviarMail(null, "Olvido de Clave - Campo Feliz", contenido);
 						//mostrar mensaje en pantalla se ha enviado mail
 						new MessageUtil().showInfoMessage("Se ha enviado un link de confirmación a su cuenta de correo", "");
 					}else{
