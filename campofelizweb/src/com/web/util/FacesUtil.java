@@ -76,6 +76,7 @@ public class FacesUtil {
 	}
 	
 	public Object getParametroUrl(String paramName){
+		//String param = request.getParameter(paramName);
 		Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
 		Object value = 0;
 		

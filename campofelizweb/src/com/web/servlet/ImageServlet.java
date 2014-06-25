@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,6 +47,28 @@ public class ImageServlet extends HttpServlet {
     {
         // Get requested image by path info.
         String requestedImage = request.getPathInfo();
+        
+        // Obtener parametros
+        /*Map<String,String[]> params = request.getParameterMap();
+		Object value = 0;
+		
+		if(params != null && !params.isEmpty()){
+			value = params.get("w");
+		}
+		
+		// Obtener el ancho requerido
+		int width = Integer.parseInt(value.toString());*/
+		
+		String param = request.getParameter("w");
+		int width = 0;
+		
+		if(param != null && param.trim().length() > 0){
+			try{
+				width = Integer.parseInt(param);
+			}catch(Exception e){
+				width = 0;
+			}
+		}
 
         File image = null;
         

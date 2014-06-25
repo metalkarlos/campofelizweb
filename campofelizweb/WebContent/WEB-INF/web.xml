@@ -19,8 +19,8 @@
  </context-param> -->
  <context-param>
   <param-name>imagesDirectory</param-name>
-  <!-- <param-value>/var/www/sintra_adminweb/data/repositorio</param-value> -->
-  <param-value>C:/Repositorio/Imagenes/</param-value>
+  <param-value>/var/www/sintra_adminweb/data/repositorio</param-value>
+  <!-- <param-value>C:/Repositorio/Imagenes/</param-value> -->
  </context-param>
  <context-param>
   <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
