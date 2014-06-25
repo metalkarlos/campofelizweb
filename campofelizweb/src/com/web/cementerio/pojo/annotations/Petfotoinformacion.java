@@ -31,7 +31,6 @@ public class Petfotoinformacion implements java.io.Serializable, Cloneable {
 	private String descripcion;
 	private String ruta;
 	private String nombrearchivo;
-	private Integer perfil;
 	private Date fecharegistro;
 	private Date fechamodificacion;
 	private String iplog;
@@ -57,7 +56,6 @@ public class Petfotoinformacion implements java.io.Serializable, Cloneable {
 		this.descripcion = descripcion;
 		this.ruta = ruta;
 		this.nombrearchivo = nombrearchivo;
-		this.perfil = perfil;
 		this.fecharegistro = fecharegistro;
 		this.fechamodificacion = fechamodificacion;
 		this.iplog = iplog;
@@ -128,15 +126,6 @@ public class Petfotoinformacion implements java.io.Serializable, Cloneable {
 
 	public void setNombrearchivo(String nombrearchivo) {
 		this.nombrearchivo = nombrearchivo;
-	}
-
-	@Column(name = "perfil")
-	public Integer getPerfil() {
-		return this.perfil;
-	}
-
-	public void setPerfil(Integer perfil) {
-		this.perfil = perfil;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
