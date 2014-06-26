@@ -112,8 +112,9 @@ public class ImageServlet extends HttpServlet {
 			String rutaDestino = imagePathTmp + uid.toString() + "." + ext;
 			
 			BufferedImage img = ImageIO.read(image);
-	        //BufferedImage scaledImg = Scalr.resize(img, width);//redimensiona
-			BufferedImage scaledImg = Scalr.resize(img, Scalr.Method.SPEED, Scalr.Mode.FIT_TO_WIDTH,width, 100, Scalr.OP_ANTIALIAS);
+	        BufferedImage scaledImg = Scalr.resize(img, width);
+			//BufferedImage scaledImg = Scalr.resize(img, Scalr.Method.SPEED, Scalr.Mode.FIT_TO_WIDTH,width, 100, Scalr.OP_ANTIALIAS);
+			//BufferedImage scaledImg = Scalr.resize(img, Mode.AUTOMATIC, width, 480);
 	        File destFile = new File(rutaDestino);
 	        ImageIO.write(scaledImg, ext, destFile);
 	        
