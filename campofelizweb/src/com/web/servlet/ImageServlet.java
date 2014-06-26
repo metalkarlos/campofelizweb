@@ -1,5 +1,6 @@
 package com.web.servlet;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.Closeable;
@@ -7,13 +8,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.util.Map;
+import java.util.UUID;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.FilenameUtils;
+import org.imgscalr.Scalr;
 
 /**
  * Servlet implementation class ImageServlet
@@ -24,15 +29,20 @@ public class ImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 2505646493843988772L;
 	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
     private String imagePath;
+    private String imagePathTmp;
 
     public void init() throws ServletException {
 
         // Define base path somehow. You can define it as init-param of the servlet.
         try {
-			this.imagePath = getServletContext().getInitParameter("imagesDirectory");
+			imagePath = getServletContext().getInitParameter("imagesDirectory");
 		} catch (Exception e) {
 			throw new ServletException(e);
 		}
+        
+        // Define la ruta de la carpeta temporal
+        imagePathTmp = System.getProperty("java.io.tmpdir");
+        System.out.println(imagePathTmp);
 
         // In a Windows environment with the Applicationserver running on the
         // c: volume, the above path is exactly the same as "c:\images".
@@ -48,28 +58,6 @@ public class ImageServlet extends HttpServlet {
         // Get requested image by path info.
         String requestedImage = request.getPathInfo();
         
-        // Obtener parametros
-        /*Map<String,String[]> params = request.getParameterMap();
-		Object value = 0;
-		
-		if(params != null && !params.isEmpty()){
-			value = params.get("w");
-		}
-		
-		// Obtener el ancho requerido
-		int width = Integer.parseInt(value.toString());*/
-		
-		String param = request.getParameter("w");
-		int width = 0;
-		
-		if(param != null && param.trim().length() > 0){
-			try{
-				width = Integer.parseInt(param);
-			}catch(Exception e){
-				width = 0;
-			}
-		}
-
         File image = null;
         
         // Check if file name is actually supplied to the request URI.
@@ -103,6 +91,33 @@ public class ImageServlet extends HttpServlet {
             // Throw an exception, or send 404, or show default/warning image, or just ignore it.
             response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404.
             return;
+        }
+        
+        // Obtener parametro
+ 		String param = request.getParameter("w");
+ 		int width = 0;
+ 		
+ 		if(param != null && param.trim().length() > 0){
+ 			try{
+ 				width = Integer.parseInt(param);
+ 			}catch(Exception e){
+ 				width = 0;
+ 			}
+ 		}
+        
+        if(width > 0){
+	        //generar uid
+			UUID uid = UUID.randomUUID();
+			String ext = FilenameUtils.getExtension(image.getName());
+			String rutaDestino = imagePathTmp + uid.toString() + "." + ext;
+			
+			BufferedImage img = ImageIO.read(image);
+	        //BufferedImage scaledImg = Scalr.resize(img, width);//redimensiona
+			BufferedImage scaledImg = Scalr.resize(img, Scalr.Method.SPEED, Scalr.Mode.FIT_TO_WIDTH,width, 100, Scalr.OP_ANTIALIAS);
+	        File destFile = new File(rutaDestino);
+	        ImageIO.write(scaledImg, ext, destFile);
+	        
+	        image = destFile;
         }
 
         // Init servlet response.
