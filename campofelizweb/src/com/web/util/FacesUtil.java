@@ -1,7 +1,6 @@
 package com.web.util;
 
 import java.io.InputStream;
-import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +29,6 @@ public class FacesUtil {
 	}
 	
 	public Object getSessionBean(String beanName){
-		//return request.getSession().getAttribute(beanName);
 		return getFacesContext().getExternalContext().getSessionMap().get(beanName);
 	}
 	
@@ -76,12 +74,15 @@ public class FacesUtil {
 	}
 	
 	public Object getParametroUrl(String paramName){
-		//String param = request.getParameter(paramName);
-		Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
-		Object value = 0;
+		int value = 0;
+		String param = request.getParameter(paramName);
 		
-		if(params != null && !params.isEmpty()){
-			value = params.get(paramName);
+		if(param != null && param.trim().length() > 0){
+			try{
+				value = Integer.parseInt(param);
+			}catch(Exception e){
+				value = 0;
+			}
 		}
 		
 		return value;
