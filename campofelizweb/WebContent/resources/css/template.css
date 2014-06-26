@@ -81,6 +81,9 @@
 .ui-paginator-bottom span {
 	vertical-align: middle;
 }
+.ui-galleria-panel-content {
+	background-color: #eaeaea;
+}
 
 /*---------style.css-----------*/
 .box_title {   
