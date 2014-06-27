@@ -168,9 +168,36 @@ public class PetservicioBO {
 			session.beginTransaction();
 			
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+			PetfotoservicioDAO petfotoservicioDAO = new PetfotoservicioDAO();
+			
+			//se eliminan fisicamente las fotos asociadas a la noticia
+			FileUtil fileUtil = new FileUtil();
+			FacesUtil facesUtil = new FacesUtil();
+			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
+			
+			for(Petfotoservicio tmp : petservicio.getPetfotoservicios()){
+				String rutaArchivo = rutaImagenes + tmp.getRuta();
+				fileUtil.deleteFile(rutaArchivo);
+				
+				//se inactivan todas las fotos asociadas al servicio
+				Setestado setestado = new Setestado();
+				setestado.setIdestado(2);
+				tmp.setSetestado(setestado);
+				
+				//auditoria
+				Date fecharegistro = new Date();
+				tmp.setFechamodificacion(fecharegistro);
+				tmp.setIplog(usuarioBean.getIp());
+				tmp.setSetusuario(usuarioBean.getSetUsuario());
+				
+				//actualizar
+				petfotoservicioDAO.updatePetfotoservicio(session, tmp);
+			}			 
 			
 			//se inactiva el registro
-			petservicio.getSetestado().setIdestado(2);
+			Setestado setestado = new Setestado();
+			setestado.setIdestado(2);
+			petservicio.setSetestado(setestado);
 			
 			//auditoria
 			Date fecharegistro = new Date();
@@ -223,7 +250,9 @@ public class PetservicioBO {
 			for(Petfotoservicio petfotoservicioItem : lisPetfotoservicioClon){
 				if(!lisPetfotoservicio.contains(petfotoservicioItem)){ 
 					//inhabilitar
-					petfotoservicioItem.getSetestado().setIdestado(2);
+					Setestado setestado = new Setestado();
+					setestado.setIdestado(2);
+					petfotoservicioItem.setSetestado(setestado);
 					
 					//auditoria
 					fecharegistro = new Date();

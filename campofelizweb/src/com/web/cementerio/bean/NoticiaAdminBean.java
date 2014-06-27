@@ -108,6 +108,8 @@ public class NoticiaAdminBean implements Serializable {
 			usuarioBean.setStreamedContent(streamedContent);
 			facesUtil.setSessionBean("usuarioBean", usuarioBean);
 			fotoSubida = true;
+			
+			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 		}catch(Exception x){
 			x.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
@@ -117,7 +119,7 @@ public class NoticiaAdminBean implements Serializable {
 	public void ponerFotoPrincipal(){
 		petnoticia.setRutafoto(petfotonoticiaSeleccionada.getRuta());
 		petfotonoticiaSeleccionada = new Petfotonoticia();
-		new MessageUtil().showInfoMessage("Listo!", "Se ha seleccionado como foto principal");
+		new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 	}
 	
 	public void quitarFotoGaleria(){
@@ -168,7 +170,7 @@ public class NoticiaAdminBean implements Serializable {
 			
 			petnoticiaBO.eliminar(petnoticia);
 
-			paginaRetorno = "noticias?faces-redirect=true";
+			paginaRetorno = "../pages/noticias?faces-redirect=true";
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");

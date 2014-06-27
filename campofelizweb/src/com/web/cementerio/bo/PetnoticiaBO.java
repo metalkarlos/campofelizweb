@@ -170,9 +170,36 @@ public class PetnoticiaBO {
 			session.beginTransaction();
 			
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+			PetfotonoticiaDAO petfotonoticiaDAO = new PetfotonoticiaDAO();
+			
+			//se eliminan fisicamente las fotos asociadas a la noticia
+			FileUtil fileUtil = new FileUtil();
+			FacesUtil facesUtil = new FacesUtil();
+			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
+			
+			for(Petfotonoticia tmp : petnoticia.getPetfotonoticias()){
+				String rutaArchivo = rutaImagenes + tmp.getRuta();
+				fileUtil.deleteFile(rutaArchivo);
+				
+				//se inactivan todas las fotos asociadas a la noticia
+				Setestado setestado = new Setestado();
+				setestado.setIdestado(2);
+				tmp.setSetestado(setestado);
+				
+				//auditoria
+				Date fecharegistro = new Date();
+				tmp.setFechamodificacion(fecharegistro);
+				tmp.setIplog(usuarioBean.getIp());
+				tmp.setSetusuario(usuarioBean.getSetUsuario());
+				
+				//actualizar
+				petfotonoticiaDAO.updatePetfotonoticia(session, tmp);
+			}			 
 			
 			//se inactiva el registro
-			petnoticia.getSetestado().setIdestado(2);
+			Setestado setestado = new Setestado();
+			setestado.setIdestado(2);
+			petnoticia.setSetestado(setestado);
 			
 			//auditoria
 			Date fecharegistro = new Date();
@@ -225,7 +252,9 @@ public class PetnoticiaBO {
 			for(Petfotonoticia petfotonoticiaItem : lisPetfotonoticiaClon){
 				if(!lisPetfotonoticia.contains(petfotonoticiaItem)){ 
 					//inhabilitar
-					petfotonoticiaItem.getSetestado().setIdestado(2);
+					Setestado setestado = new Setestado();
+					setestado.setIdestado(2);
+					petfotonoticiaItem.setSetestado(setestado);
 					
 					//auditoria
 					fecharegistro = new Date();

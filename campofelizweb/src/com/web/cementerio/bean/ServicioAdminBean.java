@@ -109,7 +109,7 @@ public class ServicioAdminBean implements Serializable {
 			facesUtil.setSessionBean("usuarioBean", usuarioBean);
 			fotoSubida = true;
 			
-			new MessageUtil().showInfoMessage("Foto en memoria!", event.getFile().getFileName());
+			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 		}catch(Exception x){
 			x.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
@@ -119,7 +119,7 @@ public class ServicioAdminBean implements Serializable {
 	public void ponerFotoPrincipal(){
 		petservicio.setRutafoto(petfotoservicioSeleccionado.getRuta());
 		petfotoservicioSeleccionado = new Petfotoservicio();
-		new MessageUtil().showInfoMessage("Listo!", "Se ha seleccionado como foto principal");
+		new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 	}
 	
 	public void quitarFotoGaleria(){
@@ -170,7 +170,7 @@ public class ServicioAdminBean implements Serializable {
 			
 			petservicioBO.eliminar(petservicio);
 
-			paginaRetorno = "servicios?faces-redirect=true";
+			paginaRetorno = "../pages/servicios?faces-redirect=true";
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
