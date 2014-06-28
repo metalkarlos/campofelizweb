@@ -24,7 +24,7 @@
 			}
 			.ui-panelgrid tr, .ui-panelgrid td {
 				border: none;
-				padding: 0 10px;
+				/*padding: 0 10px;*/
 			}
 			.ui-panelgrid .alto-columna {
 				padding-bottom: 15px;
@@ -90,7 +90,8 @@
 					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{servicioAdminBean.borrarFotoSubida()}" update="pnlPrevia, idpaneltextdescfoto" rendered="#{servicioAdminBean.fotoSubida}" />
 					</p:panel>
 					<p:fileUpload id="idSubeFotos" fileUploadListener="#{servicioAdminBean.handleFileUpload}" mode="advanced" 
-					update="mensajes, pnlPrevia, idpaneltextdescfoto" sizeLimit="1500000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
+					cancelLabel="Cancelar" uploadLabel="Subir Foto" label="Elegir Foto" sizeLimit="716800" showButtons="false"
+					update="mensajes, pnlPrevia, idpaneltextdescfoto" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
 					</p:column>
 					</p:row>
 				

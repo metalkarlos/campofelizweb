@@ -24,7 +24,7 @@
 			}
 			.ui-panelgrid tr, .ui-panelgrid td {
 				border: none;
-				padding: 0 10px;
+				/*padding: 0 10px;*/
 			}
 			.ui-panelgrid .alto-columna {
 				padding-bottom: 15px;
@@ -37,7 +37,7 @@
 			}
 		</style>
 	</ui:define>
-	
+	<table cellpadding="" cellspacing=""></table>
 	<ui:define name="content_page">
 		<div class="content-page">
 		<h:form id="form-contentpage" enctype="multipart/form-data">
@@ -46,7 +46,7 @@
 			<h1 class="title ui-widget-header">Administración - Noticias</h1>
 			
 			<div class="inner-content">
-				<p:panelGrid id="idgridcontenido" >
+				<p:panelGrid id="idgridcontenido">
 					<p:row>
 					<p:column>
 					<h:outputLabel value="Título de la Noticia" for="txtTitulo" /><br />
@@ -89,8 +89,9 @@
 					<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" rendered="#{noticiaAdminBean.fotoSubida}" />
 					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{noticiaAdminBean.borrarFotoSubida()}" update="pnlPrevia, idpaneltextdescfoto" rendered="#{noticiaAdminBean.fotoSubida}" />
 					</p:panel>
-					<p:fileUpload id="idSubeFotos" fileUploadListener="#{noticiaAdminBean.handleFileUpload}" mode="advanced" 
-					update="mensajes, pnlPrevia, idpaneltextdescfoto" sizeLimit="1500000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
+					<p:fileUpload id="idSubeFotos" fileUploadListener="#{noticiaAdminBean.handleFileUpload}" mode="advanced" style="width: 100%;"
+					cancelLabel="Cancelar" uploadLabel="Subir Foto" label="Elegir Foto" sizeLimit="716800" showButtons="false"
+					update="mensajes, pnlPrevia, idpaneltextdescfoto" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
 					</p:column>
 					</p:row>
 				
