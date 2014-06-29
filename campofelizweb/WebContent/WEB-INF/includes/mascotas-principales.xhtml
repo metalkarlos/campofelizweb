@@ -8,18 +8,12 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-	<style type="text/css">
-	
-    </style>
-
-	<h:form id="form-mascotaspage">
 	    <div align="center">
 			 <p:imageSwitch  effect="scrollLeft"  speed="1000">
 				<ui:repeat value="#{mascotasPrincipalBean.lisPetmascotahomenaje}" var="imagen" >
-			        <p:graphicImage value="#{mascotasPrincipalBean.rutaImagenes}#{imagen.rutafoto}" width="255px" height="255px"/>
+			        <h:link outcome="mascotashomenaje" title="Nuestro Homenaje Póstumo"><p:graphicImage value="#{mascotasPrincipalBean.rutaImagenes}#{imagen.rutafoto}" width="255px" height="255px"/></h:link>
 			    </ui:repeat>
 			</p:imageSwitch>
 	    </div>
-	</h:form>
 	
 </ui:composition>	
