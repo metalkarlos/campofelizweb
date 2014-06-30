@@ -1,8 +1,10 @@
 	package com.web.cementerio.bean;
 
 	import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -14,6 +16,7 @@ import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import com.web.cementerio.bo.PetmascotahomenajeBO;
+import com.web.cementerio.global.Parametro;
 import com.web.cementerio.pojo.annotations.Petespecie;
 import com.web.cementerio.pojo.annotations.Petfotomascota;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
@@ -31,6 +34,8 @@ import com.web.util.MessageUtil;
 		private static final long serialVersionUID = -6818813140393382672L;
 		
 		private Petmascotahomenaje petmascotahomenaje;
+		private List<Petfotomascota>listpetfotomascota;
+		private List<Petfotomascota>listpetfotomascotaclone;
 		private Petmascotahomenaje petmascotahomenajeclone;
 		private Petfotomascota     petfotomascotaselected;
 		private StreamedContent streamedContent;
@@ -91,7 +96,7 @@ import com.web.util.MessageUtil;
 						petmascotahomenajeBO.ingresarPetmascotahomenajeBO(petmascotahomenaje, 1,uploadedFile);
 				    }else if(petmascotahomenaje.getIdmascota()>0){
 					  //objeto petmascotahomenaje se ha modificado
-					  petmascotahomenajeBO.modificarPetmascotahomenajeBO(petmascotahomenaje,petmascotahomenajeclone,uploadedFile,2);
+					  petmascotahomenajeBO.modificarPetmascotahomenajeBO(petmascotahomenaje,petmascotahomenajeclone,listpetfotomascota, listpetfotomascotaclone,uploadedFile,2);
 						 
 				  }
 					inicializarobjetos();
@@ -109,7 +114,7 @@ import com.web.util.MessageUtil;
 		public void handleFileUpload(FileUploadEvent event) {
 			try{
 				//Tamaño imagen menor a 100KB
-				if (event.getFile().getSize() < 100000){
+				if (event.getFile().getSize() <= Parametro.TAMAÑO_IMAGEN){
 					uploadedFile = event.getFile();
 					streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
 					
@@ -217,6 +222,9 @@ import com.web.util.MessageUtil;
 			try {
 				PetmascotahomenajeBO mascotaHomenajeBO= new PetmascotahomenajeBO();
 				petmascotahomenaje = mascotaHomenajeBO.getPetmascotahomenajebyId(idmascota, 1,true);
+				if((petmascotahomenaje !=null)&&(!petmascotahomenaje.getPetfotomascotas().isEmpty()) & petmascotahomenaje.getPetfotomascotas().size()>0 ){
+				   listpetfotomascota = new ArrayList<Petfotomascota>(petmascotahomenaje.getPetfotomascotas());
+				}
 				
 			} catch (Exception e) {
 		      e.printStackTrace();
@@ -230,10 +238,10 @@ import com.web.util.MessageUtil;
 			try {
 				petmascotahomenajeclone = petmascotahomenaje.clonar();
 				petmascotahomenajeclone.setPetfotomascotas( new HashSet<Petfotomascota>(0) );
-				if((!petmascotahomenaje.getPetfotomascotas().isEmpty()) && (petmascotahomenaje.getPetfotomascotas().size()>0)){
-					for(Petfotomascota petfotomascota:petmascotahomenaje.getPetfotomascotas()){
-						petmascotahomenajeclone.getPetfotomascotas().add(petfotomascota);
-						
+				if((petmascotahomenaje!=null)&&(!listpetfotomascota.isEmpty()) && (listpetfotomascota.size()>0)){
+					listpetfotomascotaclone= new ArrayList<Petfotomascota>();
+					for(Petfotomascota petfotomascota:listpetfotomascota){
+						listpetfotomascotaclone.add(petfotomascota.clonar());
 					}
 				}
 				
@@ -250,9 +258,10 @@ import com.web.util.MessageUtil;
 			
 			try{
 				PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
-				petmascotahomenajeBO.eliminarPetmascotahomenajeBO(petmascotahomenaje, petmascotahomenaje.getPetfotomascotas(), 2);
+				petmascotahomenajeBO.eliminarPetmascotahomenajeBO(petmascotahomenaje, listpetfotomascotaclone, 2);
 				inicializarobjetos();
-				paginaRetorno = "/pages/mascotashomenaje?faces-redirect=true";
+				FacesUtil facesUtil = new FacesUtil();
+				facesUtil.redirect("../pages/mascotashomenaje.jsf");
 				
 			}catch(Exception e){
 				e.printStackTrace();
@@ -332,6 +341,23 @@ import com.web.util.MessageUtil;
 
 		public void setFotoSubida(boolean fotoSubida) {
 			this.fotoSubida = fotoSubida;
+		}
+
+		public List<Petfotomascota> getListpetfotomascota() {
+			return listpetfotomascota;
+		}
+
+		public void setListpetfotomascota(List<Petfotomascota> listpetfotomascota) {
+			this.listpetfotomascota = listpetfotomascota;
+		}
+
+		public List<Petfotomascota> getListpetfotomascotaclone() {
+			return listpetfotomascotaclone;
+		}
+
+		public void setListpetfotomascotaclone(
+				List<Petfotomascota> listpetfotomascotaclone) {
+			this.listpetfotomascotaclone = listpetfotomascotaclone;
 		}
 
 		

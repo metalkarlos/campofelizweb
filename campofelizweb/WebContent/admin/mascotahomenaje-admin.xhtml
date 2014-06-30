@@ -76,7 +76,7 @@
 				<p:row>
 					<p:column styleClass="centrar">
 				
-					<p:galleria id="idgalleria" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.petfotomascotas}" var="item" panelWidth="500" panelHeight="380"  styleClass="ui-widget-content ui-corner-all">
+					<p:galleria id="idgalleria" value="#{mascotaHomenajeAdminBean.listpetfotomascota}" var="item" panelWidth="500" panelHeight="380"  styleClass="ui-widget-content ui-corner-all">
 				       
 				        <p:graphicImage  id="idfotos" value="#{mascotaHomenajeAdminBean.rutaImagenes}#{item.ruta}"  />
 				       
@@ -110,7 +110,7 @@
 					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{mascotaHomenajeAdminBean.borrarFotoSubida()}" update="pnlPrevia" rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
 					</p:panel>
 					<p:fileUpload id="idSubeFotos" fileUploadListener="#{mascotaHomenajeAdminBean.handleFileUpload}" mode="advanced"  cancelLabel="Cancelar" 
-					uploadLabel="Subir Foto" label="Elegir Foto"
+					uploadLabel="Subir Foto" label="Elegir Foto" showButtons="false"
 					update="mensajes, pnlPrevia"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
 					</p:column>
 				</p:row>

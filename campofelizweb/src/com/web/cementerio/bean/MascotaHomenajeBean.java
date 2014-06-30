@@ -6,6 +6,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.web.cementerio.bo.PetmascotahomenajeBO;
 import com.web.cementerio.pojo.annotations.Petespecie;
 import com.web.cementerio.pojo.annotations.Petfotomascota;
@@ -25,6 +27,7 @@ public class MascotaHomenajeBean implements Serializable {
 	 */
 	private static final long serialVersionUID = -5791044831809774834L;
 	private Petmascotahomenaje petmascotahomenaje;
+	private List<Petfotomascota>listpetfotomascota;
 	private Petfotomascota     petfotomascota;//hacer pruebas lihgt box
 	private int idmascota;
 	private String rutaImagenes;
@@ -58,6 +61,10 @@ public class MascotaHomenajeBean implements Serializable {
 		try {
 			PetmascotahomenajeBO mascotaHomenajeBO= new PetmascotahomenajeBO();
 			petmascotahomenaje = mascotaHomenajeBO.getPetmascotahomenajebyId(idmascota, 1,false);
+			if((petmascotahomenaje !=null)&&(!petmascotahomenaje.getPetfotomascotas().isEmpty()) & petmascotahomenaje.getPetfotomascotas().size()>0 ){
+				listpetfotomascota = new ArrayList<Petfotomascota>(petmascotahomenaje.getPetfotomascotas());
+
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
@@ -108,6 +115,14 @@ public class MascotaHomenajeBean implements Serializable {
 
 	public void setPetfotomascota(Petfotomascota petfotomascota) {
 		this.petfotomascota = petfotomascota;
+	}
+
+	public List<Petfotomascota> getListpetfotomascota() {
+		return listpetfotomascota;
+	}
+
+	public void setListpetfotomascota(List<Petfotomascota> listpetfotomascota) {
+		this.listpetfotomascota = listpetfotomascota;
 	}
 	
 

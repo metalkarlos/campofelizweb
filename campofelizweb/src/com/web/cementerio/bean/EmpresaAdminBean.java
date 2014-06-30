@@ -87,22 +87,22 @@ public class EmpresaAdminBean implements Serializable {
 	
 	
 	
-	public String eliminar(){
+	public void eliminar(){
 		PetempresaBO petempresaBO = new PetempresaBO();
-		String paginaRetorno =null;
 		try {
 			if(petempresa.getIdempresa() >0){
 				petempresaBO.eliminar(petempresa, 2);
 				new MessageUtil().showInfoMessage("Exito", "Registro eliminado");
 				petempresa = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
-				paginaRetorno = "empresas?faces-redirect=true";
+				FacesUtil facesUtil = new FacesUtil();
+				facesUtil.redirect("empresas.jsf");	 
 			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
-		return paginaRetorno;
+		
 	}
 	
 	

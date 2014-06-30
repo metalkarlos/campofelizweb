@@ -14,10 +14,17 @@ public class PetfotomascotaDAO {
 				
 		Object object = session.createQuery("select max(idfotomascota)+1 from Petfotomascota ").uniqueResult();
 		maxid = (object ==null ?1: Integer.parseInt(object.toString()));
-		
 		return maxid;
 	}
 
+	
+	public int getCantFotosPorMascota(Session session, int idmascota) throws Exception{
+		int count = 0;
+		
+		Object object = session.createQuery("select count(idfotomascota)+1 from Petfotomascota").uniqueResult();
+		count = (object==null ?1: Integer.parseInt(object.toString()));
+		return count;
+	}
 	
 	public void ingresarFotomascota(Session session, Petfotomascota petfotomascota)throws Exception{
 		session.save(petfotomascota);

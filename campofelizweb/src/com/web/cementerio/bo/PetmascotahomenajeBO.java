@@ -3,7 +3,6 @@ package com.web.cementerio.bo;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Session;
 import org.primefaces.model.UploadedFile;
@@ -127,7 +126,7 @@ public class PetmascotahomenajeBO {
 
 	}
 	
-	public void modificarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,Petmascotahomenaje petmascotahomenajeclone,UploadedFile uploadedFile,int idestado) throws Exception{
+	public void modificarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,Petmascotahomenaje petmascotahomenajeclone, List<Petfotomascota>listpetfotomascota,List<Petfotomascota>listpetfotomascotaclone,UploadedFile uploadedFile,int idestado) throws Exception{
 		Session session = null;
 		boolean ok = false;
 		try {
@@ -156,8 +155,8 @@ public class PetmascotahomenajeBO {
 			   ok = true;
 			}
 			
-			if(!(petmascotahomenajeclone.getPetfotomascotas().isEmpty() && petmascotahomenaje.getPetfotomascotas().isEmpty()) && (petmascotahomenaje.getPetfotomascotas().size() != petmascotahomenajeclone.getPetfotomascotas().size())){
-			   modificarPetfotomascota(session,idestado, petmascotahomenaje.getPetfotomascotas(), petmascotahomenajeclone.getPetfotomascotas(),petmascotahomenaje, uploadedFile) ;
+			if(!(listpetfotomascota.isEmpty() && listpetfotomascotaclone.isEmpty()) && (listpetfotomascota.size() != listpetfotomascotaclone.size())){
+			   modificarPetfotomascota(session,idestado, listpetfotomascota, listpetfotomascotaclone,petmascotahomenaje, uploadedFile) ;
 		       ok = true;
 			}
 			
@@ -178,7 +177,9 @@ public class PetmascotahomenajeBO {
 	public boolean ingresarPetfotomascota(Session session, int idestado,Petmascotahomenaje petmascotahomenaje,  UploadedFile uploadedFile)throws Exception{
 		PetfotomascotaDAO petfotomascotaDAO = new PetfotomascotaDAO();
 		Petfotomascota petfotomascota = new Petfotomascota();
-		 boolean rutamodificada=false;
+		int secuencia = 0;
+		boolean rutamodificada=false;
+		
 		try {
 			petfotomascota.setPetmascotahomenaje(petmascotahomenaje);
 			Date fecharegistro = new Date();
@@ -204,12 +205,12 @@ public class PetmascotahomenajeBO {
 			FileUtil fileUtil = new FileUtil();
 			FacesUtil facesUtil = new FacesUtil();
 			Calendar fecha = Calendar.getInstance();
-			int mes = Integer.valueOf(fecha.get(Calendar.MONTH))+1;
-			//mes = mes+1;	
+				
+			secuencia = petfotomascotaDAO.getCantFotosPorMascota(session, petmascotahomenaje.getIdmascota());
 					
 			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 			String rutaMascota =  "/mascota/" + fecha.get(Calendar.YEAR);
-			String nombreArchivo = fecha.get(Calendar.DAY_OF_MONTH) + "-" + mes + "-" + fecha.get(Calendar.YEAR) + "-" + petmascotahomenaje.getIdmascota() + "-" + petfotomascota.getIdfotomascota() + "-" + uploadedFile.getFileName().toLowerCase();
+			String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petmascotahomenaje.getIdmascota() + "-" + secuencia + "." +fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
 					
 			String rutaCompleta = rutaImagenes + rutaMascota;
 			//asignar ruta y nombre de archivo en objeto
@@ -237,7 +238,7 @@ public class PetmascotahomenajeBO {
 	}
 	
 	
-	public void modificarPetfotomascota(Session session,int idestado,Set<Petfotomascota>  lisPetfotomascota, Set<Petfotomascota> lisPetfotomascotaclone,  Petmascotahomenaje petmascotahomenaje,  UploadedFile uploadedFile)throws Exception{
+	public void modificarPetfotomascota(Session session,int idestado,List<Petfotomascota>  lisPetfotomascota, List<Petfotomascota> lisPetfotomascotaclone,  Petmascotahomenaje petmascotahomenaje,  UploadedFile uploadedFile)throws Exception{
 		PetfotomascotaDAO petfotomascotaDAO = new PetfotomascotaDAO();
 		FacesUtil facesUtil = new FacesUtil();
 		FileUtil fileUtil = new FileUtil();
@@ -282,7 +283,7 @@ public class PetmascotahomenajeBO {
 	}
 	
 	
-	public void eliminarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,Set<Petfotomascota> listpetfotomascotaclone, int idestado)throws Exception{
+	public void eliminarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,List<Petfotomascota> listpetfotomascotaclone, int idestado)throws Exception{
 		Session session = null;
 		PetfotomascotaDAO petfotomascotaDAO = new PetfotomascotaDAO(); 
 		FacesUtil facesUtil = new FacesUtil();

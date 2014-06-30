@@ -91,24 +91,7 @@ private String descripcionParam;
 		}
 		
 	}
-	/*
-    public void buscarmascotahomenajebycriteria(){
-    	if ((idespecie > 0) && ( (!nombre.equals(null)) && (nombre.length() > 0))){
-    		try {
-				listpetmascotahomenaje = new ArrayList<Petmascotahomenaje>();
-	    		PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
-	    		listpetmascotahomenaje = petmascotahomenajeBO.getListpetmascotahomenajebycriteria(1, idespecie, nombre);
-    		} catch (Exception e) {
-			   e.printStackTrace();
-			   new MessageUtil().showFatalMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-			}
-    	}else{
-    		new MessageUtil().showInfoMessage("Info", "Por favor ingrese el nombre y especie de la mascota a consultar");
-    	}
-		
-	}*/
 
-	
 
 	public int getIdespecie() {
 		return idespecie;
