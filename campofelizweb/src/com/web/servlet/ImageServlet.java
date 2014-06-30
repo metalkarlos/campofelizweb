@@ -42,7 +42,6 @@ public class ImageServlet extends HttpServlet {
         
         // Define la ruta de la carpeta temporal
         imagePathTmp = System.getProperty("java.io.tmpdir");
-        //System.out.println(imagePathTmp);
 
         // In a Windows environment with the Applicationserver running on the
         // c: volume, the above path is exactly the same as "c:\images".
@@ -110,12 +109,9 @@ public class ImageServlet extends HttpServlet {
 			UUID uid = UUID.randomUUID();
 			String ext = FilenameUtils.getExtension(image.getName());
 			String rutaDestino = imagePathTmp + File.separator + uid.toString() + "." + ext;
-			System.out.println(rutaDestino);
 			
 			BufferedImage img = ImageIO.read(image);
 	        BufferedImage scaledImg = Scalr.resize(img, width);
-			//BufferedImage scaledImg = Scalr.resize(img, Scalr.Method.SPEED, Scalr.Mode.FIT_TO_WIDTH,width, 100, Scalr.OP_ANTIALIAS);
-			//BufferedImage scaledImg = Scalr.resize(img, Mode.AUTOMATIC, width, 480);
 	        File destFile = new File(rutaDestino);
 	        ImageIO.write(scaledImg, ext, destFile);
 	        
