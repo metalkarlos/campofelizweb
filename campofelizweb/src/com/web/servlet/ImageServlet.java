@@ -7,6 +7,7 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URLDecoder;
 import java.util.UUID;
 
@@ -23,8 +24,8 @@ import org.imgscalr.Scalr;
 /**
  * Servlet implementation class ImageServlet
  */
-@WebServlet("/ImageServlet")
-public class ImageServlet extends HttpServlet {
+@WebServlet("/imagenes/*")
+public class ImageServlet extends HttpServlet implements Serializable{
 
 	private static final long serialVersionUID = 2505646493843988772L;
 	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
