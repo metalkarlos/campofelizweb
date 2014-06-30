@@ -298,6 +298,7 @@ public class PetservicioBO {
 		PetfotoservicioDAO petfotoservicioDAO = new PetfotoservicioDAO();
 		
 		int maxIdfotoservicio = petfotoservicioDAO.maxIdfotoservicio(session)+1;
+		int cantFotosPorServicio = petfotoservicioDAO.cantFotosPorServicio(session, petservicio.getIdservicio())+1;
 		
 		//foto en disco
 		FileUtil fileUtil = new FileUtil();
@@ -306,7 +307,7 @@ public class PetservicioBO {
 		
 		String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 		String rutaServicios =  "/servicios/" + fecha.get(Calendar.YEAR);
-		String nombreArchivo = fecha.get(Calendar.DAY_OF_MONTH) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.YEAR) + "-" + petservicio.getIdservicio() + "-" + maxIdfotoservicio + "." + fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
+		String nombreArchivo = fecha.get(Calendar.DAY_OF_MONTH) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.YEAR) + "-" + petservicio.getIdservicio() + "-" + cantFotosPorServicio + "." + fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
 		
 		String rutaCompleta = rutaImagenes + rutaServicios;
 		
