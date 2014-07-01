@@ -90,7 +90,7 @@
 					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{servicioAdminBean.borrarFotoSubida()}" update="pnlPrevia, idpaneltextdescfoto" rendered="#{servicioAdminBean.fotoSubida}" />
 					</p:panel>
 					<p:fileUpload id="idSubeFotos" fileUploadListener="#{servicioAdminBean.handleFileUpload}" mode="advanced" 
-					cancelLabel="Cancelar" uploadLabel="Subir Foto" label="Elegir Foto" sizeLimit="716800" showButtons="false"
+					cancelLabel="Cancelar" uploadLabel="Subir Foto" label="Elegir Foto" sizeLimit="#{servicioAdminBean.maxfilesize}" showButtons="false"
 					update="mensajes, pnlPrevia, idpaneltextdescfoto" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
 					</p:column>
 					</p:row>
