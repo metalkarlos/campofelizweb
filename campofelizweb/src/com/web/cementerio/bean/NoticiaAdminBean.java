@@ -15,6 +15,7 @@ import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import com.web.cementerio.bo.PetnoticiaBO;
+import com.web.cementerio.global.Parametro;
 import com.web.cementerio.pojo.annotations.Petfotonoticia;
 import com.web.cementerio.pojo.annotations.Petnoticia;
 import com.web.cementerio.pojo.annotations.Setestado;
@@ -42,6 +43,7 @@ public class NoticiaAdminBean implements Serializable {
 	private UploadedFile uploadedFile;
 	private String descripcionFoto;
 	private boolean fotoSubida;
+	private long maxfilesize;
 	
 	public NoticiaAdminBean() {
 		petnoticia = new Petnoticia(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, null, null, new Date(), new Date(), false);
@@ -51,6 +53,7 @@ public class NoticiaAdminBean implements Serializable {
 		petfotonoticiaSeleccionada = new Petfotonoticia();
 		descripcionFoto = "";
 		fotoSubida = false;
+		maxfilesize = Parametro.TAMAÑO_IMAGEN;
 		
 		cargarRutaImagenes();
 	}
@@ -242,5 +245,13 @@ public class NoticiaAdminBean implements Serializable {
 
 	public void setDescripcionFoto(String descripcionFoto) {
 		this.descripcionFoto = descripcionFoto;
+	}
+
+	public long getMaxfilesize() {
+		return maxfilesize;
+	}
+
+	public void setMaxfilesize(long maxfilesize) {
+		this.maxfilesize = maxfilesize;
 	}
 }
