@@ -25,18 +25,21 @@
 			.grid {
 				padding: 10px 0;
 			}
-			.ui-panel .ui-panel-title {
-			    letter-spacing: 0.9px;
-			    font-size: 13px;
-			    text-shadow: 1px 0px #BBB;
-			}
 			.imagendatagrid{
 			   border-radius: 10px;
-               box-shadow: 1px 0px 5px #BBB;
+               box-shadow: 6px 6px 5px #BBB;
                height: 180px;
                width: 170px;
 			}
-		
+		   .nombremascota{
+			  font-weight: normal;
+			  font-family: 'Open Sans', sans-serif;
+		      text-shadow: 1px 1px #fbfbfb;
+			  letter-spacing: -1px;
+			  font-size: 20px;
+			  color: #66AD23;
+			  text-align:center;
+			}
 		</style>
 	</ui:define>
 
@@ -48,29 +51,33 @@
 			<div id="search-form" >
 				<h:inputText id="txtbusqueda"  value="#{mascotasHomenajeBean.descripcionParam}" onblur="if(this.value==''){this.value='buscar por nombre de mascota'}" onfocus="if(this.value=='buscar por nombre de mascota'){this.value=''}" />
 				<h:commandLink styleClass="search-form-submit" >
-					<f:ajax render="resultadomascota" execute="txtbusqueda"></f:ajax>
+					<f:ajax render="form-contentpage:resultadomascota" execute="txtbusqueda"></f:ajax>
 				</h:commandLink>
 			</div>
 			</div>
 			<span class="clear" />
-			<br />
+			<br/>
  		    <h:link value="[Nueva Mascota]" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" outcome="/admin/mascotahomenaje-admin" rendered="#{usuarioBean.autenticado}" >
 			   <f:param name="idmascota" value="0"></f:param>
 			</h:link>
-			<br />
 			<div class="mascotas-content">
 			 <p:dataGrid styleClass="grid" id="resultadomascota" var="mascota" value="#{mascotasHomenajeBean.listpetmascotahomenaje}" columns="3"  
 				        rows="6" efect= "true" paginator="true"  paginatorPosition="bottom"
 				        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
 				        emptyMessage="No se encontraron registros">  
 				  <p:column>
-		        <p:panel header="#{mascota.nombre}" style="text-align:center;">  
+		        <p:panel style="text-align:center;"  >
 		            <h:panelGrid columns="1" style="width:150px">  
 		            <table>
 		               <tr>
-		                <td>
+		                 <td>
+		                   <h:outputText  style="height:40px;" value="#{mascota.nombre}" styleClass="nombremascota" />
+		                 </td>
+		               </tr>
+		               <tr>
+		                <td style="padding-bottom: 10px;">
 		                  <h:link  outcome="/pages/mascotahomenaje" >
-		                  <p:graphicImage alt="foto-homenaje póstumo" value="#{mascotasHomenajeBean.rutaImagenes}#{mascota.rutafoto}" styleClass="imagendatagrid"/>
+		                  <p:graphicImage alt="foto-homenaje póstumo" value="#{mascotasHomenajeBean.rutaImagenes}#{mascota.rutafoto}?w=160" style="max-height: 145px; max-width: 160px;" styleClass="imagendatagrid"/>
 		                  <f:param name="idmascota" value="#{mascota.idmascota}"></f:param>
 		                  </h:link>   
 		  				</td>
@@ -81,6 +88,7 @@
 						   </h:link>
 		  			    </td>	  
 		  			  </tr>
+		  			 
 		  			</table>           
 		            </h:panelGrid>  
 		        </p:panel>  

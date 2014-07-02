@@ -123,8 +123,7 @@ import com.web.util.MessageUtil;
 					usuarioBean.setStreamedContent(streamedContent);
 					facesUtil.setSessionBean("usuarioBean", usuarioBean);
 					fotoSubida = true;
-					
-					new MessageUtil().showInfoMessage("Foto en memoria!",uploadedFile.getFileName());
+					new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 				}else{
 					new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 100KB");
 				}
@@ -213,6 +212,9 @@ import com.web.util.MessageUtil;
 			else if (petmascotahomenaje.getFechapublicacion().after(fechaactual)){
 				ok = false;
 				new MessageUtil().showInfoMessage("Info", "Fecha de publicación no pueder ser mayor a la fecha de hoy");
+			}else if(uploadedFile!=null && !fotoSubida){
+				ok = false;
+				new MessageUtil().showInfoMessage("Info", "Para subir la foto de click en el boton de la flecha");
 			}
 			return ok;
 			

@@ -16,6 +16,7 @@ import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import com.web.cementerio.bo.PetguiaBO;
+import com.web.cementerio.global.Parametro;
 
 import com.web.cementerio.pojo.annotations.Petfotoguia;
 import com.web.cementerio.pojo.annotations.Petguia;
@@ -106,7 +107,7 @@ public class GuiaAdminBean  implements Serializable{
 	
 	public void handleFileUpload(FileUploadEvent event) {
 		try{
-			if (event.getFile().getSize() < 100000){
+			if (event.getFile().getSize() <= Parametro.TAMAÑO_IMAGEN){
 				uploadedFile = event.getFile();
 				streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
 				
@@ -146,29 +147,23 @@ public class GuiaAdminBean  implements Serializable{
 	public void grabar(){
 	 try{
 		if(validarcampos()){
-			boolean ok = false;
-			
 			PetguiaBO petguiaBO = new PetguiaBO();
-				
 			if(idguia == 0){
-				ok = petguiaBO.ingresarPetguiaBO(petguia,1,  uploadedFile,descripcionFoto);
+				petguiaBO.ingresarPetguiaBO(petguia,1,  uploadedFile,descripcionFoto);
 				petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
 				lisPetfotoguia = new ArrayList<Petfotoguia>();
 				petguiaClon= new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
 				lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
 			}else{
-				ok = petguiaBO.modificar(petguia, petguiaClon, lisPetfotoguia, lisPetfotoguiaClon,2,uploadedFile,descripcionFoto);
+				petguiaBO.modificar(petguia, petguiaClon, lisPetfotoguia, lisPetfotoguiaClon,2,uploadedFile,descripcionFoto);
 				petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
 				lisPetfotoguia = new ArrayList<Petfotoguia>();
 				petguiaClon= new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
 				lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
 			}
 				
-			if(ok){
-				new MessageUtil().showInfoMessage("Listo!", "Datos grabados con Exito!");
-			}else{
-				new MessageUtil().showInfoMessage("Aviso", "No existen cambios que guardar");
-			}
+			FacesUtil facesUtil = new FacesUtil();
+			facesUtil.redirect("../pages/guiageneral.jsf");	 
 		}
 	}catch(Exception e){
 		e.printStackTrace();
@@ -184,11 +179,6 @@ public class GuiaAdminBean  implements Serializable{
 			ok = false;
 			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el Título del artículo");
 		}
-		/*else if((streamedContent ==null && petguia.getIdguia()==0)||(streamedContent ==null && lisPetfotoguia.size()==0 && petguia.getIdguia()>0)){
-			ok = false;
-			new MessageUtil().showInfoMessage("Info", "Es necesario subir foto asociada al artículo");
-		}*/
-		
 		else if(petguia.getDescripcion()==null|| petguia.getDescripcion().length()==0){
 			ok = false;
 			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contendio del artículo");
@@ -199,26 +189,22 @@ public class GuiaAdminBean  implements Serializable{
 		return ok;
 	}
 	
-	public String eliminar(){
-		String paginaRetorno = null;
+	public void eliminar(){
 		
 		try{
 			PetguiaBO petguiaBO = new PetguiaBO();
-			
 			petguiaBO.eliminarBO(petguia, lisPetfotoguiaClon,2);
-			
 			petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
 			petguiaClon= new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
 			lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
-			paginaRetorno = "/pages/guiageneral?faces-redirect=true";
-			
-			
+			FacesUtil facesUtil = new FacesUtil();
+			facesUtil.redirect("../pages/guiageneral.jsf");	 
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 		
-		return paginaRetorno;
+		
 	}
 
 	public Petguia getPetguia() {

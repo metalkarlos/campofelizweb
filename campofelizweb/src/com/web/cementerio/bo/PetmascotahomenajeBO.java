@@ -61,12 +61,12 @@ public class PetmascotahomenajeBO {
 		return listpetmascotahomenaje;
 	}
 	
-	public List<Petmascotahomenaje>lisPetmascotaPrincipal(int idestado)throws Exception{
+	public List<Petmascotahomenaje>lisPetmascotaPrincipal(int idestado ,int maxresultado)throws Exception{
 		List<Petmascotahomenaje> listpetmascotahomenaje = null;
 		Session session = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
-			listpetmascotahomenaje = petmascotahomenajeDAO.lisPetmascotaPrincipal(session, idestado);
+			listpetmascotahomenaje = petmascotahomenajeDAO.lisPetmascotaPrincipal(session, idestado,maxresultado);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}finally{

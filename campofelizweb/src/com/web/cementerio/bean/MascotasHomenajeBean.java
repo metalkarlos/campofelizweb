@@ -24,6 +24,7 @@ import com.web.util.MessageUtil;
 @ViewScoped
 public class MascotasHomenajeBean  {
 private LazyDataModel<Petmascotahomenaje>  listpetmascotahomenaje; 
+private List<Petmascotahomenaje> lisPetmascotahomenaje;
 private int idespecie;
 private String nombre;
 private String rutaImagenes;
@@ -36,6 +37,7 @@ private String descripcionParam;
 		rutaImagenes = "";
 		descripcionParam = "buscar por nombre de mascota";
 		cargarRutaImagenes();
+		//consultarMascotasPrincipal();
 		consultar();
 		
 		
@@ -50,10 +52,24 @@ private String descripcionParam;
 		}
 	}
 	
+	
+	@SuppressWarnings("unchecked")
+	public void consultarMascotasPrincipal(){
+		try {
+			PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
+			listpetmascotahomenaje = (LazyDataModel<Petmascotahomenaje>) petmascotahomenajeBO.lisPetmascotaPrincipal(1,6);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
+	}
+	
 	@SuppressWarnings("serial")
 	public void consultar(){
 		try
 		{
+		 
 			listpetmascotahomenaje = new LazyDataModel<Petmascotahomenaje>() {
 				public List<Petmascotahomenaje> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,String> filters) {
 					List<Petmascotahomenaje> data = new ArrayList<Petmascotahomenaje>();
@@ -63,10 +79,11 @@ private String descripcionParam;
 					String[] textoBusqueda = null;
 					if(descripcionParam != null && descripcionParam.trim().length() > 0 && descripcionParam.trim().compareTo("buscar por nombre de mascota") != 0 ){
 						textoBusqueda = descripcionParam.split(" ");
-						first = 0;
-					}
+						//first = 0;
+					
 					
 					data = petmascotahomenajeBO.lisPetmascotahomenajeBusquedaByPage(textoBusqueda, pageSize, first, args,1);
+					}
 					this.setRowCount(args[0]);
 	
 			        return data;
@@ -86,6 +103,7 @@ private String descripcionParam;
                     }      
                 }
 			};
+		 
 		}catch(Exception re){
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}

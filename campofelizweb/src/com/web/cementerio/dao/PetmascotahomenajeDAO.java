@@ -54,13 +54,13 @@ public class PetmascotahomenajeDAO {
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<Petmascotahomenaje> lisPetmascotaPrincipal(Session session, int idestado) throws Exception{
+	public List<Petmascotahomenaje> lisPetmascotaPrincipal(Session session, int idestado,int maxresultado) throws Exception{
 		List<Petmascotahomenaje> listPetmascotahomenaje=null;
 		
 		Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
 				.add(Restrictions.eq("setestado.idestado", idestado))
 				.addOrder(Order.desc("fechapublicacion"))
-				.setMaxResults(3);
+				.setMaxResults(maxresultado);
 		listPetmascotahomenaje = (List<Petmascotahomenaje>)criteria.list();
 		return listPetmascotahomenaje;
 	}
@@ -70,12 +70,14 @@ public class PetmascotahomenajeDAO {
 	@SuppressWarnings("unchecked")
 	public List<Petmascotahomenaje> lisPetmascotaBusquedaByPage(Session session, String[] texto, int pageSize, int pageNumber, int args[], int idestado) throws Exception {
 		List<Petmascotahomenaje> listPetmascotahomenaje = null;
+		String query = "";
 		
 		Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
 				 .add(Restrictions.eq("setestado.idestado", idestado));
 		
 		if(texto != null && texto.length > 0){
-			String query = "(";
+			/*String query = "(";*/
+			query = "(";
 			for(int i=0;i<texto.length;i++)
 			{
 				query += "lower({alias}.nombre) like lower('%"+texto[i]+"%') ";
@@ -94,12 +96,14 @@ public class PetmascotahomenajeDAO {
 		listPetmascotahomenaje = (List<Petmascotahomenaje>)criteria.list();
 		
 		if(listPetmascotahomenaje.size() >0 && !listPetmascotahomenaje.isEmpty()){
-			Criteria criteriaCount = session.createCriteria(Petmascotahomenaje.class)
+			
+			/*Criteria criteriaCount = session.createCriteria(Petmascotahomenaje.class)
 					.add(Restrictions.eq("setestado.idestado", idestado))
-					.setProjection( Projections.rowCount());
+					.setProjection( Projections.rowCount());*/
 			
 			if(texto != null && texto.length > 0){
-				String query = "(";
+				//String query = "(";
+				query = "(";
 				for(int i=0;i<texto.length;i++)
 				{
 					query += "lower({alias}.nombre) like lower('%"+texto[i]+"%') ";
@@ -111,12 +115,18 @@ public class PetmascotahomenajeDAO {
 				
 				criteria.add(Restrictions.sqlRestriction(query));
 			}
-				
+			
+			Criteria criteriaCount = session.createCriteria(Petmascotahomenaje.class)
+					.add(Restrictions.eq("setestado.idestado", idestado))
+					.add(Restrictions.sqlRestriction(query))
+					.setProjection( Projections.rowCount());
+			
+			
 				criteriaCount.setMaxResults(pageSize)
 			    .setFirstResult(pageNumber);
 				
 				Object object = criteriaCount.uniqueResult();
-				int count = (object==null?0:Integer.parseInt(object.toString()));
+				int count =(object==null?0:Integer.parseInt(object.toString()));
 				args[0] = count;
 	  
 		}

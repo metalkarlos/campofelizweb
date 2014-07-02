@@ -37,10 +37,10 @@
 			.texto-dedicatoria{
 				font-style: oblique;
 				font-family: Times New Roman,Arial,Helvetica;
-			    font-size: 19px;
+			    font-size: 18px;
 			    font-weight: bold;
-			    padding-bottom: 18px;
-			    letter-spacing: 1.5px;
+			    padding-bottom: 12px;
+			    letter-spacing: 0.5px;
 			    line-height: 150%;
 			    color: #66AD23;
 			  
@@ -68,7 +68,7 @@
 			  border-radius: 15px;
 			  vertical-align: top;
 			  padding:  5px 10px 5px 10px;
-			  width: 370px;
+			  width: 450px;
 			  height:355px;
 			}  
 			
@@ -84,7 +84,15 @@
 			.ui-galleria-panel-content {
                background-color: #ffffff; 
              }
-			
+			.nombremascota{
+			  font-weight: normal;
+			  font-family: 'Open Sans', sans-serif;
+		      text-shadow: 1px 1px #fbfbfb;
+			  letter-spacing: -1px;
+			  font-size: 30px;
+			  color: #66AD23;
+			  text-align:center;
+			}
 		</style>
 		
    	
@@ -98,60 +106,48 @@
        
  		<div class="inner-content">
 	 	 <div class="cuerpo">
-			<div class="titulo2">
+			<div class="nombremascota">
 			  #{mascotaHomenajeBean.petmascotahomenaje.nombre}
 			</div>
 		 </div>
 		   
-		 <div >
+		 <div>
 	 	  <h:link value="[Editar]" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" outcome="/admin/mascotahomenaje-admin" rendered="#{usuarioBean.autenticado}" >
 			<f:param name="idmascota" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascota}"></f:param>
 		  </h:link>
 	 	 </div>
 	 	 
 	 	
-	 	 <center>
-	 	   
-	 	 
+	 	<center>
 	 	   <p:galleria id="idgalleria" value="#{mascotaHomenajeBean.listpetfotomascota}" var="item" panelWidth="500" panelHeight="380"  styleClass="ui-widget-content ui-corner-all">
-			   <p:graphicImage  id="idfotos" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}"  />
-			      <p:galleriaContent>  
-			         <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">  
-				        <p:lightBox styleClass="imagebox" height="320px">
-				          <h:outputLink  value="/campofelizweb#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" title="#{item.descripcion}">
-			            	<p:graphicImage styleClass="imagenprincipal" id="idfoto" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" />
-			              </h:outputLink>	
-				        </p:lightBox>
-				    </h:panelGrid>
-				</p:galleriaContent>
-			</p:galleria>
-			</center>
-			 <!-- 
-			<p:lightBox styleClass="imagebox" height="320px">
-			  <ui:repeat var="imagen" value= "#{mascotaHomenajeAdminBean.listpetfotomascota}">
-			   <h:outputLink value="/campofelizweb#{mascotaHomenajeAdminBean.rutaImagenes}#{imagen.ruta}" title="#{imagen.descripcion}">
-			    <p:graphicImage value="#{mascotaHomenajeAdminBean.rutaImagenes}#{imagen.ruta}" styleClass="imagen"/>
-			   </h:outputLink>
-			 </ui:repeat>
-			</p:lightBox>
-		  </center>	
-		  -->
-		  <br/>
+		   <p:graphicImage  id="idfotos" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}?w=70" style="max-height: 70px;"/>
+		      <p:galleriaContent>  
+		         <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">  
+			        <p:lightBox styleClass="imagebox" height="320px">
+			          <h:outputLink  value="/campofelizweb#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}?w=450" style="max-height: 355px;" title="#{item.descripcion}">
+		            	<p:graphicImage styleClass="imagenprincipal" id="idfoto" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" />
+		              </h:outputLink>	
+			        </p:lightBox>
+			    </h:panelGrid>
+			</p:galleriaContent>
+   		   </p:galleria>
+		</center>
+	    <br/>
 		
-		  <center>	 
-	 	  <div style="width:380px;" >
+		<center>	 
+	 	  <div style="width:550px;" >
 	 	 	<p:panelGrid id="panelgridcontenido" >
 			  <p:row>
 			  <p:column colspan="2" styleClass="alto-columna" style="text-align:center;" >
-			     <h:outputText styleClass="texto-dedicatoria" style="text-align: center;" id="txtdedicatoria" value="#{mascotaHomenajeBean.petmascotahomenaje.dedicatoria}" escape="false"/>	
+			     <h:outputText styleClass="texto-dedicatoria" style="text-align:justify;" id="txtdedicatoria" value="#{mascotaHomenajeBean.petmascotahomenaje.dedicatoria}" escape="false"/>	
 			  </p:column>
 			  </p:row>
 				
 			 <p:row>
-			 <p:column styleClass="alto-columna ancho" style="text-align:right;" >
+			 <p:column styleClass="alto-columna ancho" style="text-align:right; width: 270px;" >
 			   <h:outputLabel styleClass="textolabel" value="Familia:"  for="txtFamilia" />
 			 </p:column>
-			 <p:column styleClass="alto-columna">
+			 <p:column styleClass="alto-columna" style="width: 270px;">
 			   <h:outputText  styleClass="textocontenido" id="txtFamilia"  value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
 			 </p:column>
 			 </p:row>
@@ -181,36 +177,13 @@
 		   </p:row>
 		  </p:panelGrid>
 		  </div>
-			</center>
-		    <br/>
-	 	    <center>
-		 	<div class="fb-comments" data-href="https://www.facebook.com/pages/Campo-Feliz-Cementerio-de-Mascotas/257959247667793" data-numposts="5" data-colorscheme="light"></div>
-		    </center>
-		
-	 		
-	 		
+		  </center>
+		  <br/>
+	 	  <center>
+		   <div class="fb-comments" data-href="https://www.facebook.com/pages/Campo-Feliz-Cementerio-de-Mascotas/257959247667793" data-numposts="5" data-colorscheme="light"></div>
+		  </center>
  		 </div>
- 		 <p:dialog  widgetVar="vardialogimagenes" >
- 		  
-			<!-- <h:outputText id="detail" value="hOLA" /> -->
-			
-			<!-- 
-			<p:lightBox id="detail"  >
-			 
-					  <h:outputLink value="/campofelizweb#{mascotaHomenajeBean.rutaImagenes}#{mascotaHomenajeBean.petfotomascota.ruta}" >
-					       <p:graphicImage value="#{mascotaHomenajeBean.rutaImagenes}#{mascotaHomenajeBean.petfotomascota.ruta}"  height="250px"/>
-					   </h:outputLink>
-					  
-			 		  
-					  
-			</p:lightBox>
-				 -->
-				  <p:graphicImage id="detail"  value="#{mascotaHomenajeBean.rutaImagenes}#{mascotaHomenajeBean.petfotomascota.ruta}" style="max-height:50%"/>
-		 </p:dialog>
  	  </h:form>
 	  </div>
 	</ui:define>
-	
-	
-	
 </ui:composition>	

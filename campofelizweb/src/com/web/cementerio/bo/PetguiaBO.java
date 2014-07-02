@@ -79,9 +79,9 @@ PetguiaDAO petguiaDAO;
 	
 	
 	
-	public boolean ingresarPetguiaBO(Petguia petguia,int idestado, UploadedFile uploadedFile, String descripcionFoto) throws Exception{
+	public void ingresarPetguiaBO(Petguia petguia,int idestado, UploadedFile uploadedFile, String descripcionFoto) throws Exception{
 		Session session = null;
-		boolean ok = false;
+		
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
@@ -108,19 +108,14 @@ PetguiaDAO petguiaDAO;
 			petguia.setFecharegistro(fecharegistro);
 			petguia.setIplog(usuarioBean.getIp());
 			
-			
-			if(petguia.getRutafoto() ==null){
-			 petguia.setRutafoto("/mascota/huella.jpg");	
-			}
-			
 			petguiaDAO.savePetguia(session, petguia);
 			
 			if(uploadedFile !=null){
 			  ingresarPetfotoguia(session, 1, petguia,uploadedFile,descripcionFoto);
+			  
 			}
 			
 			session.getTransaction().commit();
-			ok = true;
 			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
@@ -128,10 +123,10 @@ PetguiaDAO petguiaDAO;
 		}finally {
 			session.close();
 		}
-		return ok;
+
 	}
 	
-	public boolean modificar(Petguia petguia,Petguia petguiaclone,List<Petfotoguia> listPetfotoguia, List<Petfotoguia> listPetfotoguiaclone,int idestado,UploadedFile uploadedFile, String descripcionFoto) throws Exception{
+	public void modificar(Petguia petguia,Petguia petguiaclone,List<Petfotoguia> listPetfotoguia, List<Petfotoguia> listPetfotoguiaclone,int idestado,UploadedFile uploadedFile, String descripcionFoto) throws Exception{
 		Session session = null;
 		boolean ok = false;
 		try {
@@ -169,7 +164,7 @@ PetguiaDAO petguiaDAO;
 			if(ok){
 				session.getTransaction().commit();
 			}
-			return ok;
+			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new Exception(e);
@@ -277,9 +272,7 @@ PetguiaDAO petguiaDAO;
 			FileUtil fileUtil = new FileUtil();
 			FacesUtil facesUtil = new FacesUtil();
 			Calendar fecha = Calendar.getInstance();
-			Integer mes =0;
-			mes = Calendar.MONTH;
-			mes = mes+1;	
+			int mes = Integer.valueOf(fecha.get(Calendar.MONTH))+1;
 			
 			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 			String rutaMascota =  "/guia/" + fecha.get(Calendar.YEAR);

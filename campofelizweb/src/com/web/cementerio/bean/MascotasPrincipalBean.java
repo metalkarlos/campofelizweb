@@ -20,7 +20,7 @@ public class MascotasPrincipalBean implements Serializable {
 	
 	private static final long serialVersionUID = -3691703732690624440L;
 	
-	List<Petmascotahomenaje> lisPetmascotahomenaje =null;
+	List<Petmascotahomenaje> lisPetmascotahomenaje;
 	private String rutaImagenes;
 
 	public MascotasPrincipalBean() {
@@ -42,7 +42,7 @@ public class MascotasPrincipalBean implements Serializable {
 	public void consultarMascotasPrincipal(){
 		try {
 			PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
-			lisPetmascotahomenaje = petmascotahomenajeBO.lisPetmascotaPrincipal(1);
+			lisPetmascotahomenaje = petmascotahomenajeBO.lisPetmascotaPrincipal(1,3);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
