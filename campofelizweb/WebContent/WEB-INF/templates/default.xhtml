@@ -16,17 +16,22 @@
 	<meta name="author" content="Your name" />
 
 	<h:outputScript library="js" name="javascript.js" />
-	<h:outputScript library="js" name="slider.js" />
-	<h:outputScript library="js" name="tms-0.4.1.js" />
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
-	<h:outputScript library="js" name="superfish.js" />
-	<h:outputScript library="js" name="jquery.easing.1.3.js" />
+	
+	<!-- Skitter JS -->
+	<h:outputScript library="js/skitter-slide" name="jquery.easing.1.3.js" />
+	<h:outputScript library="js/skitter-slide" name="jquery.animate-colors-min.js" />
+	<h:outputScript library="js/skitter-slide" name="jquery.skitter.min.js" />
 
 	<h:outputStylesheet library="css" name="messages.css" />
 	<h:outputStylesheet library="css" name="menu.css" />
 	<h:outputStylesheet library="css" name="style.css" />
 	<h:outputStylesheet library="css" name="template.css" />
 	<h:outputStylesheet library="themes/smoothness" name="skin.css" />
+	
+	<!-- Skitter Styles -->
+	<h:outputStylesheet library="css/skitter-slide" name="skitter.styles.css" media="all" />
+	
 	<style type="text/css">
         .box_title {   
 			margin-bottom:12px;
@@ -55,56 +60,9 @@
 			width:960px
 		}
 		/*----- boxes -----*/
-		.otrobox-1 {
-			background:#dcdcdc;
-			border-radius:7px;
-			box-shadow:1px 0 5px #bbb;
-			text-align:center;
-			padding:0 0 6px 0;
-			margin:0 0 16px 0;
-			position:relative;
-			z-index:2;
-		}
-		.otrobox-1 .inner {
-			border-radius:7px 7px 0 0;
-			background:none;/*url(../resources/images/box-1-bg.gif) no-repeat center 0 #fff;*/
-			padding:22px 25px 11px 25px;
-			position:relative;
-			background-color: white;
-		}
-		.otrobox-1 .inner2 {
-			border-radius:7px 7px 0 0;
-			background:none;/*url(../resources/images/box-1-bg.gif) repeat-x center 0 #fff;*/
-			/*padding:22px 5px 11px;*/
-			position:relative;
-			background-color: white;
-		}
-		.otrobox-1 .inner .box_content a{
-			text-decoration: none;
-			padding: 0px 0px 0px 15px;
-			background: url('../resources/images/bullet2.gif') no-repeat scroll left top transparent;
-			line-height: 20px;
-		}
-		.otrobox-1 h6 {padding-bottom:10px;}
 		.guide-section-separator {
 			margin: 8px 15px 8px 4px;
 			border-bottom: 1px solid #e2e2e2;
-		}
-		.slider-container2 {
-			position:relative;
-			z-index:1;
-			height:100%;
-			/*width:100%;*/
-			width:150px;
-			margin:0 auto;
-			padding:0 0 52px 0;
-		}
-		.slider-container2 .pic, .mp-slider {
-			border-radius:9px;
-			box-shadow:0 0 5px #d4d4d4;
-		}
-		.slider-container2 .mask {
-			border-radius:9px;
 		}
 		.inner-box {
 			margin-bottom: 10px;
@@ -122,75 +80,101 @@
 			-webkit-border-radius: 7px 7px 0 0;
 			border-radius: 7px 7px 0 0;
 		}
-		ul {
+		/*ul {
 			padding-left: 30px;
 			list-style:inherit; 
-		}
+		}*/
     </style>
 	<!-- Configuración del Calendario de la Agenda -->
 	<script type="text/javascript">
-			PrimeFaces.locales['es'] = {
-			    closeText: 'Cerrar',
-			    prevText: 'Anterior',
-			    nextText: 'Siguiente',
-			    monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-			    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-			    dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
-			    dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
-			    dayNamesMin: ['D','L','M','M','J','V','S'],
-			    weekHeader: 'Semana',
-			    firstDay: 1,
-			    isRTL: false,
-			    showMonthAfterYear: false,
-			    yearSuffix: '',
-			    timeOnlyTitle: 'Sólo hora',
-			    timeText: 'Tempo',
-			    hourText: 'Hora',
-			    minuteText: 'Minuto',
-			    secondText: 'Segundo',
-			    currentText: 'Fecha actual',
-			    ampm: false,
-			    month: 'Mes',
-			    week: 'Semana',
-			    day: 'Día',
-			    allDayText : 'Todo el día'
-			};
-			$.datepicker.regional['es'] = {
-			        closeText: 'Cerrar',
-			        prevText: '&#x3c;Ant',
-			        nextText: 'Sig&#x3e;',
-			        currentText: 'Hoy',
-			        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
-			                'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-			        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
-			                'Jul','Ago','Sep','Oct','Nov','Dic'],
-			        dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
-			        dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
-			        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
-			        dateFormat: 'dd/mm/yyyy',
-			        firstDay: 1,
-			        weekHeader: 'Sm',
-			        isRTL:false,
-			        showMonthAfterYear:false,
-			        yearSuffix:""
-			        };
-			$.datepicker.setDefaults($.datepicker.regional["es"]);
-		</script>
+		PrimeFaces.locales['es'] = {
+		    closeText: 'Cerrar',
+		    prevText: 'Anterior',
+		    nextText: 'Siguiente',
+		    monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+		    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+		    dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+		    dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+		    dayNamesMin: ['D','L','M','M','J','V','S'],
+		    weekHeader: 'Semana',
+		    firstDay: 1,
+		    isRTL: false,
+		    showMonthAfterYear: false,
+		    yearSuffix: '',
+		    timeOnlyTitle: 'Sólo hora',
+		    timeText: 'Tempo',
+		    hourText: 'Hora',
+		    minuteText: 'Minuto',
+		    secondText: 'Segundo',
+		    currentText: 'Fecha actual',
+		    ampm: false,
+		    month: 'Mes',
+		    week: 'Semana',
+		    day: 'Día',
+		    allDayText : 'Todo el día'
+		};
+		$.datepicker.regional['es'] = {
+		        closeText: 'Cerrar',
+		        prevText: '&#x3c;Ant',
+		        nextText: 'Sig&#x3e;',
+		        currentText: 'Hoy',
+		        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+		                'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+		        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+		                'Jul','Ago','Sep','Oct','Nov','Dic'],
+		        dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+		        dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+		        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+		        dateFormat: 'dd/mm/yyyy',
+		        firstDay: 1,
+		        weekHeader: 'Sm',
+		        isRTL:false,
+		        showMonthAfterYear:false,
+		        yearSuffix:""
+		        };
+		$.datepicker.setDefaults($.datepicker.regional["es"]);
+	</script>
 	<script type="text/javascript">
-			$(function(){
-				function equalHeight(group) {
-					var tallest = 0;
-					group.each(function() {
-						var thisHeight = $(this).height();
-						if(thisHeight > tallest) {
-							tallest = thisHeight;
-						}
-					});
-					group.height(tallest);
-				}	
-				equalHeight($(".box-1 .inner"));
-			})
-		</script>
+		$(function(){
+			function equalHeight(group) {
+				var tallest = 0;
+				group.each(function() {
+					var thisHeight = $(this).height();
+					if(thisHeight > tallest) {
+						tallest = thisHeight;
+					}
+				});
+				group.height(tallest);
+			}	
+			equalHeight($(".box-1 .inner"));
+		})
+	</script>
+
+	<!-- Init Skitter -->
+	<script type="text/javascript">
+		var box_skitter_large = null;
+		$(document).ready(function() {
+			$('.box_skitter_large').skitter({
+				theme: "square", 
+	 			numbers_align: "center", 
+	 			dots: true, 
+	 			preview: true, 
+	 			focus: true, 
+	 			focus_position: "leftTop", 
+	 			controls: true, 
+	 			controls_position: "leftTop", 
+	 			progressbar: true,
+	 			label: false, 
+	 			enable_navigation_keys: true
+				, 
+				onLoad: function(self) {
+					if (this.thumbs) $('.border-skitter').height(350);
+					box_skitter_large = self;
+				}
+			});
+		});
+	</script>
+	
 	<!--[if lt IE 8]>
 		   <div style=' clear: both; text-align:center; position: relative;'>
 		     <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
@@ -225,14 +209,21 @@
 		</div>
 		<div class="clear"></div>
 	</div>
-	<div class="slider-container">
-		<div class="mp-slider">
-			<ul class="items">
-				<li><h:graphicImage alt="Campo Feliz" library="images" name="slide1.jpg" /></li>
-				<li><h:graphicImage alt="Campo Feliz" library="images" name="slide2.jpg" /></li>
-				<li><h:graphicImage alt="Campo Feliz" library="images" name="slide3.jpg" /></li>
-			</ul>
-		</div>
+	<div class="box_skitter box_skitter_large">
+		<ul>
+			<li>
+				<a href="#"><h:graphicImage alt="Campo Feliz" library="images" name="slide1.jpg" class="fade" /></a>
+				<div class="label_text"><p>Campo Feliz</p></div>
+			</li>
+			<li>
+				<a href="#"><h:graphicImage alt="Campo Feliz" library="images" name="slide2.jpg" class="fade" /></a>
+				<div class="label_text"><p>Campo Feliz</p></div>
+			</li>
+			<li>
+				<a href="#"><h:graphicImage alt="Campo Feliz" library="images" name="slide3.jpg" class="fade" /></a>
+				<div class="label_text"><p>Campo Feliz</p></div>
+			</li>
+		</ul>
 	</div>
 	</header>
 	<!-- Content -->
