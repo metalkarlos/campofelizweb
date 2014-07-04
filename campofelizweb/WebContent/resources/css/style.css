@@ -96,60 +96,6 @@ h2 span {
 	font-size:14px;
 	padding:0 0 6px 0;
 }
-.quote {
-	font-size:12px;
-	line-height:18px;
-	position:relative;
-	padding:0 0 15px 0;
-}
-
-	.quote:before {
-		display:inline-block;
-		background:url(../resources/images/quote-before.png) no-repeat 0 0;
-		content:"";
-		width:18px;
-		height:14px;
-		margin:0 5px 0 0;
-	}
-	.quote:after {
-		display:inline-block;
-		background:url(../resources/images/quote-after.png) no-repeat 0 0;
-		content:"";
-		width:18px;
-		height:14px;
-		margin:0 0 0 6px;
-	}
-.quote-1 {
-	background:url(../resources/images/body-bg.gif);
-	border-radius:6px;
-	box-shadow:1px 1px 0 0 #fff;
-	border:1px solid #d8d8d8;
-	position:relative;
-	margin:0 0 9px 0;
-}
-	.quote-1:after {
-		display:block;
-		content:"";
-		background:url(../resources/images/quote-1-marker.gif) no-repeat 0 0;
-		width:22px;
-		height:22px;
-		right:20px;
-		bottom:-22px;
-		position:absolute;
-	}
-	.quote-1-inner {
-		background:url(../resources/images/quote-before.png) no-repeat 19px 30px;
-		padding:28px 25px 29px 40px;
-		position:relative;
-	}
-	.quote-1-inner:after {
-		display:inline-block;
-		background:url(../resources/images/quote-after.png) no-repeat 0 0;
-		content:"";
-		width:18px;
-		height:14px;
-		margin:2px 0 0 3px;
-	}
 .def-list-1 dt {
 	display:block;
 	color:#ec8f23;
@@ -429,133 +375,13 @@ header .innerheader {
 	color:#ec8f23;
 	margin:-3px 0 0 0;
 }
-/********************** Slider ************************/
-.mp-slider .items {display:none;}
-.mp-slider {
-	overflow:visible !important;
-}
-.slider-container {
-	position:relative;
-	z-index:1;
-	/*height:433px;*/
-	height:483px;
-	width:950px;
-	margin:0 auto;
-	/*padding:0 0 52px 0;*/
-	padding:0 0 0 0;
-}
-.slider-container .pic, .mp-slider {
-	border-radius:9px;
-	box-shadow:0 0 5px #d4d4d4;
-}
-.slider-container .mask {
-	border-radius:9px;
-}
-.pagination {
-	position:absolute;
-	bottom:-29px;
-	left:0;
-	right:0;
-	text-align:center;
-}
-	.pagination li {
-		display:inline-block;
-		margin:0 1px;
-	}
-		.pagination li a {
-			display:block;
-			width:20px;
-			height:20px;
-			background:url(../resources/images/slider-pagination.png) no-repeat right 0;
-		}
-			.pagination li.current a, .pagination li a:hover {
-				display:block;
-				width:20px;
-				height:20px;
-				background:url(../resources/images/slider-pagination.png) no-repeat 0 0;
-			}
+
 /********************** Navigation ************************/
 nav {
 	text-align:right;
 	padding:5px 100px 0 0;
 	max-width:699px;
 }
-
-.sf-menu{
-	min-height:28px;
-	padding:0;
-	margin:0;
-	font-size:0;
-	line-height:0;
-}
-.sf-menu ul{
-	position:absolute;
-	top:-999em;
-	width:180px;
-	left:0;
-	display:none;
-	background:#fff;
-	text-align:center;
-	padding:10px 0;
-	box-shadow:0 0 2px #ccc;
-}
-.sf-menu > li{
-	position:relative;
-	display:inline-block;
-	margin:0 41px;
-}
-
-.sf-menu > li > a {
-	text-decoration:none;
-	display:block;
-	font-family: 'Open Sans', sans-serif;
-	font-size:18px;
-	line-height:22px;
-	text-transform:lowercase;
-	text-decoration:underline;
-	color:#c4c4c4;
-	padding:0;
-	text-shadow:1px 1px #fbfbfb;
-}
-
-	.sf-menu > li.current > a, .sf-menu > li:hover > a, .sf-menu > li.sfHover > a {
-		color:#454545;
-		text-decoration:none;
-	}
-
-.sf-menu li:hover ul,.sf-menu li.sfHover ul{top:35px; left:-55px; z-index:999;}
-.sf-menu li:hover li ul,ul.sf-menu li.sfHover li ul{top:-999em}
-.sf-menu li.current,.sf-menu li:hover,.sf-menu li.sfHover{
-	text-decoration:none;
-}
-.sf-menu li li a{
-	display:block;
-	margin:0;
-	position:relative;
-	text-decoration:none;
-	font-size:14px;
-	line-height:18px;
-	color:#454545;
-	overflow:hidden;
-	padding:8px 5px 8px 5px;
-	text-transform:lowercase;
-	font-family: 'Open Sans', sans-serif;
-}
-.sf-menu li li > a:hover, .sf-menu li li.sfHover > a, .sf-menu li li.current > a{
-	text-decoration:underline;
-}
-.sf-menu li li li a {
-	background:url(../resources/images/header-bg.png);
-}
-.sf-menu li li{
-	float:none;
-	position:relative;
-	margin:0 0 1px 0;
-}
-
-.sf-menu li li:hover ul,ul.sf-menu li li.sfHover ul{left:181px;top:-10px;}
-
-
 
 /********************** Content ************************/
 
