@@ -7,9 +7,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import com.web.cementerio.pojo.annotations.Petguia;
-import com.web.cementerio.pojo.annotations.Setestado;
-import com.web.cementerio.pojo.annotations.Setusuario;
+import com.web.cementerio.bo.PetfotoinstalacionBO;
+import com.web.cementerio.pojo.annotations.Petfotoinstalacion;
 import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
@@ -22,20 +21,15 @@ public class CementerioVirtualBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 7212209718614799223L;
-
 	
-	private List<Petguia> listPetguia;
 	private String rutaImagenes;
-
+	private List<Petfotoinstalacion> lisPetfotoinstalacion;
  
     public CementerioVirtualBean() {
-    	listPetguia = new ArrayList<Petguia>();
- 
-    	listPetguia.add(new Petguia(0,new Setestado(),new Setusuario(),"/instalaciones/01-06-2014-campo-santo.jpg", null,null,null,null,null,null,null,false,null));
-    	listPetguia.add(new Petguia(1,new Setestado(),new Setusuario(),"/instalaciones/01-06-2014-entrada.jpg", null,null,null,null,null,null,null,false,null));
-    	listPetguia.add(new Petguia(2,new Setestado(),new Setusuario(),"/instalaciones/01-06-2014-lapida-01.jpg", null,null,null,null,null,null,null,false,null));
-    	
+    	lisPetfotoinstalacion = new ArrayList<Petfotoinstalacion>();
+
     	cargarRutaImagenes();
+    	consultarInstalacion();
     }
 
     private void cargarRutaImagenes(){
@@ -47,16 +41,17 @@ public class CementerioVirtualBean implements Serializable {
 		}
 	}
 
-	public List<Petguia> getListPetguia() {
-		return listPetguia;
-	}
-
-
-
-	public void setListPetguia(List<Petguia> listPetguia) {
-		this.listPetguia = listPetguia;
-	}
-
+    private void consultarInstalacion(){
+    	try
+		{
+    		PetfotoinstalacionBO petfotoinstalacionBO = new PetfotoinstalacionBO();
+    		lisPetfotoinstalacion = petfotoinstalacionBO.lisPetfotoinstalacion();
+		}catch(Exception e){
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!", "");
+		}
+    }
+    
 	public String getRutaImagenes() {
 		return rutaImagenes;
 	}
@@ -64,5 +59,14 @@ public class CementerioVirtualBean implements Serializable {
 	public void setRutaImagenes(String rutaImagenes) {
 		this.rutaImagenes = rutaImagenes;
 	}
-    
+
+	public List<Petfotoinstalacion> getLisPetfotoinstalacion() {
+		return lisPetfotoinstalacion;
+	}
+
+	public void setLisPetfotoinstalacion(
+			List<Petfotoinstalacion> lisPetfotoinstalacion) {
+		this.lisPetfotoinstalacion = lisPetfotoinstalacion;
+	}
+
 }
