@@ -140,7 +140,7 @@ header {
 	min-height: 500px;
 }
 .indent-bot-1 .right{
-	width:280px;
+	/*width:280px;*/
 	float:right;
 	text-align:center;
 	margin-right: 5px;
