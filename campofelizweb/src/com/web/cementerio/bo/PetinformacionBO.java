@@ -1,6 +1,5 @@
 package com.web.cementerio.bo;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -45,7 +44,7 @@ public class PetinformacionBO {
 	
 	
 
-	public  void modificarPetinformacion(Petinformacion petinformacion,Petinformacion petinformacionclone,List<Petfotoinformacion> listPetfotoinformacionclone,
+	public  void modificarPetinformacion(Petinformacion petinformacion,Petinformacion petinformacionclone,List<Petfotoinformacion> listPetfotoinformacion,List<Petfotoinformacion> listPetfotoinformacionclone,
 										 UploadedFile uploadedFile,int idestado, String descripcionimagen) throws Exception{
 		Session session = null;
 		boolean ok = false;
@@ -80,9 +79,7 @@ public class PetinformacionBO {
 			   ok = true;
 			}
 				
-			if(!(petinformacion.getPetfotoinformaciones().isEmpty() && listPetfotoinformacionclone.isEmpty()) && (petinformacion.getPetfotoinformaciones().size() != listPetfotoinformacionclone.size())){
-			   List<Petfotoinformacion> listPetfotoinformacion = new ArrayList<Petfotoinformacion>();
-			   listPetfotoinformacion.addAll(petinformacion.getPetfotoinformaciones());
+			if(!(listPetfotoinformacion.isEmpty() && listPetfotoinformacionclone.isEmpty()) && (listPetfotoinformacion.size() != listPetfotoinformacionclone.size())){
 			   modificarPetfotoinformacion(session, listPetfotoinformacion, listPetfotoinformacionclone, petinformacion, uploadedFile, 2);
 			   ok = true;
 			}
@@ -131,13 +128,11 @@ public class PetinformacionBO {
 			FileUtil fileUtil = new FileUtil();
 			FacesUtil facesUtil = new FacesUtil();
 			Calendar fecha = Calendar.getInstance();
-			Integer mes =0;
-			mes = fecha.get(Calendar.MONTH);
-			mes = mes+1;	
+				
 					
 			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 			String rutaMascota =  "/quienessomos/" + fecha.get(Calendar.YEAR);
-			String nombreArchivo = fecha.get(Calendar.DAY_OF_MONTH) + "-" + mes + "-" + fecha.get(Calendar.YEAR) + "-" + petinformacion.getIdinformacion() + "-" + petfotoinformacion.getIdfotoinformacion() + "-" + uploadedFile.getFileName().toLowerCase();
+			String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petinformacion.getIdinformacion() + "-" + petfotoinformacion.getIdfotoinformacion() +  "." +fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
 					
 			String rutaCompleta = rutaImagenes + rutaMascota;
 			//asignar ruta y nombre de archivo en objeto
