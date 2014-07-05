@@ -4,7 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
+		xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default_others.xhtml">
 	
 	<!-- <ui:define name="title">Campo Feliz - Quienes Somos</ui:define> -->
@@ -15,12 +15,14 @@
 				height: 60px;
 			}
 			.imagengalleria{
-			   height: 280px; 
-			   padding-top: 0px; 
-			   width:500px; 
+			   padding-top:35px; 
 			   border-radius: 10px;
-			   margin-left: 60px;
+			   margin-left: 20px;
 			}
+		  .ui-widget-content ui-corner-all{
+		   border-color:#BBBBBB;
+		  }
+		   
 		</style>
 	</ui:define>
 
@@ -40,25 +42,19 @@
 			   	 </div>
 				</div>
 				
+			   <center>
+		 	   <p:galleria id="idgalleria" value="#{quienesSomosBean.listpetfotoinformacion}" var="item" panelWidth="480" panelHeight="365"  styleClass="ui-widget-content ui-corner-all">
+			   <p:graphicImage  id="idfotos" value="#{quienesSomosBean.rutaImagenes}#{item.ruta}?w=70" style="max-height: 70px;"/>
+			      <p:galleriaContent>  
+			         <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">  
+				       <p:graphicImage styleClass="imagenprincipal" id="idfoto"  value="#{quienesSomosBean.rutaImagenes}#{item.ruta}?w=500" style="max-height: 360px;" />
+				    </h:panelGrid>
+				</p:galleriaContent>
+	   		   </p:galleria>
+			   </center>
+		       <br/>
 				<div>
-				 <p:row>
-				 <p:column>
-				    <p:galleria id="idgalleria" value="#{quienesSomosBean.petinformacion.petfotoinformaciones}" var="item" panelWidth="600" panelHeight="330" rendered="#{quienesSomosBean.petinformacion.petfotoinformaciones.size() > 0}">
-				       <p:graphicImage  id="idfotos" value="#{quienesSomosBean.rutaImagenes}#{item.ruta}" style="max-height: 58px;"/>
-				       <p:galleriaContent>  
-				        <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB; height: 300px; width: 600px; ">  
-				        <f:facet name="header">
-				       	<p:graphicImage  id="idfoto" value="#{quienesSomosBean.rutaImagenes}#{item.ruta}" styleClass="imagengalleria"/>
-				        </f:facet>
-				        </h:panelGrid>
-				 	</p:galleriaContent>
-					</p:galleria>
-				  </p:column>				  
-				  </p:row>
-				  <br/>	   
-				  <p>
-				   <h:outputText value="#{quienesSomosBean.petinformacion.quienessomos}" escape="false" />
-				  </p>
+				  <h:outputText value="#{quienesSomosBean.petinformacion.quienessomos}" escape="false" />
 				</div>
 			</div>
 			
@@ -69,9 +65,7 @@
 				</div>
 				</div>
 				<div>
-				   <p>
-					<h:outputText value="#{quienesSomosBean.petinformacion.mision}" escape="false" />
-				   </p>
+				  <h:outputText value="#{quienesSomosBean.petinformacion.mision}" escape="false" />
 				</div>
 			</div>
 			
@@ -83,10 +77,9 @@
 			     </div>
 				</div>
 				<div>
-				   <p>
-					<h:outputText value="#{quienesSomosBean.petinformacion.vision}" escape="false" />
-				   </p>
-				   <br/>	 
+				  <h:outputText value="#{quienesSomosBean.petinformacion.vision}" escape="false" />
+				   <br/>
+				   <br/>		 
 				</div>
 			</div>
 		   </div>
