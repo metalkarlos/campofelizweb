@@ -61,7 +61,7 @@ public class ContactenosBean implements Serializable {
 			String contenido = "";
 			contenido += "<html>";
 			contenido += "<body>";
-			contenido += "<center><h1>Ha recibido un mensaje de la página de contáctenos</h1></center>";
+			contenido += "<center><h1>Ha recibido un mensaje de la p&aacute;gina de cont&aacute;ctenos</h1></center>";
 			contenido += "<table style='width: 100%'>";
 			contenido += "<tr>";
 			contenido += "<td style='width: 150px;'><strong>Nombres: </strong></td><td>" + nombres + "</td>";

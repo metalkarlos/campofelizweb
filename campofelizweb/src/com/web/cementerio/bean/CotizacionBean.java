@@ -60,7 +60,7 @@ public class CotizacionBean implements Serializable {
 				String contenido = "";
 				contenido += "<html>";
 				contenido += "<body>";
-				contenido += "<center><h1>Ha recibido una solicitud de cotización del sitio web</h1></center>";
+				contenido += "<center><h1>Ha recibido una solicitud de cotizaci&oacute;n del sitio web</h1></center>";
 				contenido += "<table style='width: 100%'>";
 				contenido += "<tr>";
 				contenido += "<td style='width: 150px;'><strong>Nombres: </strong></td><td>" + nombres + "</td>";
