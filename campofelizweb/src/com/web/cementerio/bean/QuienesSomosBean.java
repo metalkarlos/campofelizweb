@@ -51,9 +51,7 @@ public class QuienesSomosBean implements java.io.Serializable {
 			PetinformacionBO petinformacionBO = new PetinformacionBO();
 			petinformacion = petinformacionBO.getPetinformacionById(1,1);
 			if(petinformacion!=null && petinformacion.getPetfotoinformaciones().size()>0 && !petinformacion.getPetfotoinformaciones().isEmpty() ){
-				/*String textoquienessomos= (petinformacion.getQuienessomos()!=null ? petinformacion.getQuienessomos().replaceAll("\\<.*?\\>", "") : "" );
-				petinformacion.setQuienessomos(textoquienessomos);*/
-				listpetfotoinformacion = new ArrayList<Petfotoinformacion>(petinformacion.getPetfotoinformaciones());
+			  listpetfotoinformacion = new ArrayList<Petfotoinformacion>(petinformacion.getPetfotoinformaciones());
 			}
 		}catch(Exception e){
 			e.printStackTrace();

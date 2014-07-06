@@ -14,6 +14,7 @@ import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import com.web.cementerio.bo.PetinformacionBO;
+import com.web.cementerio.global.Parametro;
 import com.web.cementerio.pojo.annotations.Petfotoinformacion;
 import com.web.cementerio.pojo.annotations.Petinformacion;
 import com.web.cementerio.pojo.annotations.Setestado;
@@ -35,7 +36,8 @@ public class QuienesSomosAdminBean implements Serializable {
 	private Petinformacion petinformacion;
 	private Petinformacion petinformacionclone;
 	private Petfotoinformacion petfotoinformacionselected;
-	private List<Petfotoinformacion> listPetfotoinformacionclone;
+	private List<Petfotoinformacion> listpetfotoinformacion;
+	private List<Petfotoinformacion> listpetfotoinformacionclone;
 	private UploadedFile    uploadedFile;
 	private StreamedContent streamedContent;
 	private boolean fotoSubida;
@@ -86,13 +88,13 @@ public class QuienesSomosAdminBean implements Serializable {
 	public void clonarobjetos(){
 		try{
 			petinformacionclone= new Petinformacion(0,new Setestado(),new Setusuario(),null,null,null,null,null,null,null,null,null,null,null,null);
+			listpetfotoinformacionclone = new ArrayList<Petfotoinformacion>();
 			if(petinformacion!=null){
 				petinformacionclone = petinformacion.clonar();
 			}
-			if((petinformacion.getPetfotoinformaciones().size()>0) && (!petinformacion.getPetfotoinformaciones().isEmpty())){
-				listPetfotoinformacionclone = new ArrayList<Petfotoinformacion>();
-				for(Petfotoinformacion petfotoinformacion:petinformacion.getPetfotoinformaciones()){
-					listPetfotoinformacionclone.add(petfotoinformacion.clonar());
+			if((listpetfotoinformacion.size()>0) && (!listpetfotoinformacion.isEmpty())){
+				for(Petfotoinformacion petfotoinformacion:listpetfotoinformacion){
+					listpetfotoinformacionclone.add(petfotoinformacion.clonar());
 				}
 			}
 			
@@ -108,7 +110,13 @@ public class QuienesSomosAdminBean implements Serializable {
 		try {
 			PetinformacionBO petinformacionBO= new PetinformacionBO();
 			petinformacion = new Petinformacion();
+			listpetfotoinformacion = new  ArrayList<Petfotoinformacion>();
 			petinformacion = petinformacionBO.getPetinformacionById(idinformacion,1);
+			if(petinformacion !=null){
+			  if(petinformacion.getPetfotoinformaciones().size()>0 && !petinformacion.getPetfotoinformaciones().isEmpty()){
+				listpetfotoinformacion = new ArrayList<Petfotoinformacion>(petinformacion.getPetfotoinformaciones());
+			  }
+			}
 			
 		} catch (Exception e) {
 	      e.printStackTrace();
@@ -132,9 +140,9 @@ public class QuienesSomosAdminBean implements Serializable {
 		}else if(textovision.equals("")){
 			ok = false;
 			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contenido de Visión");
-		}else if(Integer.valueOf(textoquienessomos.length())>2000){
+		}else if(Integer.valueOf(textoquienessomos.length())>5000){
 			ok = false;
-			new MessageUtil().showInfoMessage("Info", "Contenido de Quienes Somos ha sobrepasado el límite de 2000 caracteres");
+			new MessageUtil().showInfoMessage("Info", "Contenido de Quienes Somos ha sobrepasado el límite de 5000 caracteres");
 		}
 		else if(Integer.valueOf(textomision.length())>2000){
 			ok = false;
@@ -147,8 +155,7 @@ public class QuienesSomosAdminBean implements Serializable {
 		return ok;
 	}	
 	
-	public String  grabar() {
-		String paginaRetorno = null;
+	public void  grabar() {
 		try {
 			if(validarcampos()){
 				
@@ -156,24 +163,25 @@ public class QuienesSomosAdminBean implements Serializable {
 				
 				if(petinformacion.getIdinformacion()>0){
 				  //objeto petmascotahomenaje se ha modificado
-				  petinformacionBO.modificarPetinformacion(petinformacion, petinformacionclone, listPetfotoinformacionclone, uploadedFile, 1, descripcionImagen);
+				  petinformacionBO.modificarPetinformacion(petinformacion, petinformacionclone,listpetfotoinformacion, listpetfotoinformacionclone, uploadedFile, 1, descripcionImagen);
 				  inicializarobjetos();
-			  }
-			   paginaRetorno="/pages/quienessomos?faces-redirect=true"; 
-			   //new MessageUtil().showInfoMessage("Listo!", "Datos grabados con Exito!");
+				  
+			  } 
+				FacesUtil facesUtil = new FacesUtil();
+				facesUtil.redirect("../pages/quienessomos.jsf");
 			 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
-		return paginaRetorno;
+		
 	}
 	
 	public void handleFileUpload(FileUploadEvent event) {
 		try{
 			
-			if (event.getFile().getSize() < 1000000){
+			if (event.getFile().getSize() < Parametro.TAMAÑO_IMAGEN){
 				uploadedFile = event.getFile();
 				streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
 				
@@ -182,10 +190,10 @@ public class QuienesSomosAdminBean implements Serializable {
 				usuarioBean.setStreamedContent(streamedContent);
 				facesUtil.setSessionBean("usuarioBean", usuarioBean);
 				fotoSubida = true;
+				new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 				
-				new MessageUtil().showInfoMessage("Foto en memoria!",uploadedFile.getFileName());
 			}else{
-				new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 1MG");
+				new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 700KB");
 			}
 			
 			
@@ -202,7 +210,7 @@ public class QuienesSomosAdminBean implements Serializable {
 	
 	public void quitarFoto(){
 		if (petfotoinformacionselected !=null){
-			petinformacion.getPetfotoinformaciones().remove(petfotoinformacionselected);
+			listpetfotoinformacion.remove(petfotoinformacionselected);
 			new MessageUtil().showInfoMessage("Info", "Foto: "+petfotoinformacionselected.getNombrearchivo()+" ha sido eliminada de la galería");	
 			petfotoinformacionselected= new Petfotoinformacion();
 		}
@@ -245,14 +253,14 @@ public class QuienesSomosAdminBean implements Serializable {
 	}
 
 
-	public List<Petfotoinformacion> getListPetfotoinformacionclone() {
-		return listPetfotoinformacionclone;
+	public List<Petfotoinformacion> getlistpetfotoinformacionclone() {
+		return listpetfotoinformacionclone;
 	}
 
 
-	public void setListPetfotoinformacionclone(
-			List<Petfotoinformacion> listPetfotoinformacionclone) {
-		this.listPetfotoinformacionclone = listPetfotoinformacionclone;
+	public void setlistpetfotoinformacionclone(
+			List<Petfotoinformacion> listpetfotoinformacionclone) {
+		this.listpetfotoinformacionclone = listpetfotoinformacionclone;
 	}
 
 
@@ -304,6 +312,28 @@ public class QuienesSomosAdminBean implements Serializable {
 
 	public void setDescripcionImagen(String descripcionImagen) {
 		this.descripcionImagen = descripcionImagen;
+	}
+
+
+	public List<Petfotoinformacion> getListpetfotoinformacion() {
+		return listpetfotoinformacion;
+	}
+
+
+	public void setListpetfotoinformacion(
+			List<Petfotoinformacion> listpetfotoinformacion) {
+		this.listpetfotoinformacion = listpetfotoinformacion;
+	}
+
+
+	public List<Petfotoinformacion> getListpetfotoinformacionclone() {
+		return listpetfotoinformacionclone;
+	}
+
+
+	public void setListpetfotoinformacionclone(
+			List<Petfotoinformacion> listpetfotoinformacionclone) {
+		this.listpetfotoinformacionclone = listpetfotoinformacionclone;
 	}
 
 	

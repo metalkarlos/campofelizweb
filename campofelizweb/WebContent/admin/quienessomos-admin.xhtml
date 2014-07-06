@@ -23,7 +23,7 @@
 			}
 			.ui-panelgrid tr, .ui-panelgrid td {
 				border: none;
-				padding: 0 10px;
+				/*padding: 0 10px;*/
 			}
 			.ui-panelgrid .alto-columna {
 				padding-bottom: 15px;
@@ -34,16 +34,8 @@
 			.panel-previa .ui-panel-content {
 				padding: 0;
 			}
-			
-			.imagengalleria{
-			   height: 280px; 
-			   padding-top: 5px; 
-			   width:500px; 
-			   border-radius: 10px;
-			}
 		</style>
     </ui:define>
-    
     
     <ui:define name="content_page">
 		<div class="content-page">
@@ -53,87 +45,71 @@
 			
 			<div class="inner-content">
 				<p:panelGrid id="idgridcontenido" >
-				
-				 
-				  <p:row>
-				  <p:column>
-				    <p:galleria id="idgalleria" value="#{quienesSomosAdminBean.petinformacion.petfotoinformaciones}" var="item"  panelWidth="600" panelHeight="330"  rendered="#{quienesSomosAdminBean.petinformacion.petfotoinformaciones.size() > 0}">
-				       
-				        <p:graphicImage  id="idfotos" value="#{quienesSomosAdminBean.rutaImagenes}#{item.ruta}" style="max-height: 58px;"   />
-				       
-				        <p:galleriaContent>  
-				            <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB; height: 300px; width: 600px;">  
-						        <f:facet name="header">
-					            	<p:graphicImage  id="idfoto" value="#{quienesSomosAdminBean.rutaImagenes}#{item.ruta}" styleClass="imagengalleria"/>
-						        </f:facet>
-						        <p:commandButton id="idbuttondelete"  title="Eliminar foto permanentemente" icon="ui-icon ui-icon-trash" onclick="vardialogdelete.show()" style="position:absolute;right:40px;top:20px;" update=":form-contentpage:idpaneldelete">
-						        	<f:setPropertyActionListener value="#{item}" target="#{quienesSomosAdminBean.petfotoinformacionselected}" />
-						        </p:commandButton>
-						    </h:panelGrid>
-						</p:galleriaContent>
-					</p:galleria>
-				  </p:column>				  
-				  </p:row>
-				
-					  
-				  <p:row>
-				  <p:column>
-				  <h:outputLabel value="Agregar Foto" for="idSubeFotos" /><br />
-				  <p:panel id="pnlPrevia" styleClass="panel-previa">
-				  <p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" styleClass="imagen"  rendered="#{quienesSomosAdminBean.fotoSubida}" />
-				  <p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{quienesSomosAdminBean.borrarFotoSubida()}" update="pnlPrevia" rendered="#{quienesSomosAdminBean.fotoSubida}" />
-				  </p:panel>
-				  <p:fileUpload id="idSubeFotos" fileUploadListener="#{quienesSomosAdminBean.handleFileUpload}" mode="advanced"  label="Elegir Foto" cancelLabel="Cancelar" uploadLabel="Subir  Foto"
-					update="mensajes, pnlPrevia"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
-				  </p:column>
-				  </p:row>  
-				
-				 
-				  <p:row>
-				  <p:column styleClass="alto-columna">
-				  <h:outputLabel value="Quienes Somos" for="txtquienessomos" />
-			      </p:column>
-				  </p:row>
-				  
-				  <p:row>
-				  <p:column styleClass="alto-columna">
-				  <p:editor    id="txtquienessomos" width="600"  value="#{quienesSomosAdminBean.petinformacion.quienessomos}" required="true" requiredMessage="Es necesario ingresar el contenido de Quienes Somos" controls="bold italic underline bullets numbering  undo redo link unlink cut copy paste source removeformat" />
-				  </p:column>
-				  </p:row>
-				  
-				  <p:row>
-				  <p:column styleClass="alto-columna">
-				  <h:outputLabel value="Misión" for="txtmision" />
-				  </p:column>
-				  </p:row>
-				  
-				  <p:row>
-				  <p:column styleClass="alto-columna">
-				  <p:editor  id="txtmision" width="600"   value="#{quienesSomosAdminBean.petinformacion.mision}" controls="bold italic underline bullets numbering  undo redo link unlink cut copy paste source removeformat"/>
-				  </p:column>
-				  </p:row>
-				  
-				  <p:row>
-				  <p:column styleClass="alto-columna">
-				  <h:outputLabel value="Visión" for="txtvision" />
-				  </p:column>
-				  </p:row>
-				  
-				  <p:row>
-				  <p:column styleClass="alto-columna">
-				  <p:editor  id="txtvision"  width="600"  value="#{quienesSomosAdminBean.petinformacion.vision}" controls="bold italic underline bullets numbering  undo redo link unlink cut copy paste source removeformat"/>
-				  </p:column>
-				  </p:row>
-				  
-				  <p:row>
-				  <p:column>
-				  <h:outputLabel value="Tags" for="txtTags" /><br />
-				  <p:inputText id="txtTags" value="#{quienesSomosAdminBean.petinformacion.tag}" style="width: 600px;"></p:inputText>
-				  </p:column>
-				  </p:row>
-				  
-				  
-				</p:panelGrid>	
+				<p:row>
+				<p:column>
+				 <center>
+				  <p:galleria id="idgalleria" value="#{quienesSomosAdminBean.listpetfotoinformacion}" var="item" panelWidth="480" panelHeight="365"  styleClass="ui-widget-content ui-corner-all">
+				  <p:graphicImage  id="idfotos" value="#{quienesSomosAdminBean.rutaImagenes}#{item.ruta}?w=70" style="max-height: 70px;"/>
+				  <p:galleriaContent>  
+				   <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">  
+				     <p:graphicImage styleClass="imagenprincipal" id="idfoto"  value="#{quienesSomosAdminBean.rutaImagenes}#{item.ruta}?w=500" style="max-height: 330px;" />
+				     <p:commandButton id="idbuttondelete"  title="Eliminar foto permanentemente" icon="ui-icon ui-icon-trash" onclick="vardialogdelete.show()" style="position:absolute;right:40px;top:20px;" update=":form-contentpage:idpaneldelete">
+				     <f:setPropertyActionListener value="#{item}" target="#{quienesSomosAdminBean.petfotoinformacionselected}" />
+				     </p:commandButton>
+				   </h:panelGrid>
+				  </p:galleriaContent>
+				  </p:galleria>
+				  </center>
+				</p:column>				  
+				</p:row>
+				<p:row>
+				<p:column>
+				 <h:outputLabel value="Agregar Foto" for="idSubeFotos" /><br />
+				 <p:panel id="pnlPrevia" styleClass="panel-previa">
+				 <p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" style="max-height: 70px;"  rendered="#{quienesSomosAdminBean.fotoSubida}" />
+				 <p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{quienesSomosAdminBean.borrarFotoSubida()}" update="pnlPrevia" rendered="#{quienesSomosAdminBean.fotoSubida}" />
+				 </p:panel>
+				 <p:fileUpload id="idSubeFotos" fileUploadListener="#{quienesSomosAdminBean.handleFileUpload}" mode="advanced"  label="Elegir Foto" cancelLabel="Cancelar" uploadLabel="Subir  Foto"
+					update="mensajes, pnlPrevia" showButtons="false" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
+			   </p:column>
+			   </p:row>  
+			   <p:row>
+			   <p:column styleClass="alto-columna">
+			    <h:outputLabel value="Quienes Somos" for="txtquienessomos" />
+			   </p:column>
+			   </p:row>
+			   <p:row>
+			   <p:column styleClass="alto-columna">
+			    <p:editor    id="txtquienessomos" width="600"  value="#{quienesSomosAdminBean.petinformacion.quienessomos}" required="true" requiredMessage="Es necesario ingresar el contenido de Quienes Somos" controls="bold italic underline bullets numbering  undo redo link unlink cut copy paste source removeformat" />
+			   </p:column>
+			   </p:row>
+   			   <p:row>
+			   <p:column styleClass="alto-columna">
+			     <h:outputLabel value="Misión" for="txtmision" />
+			   </p:column>
+			   </p:row>
+  			   <p:row>
+			   <p:column styleClass="alto-columna">
+			     <p:editor  id="txtmision" width="600"   value="#{quienesSomosAdminBean.petinformacion.mision}" controls="bold italic underline bullets numbering  undo redo link unlink cut copy paste source removeformat"/>
+			   </p:column>
+			   </p:row>
+			   <p:row>
+			   <p:column styleClass="alto-columna">
+			     <h:outputLabel value="Visión" for="txtvision" />
+			   </p:column>
+			   </p:row>
+			   <p:row>
+			   <p:column styleClass="alto-columna">
+				<p:editor  id="txtvision"  width="600"  value="#{quienesSomosAdminBean.petinformacion.vision}" controls="bold italic underline bullets numbering  undo redo link unlink cut copy paste source removeformat"/>
+			   </p:column>
+			   </p:row>
+			   <p:row>
+			   <p:column>
+			    <h:outputLabel value="Tags" for="txtTags" /><br />
+				<p:inputText id="txtTags" value="#{quienesSomosAdminBean.petinformacion.tag}" style="width: 600px;"></p:inputText>
+			   </p:column>
+			   </p:row>
+			 </p:panelGrid>	
 			</div>
 			
 			<div class="area-botones">

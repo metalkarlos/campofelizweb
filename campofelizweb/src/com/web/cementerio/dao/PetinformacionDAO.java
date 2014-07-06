@@ -24,19 +24,17 @@ public class PetinformacionDAO {
 				 
 		
 		petinformacion = (Petinformacion) criteria.uniqueResult();
-		
-		if((!petinformacion.getPetfotoinformaciones().isEmpty()) && petinformacion.getPetfotoinformaciones().size()>0){
-			Set<Petfotoinformacion> tmp = new HashSet<Petfotoinformacion>();
-			
-			for(Petfotoinformacion petfoto:petinformacion.getPetfotoinformaciones()){
-				if(petfoto.getSetestado().getIdestado() == idestado){
+		if(petinformacion!=null){
+			if((!petinformacion.getPetfotoinformaciones().isEmpty()) && petinformacion.getPetfotoinformaciones().size()>0){
+				Set<Petfotoinformacion> tmp = new HashSet<Petfotoinformacion>();
+				for(Petfotoinformacion petfoto:petinformacion.getPetfotoinformaciones()){
+				 if(petfoto.getSetestado().getIdestado() == idestado){
 					tmp.add(petfoto);
-		
-				}
+			  	}
+			  }
+			  petinformacion.setPetfotoinformaciones(tmp);
 			}
-			petinformacion.setPetfotoinformaciones(tmp);
 		}
-		
 		return petinformacion;
 	}
 	
