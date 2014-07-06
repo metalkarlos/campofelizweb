@@ -24,7 +24,7 @@
 	max-width: 600px; 
 	min-width: 600px; 
 	overflow-y: visible; 
-	max-height: 50px; 
+	/*max-height: 50px; */
 	min-height: 50px;
 }
 .rounded-corners-top, .header-meta {
