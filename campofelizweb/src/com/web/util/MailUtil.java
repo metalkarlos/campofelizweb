@@ -48,12 +48,12 @@ public class MailUtil {
 		properties.put("mail.user", usuario);//
 		properties.put("mail.password", clave);//
 
-		properties.put("mail.smtp.starttls.enable","true");
+		//properties.put("mail.smtp.starttls.enable","true");
 		//properties.put("mail.smtp.EnableSSL.enable","true");
 		properties.put("mail.smtp.auth", "true");
-		properties.put("mail.smtp.socketFactory.port", port);
-		properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");   
-		properties.put("mail.smtp.socketFactory.fallback", "false");   
+		//properties.put("mail.smtp.socketFactory.port", port);
+		//properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");   
+		//properties.put("mail.smtp.socketFactory.fallback", "false");   
 		
 		properties.put("mail.debug", "true"); 
 		 
