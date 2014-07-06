@@ -103,7 +103,7 @@ public class PetservicioDAO {
 				}
 				query += ")";
 				
-				criteria.add(Restrictions.sqlRestriction(query));
+				criteriaCount.add(Restrictions.sqlRestriction(query));
 			}
 			
 			criteriaCount.setMaxResults(pageSize)

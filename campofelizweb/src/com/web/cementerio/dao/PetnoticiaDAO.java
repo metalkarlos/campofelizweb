@@ -92,11 +92,11 @@ public class PetnoticiaDAO {
                     .setProjection( Projections.rowCount());
 
 			if(titulo != null && titulo.trim().length() > 0){
-	            criteria.add( Restrictions.like("titulo", "%"+titulo.replaceAll(" ", "%")+"%").ignoreCase());
+				criteriaCount.add( Restrictions.like("titulo", "%"+titulo.replaceAll(" ", "%")+"%").ignoreCase());
 	        }
 	        
 	        if(descripcion != null && descripcion.trim().length() > 0){
-	            criteria.add( Restrictions.like("descripcion", "%"+descripcion.replaceAll(" ", "%")+"%").ignoreCase());
+	        	criteriaCount.add( Restrictions.like("descripcion", "%"+descripcion.replaceAll(" ", "%")+"%").ignoreCase());
 	        }
 			
 			criteriaCount.setMaxResults(pageSize)
@@ -158,7 +158,7 @@ public class PetnoticiaDAO {
 				}
 				query += ")";
 				
-				criteria.add(Restrictions.sqlRestriction(query));
+				criteriaCount.add(Restrictions.sqlRestriction(query));
 			}
 			
 			criteriaCount.setMaxResults(pageSize)

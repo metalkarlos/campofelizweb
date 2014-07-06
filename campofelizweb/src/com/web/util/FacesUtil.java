@@ -74,7 +74,7 @@ public class FacesUtil {
 	}
 	
 	public Object getParametroUrl(String paramName){
-		int value = 0;
+		/*int value = 0;
 		String param = request.getParameter(paramName);
 		
 		if(param != null && param.trim().length() > 0){
@@ -83,7 +83,16 @@ public class FacesUtil {
 			}catch(Exception e){
 				value = 0;
 			}
-		}
+		}*/
+		
+		/*Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
+		Object value = 0;
+		
+		if(params != null && !params.isEmpty()){
+			value = params.get(paramName);
+		}*/
+		
+		Object value = request.getParameter(paramName);
 		
 		return value;
 	}
