@@ -16,12 +16,10 @@
 		<meta name="author" content="Your name" />
 	
 		<h:outputScript library="js" name="javascript.js" />
-		<!-- <h:outputScript library="primefaces" name="jquery/jquery.js" /> -->
 	
 		<h:outputStylesheet library="css" name="messages.css" />
 		<h:outputStylesheet library="css" name="menu.css" />
 		<h:outputStylesheet library="css" name="style.css" />
-		<h:outputStylesheet library="css" name="template.css" />
 		<h:outputStylesheet library="themes/smoothness" name="skin.css" />
 
 		<style type="text/css">
@@ -140,10 +138,13 @@
 		<header>
 		<div class="innerheader">
 			<div>
+				<!-- Link Home -->
+				<h:link outcome="home" title="Campo Feliz" style="width: 278px;height: 174px;float: left;"></h:link>
 				<div>
 					<!-- Redes Sociales -->
 					<ui:include src="/WEB-INF/includes/redes-sociales.xhtml" />
 				</div>
+				<!-- Logo -->
 				<div class="header-meta">
 				</div>
 				<!-- Menu -->

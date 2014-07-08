@@ -9,7 +9,6 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title><ui:insert name="title" /></title>
 	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
 	<meta name="description" content="Your description" />
 	<meta name="keywords" content="Your keywords" />
@@ -26,7 +25,6 @@
 	<h:outputStylesheet library="css" name="messages.css" />
 	<h:outputStylesheet library="css" name="menu.css" />
 	<h:outputStylesheet library="css" name="style.css" />
-	<h:outputStylesheet library="css" name="template.css" />
 	<h:outputStylesheet library="themes/smoothness" name="skin.css" />
 	
 	<!-- Skitter Styles -->
@@ -164,7 +162,7 @@
 	 			controls: true, 
 	 			controls_position: "leftTop", 
 	 			progressbar: true,
-	 			label: false, 
+	 			label: true, 
 	 			velocity: 0.20,
 	 			enable_navigation_keys: true
 				, 
@@ -199,10 +197,13 @@
 	<header>
 	<div class="innerheader">
 		<div>
+			<!-- Link Home -->
+			<h:link outcome="home" title="Campo Feliz" style="width: 278px;height: 174px;float: left;"></h:link>
 			<div>
 				<!-- Redes Sociales -->
 				<ui:include src="/WEB-INF/includes/redes-sociales.xhtml" />
 			</div>
+			<!-- Logo -->
 			<div class="header-meta">
 			</div>
 			<!-- Menu -->
@@ -213,16 +214,16 @@
 	<div class="box_skitter box_skitter_large">
 		<ul>
 			<li>
-				<a href="#"><h:graphicImage alt="Campo Feliz" library="images" name="slide1.jpg" class="fade" /></a>
-				<div class="label_text"><p>Campo Feliz</p></div>
+				<h:link outcome="mascotashomenaje"><h:graphicImage alt="Nuestro Homenaje Póstumo" library="images" name="slide1.jpg" class="fade" /></h:link>
+				<div class="label_text"><p>Nuestro Homenaje Póstumo</p></div>
 			</li>
 			<li>
-				<a href="#"><h:graphicImage alt="Campo Feliz" library="images" name="slide2.jpg" class="fade" /></a>
-				<div class="label_text"><p>Campo Feliz</p></div>
+				<h:link outcome="servicios"><h:graphicImage alt="Nuestros Servicios" library="images" name="slide2.jpg" class="fade" /></h:link>
+				<div class="label_text"><p>Nuestros Servicios</p></div>
 			</li>
 			<li>
-				<a href="#"><h:graphicImage alt="Campo Feliz" library="images" name="slide3.jpg" class="fade" /></a>
-				<div class="label_text"><p>Campo Feliz</p></div>
+				<h:link outcome="cementeriovirtual"><h:graphicImage alt="Nuestras Instalaciones" library="images" name="slide3.jpg" class="fade" /></h:link>
+				<div class="label_text"><p>Nuestras Instalaciones</p></div>
 			</li>
 		</ul>
 	</div>

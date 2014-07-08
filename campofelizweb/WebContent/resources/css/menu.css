@@ -18,6 +18,7 @@
   line-height: 1.3em;
   vertical-align: middle;
   text-align: center;
+  width: 100px;
 }
 #cssmenu > ul li.hover,
 #cssmenu > ul li:hover {
@@ -80,7 +81,7 @@
 }
 #cssmenu > ul li a {
   display: inline-block;
-  padding: 10px 22px;
+  padding: 10px 10px;/*ESPACIO ENTRE MENUES*/
 }
 #cssmenu > ul > li.active,
 #cssmenu > ul > li.active:hover {
@@ -101,6 +102,7 @@
   background-color: #ffffff;
   border-bottom: 1px solid #8ecf43;
   font-size: 13px;
+  width: auto;
 }
 #cssmenu > ul li.hover,
 #cssmenu > ul li:hover {
