@@ -28,7 +28,6 @@ public class MascotaHomenajeBean implements Serializable {
 	private static final long serialVersionUID = -5791044831809774834L;
 	private Petmascotahomenaje petmascotahomenaje;
 	private List<Petfotomascota>listpetfotomascota;
-	private Petfotomascota     petfotomascota;//hacer pruebas lihgt box
 	private int idmascota;
 	private String rutaImagenes;
 	
@@ -61,7 +60,7 @@ public class MascotaHomenajeBean implements Serializable {
 		try {
 			PetmascotahomenajeBO mascotaHomenajeBO= new PetmascotahomenajeBO();
 			petmascotahomenaje = mascotaHomenajeBO.getPetmascotahomenajebyId(idmascota, 1,false);
-			if((petmascotahomenaje !=null)&&(!petmascotahomenaje.getPetfotomascotas().isEmpty()) & petmascotahomenaje.getPetfotomascotas().size()>0 ){
+			if((petmascotahomenaje !=null)&&(!petmascotahomenaje.getPetfotomascotas().isEmpty()) && petmascotahomenaje.getPetfotomascotas().size()>0 ){
 				listpetfotomascota = new ArrayList<Petfotomascota>(petmascotahomenaje.getPetfotomascotas());
 
 			}
@@ -74,7 +73,6 @@ public class MascotaHomenajeBean implements Serializable {
 	public void inicializarobjetos(){
 		
 		petmascotahomenaje = new Petmascotahomenaje(0, new Setestado(), new Setusuario(), new Petespecie(), null, null, null, null, null, null, null, null, null, null, null, null );
-		petfotomascota = new Petfotomascota();
 		Petespecie petespecie = new Petespecie();
 		petmascotahomenaje.setPetespecie(petespecie);
 		idmascota =0;
@@ -107,14 +105,6 @@ public class MascotaHomenajeBean implements Serializable {
 
 	public void setRutaImagenes(String rutaImagenes) {
 		this.rutaImagenes = rutaImagenes;
-	}
-
-	public Petfotomascota getPetfotomascota() {
-		return petfotomascota;
-	}
-
-	public void setPetfotomascota(Petfotomascota petfotomascota) {
-		this.petfotomascota = petfotomascota;
 	}
 
 	public List<Petfotomascota> getListpetfotomascota() {

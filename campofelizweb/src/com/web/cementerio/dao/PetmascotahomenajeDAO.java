@@ -64,20 +64,16 @@ public class PetmascotahomenajeDAO {
 		listPetmascotahomenaje = (List<Petmascotahomenaje>)criteria.list();
 		return listPetmascotahomenaje;
 	}
-	
-
-	
+		
 	@SuppressWarnings("unchecked")
 	public List<Petmascotahomenaje> lisPetmascotaBusquedaByPage(Session session, String[] texto, int pageSize, int pageNumber, int args[], int idestado) throws Exception {
 		List<Petmascotahomenaje> listPetmascotahomenaje = null;
-		String query = "";
 		
 		Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
 				 .add(Restrictions.eq("setestado.idestado", idestado));
 		
 		if(texto != null && texto.length > 0){
-			/*String query = "(";*/
-			query = "(";
+			String query = "(";
 			for(int i=0;i<texto.length;i++)
 			{
 				query += "lower({alias}.nombre) like lower('%"+texto[i]+"%') ";
@@ -89,21 +85,22 @@ public class PetmascotahomenajeDAO {
 			
 			criteria.add(Restrictions.sqlRestriction(query));
 		}
-		criteria.addOrder(Order.desc("fechapublicacion"))
+		
+        criteria.addOrder(Order.desc("fechapublicacion"))
 		.setMaxResults(pageSize)
 		.setFirstResult(pageNumber);
+        
+		listPetmascotahomenaje = (List<Petmascotahomenaje>) criteria.list();
 		
-		listPetmascotahomenaje = (List<Petmascotahomenaje>)criteria.list();
-		
-		if(listPetmascotahomenaje.size() >0 && !listPetmascotahomenaje.isEmpty()){
-			
-			/*Criteria criteriaCount = session.createCriteria(Petmascotahomenaje.class)
-					.add(Restrictions.eq("setestado.idestado", idestado))
-					.setProjection( Projections.rowCount());*/
-			
+		//si hay datos pero con texto de busqueda, ahi si debe ir el pagineo
+		if(listPetmascotahomenaje != null && listPetmascotahomenaje.size() > 0 && texto != null && texto.length > 0)
+		{
+			Criteria criteriaCount = session.createCriteria(Petmascotahomenaje.class)
+					.add( Restrictions.eq("setestado.idestado", 1))
+                    .setProjection( Projections.rowCount());
+
 			if(texto != null && texto.length > 0){
-				//String query = "(";
-				query = "(";
+				String query = "(";
 				for(int i=0;i<texto.length;i++)
 				{
 					query += "lower({alias}.nombre) like lower('%"+texto[i]+"%') ";
@@ -113,28 +110,23 @@ public class PetmascotahomenajeDAO {
 				}
 				query += ")";
 				
-				criteria.add(Restrictions.sqlRestriction(query));
+				criteriaCount.add(Restrictions.sqlRestriction(query));
 			}
 			
-			Criteria criteriaCount = session.createCriteria(Petmascotahomenaje.class)
-					.add(Restrictions.eq("setestado.idestado", idestado))
-					.add(Restrictions.sqlRestriction(query))
-					.setProjection( Projections.rowCount());
+			criteriaCount.setMaxResults(pageSize)
+			.setFirstResult(pageNumber);
 			
-			
-				criteriaCount.setMaxResults(pageSize)
-			    .setFirstResult(pageNumber);
-				
-				Object object = criteriaCount.uniqueResult();
-				int count =(object==null?0:Integer.parseInt(object.toString()));
-				args[0] = count;
-	  
+			Object object = criteriaCount.uniqueResult();
+			int count = (object==null?0:Integer.parseInt(object.toString()));
+			args[0] = count;
 		}
-	    else{
-		   	args[0] = 0;
+		else
+		{
+			//si no hay datos o si hubieron datos pero sin texto de busqueda
+			args[0] = 0;
 		}
-		return listPetmascotahomenaje;
 		
+		return listPetmascotahomenaje;
 	}
 	
 	@SuppressWarnings("unchecked")

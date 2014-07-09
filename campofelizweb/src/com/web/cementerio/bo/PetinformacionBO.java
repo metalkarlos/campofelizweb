@@ -137,7 +137,7 @@ public class PetinformacionBO {
 			String rutaCompleta = rutaImagenes + rutaMascota;
 			//asignar ruta y nombre de archivo en objeto
 			petfotoinformacion.setRuta(rutaMascota+"/"+nombreArchivo);
-			petfotoinformacion.setNombrearchivo(uploadedFile.getFileName().toLowerCase());
+			petfotoinformacion.setNombrearchivo(nombreArchivo);
 			
 			petfotoinformacionDAO.ingresarFotoinformacion(session, petfotoinformacion);
 			

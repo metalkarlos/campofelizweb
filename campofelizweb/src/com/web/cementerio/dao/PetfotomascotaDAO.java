@@ -1,5 +1,6 @@
 package com.web.cementerio.dao;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.web.cementerio.pojo.annotations.Petfotomascota;
@@ -21,7 +22,14 @@ public class PetfotomascotaDAO {
 	public int getCantFotosPorMascota(Session session, int idmascota) throws Exception{
 		int count = 0;
 		
-		Object object = session.createQuery("select count(idfotomascota)+1 from Petfotomascota").uniqueResult();
+		String hql = " select count(idfotomascota)+1 as cantidad ";
+		hql += " from Petfotomascota  fm ";
+		hql += " where fm.petmascotahomenaje.idmascota = :idmascota ";
+		
+		Query query = session.createQuery(hql)
+				.setInteger("idmascota", idmascota);
+		
+		Object object = query.uniqueResult();                 
 		count = (object==null ?1: Integer.parseInt(object.toString()));
 		return count;
 	}

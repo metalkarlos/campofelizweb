@@ -78,12 +78,12 @@
 				
 					<p:galleria id="idgalleria" value="#{mascotaHomenajeAdminBean.listpetfotomascota}" var="item" panelWidth="500" panelHeight="380"  styleClass="ui-widget-content ui-corner-all">
 				       
-				        <p:graphicImage  id="idfotos" value="#{mascotaHomenajeAdminBean.rutaImagenes}#{item.ruta}"  />
+				        <p:graphicImage  id="idfotos" value="#{mascotaHomenajeAdminBean.rutaImagenes}#{item.ruta}?w=70" style="max-height: 70px;"/>
 				       
 				        <p:galleriaContent>  
 				            <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">  
 						        <f:facet name="header">
-					            	<p:graphicImage styleClass="imagenprincipal" id="idfoto" value="#{mascotaHomenajeAdminBean.rutaImagenes}#{item.ruta}" />
+					            	<p:graphicImage styleClass="imagenprincipal" id="idfoto" value="#{mascotaHomenajeAdminBean.rutaImagenes}#{item.ruta}?w=450" style="max-width:450px; max-height: 365px;"/>
 						        </f:facet>
 						        <p:commandButton id="idbuttonprincipal" title="Colocar como foto principal" icon="ui-icon ui-icon-person"  onclick="vardialogprincipal.show()" style="position:absolute;right:0px;top:30px;" update=":form-contentpage:idpanelprincipal" >
 						        	<f:setPropertyActionListener value="#{item}" target="#{mascotaHomenajeAdminBean.petfotomascotaselected}" />
@@ -191,7 +191,7 @@
 				</p:row>
 				<p:row>
 				  <p:column styleClass="alto-columna">
-				   <p:editor  id="txtDedicatoria" maxlength="1000"   autoResize="true"  value="#{mascotaHomenajeAdminBean.petmascotahomenaje.dedicatoria}" width="600"  controls="bold italic underline  undo redo  cut copy paste" />
+				   <p:editor  id="txtDedicatoria" maxlength="1000"   autoResize="true"  value="#{mascotaHomenajeAdminBean.petmascotahomenaje.dedicatoria}" width="600"  controls="bold italic underline  undo redo  cut copy  center  removeformat" />
 				  </p:column>
 				</p:row>
 				

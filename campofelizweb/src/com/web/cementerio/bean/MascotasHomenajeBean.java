@@ -13,8 +13,6 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
-
-
 import com.web.cementerio.bo.PetmascotahomenajeBO;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
 import com.web.util.FileUtil;
@@ -24,41 +22,24 @@ import com.web.util.MessageUtil;
 @ViewScoped
 public class MascotasHomenajeBean  {
 private LazyDataModel<Petmascotahomenaje>  listpetmascotahomenaje; 
-private List<Petmascotahomenaje> lisPetmascotahomenaje;
 private int idespecie;
-private String nombre;
 private String rutaImagenes;
 private String descripcionParam;
+private String texto;
 
 
 	public MascotasHomenajeBean(){
 		idespecie=0;
-		nombre ="";
 		rutaImagenes = "";
 		descripcionParam = "buscar por nombre de mascota";
+		texto="buscar por nombre de mascota";
 		cargarRutaImagenes();
-		//consultarMascotasPrincipal();
 		consultar();
-		
-		
 	}
 		
 	private void cargarRutaImagenes(){
 		try {
 			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
-		} catch (Exception e) {
-			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-		}
-	}
-	
-	
-	@SuppressWarnings("unchecked")
-	public void consultarMascotasPrincipal(){
-		try {
-			PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
-			listpetmascotahomenaje = (LazyDataModel<Petmascotahomenaje>) petmascotahomenajeBO.lisPetmascotaPrincipal(1,6);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
@@ -77,17 +58,31 @@ private String descripcionParam;
 					int args[] = {0};
 					
 					String[] textoBusqueda = null;
-					if(descripcionParam != null && descripcionParam.trim().length() > 0 && descripcionParam.trim().compareTo("buscar por nombre de mascota") != 0 ){
+					
+					if(descripcionParam != null && descripcionParam.trim().length() > 0 && descripcionParam.trim().compareTo("buscar por nombre de mascota") != 0){
 						textoBusqueda = descripcionParam.split(" ");
 						//first = 0;
-					
-					
-					data = petmascotahomenajeBO.lisPetmascotahomenajeBusquedaByPage(textoBusqueda, pageSize, first, args,1);
+						//first = 1;
 					}
-					this.setRowCount(args[0]);
-	
-			        return data;
+					if(!texto.equals(descripcionParam)){
+						first = 0;
+						//this.setRowIndex(0);
+						texto = descripcionParam;
+						
+					}
+					data = petmascotahomenajeBO.lisPetmascotahomenajeBusquedaByPage(textoBusqueda, pageSize, first, args,1);
+					
+					if(data != null && !data.isEmpty() && args[0] == 0){
+						//si hubieron datos pero sin texto de busqueda
+						this.setRowCount(pageSize);
+					}else{
+						//args va con 0 solo cuando no hay datos
+						this.setRowCount(args[0]);
+					}
+					
+					return data;
 				}
+				
 				
 				@Override
                 public void setRowIndex(int rowIndex) {
@@ -120,19 +115,9 @@ private String descripcionParam;
 		this.idespecie = idespecie;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-
 	public String getRutaImagenes() {
 		return rutaImagenes;
 	}
-
 
 	public void setRutaImagenes(String rutaImagenes) {
 		this.rutaImagenes = rutaImagenes;
@@ -154,9 +139,14 @@ private String descripcionParam;
 			LazyDataModel<Petmascotahomenaje> listpetmascotahomenaje) {
 		this.listpetmascotahomenaje = listpetmascotahomenaje;
 	}
-	
 
-	
-	
+	public String getTexto() {
+		return texto;
+	}
+
+	public void setTexto(String texto) {
+		this.texto = texto;
+	}
+
 	
 }

@@ -3,7 +3,6 @@
 	import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -70,6 +69,8 @@ import com.web.util.MessageUtil;
 			petmascotahomenaje.setPetespecie(new Petespecie());
 			petmascotahomenaje.setFechapublicacion(new Date());
 			petfotomascotaselected = new Petfotomascota(0,new Setestado(),new Petmascotahomenaje(),new Setusuario(),null,null,null,0,null,null,null);
+			listpetfotomascota = new  ArrayList<Petfotomascota>();
+			listpetfotomascotaclone = new  ArrayList<Petfotomascota>();
 			rutaImagenes ="";
 			idmascota =0;
 			fotoSubida=false;
@@ -143,7 +144,7 @@ import com.web.util.MessageUtil;
 		public void ponerFotoperfil(){
 			if (petfotomascotaselected !=null){
 				petmascotahomenaje.setRutafoto(petfotomascotaselected.getRuta());
-				new MessageUtil().showInfoMessage("Info", "Foto: "+petfotomascotaselected.getRuta()+" seleccionada como foto de perfil");
+				new MessageUtil().showInfoMessage("Info", "Presione grabar para guardar los cambios");
 				petfotomascotaselected= new Petfotomascota();
 			}
 		}
@@ -151,8 +152,8 @@ import com.web.util.MessageUtil;
 		public void quitarFoto(){
 			if (petfotomascotaselected !=null){
 				if (!petfotomascotaselected.getRuta().equals(petmascotahomenaje.getRutafoto())){
-					petmascotahomenaje.getPetfotomascotas().remove(petfotomascotaselected);
-					new MessageUtil().showInfoMessage("Info", "Foto: "+petfotomascotaselected.getNombrearchivo()+" ha sido eliminada de la galería");	
+					listpetfotomascota.remove(petfotomascotaselected);
+					new MessageUtil().showInfoMessage("Info", "Presione grabar para guardar los cambios");	
 				}
 				else {
 					new MessageUtil().showInfoMessage("Info", "No se puede eliminar foto que ha sido seleccionada como foto de perfil, cambie de foto de perfil y vuelva a intentarlo");
@@ -239,9 +240,7 @@ import com.web.util.MessageUtil;
 		public void clonarobjetos(){
 			try {
 				petmascotahomenajeclone = petmascotahomenaje.clonar();
-				petmascotahomenajeclone.setPetfotomascotas( new HashSet<Petfotomascota>(0) );
 				if((petmascotahomenaje!=null)&&(!listpetfotomascota.isEmpty()) && (listpetfotomascota.size()>0)){
-					listpetfotomascotaclone= new ArrayList<Petfotomascota>();
 					for(Petfotomascota petfotomascota:listpetfotomascota){
 						listpetfotomascotaclone.add(petfotomascota.clonar());
 					}

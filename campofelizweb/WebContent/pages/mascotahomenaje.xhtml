@@ -9,21 +9,11 @@
 	
 
 	<ui:define name="head">
-		<title>Homenaje Póstumo</title>
+		<title>Homenaje Póstumo  #{mascotaHomenajeBean.petmascotahomenaje.nombre}</title>
 		
 		<style type="text/css">
 			.inner-content {
 				padding-top: 0px;
-			}
-			
-			.inner-content .cuerpo .titulo2 {
-			   font-size: 28px;
-			   color: #7B7B7B;
-			   padding: 1px 0px;
-			   margin: 10px 20px 20px 0px;
-			   text-align: center;
-			   letter-spacing: 0.9px;
-			   text-shadow: 1px 0px #BBB;
 			}
 			
 			.ui-panelgrid .alto-columna {
@@ -34,64 +24,65 @@
 			    color:#7B7B7B;
 			}
 			
-			.texto-dedicatoria{
-				font-style: oblique;
-				font-family: Times New Roman,Arial,Helvetica;
-			    font-size: 18px;
-			    font-weight: bold;
-			    padding-bottom: 12px;
-			    letter-spacing: 0.5px;
-			    line-height: 150%;
-			    color: #66AD23;
-			  
-			}
-			
 			.ui-panelgrid td {
 			    border:none;
 			}
-			
-			.textolabel{
-				text-align: right;
-				font-size: 15px;
-				font-weight: bold;
-				text-shadow: 1px 0px #BBB;
-				letter-spacing: 0.4px;	
-			}
-			
-			.textocontenido{
-			  font-size: 15px;
-			  text-shadow: 0px 0.5px #C9C7C7;
-			  letter-spacing: 0.2px;
+			.ui-galleria-panel-content {
+               background-color: #ffffff; 
+            }
+			.ancho{
+			  width: 150px;
 			}
 			
 			.imagenprincipal {
 			  border-radius: 15px;
 			  vertical-align: top;
 			  padding:  5px 10px 5px 10px;
-			  width: 450px;
 			  height:355px;
+			  width :380px;
 			}  
 			
-			.ancho{
-			  width: 150px;
-			}
+			
 			.imagenrecordatorio{
 			  max-height: 22px;
 			  max-width: 22px;
 			  padding: 0px 5px 0px 0px;
 			}
-			
-			.ui-galleria-panel-content {
-               background-color: #ffffff; 
-             }
 			.nombremascota{
 			  font-weight: normal;
-			  font-family: 'Open Sans', sans-serif;
+			  /*font-family: 'Open Sans', sans-serif;*/
+			  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 		      text-shadow: 1px 1px #fbfbfb;
 			  letter-spacing: -1px;
 			  font-size: 30px;
 			  color: #66AD23;
 			  text-align:center;
+			}
+			
+			.texto-dedicatoria{
+				font-style: oblique;
+				font-family: Times New Roman,Arial,Helvetica;
+			    font-size: 18px;
+			    font-weight: bold;
+			    padding-bottom: 12px;
+			    letter-spacing: 0.4px;
+			    line-height: 150%;
+			    color: #7b7b7b;
+				text-shadow: 0px 0px 0.6px #BBB;
+			  
+			}
+		
+			.textolabel{
+				text-align: right;
+				font-size: 13px;
+				font-weight: bold;
+				text-shadow: 0.6px 0px #BBB;
+				letter-spacing: 0px;
+			}
+			
+			.textocontenido{
+			  font-size: 13px;
+			  letter-spacing: 0px;
 			}
 		</style>
 		
@@ -120,12 +111,12 @@
 	 	
 	 	<center>
 	 	   <p:galleria id="idgalleria" value="#{mascotaHomenajeBean.listpetfotomascota}" var="item" panelWidth="500" panelHeight="380"  styleClass="ui-widget-content ui-corner-all">
-		   <p:graphicImage  id="idfotos" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}?w=70" style="max-height: 70px;"/>
+		   <p:graphicImage  id="idfotos" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}?w=70" style="max-height: 70px; max-width: 90px; height: 70px; width: 90px;"/>
 		      <p:galleriaContent>  
 		         <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">  
-			        <p:lightBox styleClass="imagebox" height="320px">
-			          <h:outputLink  value="/campofelizweb#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}?w=450" style="max-height: 355px;" title="#{item.descripcion}">
-		            	<p:graphicImage styleClass="imagenprincipal" id="idfoto" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}" />
+			        <p:lightBox  height="320px">
+			          <h:outputLink  value="/campofelizweb#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}?w=380" style="max-height: 355px; max-width:450px" title="#{item.descripcion}">
+		            	<p:graphicImage styleClass="imagenprincipal" id="idfoto" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}?w=380" style="max-width:450px;max-height: 365px;"/>
 		              </h:outputLink>	
 			        </p:lightBox>
 			    </h:panelGrid>
@@ -145,7 +136,7 @@
 				
 			 <p:row>
 			 <p:column styleClass="alto-columna ancho" style="text-align:right; width: 270px;" >
-			   <h:outputLabel styleClass="textolabel" value="Familia:"  for="txtFamilia" />
+			   <h:outputLabel styleClass="textolabel" value="Familia:"  for="txtFamilia" rendered="#{mascotaHomenajeBean.petmascotahomenaje.familia.toString()!=''}" />
 			 </p:column>
 			 <p:column styleClass="alto-columna" style="width: 270px;">
 			   <h:outputText  styleClass="textocontenido" id="txtFamilia"  value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />

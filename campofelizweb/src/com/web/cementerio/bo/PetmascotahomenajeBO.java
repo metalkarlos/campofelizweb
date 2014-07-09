@@ -141,6 +141,9 @@ public class PetmascotahomenajeBO {
 				petmascotahomenaje.setFechamodificacion(fechamodificacion);
 				petmascotahomenaje.setIplog(usuarioBean.getSetUsuario().getIplog());
 				
+				petmascotahomenaje.setNombre(petmascotahomenaje.getNombre().toUpperCase());
+				petmascotahomenaje.setFamilia(petmascotahomenaje.getFamilia().toUpperCase());
+				
 				Setusuario setusuario = new Setusuario();
 				setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
 				petmascotahomenaje.setSetusuario(setusuario);
@@ -150,7 +153,8 @@ public class PetmascotahomenajeBO {
 			}
 			if(uploadedFile !=null){
 			   if(ingresarPetfotomascota(session, 1,petmascotahomenaje,uploadedFile)){
-			     petmascotahomenajeDAO.modificarPetmascotahomenaje(session, petmascotahomenaje);
+				   petmascotahomenajeDAO.modificarPetmascotahomenaje(session, petmascotahomenaje);
+				   
 			    }
 			   ok = true;
 			}
@@ -215,11 +219,11 @@ public class PetmascotahomenajeBO {
 			String rutaCompleta = rutaImagenes + rutaMascota;
 			//asignar ruta y nombre de archivo en objeto
 			petfotomascota.setRuta(rutaMascota+"/"+nombreArchivo);
-			if(petmascotahomenaje.getRutafoto()==null){
+			if(petmascotahomenaje.getRutafoto()==null || petmascotahomenaje.getRutafoto().equals("") ){
 			  petmascotahomenaje.setRutafoto(petfotomascota.getRuta());
 			  rutamodificada = true;
 			}
-			petfotomascota.setNombrearchivo(uploadedFile.getFileName().toLowerCase());
+			petfotomascota.setNombrearchivo(nombreArchivo);
 			
 			petfotomascotaDAO.ingresarFotomascota(session, petfotomascota);
 			
