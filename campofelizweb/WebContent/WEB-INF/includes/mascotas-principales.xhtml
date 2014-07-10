@@ -8,12 +8,11 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-	    <div align="center">
-			 <p:imageSwitch  effect="scrollLeft"  speed="1000">
+	<center>
+			 <p:imageSwitch id="slider-small" style="height: 285px;width: 246px;" effect="scrollLeft"  speed="1000">
 				<ui:repeat value="#{mascotasPrincipalBean.lisPetmascotahomenaje}" var="imagen" >
-			        <h:link outcome="mascotashomenaje" title="Nuestro Homenaje Póstumo"><p:graphicImage value="#{mascotasPrincipalBean.rutaImagenes}#{imagen.rutafoto}?w=250" width="255px" height="255px"/></h:link>
+			        <h:link outcome="mascotashomenaje" title="Nuestro Homenaje Póstumo"><p:graphicImage value="#{mascotasPrincipalBean.rutaImagenes}#{imagen.rutafoto}?w=250" style="max-width:255px;max-height:255px;"/><div class="texto-slider">#{imagen.nombre}</div></h:link>
 			    </ui:repeat>
 			</p:imageSwitch>
-	    </div>
-	
+	</center>
 </ui:composition>	

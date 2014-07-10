@@ -610,6 +610,11 @@ iframe {
 	max-height: 100px; 
 	border: 1px solid #d3d3d3;
 }
+.texto-slider {
+	width: 246px;
+	text-align: center;
+	text-transform: uppercase;
+}
 
 /******************** Footer ******************/
 footer {
