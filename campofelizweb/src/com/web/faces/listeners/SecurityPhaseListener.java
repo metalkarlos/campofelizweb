@@ -37,7 +37,8 @@ public class SecurityPhaseListener implements PhaseListener {
 			}
 			
 			//si ingresa a login y ya esta logoneado redirecciona a home
-			boolean loginPage = facesContext.getViewRoot().getViewId().equals("/pages/adminweb.xhtml");
+			String vista = facesContext.getViewRoot().getViewId();
+			boolean loginPage = vista != null && vista.equals("/pages/adminweb.xhtml");
 			if(loginPage && usuarioBean != null && usuarioBean.isAutenticado()){
 				try{
 					facesContext.getExternalContext().redirect("home.jsf");

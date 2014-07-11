@@ -114,7 +114,7 @@ public class FacesUtil {
 	
 	public String getHostDomain(){
 		String urlCompleta = request.getRequestURL().toString();
-		String urlPagina = request.getRequestURI();
+		String urlPagina = request.getServletPath();
 		String urlDomain = urlCompleta.replace(urlPagina, "");
 		
 		return urlDomain;

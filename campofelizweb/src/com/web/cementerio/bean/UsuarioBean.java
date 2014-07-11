@@ -166,17 +166,17 @@ public class UsuarioBean implements Serializable{
 						FacesUtil facesUtil = new FacesUtil();
 						
 						//formatear el contenido para el administrador de correo
-						String formulario = facesUtil.getHostDomain() + "/campofelizweb/pages/cambiarclave.jsf";//"http://localhost:8080/campofelizweb/pages/cambiarclave.jsf";
+						String formulario = facesUtil.getHostDomain() + "/pages/cambiarclave.jsf";
 						String contenido = "";
 						contenido += "<html>";
 						contenido += "<body>";
 						contenido += "<center><h1>Olvido de Clave</h1></center>";
-						contenido += String.format("<p>Ha solicitado cambiar la clave del usuario: <strong>%s</strong>.</p>", username);
+						contenido += "<p>Ha solicitado cambiar la clave del usuario: <strong>"+username+"</strong>.</p>";
 						contenido += "<p>De click en el siguiente link para acceder al formulario de cambio de clave.</p>";
-						contenido += String.format("<a href='%s?uid=%s'>%s?uid=%s</a>", formulario,uid,formulario,uid);
+						contenido += "<a href='"+formulario+"?uid="+uid+"'>"+formulario+"?uid="+uid+"</a>";
 						contenido += "<p>Este link tiene una validez de <strong>5 minutos<strong>.</p>";
 						contenido += "<p>Si ud no ha solicitado el cambio de clave ignore este correo.</p>";
-						contenido += String.format("<p>IP desde dónde se realizó la petición: <strong>%s</strong>.</p>", ip);
+						contenido += "<p>IP desde dónde se realizó la petición: <strong>"+ip+"</strong>.</p>";
 						contenido += "</body>";
 						contenido += "</html>";
 						
