@@ -51,7 +51,10 @@
 					<div class="inner-content">
 						<div class="titulo3">#{noticia.titulo}</div>
 						<div class="imagen centrar">
-							<h:graphicImage alt="foto-noticia" value="#{noticiasBean.rutaImagenes}#{noticia.rutafoto}?w=140" style="max-height: 140px; max-width: 150px;" />
+							<h:link outcome="/pages/noticia" >
+								<h:graphicImage alt="foto-noticia" value="#{noticiasBean.rutaImagenes}#{noticia.rutafoto}?w=140" style="max-height: 140px; max-width: 150px;" />
+								<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
+							</h:link>
 						</div>
 						<div class="cuerpo">
 							<div class="fecha">

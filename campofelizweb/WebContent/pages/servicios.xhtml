@@ -58,7 +58,10 @@
 					<div class="inner-content">
 					<div class="cuerpo">
 						<div class="wrapper">
-							<p:graphicImage id="idfoto" title="#{servicio.nombre}" value="#{serviciosBean.rutaImagenes}#{servicio.rutafoto}?w=150" style="max-height: 150px; max-width: 150px;" styleClass="img-indent-1" />
+							<h:link outcome="/pages/servicio" >
+								<p:graphicImage id="idfoto" title="#{servicio.nombre}" value="#{serviciosBean.rutaImagenes}#{servicio.rutafoto}?w=150" style="max-height: 150px; max-width: 150px;" styleClass="img-indent-1" />
+								<f:param name="idservicio" value="#{servicio.idservicio}"></f:param>
+							</h:link>
 							<p class="p2"><strong class="str-1">#{servicio.nombre}</strong></p>
 							<p class="p1" style="text-align: justify;"><h:outputText value="#{fn:substring(servicio.descripcionNoTags, 0, 200)} [...]" escape="false" /></p>
 						</div>
