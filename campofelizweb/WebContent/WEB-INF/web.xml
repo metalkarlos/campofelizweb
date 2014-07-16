@@ -1,101 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="3.0"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-	<display-name>campofelizweb</display-name>
-	<context-param>
-		<description>Parameter required by Mojarra 2.0</description>
-		<param-name>com.sun.faces.allowTextChildren</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<context-param>
-		<description>verify if library http://java.sun.com/jsf/composite/components/buttons actually exists</description>
-		<param-name>com.sun.faces.enableMissingResourceLibraryDetection</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<!-- <context-param> <param-name>facelets.VIEW_MAPPINGS</param-name> <param-value>*.do</param-value> 
+ xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+ <display-name>campofelizweb</display-name>
+ <context-param>
+  <description>Parameter required by Mojarra 2.0</description>
+  <param-name>com.sun.faces.allowTextChildren</param-name>
+  <param-value>true</param-value>
+ </context-param>
+ <context-param>
+  <description>verify if library http://java.sun.com/jsf/composite/components/buttons actually exists</description>
+  <param-name>com.sun.faces.enableMissingResourceLibraryDetection</param-name>
+  <param-value>true</param-value>
+ </context-param>
+ <!-- <context-param> <param-name>facelets.VIEW_MAPPINGS</param-name> <param-value>*.do</param-value> 
 		</context-param> -->
-	<context-param>
-		<param-name>imagesDirectory</param-name>
-		<!-- <param-value>/var/www/sintra_adminweb/data/repositorio</param-value> -->
-		<param-value>D:/Repositorio/Imagenes/</param-value>
-	</context-param>
-	<context-param>
-		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-		<param-value>.xhtml</param-value>
-	</context-param>
-	<context-param>
-		<param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
-		<param-value>2</param-value>
-	</context-param>
-	<context-param>
-		<description>Process comments content or skip</description>
-		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
-		<param-value>false</param-value>
-	</context-param>
-	<context-param>
-		<description>Development, Production</description>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value>
-	</context-param>
-	<context-param>
-		<description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
-		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-		<param-value>server</param-value>
-	</context-param>
-	<context-param>
-		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
-		<param-value>resources.application</param-value>
-	</context-param>
-	<context-param>
-		<param-name>org.apache.myfaces.STRICT_JSF_2_ALLOW_SLASH_LIBRARY_NAME</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<context-param>
-		<param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<!-- <context-param> <description>Clave publica de www.campofeliz.com</description> 
+ <context-param>
+  <param-name>imagesDirectory</param-name>
+  <!-- <param-value>/var/www/sintra_adminweb/data/repositorio</param-value> -->
+  <param-value>D:/Repositorio/Imagenes/</param-value>
+ </context-param>
+ <context-param>
+  <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+  <param-value>.xhtml</param-value>
+ </context-param>
+ <context-param>
+  <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+  <param-value>2</param-value>
+ </context-param>
+ <context-param>
+  <description>Process comments content or skip</description>
+  <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+  <param-value>false</param-value>
+ </context-param>
+ <context-param>
+  <description>Development, Production</description>
+  <param-name>javax.faces.PROJECT_STAGE</param-name>
+  <param-value>Production</param-value>
+ </context-param>
+ <context-param>
+  <description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
+  <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+  <param-value>server</param-value>
+ </context-param>
+ <context-param>
+  <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+  <param-value>resources.application</param-value>
+ </context-param>
+ <context-param>
+  <param-name>org.apache.myfaces.STRICT_JSF_2_ALLOW_SLASH_LIBRARY_NAME</param-name>
+  <param-value>true</param-value>
+ </context-param>
+ <context-param>
+  <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+  <param-value>true</param-value>
+ </context-param>
+ <!-- <context-param> <description>Clave publica de www.campofeliz.com</description> 
 		<param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name> <param-value>6LfmtPMSAAAAAE___SISFO_uBTM_L3wIrJk1-0og</param-value> 
 		</context-param> <context-param> <description>Clave privada de www.campofeliz.com</description> 
 		<param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name> <param-value>6LfmtPMSAAAAAAh-656nLMj3oHSXuNlAq_p0baJ1</param-value> 
 		</context-param> -->
-	<context-param>
-		<description>Clave publica de www.gruposintra.com</description>
-		<param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
-		<param-value>6LebpPUSAAAAAAMMmeQjSsprbxemI4Mja7rbZKUy</param-value>
-	</context-param>
-	<context-param>
-		<description>Clave privada de www.gruposintra.com</description>
-		<param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
-		<param-value>6LebpPUSAAAAAJiM7jJuzaR6Ns6br4dABVtVfMyL</param-value>
-	</context-param>
-	<context-param>
-		<param-name>primefaces.THEME</param-name>
-		<param-value>none</param-value>
-	</context-param>
-	<filter>
-		<filter-name>PrimeFaces FileUpload Filter</filter-name>
-		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
-		<!-- <init-param> <description>Maximum file size in bytes to keep uploaded 
+ <context-param>
+  <description>Clave publica de www.gruposintra.com</description>
+  <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+  <param-value>6LebpPUSAAAAAAMMmeQjSsprbxemI4Mja7rbZKUy</param-value>
+ </context-param>
+ <context-param>
+  <description>Clave privada de www.gruposintra.com</description>
+  <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+  <param-value>6LebpPUSAAAAAJiM7jJuzaR6Ns6br4dABVtVfMyL</param-value>
+ </context-param>
+ <context-param>
+  <param-name>primefaces.THEME</param-name>
+  <param-value>none</param-value>
+ </context-param>
+ <filter>
+  <filter-name>PrimeFaces FileUpload Filter</filter-name>
+  <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+  <!-- <init-param> <description>Maximum file size in bytes to keep uploaded 
 			files in memory. If a file exceeds this limit, it’ll be temporarily written 
 			to disk.</description> <param-name>thresholdSize</param-name> <param-value>51200</param-value> 
 			</init-param> -->
-	</filter>
-	<filter-mapping>
-		<filter-name>PrimeFaces FileUpload Filter</filter-name>
-		<servlet-name>Faces Servlet</servlet-name>
-	</filter-mapping>
-	<filter>
-		<description>Clase con la validacion para accesar a las paginas de administrador</description>
-		<filter-name>Acceso Paginas Admin</filter-name>
-		<filter-class>com.web.faces.filters.AdminPagesAccessFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>Acceso Paginas Admin</filter-name>
-		<url-pattern>/admin/*</url-pattern>
-	</filter-mapping>
-	<!-- <servlet>
+ </filter>
+ <filter>
+  <description>Clase con la validacion para accesar a las paginas de administrador</description>
+  <filter-name>Acceso Paginas Admin</filter-name>
+  <filter-class>com.web.faces.filters.AdminPagesAccessFilter</filter-class>
+ </filter>
+ <filter-mapping>
+  <filter-name>PrimeFaces FileUpload Filter</filter-name>
+  <servlet-name>Faces Servlet</servlet-name>
+ </filter-mapping>
+ <filter-mapping>
+  <filter-name>Acceso Paginas Admin</filter-name>
+  <url-pattern>/admin/*</url-pattern>
+ </filter-mapping>
+ <!-- <servlet>
 		<servlet-name>imageServlet</servlet-name>
 		<servlet-class>com.web.servlet.ImageServlet</servlet-class>
 	</servlet>
@@ -103,32 +103,44 @@
 		<servlet-name>imageServlet</servlet-name>
 		<url-pattern>/imagenes/*</url-pattern>
 	</servlet-mapping> -->
-	<servlet>
-		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<!-- <servlet-mapping> <servlet-name>Faces Servlet</servlet-name> <url-pattern>/faces/*</url-pattern> 
+ <servlet>
+  <servlet-name>Faces Servlet</servlet-name>
+  <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <!-- <servlet-mapping> <servlet-name>Faces Servlet</servlet-name> <url-pattern>/faces/*</url-pattern> 
 		</servlet-mapping> -->
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.jsf</url-pattern>
-	</servlet-mapping>
-	<!-- <servlet-mapping> <servlet-name>Faces Servlet</servlet-name> <url-pattern>*.faces</url-pattern> 
+ <servlet-mapping>
+  <servlet-name>Faces Servlet</servlet-name>
+  <url-pattern>*.jsf</url-pattern>
+ </servlet-mapping>
+ <!-- <servlet-mapping> <servlet-name>Faces Servlet</servlet-name> <url-pattern>*.faces</url-pattern> 
+		</servlet-mapping> 
+ <servlet-mapping> <servlet-name>Faces Servlet</servlet-name> <url-pattern>*.xhtml</url-pattern> 
 		</servlet-mapping> -->
-	<!-- <servlet-mapping> <servlet-name>Faces Servlet</servlet-name> <url-pattern>*.xhtml</url-pattern> 
-		</servlet-mapping> -->
-	<session-config>
-		<session-timeout>60</session-timeout>
-	</session-config>
-	<mime-mapping>
-		<extension>pdf</extension>
-		<mime-type>application/pdf</mime-type>
-	</mime-mapping>
-	<welcome-file-list>
-		<welcome-file>/index.jsp</welcome-file>
-	</welcome-file-list>
-	<!-- <security-constraint> <display-name>Administrador</display-name> <web-resource-collection> 
+ <session-config>
+  <session-timeout>60</session-timeout>
+ </session-config>
+ <mime-mapping>
+  <extension>pdf</extension>
+  <mime-type>application/pdf</mime-type>
+ </mime-mapping>
+ <welcome-file-list>
+  <welcome-file>/index.jsp</welcome-file>
+ </welcome-file-list>
+ <!--  --><error-page>
+  <error-code>404</error-code>
+  <location>/pages/errorcode.jsf</location>
+ </error-page>
+ <error-page>
+  <error-code>500</error-code>
+  <location>/pages/errorcode.jsf</location>
+ </error-page>
+ <error-page>
+  <exception-type>java.lang.Exception</exception-type>
+  <location>/pages/errorcode.jsf</location>
+ </error-page>
+ <!-- <security-constraint> <display-name>Administrador</display-name> <web-resource-collection> 
 		<web-resource-name>paginas-admin</web-resource-name> <description>Carpeta 
 		con opciones para el administrador unicamente</description> <url-pattern>/admin/*</url-pattern> 
 		<http-method>PUT</http-method> <http-method>DELETE</http-method> <http-method>GET</http-method> 
