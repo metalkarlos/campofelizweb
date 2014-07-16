@@ -11,7 +11,11 @@
 	<center>
 			 <p:imageSwitch id="slider-small" style="height: 285px;width: 246px;" effect="scrollLeft"  speed="1000">
 				<ui:repeat value="#{mascotasPrincipalBean.lisPetmascotahomenaje}" var="imagen" >
-			        <h:link outcome="mascotashomenaje" title="Nuestro Homenaje Póstumo"><p:graphicImage value="#{mascotasPrincipalBean.rutaImagenes}#{imagen.rutafoto}?w=230" style="max-width:235px;height:235px;padding: 4px;border: 1px solid rgb(221, 221, 221);background-color: rgb(245, 245, 245);"/><div class="texto-slider">#{imagen.nombre}</div></h:link>
+			        <h:link outcome="mascotahomenaje" title="Nuestro Homenaje Póstumo">
+			        	<p:graphicImage value="#{mascotasPrincipalBean.rutaImagenes}#{imagen.rutafoto}?w=230" style="max-width:235px;height:235px;padding: 4px;border: 1px solid rgb(221, 221, 221);background-color: rgb(245, 245, 245);"/>
+			        	<div class="texto-slider">#{imagen.nombre}</div>
+			        	<f:param name="idmascota" value="#{imagen.idmascota}"></f:param>
+			        </h:link>
 			    </ui:repeat>
 			</p:imageSwitch>
 	</center>
