@@ -23,6 +23,14 @@
 		<h:outputStylesheet library="css" name="menu.css" />
 		<h:outputStylesheet library="css" name="style.css" />
 		<h:outputStylesheet library="themes/smoothness" name="skin.css" />
+		
+		<!-- Sticky -->
+		<h:outputScript library="js/sticky" name="jquery.sticky.js" />
+		<script>
+		   $(window).load(function(){
+		     $("#cortos").sticky({ topSpacing: 25 });
+		   });
+		</script>
 
 		<style type="text/css">
 			body header {
@@ -171,7 +179,7 @@
 						<h1>En construcción...</h1>
 					</ui:insert>
 				</div>
-				<div class="right">
+				<div id="cortos" class="right">
 					<div class="box-1">
 						<div class="inner2">
 							<div class="box_content">
