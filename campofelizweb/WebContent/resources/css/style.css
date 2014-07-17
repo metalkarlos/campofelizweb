@@ -478,13 +478,13 @@ section#content {
 	margin:0 5px 0 0;
 	width:40px;
 }
-iframe {
+/*iframe {
 	width:268px;
 	height:206px;
 	border:1px solid #cfcfcf;
 	border-radius:6px;
 	margin:0;
-}
+}*/
 .map-container {
 	padding:0 0 22px 0;
 }
