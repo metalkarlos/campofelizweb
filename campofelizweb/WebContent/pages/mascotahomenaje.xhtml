@@ -6,175 +6,168 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default_others.xhtml">
-	
 
 	<ui:define name="head">
-		<title>Homenaje Póstumo  #{mascotaHomenajeBean.petmascotahomenaje.nombre}</title>
-		
+		<title>Homenaje Póstumo	#{mascotaHomenajeBean.petmascotahomenaje.nombre}</title>
+
 		<style type="text/css">
-			.inner-content {
-				padding-top: 0px;
-			}
-			
-			.ui-panelgrid .alto-columna {
-				padding-bottom: 15px;
-			}
-			
-			.ui-widget-content a {
-			    color:#7B7B7B;
-			}
-			
-			.ui-panelgrid td {
-			    border:none;
-			}
-			.ui-galleria-panel-content {
-               background-color: #ffffff; 
-            }
-			.ancho{
-			  width: 150px;
-			}
-			
-			.imagenprincipal {
-			  border-radius: 15px;
-			  vertical-align: top;
-			  padding:  5px 10px 5px 10px;
-			  height:355px;
-			  width :380px;
-			}  
-			
-			
-			.imagenrecordatorio{
-			  max-height: 22px;
-			  max-width: 22px;
-			  padding: 0px 5px 0px 0px;
-			}
-			.nombremascota{
-			  font-weight: normal;
-			  /*font-family: 'Open Sans', sans-serif;*/
-			  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-		      text-shadow: 1px 1px #fbfbfb;
-			  letter-spacing: -1px;
-			  font-size: 30px;
-			  color: #66AD23;
-			  text-align:center;
-			}
-			
-			.texto-dedicatoria{
-				font-style: oblique;
-				font-family: Times New Roman,Arial,Helvetica;
-			    font-size: 18px;
-			    font-weight: bold;
-			    padding-bottom: 12px;
-			    letter-spacing: 0.4px;
-			    line-height: 150%;
-			    color: #7b7b7b;
-				text-shadow: 0px 0px 0.6px #BBB;
-			  
-			}
+		.inner-content {
+			padding-top: 0px;
+		}
 		
-			.textolabel{
-				text-align: right;
-				font-size: 13px;
-				font-weight: bold;
-				text-shadow: 0.6px 0px #BBB;
-				letter-spacing: 0px;
-			}
-			
-			.textocontenido{
-			  font-size: 13px;
-			  letter-spacing: 0px;
-			}
+		.ui-panelgrid .alto-columna {
+			padding-bottom: 15px;
+		}
+		
+		.ui-widget-content a {
+			color: #7B7B7B;
+		}
+		
+		.ui-panelgrid td {
+			border: none;
+		}
+		
+		.ui-galleria-panel-content {
+			background-color: #ffffff;
+		}
+		
+		.ancho {
+			width: 150px;
+		}
+		
+		.imagenprincipal {
+			border-radius: 15px;
+			vertical-align: top;
+			padding: 5px 10px 5px 10px;
+			height: 355px;
+			width: 380px;
+		}
+		
+		.imagenrecordatorio {
+			max-height: 22px;
+			max-width: 22px;
+			padding: 0px 5px 0px 0px;
+		}
+		
+		.nombremascota {
+			font-weight: normal;
+			/*font-family: 'Open Sans', sans-serif;*/
+			font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+			text-shadow: 1px 1px #fbfbfb;
+			letter-spacing: -1px;
+			font-size: 30px;
+			color: #66AD23;
+			text-align: center;
+		}
+		
+		.texto-dedicatoria {
+			font-style: oblique;
+			font-family: Times New Roman, Arial, Helvetica;
+			font-size: 18px;
+			font-weight: bold;
+			padding-bottom: 12px;
+			letter-spacing: 0.4px;
+			line-height: 150%;
+			color: #7b7b7b;
+			text-shadow: 0px 0px 0.6px #BBB;
+		}
+		
+		.textolabel {
+			text-align: right;
+			font-size: 13px;
+			font-weight: bold;
+			text-shadow: 0.6px 0px #BBB;
+			letter-spacing: 0px;
+		}
+		
+		.textocontenido {
+			font-size: 13px;
+			letter-spacing: 0px;
+		}
 		</style>
-		
-   	
+
 	</ui:define>
-	
-   <ui:define name="content_page">
-	<div class="content-page">
-	 <h:form id="form-contentpage" enctype="multipart/form-data">
-	 
-        <p:growl id="mensajes" showDetail="true" />
-       
- 		<div class="inner-content">
-	 	 <div class="cuerpo">
-			<div class="nombremascota">
-			  #{mascotaHomenajeBean.petmascotahomenaje.nombre}
-			</div>
-		 </div>
-		   
-		 <div>
-	 	  <h:link value="[Editar]" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" outcome="/admin/mascotahomenaje-admin" rendered="#{usuarioBean.autenticado}" >
-			<f:param name="idmascota" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascota}"></f:param>
-		  </h:link>
-	 	 </div>
-	 	 
-	 	
-	 	<center>
-	 	   <p:galleria id="idgalleria" value="#{mascotaHomenajeBean.listpetfotomascota}" var="item" panelWidth="500" panelHeight="380"  styleClass="ui-widget-content ui-corner-all">
-		   <p:graphicImage  id="idfotos" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}?w=70" style="max-height: 70px; max-width: 90px; height: 70px; width: 90px;"/>
-		      <p:galleriaContent>  
-		         <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">  
-			        <p:lightBox  height="320px">
-			          <h:outputLink  value="/campofelizweb#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}?w=380" style="max-height: 355px; max-width:450px" title="#{item.descripcion}">
-		            	<p:graphicImage styleClass="imagenprincipal" id="idfoto" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}?w=380" style="max-width:450px;max-height: 365px;"/>
-		              </h:outputLink>	
-			        </p:lightBox>
-			    </h:panelGrid>
-			</p:galleriaContent>
-   		   </p:galleria>
-		</center>
-	    <br/>
-		
-		<center>	 
-	 	  <div style="width:550px;" >
-	 	 	<p:panelGrid id="panelgridcontenido" >
-			  <p:row>
-			  <p:column colspan="2" styleClass="alto-columna" style="text-align:center;" >
-			     <h:outputText styleClass="texto-dedicatoria" style="text-align:justify;" id="txtdedicatoria" value="#{mascotaHomenajeBean.petmascotahomenaje.dedicatoria}" escape="false"/>	
-			  </p:column>
-			  </p:row>
-				
-			 <p:row>
-			 <p:column styleClass="alto-columna ancho" style="text-align:right; width: 270px;" >
-			   <h:outputLabel styleClass="textolabel" value="Familia:"  for="txtFamilia" rendered="#{mascotaHomenajeBean.petmascotahomenaje.familia.toString()!=''}" />
-			 </p:column>
-			 <p:column styleClass="alto-columna" style="width: 270px;">
-			   <h:outputText  styleClass="textocontenido" id="txtFamilia"  value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
-			 </p:column>
-			 </p:row>
-				 
-			 <p:row>
-			   <p:column styleClass="alto-columna"  style="text-align:right;">
-				 <h:outputLabel styleClass="textolabel" value="Fecha nacimiento:" for="calFechanacimiento" />
-			   </p:column>
-			   <p:column>
-				<p:graphicImage id="idfotonacimiento" value="../resources/images/estrella.png" styleClass="imagenrecordatorio" />
-				  <h:outputText styleClass="textocontenido" id="calFechanacimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechanacimiento}">
-				  <f:convertDateTime pattern="dd/MM/yyyy" />
-				  </h:outputText>
-			   </p:column>
-		   </p:row>
-				   
-		   <p:row>
-		      <p:column styleClass="alto-columna" style="text-align:right;">
-			    <h:outputLabel styleClass="textolabel" value="Fecha fallecimiento:" for="calFechafallecimiento" />
-			  </p:column>
-		      <p:column>
-				<p:graphicImage id="idfotofalecimiento" value="../resources/images/cruz.png" styleClass="imagenrecordatorio" />
-				 <h:outputText styleClass="textocontenido"  id="calFechafallecimiento"  value="#{mascotaHomenajeBean.petmascotahomenaje.fechafallecimiento}">
-				 <f:convertDateTime pattern="dd/MM/yyyy" />
-				 </h:outputText>
-			   </p:column>
-		   </p:row>
-		  </p:panelGrid>
-		  </div>
-		  </center>
-		  <br/>
-	 	  <center>
-		   <div class="fb-comments" data-href="https://www.facebook.com/pages/Campo-Feliz-Cementerio-de-Mascotas/257959247667793" data-numposts="5" data-colorscheme="light"></div>
-		  </center>
- 		 </div>
- 	  </h:form>
-	  </div>
+
+	<ui:define name="content_page">
+		<div class="content-page">
+			<h:form id="form-contentpage" enctype="multipart/form-data">
+				<p:growl id="mensajes" showDetail="true" />
+
+				<div class="inner-content">
+					<div class="cuerpo">
+						<div class="nombremascota">#{mascotaHomenajeBean.petmascotahomenaje.nombre}</div>
+					</div>
+
+					<div style="text-align: right;">
+						<h:link value="[Editar]" styleClass="link2"	outcome="/admin/mascotahomenaje-admin" rendered="#{usuarioBean.autenticado}">
+							<f:param name="idmascota" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascota}"></f:param>
+						</h:link>
+					</div>
+
+					<center>
+						<p:galleria id="idgalleria"	value="#{mascotaHomenajeBean.listpetfotomascota}" var="item" panelWidth="500" panelHeight="380"	styleClass="ui-widget-content ui-corner-all">
+							<p:graphicImage id="idfotos" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}?w=70" style="max-height: 70px; max-width: 90px;" />
+							<p:galleriaContent>
+								<h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">
+									<h:outputLink styleClass="grupo1" value="#{request.contextPath}#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}"	title="#{item.descripcion}">
+										<p:graphicImage styleClass="imagenprincipal" id="idfoto" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}?w=380" style="max-width:480px;height: 360px;padding-top: 10px" />
+									</h:outputLink>
+								</h:panelGrid>
+							</p:galleriaContent>
+						</p:galleria>
+					</center>
+					<br />
+
+					<center>
+						<div style="width: 550px;">
+							<p:panelGrid id="panelgridcontenido">
+								<p:row>
+									<p:column colspan="2" styleClass="alto-columna"	style="text-align:center;">
+										<h:outputText styleClass="texto-dedicatoria" style="text-align:justify;" id="txtdedicatoria" value="#{mascotaHomenajeBean.petmascotahomenaje.dedicatoria}" escape="false" />
+									</p:column>
+								</p:row>
+
+								<p:row>
+									<p:column styleClass="alto-columna ancho" style="text-align:right; width: 270px;">
+										<h:outputLabel styleClass="textolabel" value="Familia:"	for="txtFamilia" rendered="#{mascotaHomenajeBean.petmascotahomenaje.familia.toString()!=''}" />
+									</p:column>
+									<p:column styleClass="alto-columna" style="width: 270px;">
+										<h:outputText styleClass="textocontenido" id="txtFamilia" value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
+									</p:column>
+								</p:row>
+
+								<p:row>
+									<p:column styleClass="alto-columna" style="text-align:right;">
+										<h:outputLabel styleClass="textolabel" value="Fecha nacimiento:" for="calFechanacimiento" />
+									</p:column>
+									<p:column>
+										<p:graphicImage id="idfotonacimiento" value="../resources/images/estrella.png" styleClass="imagenrecordatorio" />
+										<h:outputText styleClass="textocontenido" id="calFechanacimiento" value="#{mascotaHomenajeBean.petmascotahomenaje.fechanacimiento}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+									</p:column>
+								</p:row>
+
+								<p:row>
+									<p:column styleClass="alto-columna" style="text-align:right;">
+										<h:outputLabel styleClass="textolabel" value="Fecha fallecimiento:" for="calFechafallecimiento" />
+									</p:column>
+									<p:column>
+										<p:graphicImage id="idfotofalecimiento" value="../resources/images/cruz.png" styleClass="imagenrecordatorio" />
+										<h:outputText styleClass="textocontenido" id="calFechafallecimiento" value="#{mascotaHomenajeBean.petmascotahomenaje.fechafallecimiento}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</div>
+					</center>
+					<br />
+					<center>
+						<div class="fb-comments" data-href="https://www.facebook.com/pages/Campo-Feliz-Cementerio-de-Mascotas/257959247667793" data-numposts="5" data-colorscheme="light"></div>
+					</center>
+				</div>
+			</h:form>
+		</div>
 	</ui:define>
-</ui:composition>	
+</ui:composition>

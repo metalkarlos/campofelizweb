@@ -31,6 +31,15 @@
 		     $("#cortos").sticky({ topSpacing: 25, bottomSpacing: 80 });
 		   });
 		</script>
+		
+		<!-- Lighbox-Colorbox -->
+   		<h:outputStylesheet library="css/lightbox-colorbox" name="colorbox.css" media="all" />
+		<h:outputScript library="js/lightbox-colorbox" name="jquery.colorbox-min.js" />
+		<script>
+			$(window).load(function(){
+				$(".grupo1").colorbox({rel:'grupo1'});
+			});
+		</script>
 
 		<style type="text/css">
 			body header {
