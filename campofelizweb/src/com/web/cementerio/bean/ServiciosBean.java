@@ -36,7 +36,7 @@ public class ServiciosBean implements Serializable {
 		descripcionParam = "buscar";
 		
 		setColumnsGrid(2);
-		setRowsGrid(4);
+		setRowsGrid(3);
 		
 		cargarRutaImagenes();
 		consultarServicios();

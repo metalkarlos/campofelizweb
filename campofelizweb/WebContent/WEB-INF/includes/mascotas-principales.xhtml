@@ -9,6 +9,7 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<center>
+		<div class="slider-mascotas-p">
 			 <p:imageSwitch id="slider-small" style="height: 285px;width: 246px;" effect="scrollLeft"  speed="1000">
 				<ui:repeat value="#{mascotasPrincipalBean.lisPetmascotahomenaje}" var="imagen" >
 			        <h:link outcome="mascotahomenaje" title="Nuestro Homenaje Póstumo">
@@ -18,5 +19,6 @@
 			        </h:link>
 			    </ui:repeat>
 			</p:imageSwitch>
+		</div>
 	</center>
 </ui:composition>	

@@ -610,11 +610,22 @@ section#content {
 	max-height: 100px; 
 	border: 1px solid #d3d3d3;
 }
-.texto-slider {
+
+/************** Slider Mascotas Principales *****************/
+.slider-mascotas-p .texto-slider {
 	width: 246px;
 	text-align: center;
 	text-transform: uppercase;
 	padding-top: 10px;
+	color: #66AD23;
+	font-weight: bold;
+}
+.slider-mascotas-p a {
+	color: #66AD23;
+	text-decoration: none;
+}
+.slider-mascotas-p a:HOVER {
+	text-decoration: underline;
 }
 
 /******************** Footer ******************/
