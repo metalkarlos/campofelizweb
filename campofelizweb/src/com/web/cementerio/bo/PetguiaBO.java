@@ -90,10 +90,7 @@ PetguiaDAO petguiaDAO;
 			Date fecharegistro = new Date();
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 			
-			Integer idguia = 0;
-			idguia= petguiaDAO.getMaxidpetguia(session);
-			petguia.setIdguia(idguia);
-			
+			petguia.setIdguia(petguiaDAO.getMaxidpetguia(session));
 			
 			Setestado setestado = new Setestado();
 			setestado.setIdestado(idestado);
@@ -108,10 +105,11 @@ PetguiaDAO petguiaDAO;
 			petguia.setFecharegistro(fecharegistro);
 			petguia.setIplog(usuarioBean.getIp());
 			
+			
 			petguiaDAO.savePetguia(session, petguia);
 			
 			if(uploadedFile !=null){
-			  ingresarPetfotoguia(session, 1, petguia,uploadedFile,descripcionFoto);
+			  ingresarPetfotoguia(session, idestado, petguia,uploadedFile,descripcionFoto);
 			  
 			}
 			
@@ -139,7 +137,7 @@ PetguiaDAO petguiaDAO;
 				Date fechamodificacion= new Date();
 				UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 				petguia.setFechamodificacion(fechamodificacion);
-				petguia.setIplog(usuarioBean.getSetUsuario().getIplog());
+				petguia.setIplog(usuarioBean.getIp());
 				
 				Setusuario setusuario = new Setusuario();
 				setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
@@ -195,7 +193,7 @@ PetguiaDAO petguiaDAO;
 			petguia.setSetusuario(setusuario);
 			
 			petguia.setFechamodificacion(fechamodificacion);
-			petguia.setIplog(usuarioBean.getSetUsuario().getIplog());
+			petguia.setIplog(usuarioBean.getIp());
 			
 			petguiaDAO.updatePetguia(session, petguia);
 			
@@ -206,32 +204,20 @@ PetguiaDAO petguiaDAO;
 					
 					//auditoria
 					petfotoguia.setFechamodificacion(fechamodificacion);
-					petfotoguia.setIplog(usuarioBean.getSetUsuario().getIplog());
+					petfotoguia.setIplog(usuarioBean.getIp());
 					
-					setusuario = new Setusuario();
-					setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
 					petfotoguia.setSetusuario(setusuario);
-					
-					setestado = new Setestado();
-					setestado.setIdestado(idestado);
 					petfotoguia.setSetestado(setestado);	
 			
 					petfotoguiaDAO.updatePetfotoguia(session, petfotoguia);
 				
 					//eliminar foto del disco
 					String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
-					
 					String rutaArchivo = rutaImagenes + petfotoguia.getRuta();
-					
 					fileUtil.deleteFile(rutaArchivo);
-					
-					
 				}
-				
 			}
-			
 			session.getTransaction().commit();
-			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new Exception();
@@ -244,13 +230,15 @@ PetguiaDAO petguiaDAO;
 	public void ingresarPetfotoguia(Session session, int idestado, Petguia petguia,  UploadedFile uploadedFile, String descripcionFoto)throws Exception{
 		PetfotoguiaDAO petfotoguiaDAO = new PetfotoguiaDAO();
 		Petfotoguia petfotoguia = new Petfotoguia();
+		int cantfotosxguia=0;
 		try {
 			petfotoguia.setPetguia(petguia);
 			Date fecharegistro = new Date();
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 					
 			petfotoguia.setIdfotoguia(petfotoguiaDAO.maxIdPetfotoguia(session));
-				    
+			cantfotosxguia = petfotoguiaDAO.cantFotosPorGuia(session, petguia.getIdguia());
+			
 		    Setestado setestado = new Setestado();
 			setestado.setIdestado(idestado);
 			petfotoguia.setSetestado(setestado);
@@ -261,7 +249,7 @@ PetguiaDAO petguiaDAO;
 					
 			//Auditoria
 			petfotoguia.setFecharegistro(fecharegistro);
-			petfotoguia.setIplog(usuarioBean.getSetUsuario().getIplog());
+			petfotoguia.setIplog(usuarioBean.getIp());
 					
 			//Descripcion foto
 			if(descripcionFoto != null && descripcionFoto.trim().length() > 0){
@@ -272,16 +260,15 @@ PetguiaDAO petguiaDAO;
 			FileUtil fileUtil = new FileUtil();
 			FacesUtil facesUtil = new FacesUtil();
 			Calendar fecha = Calendar.getInstance();
-			int mes = Integer.valueOf(fecha.get(Calendar.MONTH))+1;
 			
 			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 			String rutaMascota =  "/guia/" + fecha.get(Calendar.YEAR);
-			String nombreArchivo = fecha.get(Calendar.DAY_OF_MONTH) + "-" +mes + "-" + fecha.get(Calendar.YEAR) + "-" + petguia.getIdguia() + "-" + petfotoguia.getIdfotoguia() + "-" + uploadedFile.getFileName().toLowerCase();
+			String nombreArchivo = fecha.get(Calendar.DAY_OF_MONTH) + "-" +(fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.YEAR) + "-" + petguia.getIdguia() + "-" + petfotoguia.getIdfotoguia() +"-"+ cantfotosxguia + "." + fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
 					
 			String rutaCompleta = rutaImagenes + rutaMascota;
 			//asignar ruta y nombre de archivo en objeto
 			petfotoguia.setRuta(rutaMascota+"/"+nombreArchivo);
-			petfotoguia.setNombrearchivo(uploadedFile.getFileName().toLowerCase());
+			petfotoguia.setNombrearchivo(nombreArchivo);
 			
 			petfotoguiaDAO.savePetfotoguia(session, petfotoguia);
 			
@@ -325,16 +312,13 @@ PetguiaDAO petguiaDAO;
 						
 					//Auditoria
 					petfotoguia.setFechamodificacion(fechamodificacion);
-					petfotoguia.setIplog(usuarioBean.getSetUsuario().getIplog());
+					petfotoguia.setIplog(usuarioBean.getIp());
 					petfotoguiaDAO.updatePetfotoguia(session, petfotoguia);
 						
 					//eliminar foto del disco
 					String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
-					
 					String rutaArchivo = rutaImagenes + petfotoguia.getRuta();
-					
 					fileUtil.deleteFile(rutaArchivo);
-					
 				}
 					
 			}

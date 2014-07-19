@@ -31,7 +31,6 @@ public class Petfotoguia implements java.io.Serializable, Cloneable {
 	private String descripcion;
 	private String ruta;
 	private String nombrearchivo;
-	private Integer perfil;
 	private Date fecharegistro;
 	private Date fechamodificacion;
 	private String iplog;
@@ -56,7 +55,6 @@ public class Petfotoguia implements java.io.Serializable, Cloneable {
 		this.descripcion = descripcion;
 		this.ruta = ruta;
 		this.nombrearchivo = nombrearchivo;
-		this.perfil = perfil;
 		this.fecharegistro = fecharegistro;
 		this.fechamodificacion = fechamodificacion;
 		this.iplog = iplog;
@@ -129,15 +127,6 @@ public class Petfotoguia implements java.io.Serializable, Cloneable {
 		this.nombrearchivo = nombrearchivo;
 	}
 
-	@Column(name = "perfil")
-	public Integer getPerfil() {
-		return this.perfil;
-	}
-
-	public void setPerfil(Integer perfil) {
-		this.perfil = perfil;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecharegistro", nullable = false, length = 29)
 	public Date getFecharegistro() {
@@ -185,7 +174,6 @@ public class Petfotoguia implements java.io.Serializable, Cloneable {
 		result = prime * result + idfotoguia;
 		result = prime * result
 				+ ((nombrearchivo == null) ? 0 : nombrearchivo.hashCode());
-		result = prime * result + ((perfil == null) ? 0 : perfil.hashCode());
 		result = prime * result + ((ruta == null) ? 0 : ruta.hashCode());
 		return result;
 	}
@@ -210,11 +198,6 @@ public class Petfotoguia implements java.io.Serializable, Cloneable {
 			if (other.nombrearchivo != null)
 				return false;
 		} else if (!nombrearchivo.equals(other.nombrearchivo))
-			return false;
-		if (perfil == null) {
-			if (other.perfil != null)
-				return false;
-		} else if (!perfil.equals(other.perfil))
 			return false;
 		if (ruta == null) {
 			if (other.ruta != null)

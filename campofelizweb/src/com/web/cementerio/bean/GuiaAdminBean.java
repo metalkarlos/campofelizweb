@@ -61,7 +61,6 @@ public class GuiaAdminBean  implements Serializable{
 	@PostConstruct
 	public void initGuiaAdminBean() {
 		FacesUtil facesUtil = new FacesUtil();
-		//idguia = Integer.parseInt(facesUtil.getParametroUrl("idguia").toString());
 		idguia= (facesUtil.getParametroUrl("idguia")==null?0:Integer.parseInt(facesUtil.getParametroUrl("idguia").toString()));
 		if(idguia > 0){
 			consultaGuia();
@@ -116,8 +115,7 @@ public class GuiaAdminBean  implements Serializable{
 				usuarioBean.setStreamedContent(streamedContent);
 				facesUtil.setSessionBean("usuarioBean", usuarioBean);
 				fotoSubida = true;
-				
-				new MessageUtil().showInfoMessage("Foto en memoria!", event.getFile().getFileName());
+				new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 			}else{
 				new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 100KB");
 			}	
@@ -130,12 +128,20 @@ public class GuiaAdminBean  implements Serializable{
 	public void ponerFotoPrincipal(){
 		petguia.setRutafoto(petfotoguiaSeleccionada.getRuta());
 		petfotoguiaSeleccionada = new Petfotoguia();
-		new MessageUtil().showInfoMessage("Listo!", "Se ha seleccionado como foto principal");
+		new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 	}
 	
 	public void quitarFotoGaleria(){
-		lisPetfotoguia.remove(petfotoguiaSeleccionada);
-		petfotoguiaSeleccionada = new Petfotoguia();
+		if (petfotoguiaSeleccionada !=null){
+			if (!petfotoguiaSeleccionada.getRuta().equals(petguia.getRutafoto())){
+				lisPetfotoguia.remove(petfotoguiaSeleccionada);
+				petfotoguiaSeleccionada = new Petfotoguia();
+				new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
+			}
+			else {
+				new MessageUtil().showInfoMessage("Info", "No se puede eliminar foto que ha sido seleccionada como foto de perfil, cambie de foto de perfil y vuelva a intentarlo");
+			}
+		}		
 	}
 	
 	public void borrarFotoSubida(){
@@ -175,11 +181,12 @@ public class GuiaAdminBean  implements Serializable{
 	public boolean validarcampos(){
 		boolean ok = true;
 		Date fechaactual = new Date();
+		String textodescripcion= (petguia.getDescripcion()!=null ? petguia.getDescripcion().replaceAll("\\<.*?\\>", "") : "" );
 		if(petguia.getTitulo()==null|| petguia.getTitulo().length()==0){
 			ok = false;
 			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el Título del artículo");
 		}
-		else if(petguia.getDescripcion()==null|| petguia.getDescripcion().length()==0){
+		else if(textodescripcion==null|| textodescripcion.length()==0){
 			ok = false;
 			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contendio del artículo");
 		}else if (petguia.getFechapublicacion().after(fechaactual)){

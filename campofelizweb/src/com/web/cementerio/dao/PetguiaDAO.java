@@ -113,7 +113,7 @@ public class PetguiaDAO {
 					query += ")";
 					
 					
-					criteria.add(Restrictions.sqlRestriction(query));
+					criteriaCount.add(Restrictions.sqlRestriction(query));
 					
 				}
 					

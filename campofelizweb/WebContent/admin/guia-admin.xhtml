@@ -24,7 +24,7 @@
 			}
 			.ui-panelgrid tr, .ui-panelgrid td {
 				border: none;
-				padding: 0 10px;
+				/*padding: 0 10px;*/
 			}
 			.ui-panelgrid .alto-columna {
 				padding-bottom: 15px;
@@ -61,11 +61,11 @@
 				</h:panelGroup>
 				<h:panelGroup id="idpanelgaleria" styleClass="centrar">
 			    	<p:galleria id="idgalleria" value="#{guiaAdminBean.lisPetfotoguia}" var="item" transitionInterval="0" panelWidth="500" panelHeight="320" rendered="#{guiaAdminBean.lisPetfotoguia.size() > 0}">
-				       <p:graphicImage id="idfotos" value="#{guiaAdminBean.rutaImagenes}#{item.ruta}" style="max-height: 58px;" />
+				       <p:graphicImage id="idfotos" value="#{guiaAdminBean.rutaImagenes}#{item.ruta}?w=70" style="max-height: 70px;" />
 				       <p:galleriaContent>  
 				           <h:panelGrid columns="1" style="background-color: #eaeaea;height: 100%; width: 100%;" >  
 				   		        <f:facet name="header">
-					           	<p:graphicImage id="idfoto" value="#{guiaAdminBean.rutaImagenes}#{item.ruta}" style="max-height: 300px; padding-top: 10px" />
+					           	<p:graphicImage id="idfoto" value="#{guiaAdminBean.rutaImagenes}#{item.ruta}?w=300" style="max-width:300px; max-height: 300px; padding-top: 10px" />
 						        </f:facet>
 						        <p:commandButton id="idbuttonprincipal" title="Colocar como foto principal" icon="ui-icon ui-icon-person"  onclick="vardialogprincipal.show()" style="position:absolute;right:0px;top:30px;" update=":form-contentpage:idpanelprincipal" >
 						        	<f:setPropertyActionListener value="#{item}" target="#{guiaAdminBean.petfotoguiaSeleccionada}" />
@@ -85,10 +85,10 @@
 				<p:column>
 				<h:outputLabel value="Agregar Foto" for="idSubeFotos" /><br />
 				<p:panel id="pnlPrevia" styleClass="panel-previa">
-				<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" styleClass="imagen"  rendered="#{guiaAdminBean.fotoSubida}" />
+				<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" style="height:100px; width:120px; max-height:100px; max-width:120px" rendered="#{guiaAdminBean.fotoSubida}" />
 				<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{guiaAdminBean.borrarFotoSubida()}" update="pnlPrevia, idpaneltextdescfoto" rendered="#{guiaAdminBean.fotoSubida}" />
 				</p:panel>
-				<p:fileUpload id="idSubeFotos" fileUploadListener="#{guiaAdminBean.handleFileUpload}" mode="advanced"  label="Elegir Foto" cancelLabel="Cancelar" uploadLabel="Subir  Foto"
+				<p:fileUpload id="idSubeFotos" fileUploadListener="#{guiaAdminBean.handleFileUpload}" mode="advanced" showButtons="false" label="Elegir Foto" cancelLabel="Cancelar" uploadLabel="Subir  Foto"
 				update="mensajes, pnlPrevia, idpaneltextdescfoto"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
 				</p:column>
 			</p:row>  
@@ -105,7 +105,7 @@
 			<p:row>
 				<p:column>
 				<h:outputLabel value="Contenido del Artículo" for="txtContenido" /><br />
-				<p:editor id="txtContenido" value="#{guiaAdminBean.petguia.descripcion}" width="600" />
+				<p:editor id="txtContenido" value="#{guiaAdminBean.petguia.descripcion}" width="600" controls="bold italic underline bullets numbering center undo redo link unlink cut copy paste source removeformat outdent indent"/>
 				</p:column>
 			</p:row>  
 			  
@@ -137,7 +137,7 @@
 			<div class="area-botones">
 			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
 			renderedButtonEliminar="#{guiaAdminBean.idguia> 0}" onclickButtonEliminar="vardialogdeleteguia.show()" 
-			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" actionButtonCancelar="/pages/guiageneral"
+			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('../pages/guiageneral.jsf')"
 			renderedButtonNewItem="false" />
 			</div>
 			
