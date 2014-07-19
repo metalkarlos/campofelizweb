@@ -57,7 +57,7 @@ public class EnunciadoAdminBean implements Serializable {
 	}
 
 	public void consultar(){
-		listpetvenunciado = new ArrayList<>();
+		listpetvenunciado = new ArrayList<Petvenunciado>();
 		PetenunciadoBO petenunciadoBO = new PetenunciadoBO();
 		try {
 			listpetvenunciado = petenunciadoBO.getListpetvenunciadoidpadre(idenunciado);

@@ -68,9 +68,8 @@
 			    white-space:pre;
 			}
 			.pregunta, .icon-pregunta {
-				padding-top: 10px;
-				
-			}
+		padding-bottom: 5px;
+	}
 			.inner-content{
 			   text-align: justify;
 			}
@@ -106,19 +105,17 @@
 		  <span class="clear" />
 		  <div class="items">
 		  <ui:repeat value="#{enunciadosBean.listpetvenunciado}" var="enunciado">
-		  		<p:outputPanel style="display:flex;position: relative;top: 28px;left: 523px;" rendered="#{enunciado.idpadre == 0}">
-			  	<h:link value="[Editar]" styleClass="link2" outcome="/admin/preguntas-admin" rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
-		       	<f:param name="idenunciado" value="#{enunciado.idenunciado}"></f:param>
-	            </h:link>
-	            
-   	            <h:link value="[Eliminar]" styleClass="link2" outcome="/admin/preguntas-admin"  rendered="#{usuarioBean.autenticado and enunciado.tipo.toString()=='P'}" >
-   	              	<f:param name="idenunciado" value="#{enunciado.idenunciado}"></f:param>
-   	            </h:link>
-   	            </p:outputPanel>
-   	            
 			  	<h:graphicImage styleClass="icon-pregunta iconimagen" library="images" alt="#{enunciado.descripcion}" name="huella.png" rendered="#{enunciado.idpadre == 0}"  />
-				<p:commandLink   onclick="mostrarOcultar(this)" styleClass="pregunta" value="#{enunciado.orden}  #{enunciado.descripcion}" rendered="#{enunciado.idpadre == 0}"  ></p:commandLink>
-			 	<h:outputText  styleClass="respuesta" value="#{enunciado.descripcion}"  rendered="#{enunciado.idpadre > 0}" escape="false"/>
+				<p:commandLink onclick="mostrarOcultar(this)" styleClass="pregunta" value="#{enunciado.orden}  #{enunciado.descripcion}" rendered="#{enunciado.idpadre == 0}"  ></p:commandLink>
+				
+				<p:panel rendered="#{enunciado.idpadre > 0}" styleClass="respuesta" >
+			 		<h:outputText value="#{enunciado.descripcion}" escape="false"/>
+			 		<p:outputPanel rendered="#{usuarioBean.autenticado}" style="float: right;">
+					  	<h:link value="[Editar]" styleClass="link2" outcome="/admin/preguntas-admin" >
+				       		<f:param name="idenunciado" value="#{enunciado.idenunciado}"></f:param>
+			            </h:link>
+	   	            </p:outputPanel>
+			 	</p:panel>
 	      </ui:repeat>
 	      <br/>
 	      </div>

@@ -1,13 +1,12 @@
 package com.web.cementerio.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+
 import com.web.cementerio.pojo.annotations.Petvenunciado;
 
 public class PetvenunciadoDAO {
@@ -22,22 +21,26 @@ public class PetvenunciadoDAO {
 	    return listpetenunciado;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<Petvenunciado> getListpetenunciadobyId(Session session, int idenunciado) throws Exception{
-		List<Petvenunciado> listpetenunciado=null;
-		Disjunction sentenciaOR = Restrictions.disjunction();
-		Criterion   critidenunciado = Restrictions.eq("idenunciado", idenunciado);
+		List<Petvenunciado> listpetenunciado=new ArrayList<Petvenunciado>();
+		Petvenunciado objectpetvenunciadopreg=null;
+		Petvenunciado objectpetvenunciadoresp=null;
 		
-		sentenciaOR.add(Restrictions.eq("idpadre",idenunciado ));
+		Criteria criteriaresp = session.createCriteria(Petvenunciado.class) 
+			.add(Restrictions.eq("idenunciado", idenunciado));
+		objectpetvenunciadoresp = (Petvenunciado) criteriaresp.uniqueResult();
 		
-		Criteria criteria = session.createCriteria(Petvenunciado.class) 
-				    .add(Restrictions.or(critidenunciado, sentenciaOR))
-				//.add(Restrictions.eq("idenunciado", idenunciado))
-				//.add(Restrictions.disjunction().add(Restrictions.eq("idpadre",idenunciado)));
-				
-				.addOrder(Order.asc("idpadre"));
-		
-		listpetenunciado = (List<Petvenunciado>)criteria.list();
+		if(objectpetvenunciadoresp!=null){
+		 if(objectpetvenunciadoresp.getIdpadre() >0){
+			Criteria criteriapreg = session.createCriteria(Petvenunciado.class) 
+		    		.add(Restrictions.eq("idenunciado", objectpetvenunciadoresp.getIdpadre()));
+			objectpetvenunciadopreg = (Petvenunciado) criteriapreg.uniqueResult();
+   		  }
+		}
+		if(objectpetvenunciadopreg !=null && objectpetvenunciadoresp != null){
+			listpetenunciado.add(0,objectpetvenunciadopreg);
+			listpetenunciado.add(1,objectpetvenunciadoresp);
+		}
 		return listpetenunciado;
 	}
 
