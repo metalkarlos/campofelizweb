@@ -120,7 +120,7 @@ public class PetinformacionBO {
 					
 			//Auditoria
 			petfotoinformacion.setFecharegistro(fecharegistro);
-			petfotoinformacion.setIplog(usuarioBean.getSetUsuario().getIplog());
+			petfotoinformacion.setIplog(usuarioBean.getIp());
 					
 			
 					
@@ -181,7 +181,7 @@ public class PetinformacionBO {
 						
 					//Auditoria
 					petfotoinformacion.setFechamodificacion(fechamodificacion);
-					petfotoinformacion.setIplog(usuarioBean.getSetUsuario().getIplog());
+					petfotoinformacion.setIplog(usuarioBean.getIp());
 					petfotoinformacionDAO.modificarFotomascota(session, petfotoinformacion);
 						
 					//eliminar foto del disco
