@@ -55,7 +55,7 @@ public class MailUtil {
 		//properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");   
 		//properties.put("mail.smtp.socketFactory.fallback", "false");   
 		
-		properties.put("mail.debug", "true"); 
+		properties.put("mail.debug", "false"); 
 		 
 		//Session mailSession = Session.getDefaultInstance(properties, null);
 		Session mailSession = Session.getDefaultInstance(properties, 

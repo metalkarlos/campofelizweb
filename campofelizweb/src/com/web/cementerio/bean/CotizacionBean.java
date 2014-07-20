@@ -95,7 +95,7 @@ public class CotizacionBean implements Serializable {
 
 		contenido += "<table cellpadding='0' cellspacing='0' style='width: 100%'>";
 		contenido += "<tr>";
-		contenido += "<td colspan='2'><center><img src='"+logo+"'></img></center></td>";
+		contenido += "<td colspan='2'><center><a title='Campo Feliz' href='"+facesUtil.getHostDomain()+"' target='_blank'><img alt='Campo Feliz' src='"+logo+"'></img></a></center></td>";
 		contenido += "</tr>";
 		contenido += "<tr>";
 		contenido += "<td colspan='2'><span>"+textoIntroductorio+"</span></td>";

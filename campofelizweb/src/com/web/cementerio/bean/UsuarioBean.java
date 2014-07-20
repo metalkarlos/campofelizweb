@@ -184,7 +184,7 @@ public class UsuarioBean implements Serializable{
 
 						contenido += "<table cellpadding='0' cellspacing='0' style='width: 100%'>";
 						contenido += "<tr>";
-						contenido += "<td><center><img src='"+logo+"'></img></center></td>";
+						contenido += "<td><center><a title='Campo Feliz' href='"+facesUtil.getHostDomain()+"' target='_blank'><img alt='Campo Feliz' src='"+logo+"'></img></a></center></td>";
 						contenido += "</tr>";
 						contenido += "<tr>";
 						contenido += "<td style='height: 30px;'><span>Ha solicitado cambiar la clave del usuario: <strong>"+username+"</strong>.</span></td>";
