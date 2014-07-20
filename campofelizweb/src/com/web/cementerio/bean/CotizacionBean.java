@@ -55,103 +55,94 @@ public class CotizacionBean implements Serializable {
 		if(validacionOk()){
 			try{
 				MailUtil mailUtil = new MailUtil();
+				FacesUtil facesUtil = new FacesUtil();
 				
 				//formatear el contenido para el administrador de correo
-				String contenido = "";
-				contenido += "<html>";
-				contenido += "<body>";
-				contenido += "<center><h1>Ha recibido una solicitud de cotizaci&oacute;n del sitio web</h1></center>";
-				contenido += "<table style='width: 100%'>";
-				contenido += "<tr>";
-				contenido += "<td style='width: 150px;'><strong>Nombres: </strong></td><td>" + nombres + "</td>";
-				contenido += "</tr>";
-				contenido += "<tr>";
-				contenido += "<td style='width: 150px;'><strong>Apellidos: </strong></td><td>" + apellidos + "</td>";
-				contenido += "</tr>";
-				contenido += "<tr>";	
-				contenido += "<td><strong>Email: </strong></td><td>" + correo + "</td>";
-				contenido += "</tr>";
-				contenido += "<tr style='height: 20px;'>";	
-				contenido += "<td></td><td></td>";
-				contenido += "</tr>";
-				contenido += "<tr>";	
-				contenido += "<td colspan='2'><strong>Servicios que solicita: </strong></td>";
-				contenido += "</tr>";
-				for(String petservicio : lisPetservicioSeleccionados){
-					contenido += "<tr>";	
-					contenido += "<td colspan='2'>" + petservicio + "</td>";
-					contenido += "</tr>";
-				}
-				if(otrosServicios != null && otrosServicios.trim().length() > 0){
-					contenido += "<tr style='height: 20px;'>";	
-					contenido += "<td></td><td></td>";
-					contenido += "</tr>";
-					contenido += "<tr>";	
-					contenido += "<td colspan='2'><strong>Otros Servicios: </strong></td>";
-					contenido += "</tr>";
-					contenido += "<tr>";	
-					contenido += "<td colspan='2'>" + otrosServicios + "</td>";
-					contenido += "</tr>";
-				}
-				contenido += "</table>";
-				contenido += "</body>";
-				contenido += "</html>";
+				String contenido = contenido("Solicitud de Cotizaci&oacute;n", "Ha recibido una solicitud de cotizaci&oacute;n del sitio web");
 				
 				//enviar al administrador de correo
 				mailUtil.enviarMail(null, "Cotización - Campo Feliz", contenido);
 				
 				//formatear el contenido para el remitente de correo
-				String contenido2 = "";
-				contenido2 += "<html>";
-				contenido2 += "<body>";
-				contenido2 += "<center><h1>Campo Feliz Cementerio de Mascotas</h1></center>";
-				contenido2 += "<p style='text-align: justify;padding: 10px 0 0 0'>Gracias por comunicarte con nosotros! En breve te estaremos respondiendo.</p>";
-				contenido2 += "<table style='width: 100%'>";
-				contenido2 += "<tr>";
-				contenido2 += "<td style='width: 150px;'><strong>Nombres: </strong></td><td>" + nombres + "</td>";
-				contenido2 += "</tr>";
-				contenido2 += "<tr>";
-				contenido2 += "<td style='width: 150px;'><strong>Apellidos: </strong></td><td>" + apellidos + "</td>";
-				contenido2 += "</tr>";
-				contenido2 += "<tr>";	
-				contenido2 += "<td><strong>Email: </strong></td><td>" + correo + "</td>";
-				contenido2 += "</tr>";
-				contenido2 += "<tr style='height: 20px;'>";	
-				contenido2 += "<td></td><td></td>";
-				contenido2 += "</tr>";
-				contenido2 += "<tr>";	
-				contenido2 += "<td colspan='2'><strong>Servicios que solicita: </strong></td>";
-				contenido2 += "</tr>";
-				for(String petservicio : lisPetservicioSeleccionados){
-					contenido2 += "<tr>";	
-					contenido2 += "<td colspan='2'>" + petservicio + "</td>";
-					contenido2 += "</tr>";
-				}
-				if(otrosServicios != null && otrosServicios.trim().length() > 0){
-					contenido2 += "<tr style='height: 20px;'>";	
-					contenido2 += "<td></td><td></td>";
-					contenido2 += "</tr>";
-					contenido2 += "<tr>";	
-					contenido2 += "<td colspan='2'><strong>Otros Servicios: </strong></td>";
-					contenido2 += "</tr>";
-					contenido2 += "<tr>";	
-					contenido2 += "<td colspan='2'>" + otrosServicios + "</td>";
-					contenido2 += "</tr>";
-				}
-				contenido2 += "</table>";
-				contenido2 += "</body>";
-				contenido2 += "</html>";
+				String contenido2 = contenido("Campo Feliz Cementerio de Mascotas", "Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!");
 				
 				//enviar respuesta al remitente
 				mailUtil.enviarMail(this.correo, "Cotización - Campo Feliz", contenido2);
 				
-				FacesUtil facesUtil = new FacesUtil();
 				facesUtil.redirect("home.jsf");
 			}catch(Exception e){
 				e.printStackTrace();
 				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 			}
 		}
+	}
+	
+	private String contenido(String titulo, String textoIntroductorio) {
+		String contenido = "";
+		FacesUtil facesUtil = new FacesUtil();
+		String logo = facesUtil.getHostDomain() + "/resources/images/logo.jpg";
+		
+		contenido += "<html>";
+		contenido += "<body style='font: 12px/18px Arial, Helvetica, sans-serif;'>";
+		contenido += "<table cellpadding='0' cellspacing='0' style='width: 100%'>";
+		contenido += "<tr>";
+		contenido += "<td style='border: 1px solid #66ad23;background-color: #66ad23;color: white;border-radius: 4px 4px 0 0;height: 30px;'>";
+		contenido += "<h1 style='font-size: 1.3em;line-height: 2.1;text-align: center;'>"+titulo+"</h1>";
+		contenido += "</td>";
+		contenido += "</tr>";
+		contenido += "<tr>";
+		contenido += "<td style='border: 1px solid #66ad23;padding: 10px 25px;'>";
+
+		contenido += "<table cellpadding='0' cellspacing='0' style='width: 100%'>";
+		contenido += "<tr>";
+		contenido += "<td colspan='2'><center><img src='"+logo+"'></img></center></td>";
+		contenido += "</tr>";
+		contenido += "<tr>";
+		contenido += "<td colspan='2'><span>"+textoIntroductorio+"</span></td>";
+		contenido += "</tr>";
+		contenido += "<tr>";
+		contenido += "<td colspan='2'><span>&nbsp;</span></td>";
+		contenido += "</tr>";
+		contenido += "<tr>";
+		contenido += "<td style='width: 10%;'><strong>Nombres: </strong></td><td style='width: 90%;'>" + nombres + "</td>";
+		contenido += "</tr>";
+		contenido += "<tr>";	
+		contenido += "<td><strong>Apellidos: </strong></td><td>" + apellidos + "</td>";
+		contenido += "</tr>";
+		contenido += "<tr>";	
+		contenido += "<td><strong>Email: </strong></td><td>" + correo + "</td>";
+		contenido += "</tr>";
+		contenido += "<tr style='height: 20px;'>";	
+		contenido += "<td></td><td></td>";
+		contenido += "</tr>";
+		contenido += "<tr>";	
+		contenido += "<td colspan='2'><strong>Servicios que solicita: </strong></td>";
+		contenido += "</tr>";
+		for(String petservicio : lisPetservicioSeleccionados){
+			contenido += "<tr>";	
+			contenido += "<td colspan='2'>" + petservicio + "</td>";
+			contenido += "</tr>";
+		}
+		if(otrosServicios != null && otrosServicios.trim().length() > 0){
+			contenido += "<tr style='height: 20px;'>";	
+			contenido += "<td></td><td></td>";
+			contenido += "</tr>";
+			contenido += "<tr>";	
+			contenido += "<td colspan='2'><strong>Otros Servicios: </strong></td>";
+			contenido += "</tr>";
+			contenido += "<tr>";	
+			contenido += "<td colspan='2'>" + otrosServicios + "</td>";
+			contenido += "</tr>";
+		}
+		contenido += "</table>";
+		
+		contenido += "</td>";
+		contenido += "</tr>";
+		contenido += "</table>";
+		contenido += "</body>";
+		contenido += "</html>";
+		
+		return contenido;
 	}
 	
 	private boolean validacionOk(){
