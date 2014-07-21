@@ -76,7 +76,7 @@ public class PetmascotahomenajeBO {
 	}
 	
 	
-	public void ingresarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,int idestado, UploadedFile uploadedFile) throws Exception{
+	public void ingresarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,int idestado, UploadedFile uploadedFile, String descripcionFoto) throws Exception{
 		Session session = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
@@ -101,16 +101,11 @@ public class PetmascotahomenajeBO {
 			//Auditoria
 			petmascotahomenaje.setFecharegistro(fecharegistro);
 			petmascotahomenaje.setIplog(usuarioBean.getIp());
-			
-			/*
-			if(uploadedFile ==null || petmascotahomenaje.getRutafoto()==null){
-			 petmascotahomenaje.setRutafoto("/mascota/huella.jpg");	
-			}*/
-			
+						
 			petmascotahomenajeDAO.ingresarPetmascotahomenaje(session, petmascotahomenaje);
 			
 			if(uploadedFile !=null){
-			  if(ingresarPetfotomascota(session, idestado, petmascotahomenaje,uploadedFile)){
+			  if(ingresarPetfotomascota(session, idestado, petmascotahomenaje,uploadedFile,descripcionFoto)){
 			     petmascotahomenajeDAO.modificarPetmascotahomenaje(session, petmascotahomenaje);
 			   }
 			}
@@ -126,7 +121,7 @@ public class PetmascotahomenajeBO {
 
 	}
 	
-	public void modificarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,Petmascotahomenaje petmascotahomenajeclone, List<Petfotomascota>listpetfotomascota,List<Petfotomascota>listpetfotomascotaclone,UploadedFile uploadedFile,int idestado) throws Exception{
+	public void modificarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,Petmascotahomenaje petmascotahomenajeclone, List<Petfotomascota>listpetfotomascota,List<Petfotomascota>listpetfotomascotaclone,UploadedFile uploadedFile,String descripcionFoto) throws Exception{
 		Session session = null;
 		boolean ok = false;
 		try {
@@ -152,18 +147,26 @@ public class PetmascotahomenajeBO {
 				ok = true;
 			}
 			if(uploadedFile !=null){
-			   if(ingresarPetfotomascota(session, 1,petmascotahomenaje,uploadedFile)){
+			   if(ingresarPetfotomascota(session, 1,petmascotahomenaje,uploadedFile,descripcionFoto)){
 				   petmascotahomenajeDAO.modificarPetmascotahomenaje(session, petmascotahomenaje);
-				   
 			    }
 			   ok = true;
 			}
-			
-			if(!(listpetfotomascota.isEmpty() && listpetfotomascotaclone.isEmpty()) && (listpetfotomascota.size() != listpetfotomascotaclone.size())){
-			   modificarPetfotomascota(session,idestado, listpetfotomascota, listpetfotomascotaclone,petmascotahomenaje, uploadedFile) ;
-		       ok = true;
+			else{
+			   if(!(listpetfotomascota.isEmpty() && listpetfotomascotaclone.isEmpty())){
+				  //Cuando se ha eliminado una foto 
+				 if (listpetfotomascota.size() != listpetfotomascotaclone.size()){
+				   modificarPetfotomascota(session,2, listpetfotomascota, listpetfotomascotaclone,petmascotahomenaje) ;
+				   ok = true;
+				 }
+				 else{
+					//Cuando se ha modificado la descripcion de una foto 
+				   if (modificarDescripcionPetfotomascota(session,1, listpetfotomascota, listpetfotomascotaclone,petmascotahomenaje)){
+					ok = true;
+					}
+				  }
+			   }
 			}
-			
 			if(ok){
 				session.getTransaction().commit();
 			}
@@ -178,7 +181,7 @@ public class PetmascotahomenajeBO {
 	
 	
 
-	public boolean ingresarPetfotomascota(Session session, int idestado,Petmascotahomenaje petmascotahomenaje,  UploadedFile uploadedFile)throws Exception{
+	public boolean ingresarPetfotomascota(Session session, int idestado,Petmascotahomenaje petmascotahomenaje,  UploadedFile uploadedFile, String descripcionFoto)throws Exception{
 		PetfotomascotaDAO petfotomascotaDAO = new PetfotomascotaDAO();
 		Petfotomascota petfotomascota = new Petfotomascota();
 		int secuencia = 0;
@@ -203,7 +206,9 @@ public class PetmascotahomenajeBO {
 			petfotomascota.setFecharegistro(fecharegistro);
 			petfotomascota.setIplog(usuarioBean.getIp());
 					
-			
+			if(descripcionFoto ==null || descripcionFoto.length()>0){
+			  petfotomascota.setDescripcion(descripcionFoto);	
+			}
 					
 			//foto en disco
 			FileUtil fileUtil = new FileUtil();
@@ -242,42 +247,15 @@ public class PetmascotahomenajeBO {
 	}
 	
 	
-	public void modificarPetfotomascota(Session session,int idestado,List<Petfotomascota>  lisPetfotomascota, List<Petfotomascota> lisPetfotomascotaclone,  Petmascotahomenaje petmascotahomenaje,  UploadedFile uploadedFile)throws Exception{
-		PetfotomascotaDAO petfotomascotaDAO = new PetfotomascotaDAO();
-		FacesUtil facesUtil = new FacesUtil();
-		FileUtil fileUtil = new FileUtil();
+	public void modificarPetfotomascota(Session session,int idestado,List<Petfotomascota>  lisPetfotomascota, List<Petfotomascota> lisPetfotomascotaclone,  Petmascotahomenaje petmascotahomenaje)throws Exception{
 		try {
 			for (Petfotomascota petfotomascota : lisPetfotomascotaclone){
 				
 				if(!lisPetfotomascota.contains(petfotomascota)){
 					
 					petfotomascota.setPetmascotahomenaje(petmascotahomenaje);
-						
-					Date fechamodificacion= new Date();
-					UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
-						
-					Setestado setestado = new Setestado();
-					setestado.setIdestado(idestado);
-					petfotomascota.setSetestado(setestado);
-						
-					Setusuario setusuario = new Setusuario();
-					setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
-					petfotomascota.setSetusuario(setusuario);
-						
-					//Auditoria
-					petfotomascota.setFechamodificacion(fechamodificacion);
-					petfotomascota.setIplog(usuarioBean.getIp());
-					petfotomascotaDAO.modificarFotomascota(session, petfotomascota);
-						
-					//eliminar foto del disco
-					String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
-					
-					String rutaArchivo = rutaImagenes + petfotomascota.getRuta();
-					
-					fileUtil.deleteFile(rutaArchivo);
-					
-				}
-					
+					eliminarPetfotomascota(session,petfotomascota);
+				}					
 			}
 			
 		} catch (Exception e) {
@@ -286,12 +264,43 @@ public class PetmascotahomenajeBO {
 		}
 	}
 	
+	public boolean modificarDescripcionPetfotomascota(Session session,int idestado,List<Petfotomascota>  lisPetfotomascota, List<Petfotomascota> lisPetfotomascotaclone,  Petmascotahomenaje petmascotahomenaje)throws Exception{
+		PetfotomascotaDAO petfotomascotaDAO = new PetfotomascotaDAO();
+		boolean modificar=false;
+		for (Petfotomascota petfotomascotaclone : lisPetfotomascotaclone){
+		 for (Petfotomascota petfotomascota : lisPetfotomascota){
+			if(petfotomascotaclone.getIdfotomascota() == petfotomascota.getIdfotomascota()){
+		    	if((!petfotomascota.getDescripcion().equals(petfotomascotaclone.getDescripcion()) && petfotomascota.getDescripcion()!=null && petfotomascotaclone.getDescripcion()!=null &&
+					petfotomascota.getDescripcion().length()>0	&& (petfotomascotaclone.getDescripcion().length()>0))){
+		    		Date fechamodificacion = new Date();
+					UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+					 
+					petfotomascota.setPetmascotahomenaje(petmascotahomenaje);
+					petfotomascota.setFechamodificacion(fechamodificacion);
+					petfotomascota.setIplog(usuarioBean.getIp());
+					
+					Setusuario setusuario = new Setusuario();
+					setusuario = new Setusuario();
+					setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
+					petfotomascota.setSetusuario(setusuario);
+					
+					Setestado setestado = new Setestado();
+					setestado.setIdestado(idestado);
+					petfotomascota.setSetestado(setestado);
+					
+					petfotomascotaDAO.modificarFotomascota(session, petfotomascota);
+					modificar=true;
+				}
+			 }
+		   }
+	    }
+		return modificar;
+	}
+	
+	
 	
 	public void eliminarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,List<Petfotomascota> listpetfotomascotaclone, int idestado)throws Exception{
 		Session session = null;
-		PetfotomascotaDAO petfotomascotaDAO = new PetfotomascotaDAO(); 
-		FacesUtil facesUtil = new FacesUtil();
-		FileUtil fileUtil = new FileUtil();
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -317,35 +326,11 @@ public class PetmascotahomenajeBO {
 			if(!listpetfotomascotaclone.isEmpty()){
 			   	
 				for(Petfotomascota petfotomascota: listpetfotomascotaclone){
-					
-					//auditoria
-					petfotomascota.setFechamodificacion(fechamodificacion);
-					petfotomascota.setIplog(usuarioBean.getIp());
-					
-					setusuario = new Setusuario();
-					setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
-					petfotomascota.setSetusuario(setusuario);
-					
-					setestado = new Setestado();
-					setestado.setIdestado(idestado);
-					petfotomascota.setSetestado(setestado);	
-			
-					petfotomascotaDAO.modificarFotomascota(session, petfotomascota);
-				
-					//eliminar foto del disco
-					String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
-					
-					String rutaArchivo = rutaImagenes + petfotomascota.getRuta();
-					
-					fileUtil.deleteFile(rutaArchivo);
-					
+					eliminarPetfotomascota(session,petfotomascota);
 					
 				}
-				
 			}
-			
 			session.getTransaction().commit();
-			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new Exception();
@@ -354,5 +339,39 @@ public class PetmascotahomenajeBO {
 		}
 		
 	}
+	
+	/***
+	 * Metodo que es llamado al momento de modificar un inactivar registros en petfotomascota
+	 * @param petfotomascota
+	 */
+    public void eliminarPetfotomascota(Session session,Petfotomascota petfotomascota)throws Exception{
+    	
+    	Date fechamodificacion= new Date();
+		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+		PetfotomascotaDAO petfotomascotaDAO = new PetfotomascotaDAO();
+		FacesUtil facesUtil = new FacesUtil();
+		FileUtil fileUtil = new FileUtil();
+		
+		Setestado setestado = new Setestado();
+		setestado.setIdestado(2);
+		petfotomascota.setSetestado(setestado);
+			
+		Setusuario setusuario = new Setusuario();
+		setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
+		petfotomascota.setSetusuario(setusuario);
+			
+		//Auditoria
+		petfotomascota.setFechamodificacion(fechamodificacion);
+		petfotomascota.setIplog(usuarioBean.getIp());
+		petfotomascotaDAO.modificarFotomascota(session, petfotomascota);
+			
+		//eliminar foto del disco
+		String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
+		
+		String rutaArchivo = rutaImagenes + petfotomascota.getRuta();
+		
+		fileUtil.deleteFile(rutaArchivo);
+    	
+    }
 	
 }
