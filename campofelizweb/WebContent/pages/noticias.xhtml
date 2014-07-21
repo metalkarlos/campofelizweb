@@ -12,6 +12,9 @@
 	<ui:define name="head">
 		<title>Noticias</title>
 		<style type="text/css">
+			.inner-content {
+				padding: 0px;
+			}
 			.inner-content h1  {
 				color: #66ad23;
 			}
@@ -65,10 +68,10 @@
 							<div>
 								<p class="parrafo">
 									<h:outputText value="#{fn:substring(noticia.descripcionNoTags, 0, 300)} [...]" escape="false" /> 
-									<h:link style="float: right; padding: 10px 0 0" value="Leer Más" outcome="/pages/noticia" >
-										<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
-									</h:link>
 								</p>
+								<h:link style="float: right;" value="Leer Más" outcome="/pages/noticia" >
+									<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
+								</h:link>
 							</div>
 						</div>
 					</div>

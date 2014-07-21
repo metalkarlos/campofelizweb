@@ -534,6 +534,9 @@ section#content {
 	margin: 8px 15px 8px 4px;
 	border-bottom: 1px solid #e2e2e2;
 }
+.content-page {
+	margin: 25px;
+}
 .content-page h1 {
 	font-size: 2em;
 	font-weight: bold;
@@ -550,6 +553,9 @@ section#content {
 	line-height: normal;
 }
 .inner-content {
+	padding: 15px;
+}
+.inner-content .cuerpo{
 	margin: 0px 15px 0 15px;
 }
 .inner-content h1, .inner-content .titulo3, .inner-content .titulo2 {
@@ -561,6 +567,7 @@ section#content {
 	text-align: left;
 	font-weight: bold;
 	text-shadow: 1px 1px #fbfbfb;
+	line-height: 25px;
 }
 .link2 {
 	letter-spacing: -1px;
@@ -585,7 +592,7 @@ section#content {
 	padding: 15px 15px 0 0;
 }
 .inner-content .cuerpo {
-	margin: 15px 0;
+	margin: 15px;
 	text-align: justify;
 	line-height: 180%;
 }
@@ -610,6 +617,7 @@ section#content {
 	max-height: 100px; 
 	border: 1px solid #d3d3d3;
 }
+
 
 /************** Slider Mascotas Principales *****************/
 .slider-mascotas-p .texto-slider {
@@ -720,4 +728,9 @@ footer a {
 }
 .ui-galleria-panel-content {
 	background-color: #eaeaea;
-}	
+}
+/**********Botones redes sociales***********/
+.botones-redes-sociales-content {
+	padding: 0 0 15px 0;
+	text-align: right;
+} 
