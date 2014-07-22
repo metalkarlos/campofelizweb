@@ -139,7 +139,7 @@ public class PetmascotahomenajeBO {
 				Date fechamodificacion= new Date();
 				UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 				petmascotahomenaje.setFechamodificacion(fechamodificacion);
-				petmascotahomenaje.setIplog(usuarioBean.getSetUsuario().getIplog());
+				petmascotahomenaje.setIplog(usuarioBean.getIp());
 				
 				petmascotahomenaje.setNombre(petmascotahomenaje.getNombre().toUpperCase());
 				petmascotahomenaje.setFamilia(petmascotahomenaje.getFamilia().toUpperCase());
@@ -201,7 +201,7 @@ public class PetmascotahomenajeBO {
 					
 			//Auditoria
 			petfotomascota.setFecharegistro(fecharegistro);
-			petfotomascota.setIplog(usuarioBean.getSetUsuario().getIplog());
+			petfotomascota.setIplog(usuarioBean.getIp());
 					
 			
 					
@@ -266,7 +266,7 @@ public class PetmascotahomenajeBO {
 						
 					//Auditoria
 					petfotomascota.setFechamodificacion(fechamodificacion);
-					petfotomascota.setIplog(usuarioBean.getSetUsuario().getIplog());
+					petfotomascota.setIplog(usuarioBean.getIp());
 					petfotomascotaDAO.modificarFotomascota(session, petfotomascota);
 						
 					//eliminar foto del disco
@@ -309,7 +309,7 @@ public class PetmascotahomenajeBO {
 			petmascotahomenaje.setSetusuario(setusuario);
 			
 			petmascotahomenaje.setFechamodificacion(fechamodificacion);
-			petmascotahomenaje.setIplog(usuarioBean.getSetUsuario().getIplog());
+			petmascotahomenaje.setIplog(usuarioBean.getIp());
 			
 			petmascotahomenajeDAO.modificarPetmascotahomenaje(session, petmascotahomenaje);
 			
@@ -320,7 +320,7 @@ public class PetmascotahomenajeBO {
 					
 					//auditoria
 					petfotomascota.setFechamodificacion(fechamodificacion);
-					petfotomascota.setIplog(usuarioBean.getSetUsuario().getIplog());
+					petfotomascota.setIplog(usuarioBean.getIp());
 					
 					setusuario = new Setusuario();
 					setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
