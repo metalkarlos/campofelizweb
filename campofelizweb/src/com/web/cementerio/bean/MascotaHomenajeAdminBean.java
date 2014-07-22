@@ -41,6 +41,7 @@ import com.web.util.MessageUtil;
 		private UploadedFile    uploadedFile;
 		private int idmascota;
 		private String rutaImagenes;
+		private String descripcionFoto;
 		private boolean fotoSubida;
 
 	
@@ -75,6 +76,7 @@ import com.web.util.MessageUtil;
 			idmascota =0;
 			fotoSubida=false;
 			streamedContent = null;
+			descripcionFoto = null;
 			uploadedFile = null;
 		}
 		
@@ -94,10 +96,10 @@ import com.web.util.MessageUtil;
 					PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
 					
 					if(petmascotahomenaje.getIdmascota()==0){
-						petmascotahomenajeBO.ingresarPetmascotahomenajeBO(petmascotahomenaje, 1,uploadedFile);
+						petmascotahomenajeBO.ingresarPetmascotahomenajeBO(petmascotahomenaje, 1,uploadedFile,descripcionFoto);
 				    }else if(petmascotahomenaje.getIdmascota()>0){
 					  //objeto petmascotahomenaje se ha modificado
-					  petmascotahomenajeBO.modificarPetmascotahomenajeBO(petmascotahomenaje,petmascotahomenajeclone,listpetfotomascota, listpetfotomascotaclone,uploadedFile,2);
+					  petmascotahomenajeBO.modificarPetmascotahomenajeBO(petmascotahomenaje,petmascotahomenajeclone,listpetfotomascota, listpetfotomascotaclone,uploadedFile,descripcionFoto);
 						 
 				  }
 					inicializarobjetos();
@@ -216,9 +218,28 @@ import com.web.util.MessageUtil;
 			}else if(uploadedFile!=null && !fotoSubida){
 				ok = false;
 				new MessageUtil().showInfoMessage("Info", "Para subir la foto de click en el boton de la flecha");
+			}else if(uploadedFile!=null && fotoSubida && descripcionFoto.length()==0){
+				ok = false;
+				new MessageUtil().showInfoMessage("Info", "Es necesario ingresar la descripción de la foto a subir");
+			}else if (verificaDescripcionFotoNoVacia()){
+				ok = false;
+				new MessageUtil().showInfoMessage("Info", "Es necesario ingresar la descripción en fotos de la galería");
 			}
 			return ok;
 			
+		}
+		
+		public boolean verificaDescripcionFotoNoVacia(){
+		  boolean verifica = false;
+		  if(petmascotahomenaje.getIdmascota()>0 && listpetfotomascota.size()>0){
+			for(Petfotomascota temfotomascota :listpetfotomascota){
+			  if(temfotomascota.getDescripcion()==null || temfotomascota.getDescripcion().length()==0){
+				 verifica = true;
+				 break;
+			  }
+			}
+		 }
+		return verifica;
 		}
 
 		public void consultar(){
@@ -322,6 +343,14 @@ import com.web.util.MessageUtil;
 
 		public StreamedContent getStreamedContent() {
 			return streamedContent;
+		}
+
+		public String getDescripcionFoto() {
+			return descripcionFoto;
+		}
+
+		public void setDescripcionFoto(String descripcionFoto) {
+			this.descripcionFoto = descripcionFoto;
 		}
 
 		public void setStreamedContent(StreamedContent streamedContent) {
