@@ -40,3 +40,11 @@ function mensajeConfirmacion(mensaje){
 	var resp = confirm(mensaje);
 	return resp;
 }
+
+function not_internetexplorer(){
+	if ((navigator.userAgent.search("MSIE") < 0) && (navigator.userAgent.search("Trident") < 0)){
+		return true;
+	}else{
+		return false;
+	}
+}

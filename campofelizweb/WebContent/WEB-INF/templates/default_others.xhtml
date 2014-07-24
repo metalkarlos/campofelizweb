@@ -18,6 +18,7 @@
 		<link rel="shortcut icon" href="#{request.contextPath}/resources/images/logo_m.ico" />
 	
 		<h:outputScript library="js" name="javascript.js" />
+		<h:outputScript library="primefaces" name="jquery/jquery.js" />
 	
 		<h:outputStylesheet library="css" name="messages.css" />
 		<h:outputStylesheet library="css" name="menu.css" />
@@ -26,10 +27,13 @@
 		
 		<!-- Sticky -->
 		<h:outputScript library="js/sticky" name="jquery.sticky.js" />
-		<script>
-		   $(window).load(function(){
-		     $("#cortos").sticky({ topSpacing: 25, bottomSpacing: 80 });
-		   });
+		
+		<script type="text/javascript" language="javascript">
+			$(window).load(function(){
+				if (not_internetexplorer()){
+					$("#cortos").sticky({ topSpacing: 25, bottomSpacing: 80 });
+				}
+			});
 		</script>
 		
 		<!-- Lighbox-Colorbox -->
@@ -129,17 +133,6 @@
 					equalHeight($(".box-1 .inner"));
 				})
 			</script>
-		<!--[if lt IE 8]>
-			   <div style=' clear: both; text-align:center; position: relative;'>
-			     <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
-			       <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
-			    </a>
-			  </div>
-			<![endif]-->
-		<!--[if lt IE 9]>
-				<script src="js/html5.js"></script>
-				<link rel="stylesheet" href="css/ie.css"> 
-			<![endif]-->
 	</h:head>
 	
 	<h:body>
