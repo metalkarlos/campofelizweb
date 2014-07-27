@@ -207,6 +207,7 @@ public class UsuarioBean implements Serializable{
 						contenido += "<tr>";
 						contenido += "<td><span>Si ud no ha solicitado el cambio de clave ignore este correo.</span></td>";
 						contenido += "</tr>";
+						contenido += "<tr><td style='height: 20px;'>&nbsp;</td></tr>";
 						contenido += "</table>";
 						
 						contenido += "</td>";

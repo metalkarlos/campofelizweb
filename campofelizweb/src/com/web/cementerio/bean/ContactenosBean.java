@@ -59,7 +59,7 @@ public class ContactenosBean implements Serializable {
 			FacesUtil facesUtil = new FacesUtil();
 			
 			//formatear el contenido para el administrador de correo
-			String contenido = contenido("Solicitud de Información", "Ha recibido un mensaje de la p&aacute;gina de cont&aacute;ctenos");
+			String contenido = contenido("Solicitud de Información", "Ha recibido un mensaje de la página de contáctenos");
 			
 			//enviar al administrador de correo
 			mailUtil.enviarMail(null, "Información - Campo Feliz", contenido);
@@ -115,6 +115,7 @@ public class ContactenosBean implements Serializable {
 		contenido += "<tr>";
 		contenido += "<td colspan='2' style='text-align: justify;'><span style='padding: 10px 0 0 0'>" + mensaje + "</span></td>";
 		contenido += "</tr>";
+		contenido += "<tr><td style='height: 20px;'>&nbsp;</td></tr>";
 		contenido += "</table>";
 		
 		contenido += "</td>";

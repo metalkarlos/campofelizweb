@@ -58,7 +58,7 @@ public class CotizacionBean implements Serializable {
 				FacesUtil facesUtil = new FacesUtil();
 				
 				//formatear el contenido para el administrador de correo
-				String contenido = contenido("Solicitud de Cotizaci&oacute;n", "Ha recibido una solicitud de cotizaci&oacute;n del sitio web");
+				String contenido = contenido("Solicitud de Cotización", "Ha recibido una solicitud de cotización del sitio web");
 				
 				//enviar al administrador de correo
 				mailUtil.enviarMail(null, "Cotización - Campo Feliz", contenido);
@@ -133,6 +133,7 @@ public class CotizacionBean implements Serializable {
 			contenido += "<tr>";	
 			contenido += "<td colspan='2'>" + otrosServicios + "</td>";
 			contenido += "</tr>";
+			contenido += "<tr><td style='height: 20px;'>&nbsp;</td></tr>";
 		}
 		contenido += "</table>";
 		
