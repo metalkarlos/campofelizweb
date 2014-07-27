@@ -211,10 +211,15 @@
 		</ul>
 		</footer>
 		
-		<p:ajaxStatus
-			style="width:32px;height:32px;display:block;position:fixed;right:0;top:40px;">
+		<p:ajaxStatus>
 			<f:facet name="start">
-				<h:graphicImage alt="loading.gif" library="images" name="loading.gif" />
+				<table class="ajax-status" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+					<td>
+					<h:graphicImage alt="wait.gif" library="images" name="wait.gif" />
+					</td>
+					</tr>
+				</table>
 			</f:facet>
 			<f:facet name="complete">
 				<h:outputText value="" />

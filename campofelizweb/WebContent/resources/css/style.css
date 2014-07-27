@@ -436,7 +436,7 @@ header .innerheader {
 .logoutfloat{
 	position: fixed;
 	top: 0px;
-	z-index: 1000;
+	z-index: 3;
 	right: 0px;
 	color: #fff;
 	background-color: #569e3d;
@@ -458,7 +458,6 @@ nav {
 /********************** Content ************************/
 section#content {
 	position:relative; 
-	/*z-index:1;*/
 	padding:0 0 18px 0;
 }
 .author {
@@ -617,7 +616,18 @@ section#content {
 	max-height: 100px; 
 	border: 1px solid #d3d3d3;
 }
-
+.ajax-status {
+	z-index: 1018;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.ajax-status td {
+	text-align: center;
+	vertical-align: middle;
+}
 
 /************** Slider Mascotas Principales *****************/
 .slider-mascotas-p .texto-slider {
