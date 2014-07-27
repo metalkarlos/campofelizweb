@@ -73,7 +73,7 @@ public class MailUtil {
 		destinatario = destinatario == null ? usuario : destinatario;
 		message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
 		message.setSubject(asunto, "utf-8");
-		message.setContent(contenido, "text/html");
+		message.setContent(contenido, "text/html; charset=utf-8");
 		
 		Transport.send(message);
 		//Transport tr = mailSession.getTransport("smtp");
