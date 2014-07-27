@@ -46,8 +46,8 @@ public class ServicioAdminBean implements Serializable {
 	private long maxfilesize;
 	
 	public ServicioAdminBean() {
-		petservicio = new Petservicio(0, new Setestado(), new Setusuario(), null, null, null, null, null, false, new Date(), null);
-		petservicioClon = new Petservicio(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, false, new Date(), null);
+		petservicio = new Petservicio(0, new Setestado(), new Setusuario(), null, null, null, null, null, false, new Date(), null, 0);
+		petservicioClon = new Petservicio(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, false, new Date(), null, 0);
 		lisPetfotoservicio = new ArrayList<Petfotoservicio>();
 		lisPetfotoservicioClon = new ArrayList<Petfotoservicio>();
 		petfotoservicioSeleccionado = new Petfotoservicio();

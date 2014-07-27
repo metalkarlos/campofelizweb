@@ -46,8 +46,8 @@ public class NoticiaAdminBean implements Serializable {
 	private long maxfilesize;
 	
 	public NoticiaAdminBean() {
-		petnoticia = new Petnoticia(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, null, null, new Date(), new Date(), false);
-		petnoticiaClon = new Petnoticia(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, null, null, new Date(), new Date(), false);
+		petnoticia = new Petnoticia(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, null, null, new Date(), new Date(), false, 0);
+		petnoticiaClon = new Petnoticia(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, null, null, new Date(), new Date(), false, 0);
 		lisPetfotonoticia = new ArrayList<Petfotonoticia>();
 		lisPetfotonoticiaClon = new ArrayList<Petfotonoticia>();
 		petfotonoticiaSeleccionada = new Petfotonoticia();

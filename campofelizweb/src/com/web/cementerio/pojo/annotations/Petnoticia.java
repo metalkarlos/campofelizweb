@@ -41,6 +41,7 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 	private Date fechamodificacion;
 	private Date fechapublicacion;
 	private boolean principal;
+	private int orden;
 
 	public Petnoticia() {
 	}
@@ -53,7 +54,7 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 	public Petnoticia(int idnoticia, Setestado setestado,
 			Setusuario setusuario, String titulo, String descripcion,
 			String tag, Date fecharegistro, String iplog, String rutafoto, 
-			Set<Petfotonoticia> petfotonoticias, Date fechamodificacion, Date fechapublicacion, boolean principal) {
+			Set<Petfotonoticia> petfotonoticias, Date fechamodificacion, Date fechapublicacion, boolean principal, int orden) {
 		this.idnoticia = idnoticia;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -67,6 +68,7 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 		this.fechamodificacion = fechamodificacion;
 		this.fechapublicacion = fechapublicacion;
 		this.principal = principal;
+		this.orden = orden;
 	}
 
 	@Id
@@ -196,6 +198,15 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 		this.principal = principal;
 	}
 
+	@Column(name = "orden")
+	public int getOrden() {
+		return orden;
+	}
+
+	public void setOrden(int orden) {
+		this.orden = orden;
+	}
+
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		Petnoticia petnoticia = (Petnoticia)super.clone();
@@ -232,6 +243,7 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 		result = prime * result + ((tag == null) ? 0 : tag.hashCode());
 		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
 		result = prime * result + (principal ? 1231 : 1237);
+		result = prime * result + orden;
 		return result;
 	}
 
@@ -302,6 +314,8 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 		} else if (!titulo.equals(other.titulo))
 			return false;
 		if (principal != other.principal)
+			return false;
+		if (orden != other.orden)
 			return false;
 		return true;
 	}

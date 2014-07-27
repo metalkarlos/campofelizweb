@@ -40,6 +40,7 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 	private Date fechamodificacion;
 	private String rutafoto;
 	private Set<Petfotoservicio> petfotoservicios = new HashSet<Petfotoservicio>(0);
+	private int orden;
 
 	public Petservicio() {
 	}
@@ -52,7 +53,7 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 	public Petservicio(int idservicio, Setestado setestado,
 			Setusuario setusuario, String nombre, String descripcion,
 			String tag, Date fecharegistro, String iplog, boolean principal,
-			Date fechamodificacion, Set<Petfotoservicio> petfotoservicios) {
+			Date fechamodificacion, Set<Petfotoservicio> petfotoservicios, int orden) {
 		this.idservicio = idservicio;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -64,6 +65,7 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 		this.principal = principal;
 		this.fechamodificacion = fechamodificacion;
 		this.petfotoservicios = petfotoservicios;
+		this.orden = orden;
 	}
 
 	@Id
@@ -184,6 +186,15 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 		this.petfotoservicios = petfotoservicios;
 	}
 	
+	@Column(name = "orden")
+	public int getOrden() {
+		return orden;
+	}
+
+	public void setOrden(int orden) {
+		this.orden = orden;
+	}
+
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		Petservicio petservicio = (Petservicio)super.clone();
@@ -216,6 +227,7 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 		result = prime * result
 				+ ((rutafoto == null) ? 0 : rutafoto.hashCode());
 		result = prime * result + ((tag == null) ? 0 : tag.hashCode());
+		result = prime * result + orden;
 		return result;
 	}
 
@@ -272,7 +284,10 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 				return false;
 		} else if (!tag.equals(other.tag))
 			return false;
+		if (orden != other.orden)
+			return false;
 		return true;
+		
 	}
 	
 	

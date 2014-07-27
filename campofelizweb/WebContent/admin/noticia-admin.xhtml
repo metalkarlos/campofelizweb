@@ -127,6 +127,13 @@
 					
 					<p:row>
 					<p:column>
+					<h:outputLabel value="Orden" for="txtOrden" /><br />
+					<p:spinner id="txtOrden" value="#{noticiaAdminBean.petnoticia.orden}" min="1"></p:spinner>
+					</p:column>
+					</p:row>
+					
+					<p:row>
+					<p:column>
 					<h:outputLabel value="¿Aparece en la página principal?" for="txtprincipal" /><br />
 					<p:selectBooleanCheckbox id="txtprincipal" itemLabel="Sí" value="#{noticiaAdminBean.petnoticia.principal}"></p:selectBooleanCheckbox>
 					</p:column>

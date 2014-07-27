@@ -80,7 +80,7 @@ public class PetservicioDAO {
 			criteria.add(Restrictions.sqlRestriction(query));
 		}
 		
-        criteria.addOrder(Order.asc("nombre"))
+        criteria.addOrder(Order.asc("orden"))
 		.setMaxResults(pageSize)
 		.setFirstResult(pageNumber);
         
@@ -105,9 +105,6 @@ public class PetservicioDAO {
 				
 				criteriaCount.add(Restrictions.sqlRestriction(query));
 			}
-			
-			criteriaCount.setMaxResults(pageSize)
-			.setFirstResult(pageNumber);
 			
 			Object object = criteriaCount.uniqueResult();
 			int count = (object==null?0:Integer.parseInt(object.toString()));

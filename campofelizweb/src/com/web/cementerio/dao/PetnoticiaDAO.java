@@ -99,9 +99,6 @@ public class PetnoticiaDAO {
 	        	criteriaCount.add( Restrictions.like("descripcion", "%"+descripcion.replaceAll(" ", "%")+"%").ignoreCase());
 	        }
 			
-			criteriaCount.setMaxResults(pageSize)
-			.setFirstResult(pageNumber);
-			
 			Object object = criteriaCount.uniqueResult();
 			int count = (object==null?0:Integer.parseInt(object.toString()));
 			args[0] = count;
@@ -135,7 +132,7 @@ public class PetnoticiaDAO {
 			criteria.add(Restrictions.sqlRestriction(query));
 		}
 		
-        criteria.addOrder(Order.desc("fecharegistro"))
+        criteria.addOrder(Order.desc("orden"))
 		.setMaxResults(pageSize)
 		.setFirstResult(pageNumber);
         
@@ -183,7 +180,7 @@ public class PetnoticiaDAO {
 		String hql = " from Petnoticia ";
 		hql += " where setestado.idestado = :idestado ";
 		hql += " and principal = :principal ";
-		hql += " order by titulo ";
+		hql += " order by orden ";
 		
 		Query query = session.createQuery(hql)
 				.setInteger("idestado", 1)
