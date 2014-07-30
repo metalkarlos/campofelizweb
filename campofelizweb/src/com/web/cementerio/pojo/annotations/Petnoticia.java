@@ -283,11 +283,6 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 				return false;
 		} else if (!iplog.equals(other.iplog))
 			return false;
-		if (petfotonoticias == null) {
-			if (other.petfotonoticias != null)
-				return false;
-		} else if (!petfotonoticias.equals(other.petfotonoticias))
-			return false;
 		if (rutafoto == null) {
 			if (other.rutafoto != null)
 				return false;
