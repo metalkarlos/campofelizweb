@@ -25,17 +25,6 @@
 		<h:outputStylesheet library="css" name="style.css" />
 		<h:outputStylesheet library="themes/smoothness" name="skin.css" />
 		
-		<!-- Sticky -->
-		<h:outputScript library="js/sticky" name="jquery.sticky.js" />
-		
-		<script type="text/javascript" language="javascript">
-			$(window).load(function(){
-				if (not_internetexplorer()){
-					$("#cortos").sticky({ topSpacing: 25, bottomSpacing: 80 });
-				}
-			});
-		</script>
-		
 		<!-- Lighbox-Colorbox -->
    		<h:outputStylesheet library="css/lightbox-colorbox" name="colorbox.css" media="all" />
 		<h:outputScript library="js/lightbox-colorbox" name="jquery.colorbox-min.js" />
