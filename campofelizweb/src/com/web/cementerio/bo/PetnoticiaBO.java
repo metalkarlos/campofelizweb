@@ -248,27 +248,49 @@ public class PetnoticiaBO {
 				ok = true;
 			}
 			
-			//Si han quitado fotos se las inhabilita en la BD
-			for(Petfotonoticia petfotonoticiaItem : lisPetfotonoticiaClon){
-				if(!lisPetfotonoticia.contains(petfotonoticiaItem)){ 
+			//Se evalua si han habido cambios en la lista de las fotos
+			for(Petfotonoticia petfotonoticiaClon : lisPetfotonoticiaClon){
+				boolean encuentra = false;
+				for(Petfotonoticia petfotonoticiaItem : lisPetfotonoticia){
+					if(petfotonoticiaClon.getIdfotonoticia() == petfotonoticiaItem.getIdfotonoticia()){
+						//si encuentra
+						encuentra = true;
+						
+						if(!petfotonoticiaClon.equals(petfotonoticiaItem)){
+							//si han habido cambios se actualiza
+							
+							//auditoria
+							fecharegistro = new Date();
+							petfotonoticiaItem.setFechamodificacion(fecharegistro);
+							petfotonoticiaItem.setIplog(usuarioBean.getIp());
+							petfotonoticiaItem.setSetusuario(usuarioBean.getSetUsuario());
+							
+							//actualizar
+							petfotonoticiaDAO.updatePetfotonoticia(session, petfotonoticiaItem);
+							ok = true;
+						}
+					}
+				}
+				if(!encuentra){
+					//no encuentra
 					//inhabilitar
 					Setestado setestado = new Setestado();
 					setestado.setIdestado(2);
-					petfotonoticiaItem.setSetestado(setestado);
+					petfotonoticiaClon.setSetestado(setestado);
 					
 					//auditoria
 					fecharegistro = new Date();
-					petfotonoticiaItem.setFechamodificacion(fecharegistro);
-					petfotonoticiaItem.setIplog(usuarioBean.getIp());
-					petfotonoticiaItem.setSetusuario(usuarioBean.getSetUsuario());
+					petfotonoticiaClon.setFechamodificacion(fecharegistro);
+					petfotonoticiaClon.setIplog(usuarioBean.getIp());
+					petfotonoticiaClon.setSetusuario(usuarioBean.getSetUsuario());
 					
 					//actualizar
-					petfotonoticiaDAO.updatePetfotonoticia(session, petfotonoticiaItem);
+					petfotonoticiaDAO.updatePetfotonoticia(session, petfotonoticiaClon);
 					
 					//eliminar foto del disco
 					String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 					
-					String rutaArchivo = rutaImagenes + petfotonoticiaItem.getRuta();
+					String rutaArchivo = rutaImagenes + petfotonoticiaClon.getRuta();
 					
 					fileUtil.deleteFile(rutaArchivo);
 					ok = true;
