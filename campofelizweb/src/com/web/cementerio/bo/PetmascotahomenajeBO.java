@@ -152,21 +152,19 @@ public class PetmascotahomenajeBO {
 			    }
 			   ok = true;
 			}
-			else{
-			   if(!(listpetfotomascota.isEmpty() && listpetfotomascotaclone.isEmpty())){
-				  //Cuando se ha eliminado una foto 
-				 if (listpetfotomascota.size() != listpetfotomascotaclone.size()){
-				   modificarPetfotomascota(session,2, listpetfotomascota, listpetfotomascotaclone,petmascotahomenaje) ;
-				   ok = true;
-				 }
-				 else{
-					//Cuando se ha modificado la descripcion de una foto 
-				   if (modificarDescripcionPetfotomascota(session,1, listpetfotomascota, listpetfotomascotaclone,petmascotahomenaje)){
-					ok = true;
-					}
-				  }
-			   }
+			if(!(listpetfotomascota.isEmpty() && listpetfotomascotaclone.isEmpty())){
+			  //Cuando se ha eliminado una foto 
+			  if (listpetfotomascota.size() != listpetfotomascotaclone.size()){
+			    modificarPetfotomascota(session,2, listpetfotomascota, listpetfotomascotaclone,petmascotahomenaje) ;
+			    ok = true;
+			  }
+			  //Cuando se ha modificado la descripcion de una foto 
+			  if (modificarDescripcionPetfotomascota(session,1, listpetfotomascota, listpetfotomascotaclone,petmascotahomenaje)){
+			  ok = true;
+			  }
+			  
 			}
+			
 			if(ok){
 				session.getTransaction().commit();
 			}
