@@ -111,7 +111,7 @@
 					<p:panelGrid id="idpanel2grabar" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{enunciadoAdminBean.grabar()}" oncomplete="vardialoggrabar.hide()" update="mensajes,idgridcontenido" />
+						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{enunciadoAdminBean.grabar()}" onclick="vardialoggrabar.hide()" update="mensajes,idgridcontenido" />
 						<p:commandButton id="idcancelargrabar" value="Cancelar" onclick="vardialoggrabar.hide()" />
 						</p:column>
 						</p:row>
@@ -126,7 +126,7 @@
 					<p:panelGrid id="idpanel2delete" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{enunciadoAdminBean.eliminar()}" oncomplete="vardialogdelete.hide()" update="mensajes" />
+						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{enunciadoAdminBean.eliminar()}" onclick="vardialogdelete.hide()" update="mensajes" />
 						<p:commandButton id="idcancelardelete" value="Cancelar" onclick="vardialogdelete.hide()" />
 						</p:column>
 						</p:row>
