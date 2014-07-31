@@ -224,7 +224,7 @@
 					<p:panelGrid id="idpanel2principal" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmarprincipal" value="Confirmar" action="#{mascotaHomenajeAdminBean.ponerFotoperfil()}" oncomplete="vardialogprincipal.hide()" update=":form-contentpage:mensajes" />
+						<p:commandButton id="idconfirmarprincipal" value="Confirmar" action="#{mascotaHomenajeAdminBean.ponerFotoperfil()}" onclick="vardialogprincipal.hide()" update=":form-contentpage:mensajes" />
 						<p:commandButton id="idcancelarprincipal" value="Cancelar" onclick="vardialogprincipal.hide()" />
 						</p:column>
 						</p:row>
@@ -240,7 +240,7 @@
 					<p:panelGrid id="idpanel2delete" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{mascotaHomenajeAdminBean.quitarFoto()}" oncomplete="vardialogdelete.hide()" update=":form-contentpage:mensajes, :form-contentpage:idgridcontenido" />
+						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{mascotaHomenajeAdminBean.quitarFoto()}" onclick="vardialogdelete.hide()" update=":form-contentpage:mensajes, :form-contentpage:idgridcontenido" />
 						<p:commandButton id="idcancelardelete" value="Cancelar" onclick="vardialogdelete.hide()" />
 						</p:column>
 						</p:row>
@@ -256,7 +256,7 @@
 					<p:panelGrid id="idpanel2grabar" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{mascotaHomenajeAdminBean.grabar()}" oncomplete="vardialoggrabar.hide()" update=":form-contentpage:mensajes" />
+						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{mascotaHomenajeAdminBean.grabar()}" onclick="vardialoggrabar.hide()" update=":form-contentpage:mensajes" />
 						<p:commandButton id="idcancelargrabar" value="Cancelar" onclick="vardialoggrabar.hide()" />
 						</p:column>
 						</p:row>
@@ -272,7 +272,7 @@
 					<p:panelGrid id="idpanel2deletemascota" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmardeletemascota" value="Confirmar" action="#{mascotaHomenajeAdminBean.eliminar()}" oncomplete="vardialogdeletemascota.hide()" update=":form-contentpage:mensajes" />
+						<p:commandButton id="idconfirmardeletemascota" value="Confirmar" action="#{mascotaHomenajeAdminBean.eliminar()}" onclick="vardialogdeletemascota.hide()" update=":form-contentpage:mensajes" />
 						<p:commandButton id="idcancelardeletenmascota" value="Cancelar" onclick="vardialogdeletemascota.hide()" />
 						</p:column>
 						</p:row>
