@@ -56,7 +56,10 @@
 	
 	<ui:define name="contenido">
 		<p:messages id="mensajes" showDetail="true"></p:messages>
-		
+		<div style="text-align: right;">
+		  <h:link value="[Editar]" styleClass="link2"	outcome="/admin/cementeriovirtual-admin" rendered="#{usuarioBean.autenticado}">
+		  </h:link>
+		</div>
 		<div id="rg-gallery" class="rg-gallery">
 			<div class="rg-thumbs">
 				<!-- Elastislide Carousel Thumbnail Viewer -->
