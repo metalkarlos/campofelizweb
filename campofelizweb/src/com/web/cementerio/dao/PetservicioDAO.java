@@ -30,9 +30,10 @@ public class PetservicioDAO {
 		List<Petservicio> lisPetservicio = null;
 		
 		String hql = " from Petservicio ";
-		hql += " where setestado.idestado = :idestado ";
+		hql += " where idservicio > 0 ";
 		hql += " and principal = :principal ";
-		hql += " order by nombre ";
+		hql += " and setestado.idestado = :idestado ";
+		hql += " order by orden ";
 		
 		Query query = session.createQuery(hql)
 				.setInteger("idestado", 1)

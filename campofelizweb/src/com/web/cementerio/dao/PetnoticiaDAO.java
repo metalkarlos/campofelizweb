@@ -178,8 +178,8 @@ public class PetnoticiaDAO {
 		List<Petnoticia> lisPetnoticia = null;
 		
 		String hql = " from Petnoticia ";
-		hql += " where setestado.idestado = :idestado ";
-		hql += " and principal = :principal ";
+		hql += " where principal = :principal ";
+		hql += " and setestado.idestado = :idestado ";
 		hql += " order by orden ";
 		
 		Query query = session.createQuery(hql)

@@ -58,6 +58,7 @@ public class PetmascotahomenajeDAO {
 		List<Petmascotahomenaje> listPetmascotahomenaje=null;
 		
 		Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
+				.add(Restrictions.gt("idmascota", 0))
 				.add(Restrictions.eq("setestado.idestado", idestado))
 				.addOrder(Order.desc("fechapublicacion"))
 				.setMaxResults(maxresultado);
@@ -76,7 +77,7 @@ public class PetmascotahomenajeDAO {
 			String query = "(";
 			for(int i=0;i<texto.length;i++)
 			{
-				query += "lower({alias}.nombre) like lower('%"+texto[i]+"%') ";
+				query += "{alias}.nombre like upper('%"+texto[i]+"%') ";
 				if(i<texto.length-1){
 					query += "or ";
 				}
@@ -103,7 +104,7 @@ public class PetmascotahomenajeDAO {
 				String query = "(";
 				for(int i=0;i<texto.length;i++)
 				{
-					query += "lower({alias}.nombre) like lower('%"+texto[i]+"%') ";
+					query += "{alias}.nombre like upper('%"+texto[i]+"%') ";
 					if(i<texto.length-1){
 						query += "or ";
 					}
