@@ -132,7 +132,7 @@ public class PetnoticiaDAO {
 			criteria.add(Restrictions.sqlRestriction(query));
 		}
 		
-        criteria.addOrder(Order.desc("orden"))
+        criteria.addOrder(Order.asc("orden"))
 		.setMaxResults(pageSize)
 		.setFirstResult(pageNumber);
         

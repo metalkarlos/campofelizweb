@@ -77,7 +77,7 @@ public class PetmascotahomenajeDAO {
 			String query = "(";
 			for(int i=0;i<texto.length;i++)
 			{
-				query += "{alias}.nombre like upper('%"+texto[i]+"%') ";
+				query += "{alias}.nombre like upper('"+texto[i]+"%') ";
 				if(i<texto.length-1){
 					query += "or ";
 				}
@@ -104,7 +104,7 @@ public class PetmascotahomenajeDAO {
 				String query = "(";
 				for(int i=0;i<texto.length;i++)
 				{
-					query += "{alias}.nombre like upper('%"+texto[i]+"%') ";
+					query += "{alias}.nombre like upper('"+texto[i]+"%') ";
 					if(i<texto.length-1){
 						query += "or ";
 					}
