@@ -6,9 +6,12 @@
 	template="/WEB-INF/templates/default_others.xhtml">
 
 	<ui:define name="head">
-		<title>#{errorCodeBean.statusCode} - Error</title>
+
+		<meta name="robots" content="noindex" />
 		<meta content="no-cache" http-equiv="Cache-Control" />
-    	<meta content="no-cache" http-equiv="Pragma" />
+		<meta content="no-cache" http-equiv="Pragma" />
+
+		<title>#{errorCodeBean.statusCode} - Error</title>
     	
     	<style type="text/css">
 			.error-content {
