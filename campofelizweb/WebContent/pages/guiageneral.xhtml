@@ -47,8 +47,7 @@
 			</h:link>
 			<br />
 			<center>
-			<div>
-   		    <h:panelGroup id="idpanelgaleria" styleClass="centrar">
+   		    <h:panelGroup id="idpanelgaleria">
 			 <p:galleria id="contentGalleria" value="#{guiaGeneralBean.listPetguiaprincipal}" var="imagen" panelWidth="240" panelHeight="160"
 			            frameWidth="125" frameHeight="125" effect="clip">
 			    <h:link  value="" outcome="guia" styleClass="link2" style="float: center;" >
@@ -58,7 +57,7 @@
 				</h:link>
 				</p:galleria>
 			  </h:panelGroup>
-			
+			</center>
 			<br />
 			<p:dataGrid styleClass="grid" id="resultadoGuia" value="#{guiaGeneralBean.lisPetguia}" var="item" columns="1" rows="3" paginator="true" effect="true" 
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -72,8 +71,6 @@
 					</div>
 		        </p:column>
 		    </p:dataGrid>  
-		    </div>
-		    </center>  		
        </h:form>
      </div>
    </ui:define>    			
