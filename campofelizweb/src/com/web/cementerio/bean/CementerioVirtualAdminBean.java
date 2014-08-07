@@ -1,10 +1,9 @@
 package com.web.cementerio.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -28,36 +27,34 @@ public class CementerioVirtualAdminBean implements Serializable{
 
 	private static final long serialVersionUID = -3312876102105882061L;
 	private String rutaImagenes;
-	private String descripcionFoto;
-	private boolean fotoSubida;
+	private boolean ingreso;
+	private boolean modificacion;
+	private boolean fotosubida;
 	private UploadedFile uploadedFile;
 	private StreamedContent streamedContent;
-	private List<Petfotoinstalacion> listpetfotoinstalacion;
-	private List<Petfotoinstalacion> listpetfotoinstalacionclone;
 	private Petfotoinstalacion petfotoinstalacion;
-	private Petfotoinstalacion petfotoseleccionada;
+	private Petfotoinstalacion petfotoinstalacionclone;
+	private int idfoto;
 	
 	
 	public CementerioVirtualAdminBean(){
 		petfotoinstalacion = new Petfotoinstalacion();
-		petfotoseleccionada = new Petfotoinstalacion();
+		petfotoinstalacionclone = new Petfotoinstalacion();
+		idfoto =0;
+		fotosubida = false;
 		cargarRutaImagenes();
-		consultar();
 	}
 	
 	
 	public void consultar(){
 	   try {
-		    listpetfotoinstalacion      = new ArrayList<Petfotoinstalacion>();
-		    listpetfotoinstalacionclone = new ArrayList<Petfotoinstalacion>();
-		    
-			PetfotoinstalacionBO petfotoinstalacioBO = new PetfotoinstalacionBO();
-			listpetfotoinstalacion = petfotoinstalacioBO.lisPetfotoinstalacion(1);
+	
+		   PetfotoinstalacionBO petfotoinstalacioBO = new PetfotoinstalacionBO();
+		   petfotoinstalacion = petfotoinstalacioBO.getPetfotoinstalacionbyId(idfoto, 1);
 				
-			if(listpetfotoinstalacion != null && listpetfotoinstalacion.size()>0){
-			   for(Petfotoinstalacion petfotoinstalacion : listpetfotoinstalacion){
-				  listpetfotoinstalacionclone.add(petfotoinstalacion.clonar());
-			   }
+			if(petfotoinstalacion != null ){
+			  petfotoinstalacionclone = petfotoinstalacion.clonar();
+			   
 			}
 		} catch(Exception e) {
 		  e.printStackTrace();
@@ -67,20 +64,37 @@ public class CementerioVirtualAdminBean implements Serializable{
 	}
 
 
+	
+	@PostConstruct
+	public void initCementerioVirtualAdminBean() {
+		FacesUtil facesUtil = new FacesUtil();
+		idfoto = Integer.parseInt(facesUtil.getParametroUrl("idfoto").toString());
+		
+		if(idfoto > 0){
+			ingreso = true;
+			modificacion=false;
+			consultar();
+		}else{
+			ingreso = false;
+			modificacion = true;
+		}
+	}
+	
+	
+	
 	public void handleFileUpload(FileUploadEvent event) {
 		try{
 			if (event.getFile().getSize() <= Parametro.TAMAÑO_IMAGEN){
 				uploadedFile = event.getFile();
 				streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
-				
+				fotosubida = true;
 				FacesUtil facesUtil = new FacesUtil();
 				UsuarioBean usuarioBean = (UsuarioBean)facesUtil.getSessionBean("usuarioBean");
 				usuarioBean.setStreamedContent(streamedContent);
 				facesUtil.setSessionBean("usuarioBean", usuarioBean);
-				fotoSubida = true;
 				new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 			}else{
-				new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 100KB");
+				new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 700KB");
 			}	
 		}catch(Exception x){
 			x.printStackTrace();
@@ -88,59 +102,78 @@ public class CementerioVirtualAdminBean implements Serializable{
 		}
 	}
 	
-	public void quitarFotoGaleria(){
-		if (petfotoseleccionada !=null){
-			if (!petfotoseleccionada.getRuta().equals(petfotoinstalacion.getRuta())){
-				listpetfotoinstalacion.remove(petfotoseleccionada);
-				petfotoseleccionada = new Petfotoinstalacion();
-				new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
-			}
-			else {
-				new MessageUtil().showInfoMessage("Info", "No se puede eliminar foto que ha sido seleccionada como foto de perfil, cambie de foto de perfil y vuelva a intentarlo");
-			}
-		}		
-	}
 	
 	public void borrarFotoSubida(){
 		streamedContent = null;
 		uploadedFile = null;
-		fotoSubida = false;
+		ingreso = false;
+		modificacion = true;
+		fotosubida = false;
 	}
 	
 	public void grabar(){
-		 try{
-			//if(validarcampos()){
-				PetfotoinstalacionBO petfotoinstalacionBO = new PetfotoinstalacionBO();
-				petfotoinstalacionBO.procesar(uploadedFile, descripcionFoto, petfotoinstalacion, listpetfotoinstalacion, listpetfotoinstalacionclone);
-				petfotoinstalacion = new Petfotoinstalacion(0,new Setestado(), new Setusuario() ,null, null, null, new Date(), new Date(), 0, null);
-				listpetfotoinstalacion      = new ArrayList<Petfotoinstalacion>();
-			    listpetfotoinstalacionclone = new ArrayList<Petfotoinstalacion>();
-
-				FacesUtil facesUtil = new FacesUtil();
-				facesUtil.redirect("../pages/cementeriovirtual.jsf");	 
-			//}
+	 try{
+		if(validarcampos()){
+			PetfotoinstalacionBO petfotoinstalacionBO = new PetfotoinstalacionBO();
+			//ingreso
+			if(petfotoinstalacion.getIdfotoinstalacion()==0){
+			  petfotoinstalacionBO.ingresarPetfotoinstalacion(1, petfotoinstalacion, uploadedFile);
+			}
+			else if(petfotoinstalacion.getIdfotoinstalacion()>0){
+			  petfotoinstalacionBO.modificarPetfotoinstalacion(petfotoinstalacion, petfotoinstalacionclone);
+			}
+			petfotoinstalacion = new Petfotoinstalacion(0,new Setestado(), new Setusuario() ,null, null, null, new Date(), new Date(), 0, null);
+			FacesUtil facesUtil = new FacesUtil();
+			facesUtil.redirect("../pages/cementeriovirtual.jsf");	 
+		}
+	  }catch(Exception e){
+		e.printStackTrace();
+		new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+	  }
+	}
+		
+	
+	public void eliminar(){
+	  try{
+			PetfotoinstalacionBO petfotoinstalacionBO = new PetfotoinstalacionBO();
+			//eliminacion
+			if(petfotoinstalacion.getIdfotoinstalacion()>0){
+			  petfotoinstalacionBO.eliminarPetfotoinstalacion(petfotoinstalacion, petfotoinstalacionclone, 2);
+			}
+			
+			petfotoinstalacion = new Petfotoinstalacion(0,new Setestado(), new Setusuario() ,null, null, null, new Date(), new Date(), 0, null);
+			petfotoinstalacionclone = new Petfotoinstalacion(0,new Setestado(), new Setusuario() ,null, null, null, new Date(), new Date(), 0, null);
+			FacesUtil facesUtil = new FacesUtil();
+			facesUtil.redirect("../pages/cementeriovirtual.jsf");	 
+		
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		  }
 		}
-		
-		/*
+	
 		public boolean validarcampos(){
 			boolean ok = true;
-			if(petfotoinstalacion==null|| petguia.getTitulo().length()==0){
+			if(petfotoinstalacion.getDescripcion()==null|| petfotoinstalacion.getDescripcion().length()==0){
 				ok = false;
-				new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el Título del artículo");
+				new MessageUtil().showInfoMessage("Info", "Es necesario ingresar la descripción de la foto a subir");
 			}
-			else if(textodescripcion==null|| textodescripcion.length()==0){
+			else if(petfotoinstalacion.getOrden()<=0){
 				ok = false;
-				new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contendio del artículo");
-			}else if (petguia.getFechapublicacion().after(fechaactual)){
-				ok = false;
-				new MessageUtil().showInfoMessage("Info", "Fecha de publicación no pueder ser mayor a la fecha de hoy");
+				new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el orden de presentación de la foto a subir");
 			}		
 			return ok;
-		}*/
+		}
+
+		
+	private void cargarRutaImagenes(){
+	try {
+			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
+		} catch (Exception e) {
+		e.printStackTrace();
+		new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+      }
+	}
 
 	public String getRutaImagenes() {
 		return rutaImagenes;
@@ -152,23 +185,33 @@ public class CementerioVirtualAdminBean implements Serializable{
 	}
 
 
-	public String getDescripcionFoto() {
-		return descripcionFoto;
+	public boolean isIngreso() {
+		return ingreso;
 	}
 
 
-	public void setDescripcionFoto(String descripcionFoto) {
-		this.descripcionFoto = descripcionFoto;
+	public void setIngreso(boolean ingreso) {
+		this.ingreso = ingreso;
 	}
 
 
-	public boolean isFotoSubida() {
-		return fotoSubida;
+	public boolean isModificacion() {
+		return modificacion;
 	}
 
 
-	public void setFotoSubida(boolean fotoSubida) {
-		this.fotoSubida = fotoSubida;
+	public boolean isFotosubida() {
+		return fotosubida;
+	}
+
+
+	public void setFotosubida(boolean fotosubida) {
+		this.fotosubida = fotosubida;
+	}
+
+
+	public void setModificacion(boolean modificacion) {
+		this.modificacion = modificacion;
 	}
 
 
@@ -192,28 +235,6 @@ public class CementerioVirtualAdminBean implements Serializable{
 	}
 
 
-	public List<Petfotoinstalacion> getListpetfotoinstalacion() {
-		return listpetfotoinstalacion;
-	}
-
-
-	public void setListpetfotoinstalacion(
-			List<Petfotoinstalacion> listpetfotoinstalacion) {
-		this.listpetfotoinstalacion = listpetfotoinstalacion;
-	}
-
-
-	public List<Petfotoinstalacion> getListpetfotoinstalacionclone() {
-		return listpetfotoinstalacionclone;
-	}
-
-
-	public void setListpetfotoinstalacionclone(
-			List<Petfotoinstalacion> listpetfotoinstalacionclone) {
-		this.listpetfotoinstalacionclone = listpetfotoinstalacionclone;
-	}
-
-
 	public Petfotoinstalacion getPetfotoinstalacion() {
 		return petfotoinstalacion;
 	}
@@ -224,22 +245,27 @@ public class CementerioVirtualAdminBean implements Serializable{
 	}
 
 
-	public Petfotoinstalacion getPetfotoseleccionada() {
-		return petfotoseleccionada;
+	public int getIdfoto() {
+		return idfoto;
 	}
 
 
-	public void setPetfotoseleccionada(Petfotoinstalacion petfotoseleccionada) {
-		this.petfotoseleccionada = petfotoseleccionada;
+	public void setIdfoto(int idfoto) {
+		this.idfoto = idfoto;
+	}
+
+	public Petfotoinstalacion getPetfotoinstalacionclone() {
+		return petfotoinstalacionclone;
 	}
 
 
-	private void cargarRutaImagenes(){
-		try {
-			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
-		} catch (Exception e) {
-			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-		}
+	public void setPetfotoinstalacionclone(
+			Petfotoinstalacion petfotoinstalacionclone) {
+		this.petfotoinstalacionclone = petfotoinstalacionclone;
 	}
+
+
+	
+
+
 }

@@ -128,7 +128,7 @@ import com.web.util.MessageUtil;
 					fotoSubida = true;
 					new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 				}else{
-					new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 100KB");
+					new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 700KB");
 				}
 				
 				
