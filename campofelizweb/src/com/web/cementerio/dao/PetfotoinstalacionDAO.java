@@ -40,7 +40,7 @@ public class PetfotoinstalacionDAO {
 		
 		String hql = " from Petfotoinstalacion ";
 		hql += " where setestado.idestado = :idestado ";
-		hql += " order by idfotoinstalacion ";
+		hql += " order by orden asc ";
 		
 		Query query = session.createQuery(hql)
 				.setInteger("idestado", idestado);
