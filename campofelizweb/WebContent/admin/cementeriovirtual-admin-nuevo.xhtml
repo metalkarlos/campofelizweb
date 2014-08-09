@@ -23,7 +23,7 @@
 				font-weight: bold;
 				font-size: 15px;
 			}
-			.ui-panelgrid tr, .ui-panelgrid td {
+			.ui-panelgrid tr .ui-panelgrid td {
 				border: none;
 				padding: 0 10px;
 			}
@@ -36,21 +36,6 @@
 			.panel-previa .ui-panel-content {
 				padding: 0;
 			}
-			.imagenprincipal {
-			  border-radius: 15px;
-			  vertical-align: top;
-			  padding:  5px 10px 5px 10px;
-			  width: 420px;
-			  height:300px;
-			}  
-			.inner-content .imagen{
-			   height: 170px;
-			   width: 110px;
-			   padding: 5px 5px 5px 5px;
-			   margin: 0px 3px 10px 0;
-			   box-shadow: 1px 0px 5px #BBB;
-			   border-radius: 5px;
-			}
 			
 		</style>
 		
@@ -60,7 +45,7 @@
 	  <div class="content-page">
 	  	<h:form id="form-contentpage" enctype="multipart/form-data">
        		<p:growl id="mensajes"  showDetail="true"  />
-            <h1 class="title ui-widget-header">Administración - Instalaciones</h1>
+            <h1 class="title ui-widget-header">Administración - Instalaciones Nuevo</h1>
              <div class="inner-content">
 		     <p:panelGrid id="idgridcontenido" >	   
 			 <p:row>

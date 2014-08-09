@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default_admin.xhtml"
+	xmlns:my="http://java.sun.com/jsf/composite/components/buttons">
+	<ui:define name="head">
+		
+		<meta name="robots" content="noindex" />
+		
+		<title>Administración - Instalaciones Editar</title>
+	
+		<style type="text/css">
+			.inner-content {
+				padding: 30px 0;
+				/*line-height: 300%;*/
+			}
+			label {
+				font-weight: bold;
+				font-size: 15px;
+			}
+			.ui-panelgrid tr, .ui-panelgrid td {
+				border: none;
+				padding: 0 10px;
+			}
+			.ui-panelgrid .alto-columna {
+				padding-bottom: 15px;
+			}
+			.area-botones {
+				margin: 0 0 25px 25px;
+			}
+			.panel-previa .ui-panel-content {
+				padding: 0;
+			}
+			.imagendatagrid{
+			   border-radius: 10px;
+               box-shadow: 6px 6px 5px #BBB;
+			}
+		</style>
+		
+	</ui:define>
+    <ui:define name="content_page">
+	 <div class="content-page">
+	 <h:form id="form-contentpage" enctype="multipart/form-data">
+     <p:growl id="mensajes"  showDetail="true"  />
+     <h1 class="title ui-widget-header">Administración - Instalaciones Editar</h1>
+     <div class="inner-content">
+     <div style="float: right;margin: 0px 15px 0 0;">
+	 <div id="search-form" >
+		<h:inputText id="txtbusqueda" value="#{cementerioVirtualAdminBean.descripcionParam}" onblur="if(this.value==''){this.value='buscar'}" onfocus="if(this.value=='buscar'){this.value=''}" />
+		<h:commandLink styleClass="search-form-submit" >
+		<f:ajax render="panel" execute="txtbusqueda" ></f:ajax>
+		</h:commandLink>
+	 </div>
+	 </div>
+	 <br></br>
+	 <br></br>
+	 <p:dataGrid id="gridimagen" var="imagen" value="#{cementerioVirtualAdminBean.listpetfotoinstalacion}" columns="3" rows="12" paginator="true" styleClass="grid"
+	    efect= "true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	    emptyMessage="No se encontraron registros">  
+		<p:column>
+		<p:panel>
+	 		<p:commandLink update=":form-contentpage:panel" action="#{cementerioVirtualAdminBean.clonar()}">
+				<f:setPropertyActionListener value="#{imagen}"	target="#{cementerioVirtualAdminBean.petfotoinstalacion}"/>
+				<p:graphicImage alt="foto-instalaciones" id="idfoto" value="#{cementerioVirtualAdminBean.rutaImagenes}#{imagen.ruta}?w=190"  style="max-height: 100px;" styleClass="imagendatagrid"/>
+			</p:commandLink>
+		</p:panel>
+		</p:column>
+	 </p:dataGrid>
+     
+     <p:panelGrid id="panel"  >
+         <p:row>
+         <p:column styleClass="alto-columna">
+         <h:outputLabel for="txtDescripcionFoto" value="Descripción:" />
+		 <p:inputTextarea id="txtDescripcionFoto" value="#{cementerioVirtualAdminBean.petfotoinstalacion.descripcion}" style="width:200px; max-width:200px" maxlength="500" autoResize="false"  />
+		 </p:column>
+	     </p:row>
+	     <p:row>
+	     <p:column styleClass="alto-columna">	
+	     <h:outputLabel for="orden" value="Orden:" />
+	     <br></br>
+		 <p:spinner id="txtOrden" value="#{cementerioVirtualAdminBean.petfotoinstalacion.orden}" min="1" />
+		 </p:column>
+	     </p:row>	
+	 </p:panelGrid>
+     
+     
+     <my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
+			renderedButtonEliminar="true"  labelButtonEliminar="Eliminar" onclickButtonEliminar="vardialogdeletefoto.show()" 
+			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('../pages/cementeriovirtual.jsf');" 
+			renderedButtonNewItem="false" />
+	
+	<p:dialog id="iddialogdeletefoto"  header="Eliminar Foto" closable="true" widgetVar="vardialogdeletefoto" modal="true" style="min-height: 80px; width: 450px">
+	 <h:panelGrid id="idpaneldeletefoto" columns="2" width="100%">
+	 <h:outputText id="idlabeldeletefoto" value="Confirme si desea eliminar el registro" />
+	 <h:outputText value="" />
+	 <h:outputText value="" />
+	 <p:panelGrid id="idpanel2deletefoto" style="width: 100%; text-align: right;">
+	 <p:row>
+	 <p:column>
+	 <p:commandButton id="idconfirmardeletefoto" value="Confirmar" action="#{cementerioVirtualAdminBean.eliminar()}" onclick="vardialogdeletefoto.hide()" update=":form-contentpage:mensajes" />
+	 <p:commandButton id="idcancelardeletefoto" value="Cancelar" onclick="vardialogdeletefoto.hide()" />
+	 </p:column>
+	 </p:row>
+	 </p:panelGrid>
+	 </h:panelGrid>
+	</p:dialog>
+	
+	<p:dialog id="iddialoggrabar" header="Grabar" closable="true" widgetVar="vardialoggrabar" modal="true" style="min-height: 80px; width: 450px">
+	<h:panelGrid id="idpanelgrabar" columns="2" width="100%">
+	<h:outputText id="idlabelgrabar" value="Confirme si desea grabar" />
+	<h:outputText value="" />
+	<h:outputText value="" />
+	<p:panelGrid id="idpanel2grabar" style="width: 100%; text-align: right;">
+	<p:row>
+	<p:column>
+	 <p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{cementerioVirtualAdminBean.grabar()}" onclick="vardialoggrabar.hide()" update=":form-contentpage:mensajes" />
+	 <p:commandButton id="idcancelargrabar" value="Cancelar" onclick="vardialoggrabar.hide()" />
+	</p:column>
+	</p:row>
+	</p:panelGrid>
+	</h:panelGrid>
+	</p:dialog>
+			
+     
+	 </div>
+	 </h:form>
+	 </div>
+	</ui:define>
+	 
+
+
+
+</ui:composition>
+	

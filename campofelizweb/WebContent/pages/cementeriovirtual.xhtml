@@ -57,8 +57,11 @@
 	<ui:define name="contenido">
 		<p:messages id="mensajes" showDetail="true"></p:messages>
 		<div style="text-align: right;">
-		  <h:link value="[Nueva Foto]" styleClass="link2"	outcome="/admin/cementeriovirtual-admin" rendered="#{usuarioBean.autenticado}">
+		  <h:link value="[Nueva Foto]" styleClass="link2"	outcome="/admin/cementeriovirtual-admin-nuevo" rendered="#{usuarioBean.autenticado}">
 		      <f:param name="idfoto" value="0"></f:param>
+		  </h:link>
+		  <h:link value="[Editar]" styleClass="link2"	outcome="/admin/cementeriovirtual-admin-editar" rendered="#{usuarioBean.autenticado}">
+		      <f:param name="idfoto" value="1"></f:param>
 		  </h:link>
 		</div>
 		<div id="rg-gallery" class="rg-gallery">
@@ -77,11 +80,6 @@
 									<f:passThroughAttribute name="data-description" value="#{foto.descripcion}" />
 								</h:graphicImage>
 								</a>
-								<div style="text-align: right;">
-							     <h:link value="[Editar]" styleClass="link2"	outcome="/admin/cementeriovirtual-admin" rendered="#{usuarioBean.autenticado}">
-								   <f:param name="idfoto" value="#{foto.idfotoinstalacion}"></f:param>
-								  </h:link>
-								</div>
 								</li>
 								
 							</ui:repeat>

@@ -1,7 +1,10 @@
 package com.web.cementerio.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -9,6 +12,8 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
@@ -34,7 +39,10 @@ public class CementerioVirtualAdminBean implements Serializable{
 	private StreamedContent streamedContent;
 	private Petfotoinstalacion petfotoinstalacion;
 	private Petfotoinstalacion petfotoinstalacionclone;
+	private LazyDataModel<Petfotoinstalacion> listpetfotoinstalacion;
 	private int idfoto;
+	private String descripcionParam;
+	private String texto;
 	
 	
 	public CementerioVirtualAdminBean(){
@@ -42,20 +50,48 @@ public class CementerioVirtualAdminBean implements Serializable{
 		petfotoinstalacionclone = new Petfotoinstalacion();
 		idfoto =0;
 		fotosubida = false;
+		descripcionParam = "buscar";
+		texto="buscar";
 		cargarRutaImagenes();
 	}
 	
 	
+	@SuppressWarnings("serial")
 	public void consultar(){
 	   try {
-	
-		   PetfotoinstalacionBO petfotoinstalacioBO = new PetfotoinstalacionBO();
-		   petfotoinstalacion = petfotoinstalacioBO.getPetfotoinstalacionbyId(idfoto, 1);
+		   petfotoinstalacion = new Petfotoinstalacion();
+		   listpetfotoinstalacion = new LazyDataModel<Petfotoinstalacion>() {
+		   public List<Petfotoinstalacion> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,String> filters) {
+			   List<Petfotoinstalacion> data = new ArrayList<Petfotoinstalacion>();
+			   PetfotoinstalacionBO petfotoinstalacionBO = new PetfotoinstalacionBO();
+			   int args[] = {0};
+					
+			   String[] textoBusqueda = null;
+			   if(descripcionParam != null && descripcionParam.trim().length() > 0 && descripcionParam.trim().compareTo("buscar") != 0 ){
+				  textoBusqueda = descripcionParam.split(" ");
+				  first = 0;
+				}
+					
+			   data = petfotoinstalacionBO.lisPetfotoinstalacionBusquedaByPage(textoBusqueda, pageSize, first, args,1);
+			   this.setRowCount(args[0]);
+   	           return data;
+			   }
 				
-			if(petfotoinstalacion != null ){
-			  petfotoinstalacionclone = petfotoinstalacion.clonar();
-			   
-			}
+				@Override
+               public void setRowIndex(int rowIndex) {
+                   /*
+                    * The following is in ancestor (LazyDataModel):
+                    * this.rowIndex = rowIndex == -1 ? rowIndex : (rowIndex % pageSize);
+                    */
+                   if (rowIndex == -1 || getPageSize() == 0) {
+                       super.setRowIndex(-1);
+                   }
+                   else {
+                       super.setRowIndex(rowIndex % getPageSize());
+                   }      
+               }
+			};
+		   
 		} catch(Exception e) {
 		  e.printStackTrace();
 		  new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
@@ -111,6 +147,17 @@ public class CementerioVirtualAdminBean implements Serializable{
 		fotosubida = false;
 	}
 	
+	public void clonar() throws Exception{
+		try{
+		  if(petfotoinstalacion != null ){
+			  petfotoinstalacionclone = petfotoinstalacion.clonar();
+		  }
+		}catch(Exception x){
+			x.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
+	}
+	
 	public void grabar(){
 	 try{
 		if(validarcampos()){
@@ -154,14 +201,25 @@ public class CementerioVirtualAdminBean implements Serializable{
 	
 		public boolean validarcampos(){
 			boolean ok = true;
-			if(petfotoinstalacion.getDescripcion()==null|| petfotoinstalacion.getDescripcion().length()==0){
+			if((petfotoinstalacion.getDescripcion()==null|| petfotoinstalacion.getDescripcion().length()==0) && idfoto ==0){
 				ok = false;
 				new MessageUtil().showInfoMessage("Info", "Es necesario ingresar la descripción de la foto a subir");
 			}
-			else if(petfotoinstalacion.getOrden()<=0){
+			else if(petfotoinstalacion.getOrden()<=0 && idfoto ==0){
 				ok = false;
 				new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el orden de presentación de la foto a subir");
-			}		
+			}	
+			else if((petfotoinstalacion.getDescripcion()==null|| petfotoinstalacion.getDescripcion().length()==0) && idfoto >0){
+				ok = false;
+				new MessageUtil().showInfoMessage("Info", "Es necesario seleccionar la foto a modificar/eliminar");
+			}
+			else if(petfotoinstalacion.getOrden()<=0  && idfoto >0){
+				ok = false;
+				new MessageUtil().showInfoMessage("Info", "Es necesario seleccionar la foto a modificar/eliminar");
+			}else if(listpetfotoinstalacion==null && idfoto > 0){
+				ok = false;
+				new MessageUtil().showInfoMessage("Info", "Es necesario consultar la foto a modificar/eliminar");
+			}
 			return ok;
 		}
 
@@ -253,6 +311,39 @@ public class CementerioVirtualAdminBean implements Serializable{
 	public void setIdfoto(int idfoto) {
 		this.idfoto = idfoto;
 	}
+
+	
+
+	public LazyDataModel<Petfotoinstalacion> getListpetfotoinstalacion() {
+		return listpetfotoinstalacion;
+	}
+
+
+	public void setListpetfotoinstalacion(
+			LazyDataModel<Petfotoinstalacion> listpetfotoinstalacion) {
+		this.listpetfotoinstalacion = listpetfotoinstalacion;
+	}
+
+
+	public String getDescripcionParam() {
+		return descripcionParam;
+	}
+
+
+	public void setDescripcionParam(String descripcionParam) {
+		this.descripcionParam = descripcionParam;
+	}
+
+
+	public String getTexto() {
+		return texto;
+	}
+
+
+	public void setTexto(String texto) {
+		this.texto = texto;
+	}
+
 
 	public Petfotoinstalacion getPetfotoinstalacionclone() {
 		return petfotoinstalacionclone;

@@ -42,6 +42,24 @@ public class PetfotoinstalacionBO {
 		return lisPetfotoinstalacion;
 	}
 	
+	public List<Petfotoinstalacion> lisPetfotoinstalacionBusquedaByPage(String[] texto, int pageSize, int pageNumber, int args[], int idestado) throws RuntimeException {
+		List<Petfotoinstalacion> listpetfotoinstalacion = null;
+		Session session = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			listpetfotoinstalacion = petfotoinstalacionDAO.lisPetfotoinstalacionBusquedaByPage(session, texto, pageSize, pageNumber, args, idestado);
+			
+		} catch (Exception e) {
+			 throw new RuntimeException(e);
+		}
+		finally{
+			session.close();
+		}
+		
+		
+		return listpetfotoinstalacion;
+	}
+	
 	public Petfotoinstalacion getPetfotoinstalacionbyId(int idfotoinstalacion, int idestado)throws Exception{
 		Petfotoinstalacion petfotoinstalacion = null;
 		Session session = null;
