@@ -52,26 +52,33 @@
 	 <div id="search-form" >
 		<h:inputText id="txtbusqueda" value="#{cementerioVirtualAdminBean.descripcionParam}" onblur="if(this.value==''){this.value='buscar'}" onfocus="if(this.value=='buscar'){this.value=''}" />
 		<h:commandLink styleClass="search-form-submit" >
-		<f:ajax render="panel" execute="txtbusqueda" ></f:ajax>
+		<f:ajax render="gridimagen paneleditar" execute="txtbusqueda" ></f:ajax>
 		</h:commandLink>
 	 </div>
 	 </div>
-	 <br></br>
-	 <br></br>
+	 <span class="clear" />
+	 <span class="clear" />
 	 <p:dataGrid id="gridimagen" var="imagen" value="#{cementerioVirtualAdminBean.listpetfotoinstalacion}" columns="3" rows="12" paginator="true" styleClass="grid"
 	    efect= "true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
 	    emptyMessage="No se encontraron registros">  
 		<p:column>
 		<p:panel>
-	 		<p:commandLink update=":form-contentpage:panel" action="#{cementerioVirtualAdminBean.clonar()}">
+	 		<p:commandLink update=":form-contentpage:paneleditar" action="#{cementerioVirtualAdminBean.clonar()}">
 				<f:setPropertyActionListener value="#{imagen}"	target="#{cementerioVirtualAdminBean.petfotoinstalacion}"/>
 				<p:graphicImage alt="foto-instalaciones" id="idfoto" value="#{cementerioVirtualAdminBean.rutaImagenes}#{imagen.ruta}?w=190"  style="max-height: 100px;" styleClass="imagendatagrid"/>
 			</p:commandLink>
 		</p:panel>
 		</p:column>
 	 </p:dataGrid>
-     
-     <p:panelGrid id="panel"  >
+      <br></br>
+     <p:panelGrid id="paneleditar">
+         <p:row>
+         <p:column styleClass="alto-columna">
+         <h:outputLabel for="imageneditar" value="Foto:" />
+         <br></br>
+		 <p:graphicImage alt="foto-instalaciones" id="imageneditar" value="#{cementerioVirtualAdminBean.rutaImagenes}#{cementerioVirtualAdminBean.petfotoinstalacion.ruta}?w=190"  style="max-height: 100px;"/>
+		 </p:column>
+	     </p:row>
          <p:row>
          <p:column styleClass="alto-columna">
          <h:outputLabel for="txtDescripcionFoto" value="Descripción:" />

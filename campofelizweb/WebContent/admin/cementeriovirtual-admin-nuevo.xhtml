@@ -12,7 +12,7 @@
 		
 		<meta name="robots" content="noindex" />
 		
-		<title>Administración - Instalaciones</title>
+		<title>Administración - Instalaciones Nuevo</title>
 	
 		<style type="text/css">
 			.inner-content {
@@ -23,9 +23,17 @@
 				font-weight: bold;
 				font-size: 15px;
 			}
-			.ui-panelgrid tr .ui-panelgrid td {
-				border: none;
+			
+			.ui-panelgrid td {
+			border-width: 1px;
+			border-style: none;
+			border-color: inherit;
+			padding: 4px 10px;
+			}
+			
+			.ui-panelgrid tr  {
 				padding: 0 10px;
+				border-style: none;
 			}
 			.ui-panelgrid .alto-columna {
 				padding-bottom: 15px;
@@ -46,13 +54,8 @@
 	  	<h:form id="form-contentpage" enctype="multipart/form-data">
        		<p:growl id="mensajes"  showDetail="true"  />
             <h1 class="title ui-widget-header">Administración - Instalaciones Nuevo</h1>
-             <div class="inner-content">
-		     <p:panelGrid id="idgridcontenido" >	   
-			 <p:row>
-			 <p:column styleClass="centrar">
-			  <p:graphicImage  id="idfoto" value="#{cementerioVirtualAdminBean.rutaImagenes}#{cementerioVirtualAdminBean.petfotoinstalacion.ruta}?w=370" rendered="#{cementerioVirtualAdminBean.ingreso}" style="max-height: 270px;"/>
-			</p:column>
-			</p:row>
+            <div class="inner-content">
+		    <p:panelGrid id="idgridcontenido" >	   
 			<p:row>
 			<p:column styleClass="alto-columna">
 			<br></br>
