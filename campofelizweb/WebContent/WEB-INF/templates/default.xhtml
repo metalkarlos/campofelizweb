@@ -199,6 +199,15 @@
 		<h:commandLink styleClass="logoutfloat" value="Salir [#{usuarioBean.username}]" action="#{usuarioBean.logout}" rendered="#{usuarioBean.autenticado}" />
 	</h:form>
 	<ui:debug hotkey="q" rendered="#{facesContext.application.projectStage == 'Development'}" />
+	<!-- Facebook -->
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/es_ES/all.js#xfbml=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
 	<!-- Header -->
 	<header>
 	<div class="innerheader">
@@ -220,27 +229,27 @@
 	<div class="box_skitter box_skitter_large">
 		<ul>
 			<li>
-				<h:link outcome="mascotashomenaje"><h:graphicImage alt="Nuestro Homenaje Póstumo" library="images" name="slide1.jpg" class="fade" /></h:link>
+				<h:link outcome="mascotashomenaje"><h:graphicImage alt="Nuestro Homenaje Póstumo" value="/resources/images/slide1.jpg" class="fade" /></h:link>
 				<div class="label_text"><p>Nuestro Homenaje Póstumo</p></div>
 			</li>
 			<li>
-				<h:link outcome="servicios"><h:graphicImage alt="Nuestros Servicios" library="images" name="slide2.jpg" class="fade" /></h:link>
+				<h:link outcome="servicios"><h:graphicImage alt="Nuestros Servicios" value="/resources/images/slide2.jpg" class="fade" /></h:link>
 				<div class="label_text"><p>Nuestros Servicios</p></div>
 			</li>
 			<li>
-				<h:link outcome="cementeriovirtual"><h:graphicImage alt="Nuestras Instalaciones" library="images" name="slide3.jpg" class="fade" /></h:link>
+				<h:link outcome="cementeriovirtual"><h:graphicImage alt="Nuestras Instalaciones" value="/resources/images/slide3.jpg" class="fade" /></h:link>
 				<div class="label_text"><p>Nuestras Instalaciones</p></div>
 			</li>
 			<li>
-				<h:link outcome="mascotashomenaje"><h:graphicImage alt="Nuestro Homenaje Póstumo" library="images" name="slide4.jpg" class="fade" /></h:link>
+				<h:link outcome="mascotashomenaje"><h:graphicImage alt="Nuestro Homenaje Póstumo" value="/resources/images/slide4.jpg" class="fade" /></h:link>
 				<div class="label_text"><p>Nuestro Homenaje Póstumo</p></div>
 			</li>
 			<li>
-				<h:link outcome="servicios"><h:graphicImage alt="Nuestros Servicios" library="images" name="slide5.jpg" class="fade" /></h:link>
+				<h:link outcome="servicios"><h:graphicImage alt="Nuestros Servicios" value="/resources/images/slide5.jpg" class="fade" /></h:link>
 				<div class="label_text"><p>Nuestros Servicios</p></div>
 			</li>
 			<li>
-				<h:link outcome="cementeriovirtual"><h:graphicImage alt="Nuestras Instalaciones" library="images" name="slide6.jpg" class="fade" /></h:link>
+				<h:link outcome="cementeriovirtual"><h:graphicImage alt="Nuestras Instalaciones" value="/resources/images/slide6.jpg" class="fade" /></h:link>
 				<div class="label_text"><p>Nuestras Instalaciones</p></div>
 			</li>
 		</ul>
