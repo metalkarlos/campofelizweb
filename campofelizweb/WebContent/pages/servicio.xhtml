@@ -6,11 +6,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/WEB-INF/templates/default_others.xhtml">
 	
 	<ui:define name="head">
 			
 		<title>Servicio - #{servicioBean.petservicio.nombre}</title>
+		
+		<meta name="description" content="#{fn:substring(servicioBean.petservicio.descripcionNoTags, 0, 200)}" />
+		<meta name="keywords" content="#{servicioBean.petservicio.tag}" />
 		
 		<style type="text/css">
 			.inner-content {
