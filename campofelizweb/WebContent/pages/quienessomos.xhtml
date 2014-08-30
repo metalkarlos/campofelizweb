@@ -4,12 +4,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:p="http://primefaces.org/ui"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/WEB-INF/templates/default_others.xhtml">
 	
-	<!-- <ui:define name="title">Campo Feliz - Quienes Somos</ui:define> -->
 	<ui:define name="head">
+	
 		<title>Quiénes Somos - Campo Feliz</title>
+		
+		<meta name="description" content="#{fn:substring(quienesSomosBean.petinformacion.quienessomosNoTags, 0, 200)}" />
+		<meta name="keywords" content="#{quienesSomosBean.petinformacion.tag}" />
+		
 		<style type="text/css">
 			.box_title  { 
 				height: 60px;
