@@ -47,7 +47,7 @@
 			   <p:graphicImage  id="idfotos" value="#{quienesSomosBean.rutaImagenes}#{item.ruta}?w=70" style="max-height: 70px;"/>
 			      <p:galleriaContent>  
 			         <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">  
-				       <p:graphicImage styleClass="imagenprincipal" id="idfoto"  value="#{quienesSomosBean.rutaImagenes}#{item.ruta}?w=500" style="max-height: 360px;" />
+				       <p:graphicImage styleClass="imagenprincipal" id="idfoto" alt="#{item.descripcion}" title="#{item.descripcion}" value="#{quienesSomosBean.rutaImagenes}#{item.ruta}?w=500" style="max-height: 360px;" />
 				    </h:panelGrid>
 				</p:galleriaContent>
 	   		   </p:galleria>

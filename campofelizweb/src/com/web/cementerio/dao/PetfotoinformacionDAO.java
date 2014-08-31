@@ -23,7 +23,7 @@ public class PetfotoinformacionDAO {
 
 	}
 
-	public void modificarFotomascota(Session session,  Petfotoinformacion petfotoinformacion)throws Exception{
+	public void modificarFotoinformacion(Session session,  Petfotoinformacion petfotoinformacion)throws Exception{
 		session.update(petfotoinformacion);
 	}
 	

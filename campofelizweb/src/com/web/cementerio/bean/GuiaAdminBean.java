@@ -117,7 +117,7 @@ public class GuiaAdminBean  implements Serializable{
 				fotoSubida = true;
 				new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 			}else{
-				new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 100KB");
+				new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 700KB");
 			}	
 		}catch(Exception x){
 			x.printStackTrace();
@@ -192,7 +192,11 @@ public class GuiaAdminBean  implements Serializable{
 		}else if (petguia.getFechapublicacion().after(fechaactual)){
 			ok = false;
 			new MessageUtil().showInfoMessage("Info", "Fecha de publicación no pueder ser mayor a la fecha de hoy");
-		}		
+		}	
+		else if((streamedContent!=null || uploadedFile != null) && (descripcionFoto==null || descripcionFoto.length()==0)){
+			ok = false;
+			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar la descripción de la imagen a subir");
+		}
 		return ok;
 	}
 	

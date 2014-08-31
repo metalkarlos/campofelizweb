@@ -165,17 +165,14 @@ public class Petfotoinformacion implements java.io.Serializable, Cloneable {
 	public Petfotoinformacion clonar() throws Exception{
 		return (Petfotoinformacion)this.clone();
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result + idfotoinformacion;
 		result = prime * result
 				+ ((nombrearchivo == null) ? 0 : nombrearchivo.hashCode());
-		result = prime * result + ((ruta == null) ? 0 : ruta.hashCode());
 		return result;
 	}
 
@@ -188,23 +185,18 @@ public class Petfotoinformacion implements java.io.Serializable, Cloneable {
 		if (getClass() != obj.getClass())
 			return false;
 		Petfotoinformacion other = (Petfotoinformacion) obj;
-		if (descripcion == null) {
-			if (other.descripcion != null)
-				return false;
-		} else if (!descripcion.equals(other.descripcion))
+		if (idfotoinformacion != other.idfotoinformacion)
 			return false;
 		if (nombrearchivo == null) {
 			if (other.nombrearchivo != null)
 				return false;
 		} else if (!nombrearchivo.equals(other.nombrearchivo))
 			return false;
-		if (ruta == null) {
-			if (other.ruta != null)
-				return false;
-		} else if (!ruta.equals(other.ruta))
-			return false;
 		return true;
 	}
+	
+	
+	
 
 	
 	

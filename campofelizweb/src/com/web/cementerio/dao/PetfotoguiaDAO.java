@@ -41,7 +41,7 @@ public class PetfotoguiaDAO {
 		session.save(petfotoguia);
 	}
 	
-	public void updatePetfotoguia(Session session,  Petfotoguia petfotoguia ) throws Exception {
+	public void modificarPetfotoguia(Session session,  Petfotoguia petfotoguia ) throws Exception {
 		session.update(petfotoguia);
 	}
 }

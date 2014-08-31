@@ -152,6 +152,10 @@ public class QuienesSomosAdminBean implements Serializable {
 			ok = false;
 			new MessageUtil().showInfoMessage("Info", "Contenido de Visión Somos ha sobrepasado el límite de 2000 caracteres");
 		}
+		else if((streamedContent!=null || uploadedFile != null) && (descripcionImagen==null || descripcionImagen.length()==0)){
+			ok = false;
+			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar la descripción de la imagen a subir");
+		}
 		return ok;
 	}	
 	
@@ -211,7 +215,7 @@ public class QuienesSomosAdminBean implements Serializable {
 	public void quitarFoto(){
 		if (petfotoinformacionselected !=null){
 			listpetfotoinformacion.remove(petfotoinformacionselected);
-			new MessageUtil().showInfoMessage("Info", "Foto: "+petfotoinformacionselected.getNombrearchivo()+" ha sido eliminada de la galería");	
+			new MessageUtil().showInfoMessage("Info", "Presione grabar para registar los cambios");	
 			petfotoinformacionselected= new Petfotoinformacion();
 		}
 		
