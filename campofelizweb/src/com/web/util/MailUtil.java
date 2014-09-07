@@ -13,16 +13,10 @@ import com.web.cementerio.global.Parametro;
 
 public class MailUtil {
 
-	private String host;
 	private String usuario;
 	private String clave;
-	private String port;
 	
 	public MailUtil() {
-		host = "";
-		usuario = "";
-		clave = "";
-		port = "";
 	}
 	
 	/***
@@ -33,30 +27,19 @@ public class MailUtil {
 	 * @throws Exception
 	 */
 	public void enviarMail(String destinatario, String asunto, String contenido) throws Exception {
-		Properties propertiesMail = new FileUtil()
+		Properties properties = new FileUtil()
 				.getPropertiesFile(Parametro.PROPERTIES_MAIL);
-		host = propertiesMail.getProperty("host");
-		usuario = propertiesMail.getProperty("usuario");
-		clave = propertiesMail.getProperty("clave");
-		port = propertiesMail.getProperty("port");
+		usuario = properties.getProperty("mail.user");
+		clave = properties.getProperty("mail.password");
 
-		//Properties properties = System.getProperties();
-		Properties properties = new Properties();
-		properties.put("mail.smtp.host", host);
-		properties.put("mail.smtp.port", port);   
+		destinatario = destinatario == null ? usuario : destinatario;
 		
-		properties.put("mail.user", usuario);//
-		properties.put("mail.password", clave);//
+		InternetAddress internetAddressDestinatario = new InternetAddress(destinatario);
+		internetAddressDestinatario.validate();
+		
+		InternetAddress internetAddressUsuario = new InternetAddress(usuario);
+		internetAddressUsuario.validate();
 
-		//properties.put("mail.smtp.starttls.enable","true");
-		//properties.put("mail.smtp.EnableSSL.enable","true");
-		properties.put("mail.smtp.auth", "true");
-		//properties.put("mail.smtp.socketFactory.port", port);
-		//properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");   
-		//properties.put("mail.smtp.socketFactory.fallback", "false");   
-		
-		properties.put("mail.debug", "false"); 
-		 
 		//Session mailSession = Session.getDefaultInstance(properties, null);
 		Session mailSession = Session.getDefaultInstance(properties, 
 			    new javax.mail.Authenticator(){
@@ -69,9 +52,8 @@ public class MailUtil {
 		mailSession.setDebug(true);
 		
 		MimeMessage message = new MimeMessage(mailSession);
-		message.setFrom(new InternetAddress(usuario));
-		destinatario = destinatario == null ? usuario : destinatario;
-		message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
+		message.setFrom(internetAddressUsuario);
+		message.addRecipient(Message.RecipientType.TO, internetAddressDestinatario);
 		message.setSubject(asunto, "utf-8");
 		message.setContent(contenido, "text/html; charset=utf-8");
 		

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.mail.internet.AddressException;
 
 import com.web.cementerio.bo.PetempresaBO;
 import com.web.cementerio.pojo.annotations.Petempresa;
@@ -58,19 +59,22 @@ public class ContactenosBean implements Serializable {
 			MailUtil mailUtil = new MailUtil();
 			FacesUtil facesUtil = new FacesUtil();
 			
-			//formatear el contenido para el administrador de correo
-			String contenido = contenido("Solicitud de Información", "Ha recibido un mensaje de la página de contáctenos");
-			
-			//enviar al administrador de correo
-			mailUtil.enviarMail(null, "Información - Campo Feliz", contenido);
-			
 			//formatear el contenido para el remitente de correo
 			String contenido2 = contenido("Campo Feliz Cementerio de Mascotas", "Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!");
 			
 			//enviar respuesta al remitente
 			mailUtil.enviarMail(this.correo, "Información - Campo Feliz", contenido2);
 			
+			//formatear el contenido para el administrador de correo
+			String contenido = contenido("Solicitud de Información", "Ha recibido un mensaje de la página de contáctenos");
+			
+			//enviar al administrador de correo
+			mailUtil.enviarMail(null, "Información - Campo Feliz", contenido);
+			
 			facesUtil.redirect("home.jsf");
+		}catch(AddressException e) {
+			e.printStackTrace();
+			new MessageUtil().showErrorMessage("Error!", "Ingrese una cuenta de correo válida e intente nuevamente.");
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
