@@ -54,7 +54,7 @@ public class PetempresaBO {
 	
 	
 	
-	public List<Petempresa>Listpetempresa(int idestado)throws Exception{
+	public List<Petempresa> listPetempresa(int idestado)throws Exception{
 		List<Petempresa> listpetempresa=null;
 		Session session = null;
 		try {

@@ -34,7 +34,7 @@ public class EmpresasBean implements Serializable{
 		PetempresaBO petempresaBO  = new PetempresaBO();
 		try {
 			listpetemepresas = new ArrayList<Petempresa>();
-			listpetemepresas = petempresaBO.Listpetempresa(1);
+			listpetemepresas = petempresaBO.listPetempresa(1);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
