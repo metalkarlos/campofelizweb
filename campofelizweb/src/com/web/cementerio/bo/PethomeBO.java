@@ -84,6 +84,7 @@ public class PethomeBO {
 			pethomeDAO.savePethome(session, pethome);
 			session.beginTransaction().commit();
 			
+			ok = true;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new Exception(e);
@@ -131,4 +132,40 @@ public class PethomeBO {
 		
 		return ok;
 	} 
+	
+	public boolean eliminar(Pethome pethome) throws Exception {
+		boolean ok = false;
+		Session session = null;
+		
+		try{
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			
+			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+			
+			//se inactiva el registro
+			Setestado setestado = new Setestado();
+			setestado.setIdestado(2);
+			pethome.setSetestado(setestado);
+			
+			//auditoria
+			Date fecharegistro = new Date();
+			pethome.setFechamodificacion(fecharegistro);
+			pethome.setIplog(usuarioBean.getIp());
+			pethome.setSetusuario(usuarioBean.getSetUsuario());
+			
+			pethomeDAO.updatePethome(session, pethome);
+			
+			session.getTransaction().commit();
+			
+			ok = true;
+		}catch(Exception e){
+			session.getTransaction().rollback();
+			throw new Exception(e); 
+		}finally{
+			session.close();
+		}
+		
+		return ok;
+	}
 }

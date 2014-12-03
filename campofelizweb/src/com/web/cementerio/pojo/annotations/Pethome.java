@@ -29,7 +29,7 @@ public class Pethome implements Serializable, Cloneable {
 	private Setusuario setusuario;
 	private String encabezado; 
 	private String urlvideo;
-	private int posicion; 
+	private int orden; 
 	private Date fecharegistro; 
 	private Date fechamodificacion; 
 	private String iplog; 
@@ -43,13 +43,13 @@ public class Pethome implements Serializable, Cloneable {
 	}
 	
 	public Pethome(int idhome, Setestado setestado, Setusuario setusuario, String encabezado, 
-	String urlvideo, int posicion, Date fecharegistro, Date fechamodificacion, String iplog) {
+	String urlvideo, int orden, Date fecharegistro, Date fechamodificacion, String iplog) {
 		this.idhome = idhome;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
 		this.encabezado = encabezado; 
 		this.urlvideo = urlvideo;
-		this.posicion = posicion; 
+		this.orden = orden; 
 		this.fecharegistro = fecharegistro; 
 		this.fechamodificacion = fechamodificacion; 
 		this.iplog = iplog;
@@ -94,7 +94,7 @@ public class Pethome implements Serializable, Cloneable {
 		this.encabezado = encabezado;
 	}
 
-	@Column(name = "encabezado", length = 500)
+	@Column(name = "urlvideo", length = 500)
 	public String getUrlvideo() {
 		return urlvideo;
 	}
@@ -103,13 +103,13 @@ public class Pethome implements Serializable, Cloneable {
 		this.urlvideo = urlvideo;
 	}
 
-	@Column(name = "posicion")
-	public int getPosicion() {
-		return posicion;
+	@Column(name = "orden")
+	public int getOrden() {
+		return orden;
 	}
 
-	public void setPosicion(int posicion) {
-		this.posicion = posicion;
+	public void setOrden(int orden) {
+		this.orden = orden;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -165,7 +165,7 @@ public class Pethome implements Serializable, Cloneable {
 				+ ((fecharegistro == null) ? 0 : fecharegistro.hashCode());
 		result = prime * result + idhome;
 		result = prime * result + ((iplog == null) ? 0 : iplog.hashCode());
-		result = prime * result + posicion;
+		result = prime * result + orden;
 		result = prime * result
 				+ ((setestado == null) ? 0 : setestado.getIdestado());
 		result = prime * result
@@ -206,7 +206,7 @@ public class Pethome implements Serializable, Cloneable {
 				return false;
 		} else if (!iplog.equals(other.iplog))
 			return false;
-		if (posicion != other.posicion)
+		if (orden != other.orden)
 			return false;
 		if (setestado == null) {
 			if (other.setestado != null)

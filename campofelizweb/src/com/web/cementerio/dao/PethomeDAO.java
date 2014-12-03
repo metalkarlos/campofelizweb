@@ -38,7 +38,7 @@ public class PethomeDAO {
 		
 		Criteria criteria = session.createCriteria(Pethome.class) 
 				.add(Restrictions.eq("setestado.idestado", 1))
-				.addOrder(Order.asc("posicion"));
+				.addOrder(Order.asc("orden"));
 		
 		lisPethome =(List<Pethome>)criteria.list();
 		
