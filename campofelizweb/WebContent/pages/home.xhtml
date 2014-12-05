@@ -61,54 +61,33 @@
 				</div>
 
 				<div class="inner-content">
-				
-					<h:link value="[Nuevo Video]" outcome="/admin/home-admin" styleClass="link2" style="float: right;margin: 0 20px 20px 0;" rendered="#{usuarioBean.autenticado}" >
-						<f:param name="idhome" value="0"></f:param>
-					</h:link>
-					<br clear="all"></br>
-					<c:forEach items="#{homeBean.lisPethome}" var="pethome">
-						<h:link value="[Editar]" styleClass="link2" outcome="/admin/home-admin" rendered="#{usuarioBean.autenticado}" >
-							<f:param name="idhome" value="#{pethome.idhome}"></f:param>
-						</h:link>
-						<h:outputText value="#{pethome.encabezado}" escape="false" />
-						<br></br>
-						<br></br>
-						<center>
-							<h:outputText value="#{pethome.urlvideo}" escape="false" />
-						</center>
-					</c:forEach>
-				
-				
 					<center>
 						<h2>
 							<span class="str-3" style="font-size: 30px">BIENVENIDO</span> a
 							Campo Feliz!
 						</h2>
 					</center>
-					<p style="text-align: justify;">El primer cementerio de
-						mascotas en la ciudad de Guayaquil. Contamos con los mejores
-						servicios excequiales para su mascota.</p>
-					<br />
-					<center>
-						<iframe style="width: 415px; height: 315px;"
-							src="//www.youtube.com/embed/PxsUjUPPUXw" frameborder="0"
-							allowfullscreen="true"></iframe>
-					</center>
 				</div>
-				<div class="inner-content">
-					<p style="text-align: justify;">
-						<span class="str-3" style="font-weight: bold; font-size: 14px">CAMPO
-							FELIZ</span> el primer cementerio de mascotas en la ciudad de Guayaquil,
-						ha tenido gran acogida y seguimos recibiendo las felicitaciones
-						por parte del público. Gracias a ustedes por confiar en nosotros!
-					</p>
-					<br />
-					<center>
-						<iframe style="width: 415px; height: 315px;"
-							src="//www.youtube.com/embed/pfS3kQwVaSA" frameborder="0"
-							allowfullscreen="true"></iframe>
-					</center>
-				</div>
+					
+				<h:link value="[Nuevo Video]" outcome="/admin/home-admin" styleClass="link2" style="float: right;margin: 0 20px 0 0;" rendered="#{usuarioBean.autenticado}" >
+					<f:param name="idhome" value="0"></f:param>
+				</h:link>
+				<p:separator style="clear:both;border: none;" rendered="#{usuarioBean.autenticado}"></p:separator>
+				
+				<c:forEach items="#{homeBean.lisPethome}" var="pethome">
+					<h:link value="[Editar]" styleClass="link2" outcome="/admin/home-admin" rendered="#{usuarioBean.autenticado}" >
+						<f:param name="idhome" value="#{pethome.idhome}"></f:param>
+					</h:link>
+					<div class="inner-content">
+						<p style="text-align: justify;">
+							<h:outputText value="#{pethome.encabezado}" escape="false" />
+						</p>
+						<br />
+						<center>
+							<h:outputText value="#{pethome.urlvideo}" escape="false" />
+						</center>
+					</div>
+				</c:forEach>
 			</h:form>
 		</div>
 	</ui:define>

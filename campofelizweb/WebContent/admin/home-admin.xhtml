@@ -34,20 +34,12 @@
 			.area-botones {
 				margin: 0 0 25px 25px;
 			}
-			.panel-previa .ui-panel-content {
-				padding: 0;
-			}
-			.ui-galleria textarea {
-				max-width: 400px;
-				min-width: 400px;
-				margin-top: 10px;
-			}
 		</style>
 	</ui:define>
 	<table cellpadding="" cellspacing=""></table>
 	<ui:define name="content_page">
 		<div class="content-page">
-		<h:form id="form-contentpage" enctype="multipart/form-data">
+		<h:form id="form-contentpage">
 			<p:growl id="mensajes" showDetail="true" />
 			<p:focus for="txtEncabezado"></p:focus>
 			<h1 class="title ui-widget-header">Administración - Home</h1>
@@ -57,7 +49,7 @@
 					<p:row>
 					<p:column>
 					<h:outputLabel value="Encabezado del video" for="txtEncabezado" /><br />
-					<p:editor id="txtEncabezado" value="#{homeAdminBean.pethome.encabezado}" width="600" />
+					<p:editor id="txtEncabezado" value="#{homeAdminBean.pethome.encabezado}" width="600" controls="bold italic underline bullets numbering center undo redo link unlink cut copy paste source removeformat"/>
 					</p:column>
 					</p:row>
 					
