@@ -89,7 +89,7 @@ public class PetservicioDAO {
 			criteria.add(Restrictions.sqlRestriction(query));
 		}
 		
-        criteria.addOrder(Order.asc("orden"))
+        criteria.addOrder(Order.desc("orden"))
 		.setMaxResults(pageSize)
 		.setFirstResult(pageNumber);
         
