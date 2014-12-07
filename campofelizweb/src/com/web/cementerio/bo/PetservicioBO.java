@@ -25,6 +25,23 @@ public class PetservicioBO {
 		petservicioDAO = new PetservicioDAO();
 	}
 	
+	public int getMaxOrden() throws Exception{
+		int orden = 0;
+		Session session = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			orden = petservicioDAO.maxOrden(session);
+				
+		} catch (Exception e) {
+			throw new Exception(e);
+		}finally{
+			session.close();
+		}
+		
+		return orden;
+	}
+	
 	public List<Petservicio> lisPetservicioPrincipales() throws Exception {
 		List<Petservicio> lisPetservicio = null;
 		Session session = null;

@@ -60,11 +60,20 @@ public class ServicioAdminBean implements Serializable {
 	
 	@PostConstruct
 	public void initServicioAdminBean() {
-		FacesUtil facesUtil = new FacesUtil();
-		idservicio = Integer.parseInt(facesUtil.getParametroUrl("idservicio").toString());
-		
-		if(idservicio > 0){
-			consultaServicio();
+		try{
+			FacesUtil facesUtil = new FacesUtil();
+			idservicio = Integer.parseInt(facesUtil.getParametroUrl("idservicio").toString());
+			
+			if(idservicio > 0){
+				consultaServicio();
+			}else{
+				PetservicioBO petservicioBO = new PetservicioBO();
+				int orden = petservicioBO.getMaxOrden();
+				petservicio.setOrden(orden + 1);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 	}
 	

@@ -43,6 +43,23 @@ public class PetnoticiaBO {
 		return petnoticia;
 	}
 	
+	public int getMaxOrden() throws Exception{
+		int orden = 0;
+		Session session = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			orden = petnoticiaDAO.maxOrden(session);
+				
+		} catch (Exception e) {
+			throw new Exception(e);
+		}finally{
+			session.close();
+		}
+		
+		return orden;
+	}
+	
 	public Petnoticia getPetnoticiaConObjetosById(int idnoticia) throws Exception {
 		Petnoticia petnoticia = null;
 		Session session = null;

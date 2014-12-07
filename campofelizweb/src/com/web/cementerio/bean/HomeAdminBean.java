@@ -33,27 +33,34 @@ public class HomeAdminBean implements Serializable {
 	
 	@PostConstruct
 	public void initHomeAdminBean() {
-		FacesUtil facesUtil = new FacesUtil();
-		idhome = Integer.parseInt(facesUtil.getParametroUrl("idhome").toString());
-		
-		if(idhome > 0){
-			consultaHome();
+		try {
+			FacesUtil facesUtil = new FacesUtil();
+			idhome = Integer.parseInt(facesUtil.getParametroUrl("idhome").toString());
+			
+			if(idhome > 0){
+				consultaHome();
+			}else{
+				PethomeBO pethomeBO = new PethomeBO();
+				int orden = pethomeBO.getMaxOrden();
+				pethome.setOrden(orden + 1);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 	}
 	
 	public void consultaHome(){
-		if(this.idhome > 0){
-			try {
-				PethomeBO pethomeBO = new PethomeBO();
-				pethome = pethomeBO.getPethomebyId(idhome);
-				
-				if(pethome != null && pethome.getIdhome() > 0){
-					pethomeClon = pethome.clonar();
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
-				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		try {
+			PethomeBO pethomeBO = new PethomeBO();
+			pethome = pethomeBO.getPethomebyId(idhome);
+			
+			if(pethome != null && pethome.getIdhome() > 0){
+				pethomeClon = pethome.clonar();
 			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 	}
 

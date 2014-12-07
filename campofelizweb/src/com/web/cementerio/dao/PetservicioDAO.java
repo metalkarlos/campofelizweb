@@ -25,15 +25,23 @@ public class PetservicioDAO {
 		return max;
 	}
 	
+	public int maxOrden(Session session) throws Exception {
+		int max=0;
+		
+		Object object = session.createQuery("select count(p.orden) as cant from Petservicio as p where p.setestado.idestado = 1").uniqueResult();
+		max = (object==null?0:Integer.parseInt(object.toString()));
+		
+		return max;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Petservicio> lisPetservicioPrincipales(Session session) throws Exception {
 		List<Petservicio> lisPetservicio = null;
 		
 		String hql = " from Petservicio ";
-		hql += " where idservicio > 0 ";
-		hql += " and principal = :principal ";
+		hql += " where principal = :principal ";
 		hql += " and setestado.idestado = :idestado ";
-		hql += " order by orden ";
+		hql += " order by orden desc ";
 		
 		Query query = session.createQuery(hql)
 				.setInteger("idestado", 1)

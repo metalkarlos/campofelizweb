@@ -17,7 +17,10 @@
 		<meta name="keywords" content="Campo Feliz Cementerio de Mascotas" />
 
 		<style type="text/css">
-</style>
+			.gridVideos {
+				padding: 10px 0;
+			}
+		</style>
 	</ui:define>
 
 	<ui:define name="content_page">
@@ -74,7 +77,10 @@
 				</h:link>
 				<p:separator style="clear:both;border: none;" rendered="#{usuarioBean.autenticado}"></p:separator>
 				
-				<c:forEach items="#{homeBean.lisPethome}" var="pethome">
+				<p:dataGrid styleClass="gridVideos" id="gridVideos" value="#{homeBean.lisPethome}" var="pethome" columns="1" rows="2" paginator="true" effect="true" 
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				emptyMessage="No se encontraron registros" paginatorPosition="bottom">
+				<p:column>
 					<h:link value="[Editar]" styleClass="link2" outcome="/admin/home-admin" rendered="#{usuarioBean.autenticado}" >
 						<f:param name="idhome" value="#{pethome.idhome}"></f:param>
 					</h:link>
@@ -87,7 +93,8 @@
 							<h:outputText value="#{pethome.urlvideo}" escape="false" />
 						</center>
 					</div>
-				</c:forEach>
+				</p:column>
+				</p:dataGrid>
 			</h:form>
 		</div>
 	</ui:define>

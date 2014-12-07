@@ -25,6 +25,15 @@ public class PetnoticiaDAO {
 		return max;
 	}
 	
+	public int maxOrden(Session session) throws Exception {
+		int max=0;
+		
+		Object object = session.createQuery("select count(p.orden) as cant from Petnoticia as p where p.setestado.idestado = 1").uniqueResult();
+		max = (object==null?0:Integer.parseInt(object.toString()));
+		
+		return max;
+	}
+	
 	public Petnoticia getPetnoticiaById(Session session, int idnoticia) throws Exception {
 		Petnoticia petnoticia = null;
 		
@@ -132,7 +141,7 @@ public class PetnoticiaDAO {
 			criteria.add(Restrictions.sqlRestriction(query));
 		}
 		
-        criteria.addOrder(Order.asc("orden"))
+        criteria.addOrder(Order.desc("orden"))
 		.setMaxResults(pageSize)
 		.setFirstResult(pageNumber);
         
@@ -158,9 +167,6 @@ public class PetnoticiaDAO {
 				criteriaCount.add(Restrictions.sqlRestriction(query));
 			}
 			
-			criteriaCount.setMaxResults(pageSize)
-			.setFirstResult(pageNumber);
-			
 			Object object = criteriaCount.uniqueResult();
 			int count = (object==null?0:Integer.parseInt(object.toString()));
 			args[0] = count;
@@ -180,7 +186,7 @@ public class PetnoticiaDAO {
 		String hql = " from Petnoticia ";
 		hql += " where principal = :principal ";
 		hql += " and setestado.idestado = :idestado ";
-		hql += " order by orden ";
+		hql += " order by orden desc ";
 		
 		Query query = session.createQuery(hql)
 				.setInteger("idestado", 1)

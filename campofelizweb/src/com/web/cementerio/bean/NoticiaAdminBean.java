@@ -60,11 +60,20 @@ public class NoticiaAdminBean implements Serializable {
 	
 	@PostConstruct
 	public void initNoticiaAdminBean() {
-		FacesUtil facesUtil = new FacesUtil();
-		idnoticia = Integer.parseInt(facesUtil.getParametroUrl("idnoticia").toString());
-		
-		if(idnoticia > 0){
-			consultaNoticia();
+		try {
+			FacesUtil facesUtil = new FacesUtil();
+			idnoticia = Integer.parseInt(facesUtil.getParametroUrl("idnoticia").toString());
+			
+			if(idnoticia > 0){
+				consultaNoticia();
+			}else{
+				PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
+				int orden = petnoticiaBO.getMaxOrden();
+				petnoticia.setOrden(orden + 1);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 	}
 	

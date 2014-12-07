@@ -38,6 +38,23 @@ public class PethomeBO {
 		return pethome;
 	}
 	
+	public int getMaxOrden() throws Exception{
+		int orden = 0;
+		Session session = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			orden = pethomeDAO.maxOrden(session);
+				
+		} catch (Exception e) {
+			throw new Exception(e);
+		}finally{
+			session.close();
+		}
+		
+		return orden;
+	}
+	
 	public List<Pethome> lisPethome() throws Exception{
 		List<Pethome> lisPethome = null;
 		Session session = null;
@@ -53,6 +70,24 @@ public class PethomeBO {
 		}
 		
 		return lisPethome; 
+	}
+	
+	public List<Pethome> lisPethomeByPage(int pageSize, int pageNumber, int args[]) throws RuntimeException {
+		List<Pethome> lisPethome = null;
+		Session session = null;
+		
+		try{
+            session = HibernateUtil.getSessionFactory().openSession();
+            lisPethome = pethomeDAO.lisPethomeByPage(session, pageSize, pageNumber, args);
+        }
+        catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
+        finally{
+            session.close();
+        }
+		
+		return lisPethome;
 	}
 	
 	public boolean grabar(Pethome pethome) throws Exception{

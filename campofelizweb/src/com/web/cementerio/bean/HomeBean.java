@@ -3,10 +3,13 @@ package com.web.cementerio.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.web.cementerio.bo.PethomeBO;
 import com.web.cementerio.pojo.annotations.Pethome;
@@ -20,34 +23,53 @@ public class HomeBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -7268920983615910156L;
-	private List<Pethome> lisPethome;
+	private LazyDataModel<Pethome> lisPethome;
 
 	public HomeBean() {
-		lisPethome = new ArrayList<Pethome>();
+		consultarVideos();
 	}
+
+	@SuppressWarnings("serial")
+	public void consultarVideos(){
+		try
+		{
+			lisPethome = new LazyDataModel<Pethome>() {
+				public List<Pethome> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,String> filters) {
+					List<Pethome> data = new ArrayList<Pethome>();
+					PethomeBO pethomeBO = new PethomeBO();
+					int args[] = {0};
+					
+					data = pethomeBO.lisPethomeByPage(pageSize, first, args);
+					this.setRowCount(args[0]);
 	
-	@PostConstruct
-	public void initHomeBean() {
-		consultarHome();
-	}
-	
-	private void consultarHome() {
-		try {
-			PethomeBO pethomeBO = new PethomeBO();
-			lisPethome = pethomeBO.lisPethome();
-		} catch(Exception e) {
-			e.printStackTrace();
+			        return data;
+				}
+				
+				@Override
+                public void setRowIndex(int rowIndex) {
+                    /*
+                     * The following is in ancestor (LazyDataModel):
+                     * this.rowIndex = rowIndex == -1 ? rowIndex : (rowIndex % pageSize);
+                     */
+                    if (rowIndex == -1 || getPageSize() == 0) {
+                        super.setRowIndex(-1);
+                    }
+                    else {
+                        super.setRowIndex(rowIndex % getPageSize());
+                    }      
+                }
+			};
+		}catch(Exception re){
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 	}
 
-	public List<Pethome> getLisPethome() {
+	public LazyDataModel<Pethome> getLisPethome() {
 		return lisPethome;
 	}
 
-	public void setLisPethome(List<Pethome> lisPethome) {
+	public void setLisPethome(LazyDataModel<Pethome> lisPethome) {
 		this.lisPethome = lisPethome;
 	}
-	
 	
 }
