@@ -15,7 +15,6 @@ import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -29,21 +28,9 @@ public class MascotaHomenajeBean implements Serializable {
 	private Petmascotahomenaje petmascotahomenaje;
 	private List<Petfotomascota>listpetfotomascota;
 	private int idmascota;
-	private String rutaImagenes;
-	
 	
 	public MascotaHomenajeBean() {
 		inicializarobjetos();
-		cargarRutaImagenes();
-	}
-	
-	private void cargarRutaImagenes(){
-		try {
-			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
-		} catch (Exception e) {
-			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-		}
 	}
 	
 	@PostConstruct
@@ -76,8 +63,6 @@ public class MascotaHomenajeBean implements Serializable {
 		Petespecie petespecie = new Petespecie();
 		petmascotahomenaje.setPetespecie(petespecie);
 		idmascota =0;
-		rutaImagenes = "";
-	
 	}
 	
 	public Petmascotahomenaje getPetmascotahomenaje() {
@@ -97,14 +82,6 @@ public class MascotaHomenajeBean implements Serializable {
 	public void setIdmascota(int idmascota) {
 		this.idmascota = idmascota;
 		
-	}
-
-	public String getRutaImagenes() {
-		return rutaImagenes;
-	}
-
-	public void setRutaImagenes(String rutaImagenes) {
-		this.rutaImagenes = rutaImagenes;
 	}
 
 	public List<Petfotomascota> getListpetfotomascota() {

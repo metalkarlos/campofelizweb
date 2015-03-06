@@ -22,7 +22,6 @@ import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 	@ManagedBean
@@ -40,16 +39,11 @@ import com.web.util.MessageUtil;
 		private StreamedContent streamedContent;
 		private UploadedFile    uploadedFile;
 		private int idmascota;
-		private String rutaImagenes;
 		private String descripcionFoto;
 		private boolean fotoSubida;
 
-	
-
 		public MascotaHomenajeAdminBean() {
 			inicializarobjetos();
-			cargarRutaImagenes();
-			
 		}
 		
 		@PostConstruct
@@ -72,21 +66,11 @@ import com.web.util.MessageUtil;
 			petfotomascotaselected = new Petfotomascota(0,new Setestado(),new Petmascotahomenaje(),new Setusuario(),null,null,null,0,null,null,null);
 			listpetfotomascota = new  ArrayList<Petfotomascota>();
 			listpetfotomascotaclone = new  ArrayList<Petfotomascota>();
-			rutaImagenes ="";
 			idmascota =0;
 			fotoSubida=false;
 			streamedContent = null;
 			descripcionFoto = null;
 			uploadedFile = null;
-		}
-		
-		private void cargarRutaImagenes(){
-			try {
-				rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
-			} catch (Exception e) {
-				e.printStackTrace();
-				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-			}
 		}
 		
 		public void  grabar() {
@@ -331,14 +315,6 @@ import com.web.util.MessageUtil;
 
 		public void setIdmascota(int idmascota) {
 			this.idmascota = idmascota;
-		}
-
-		public String getRutaImagenes() {
-			return rutaImagenes;
-		}
-
-		public void setRutaImagenes(String rutaImagenes) {
-			this.rutaImagenes = rutaImagenes;
 		}
 
 		public StreamedContent getStreamedContent() {

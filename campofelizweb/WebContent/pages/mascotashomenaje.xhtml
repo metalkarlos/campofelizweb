@@ -81,7 +81,7 @@
 		    <tr>
 		    <td style="padding-bottom: 10px;">
 		      <h:link  outcome="/pages/mascotahomenaje" >
-		       <p:graphicImage alt="foto-homenaje póstumo" value="#{mascotasHomenajeBean.rutaImagenes}#{mascota.rutafoto}?w=140" style="height: 145px; width: 140px; max-height: 145px; max-width: 150px;" styleClass="imagendatagrid"/>
+		       <p:graphicImage alt="foto-homenaje póstumo" value="#{parametro.servletImagenes}#{mascota.rutafoto}?w=140" style="height: 145px; width: 140px; max-height: 145px; max-width: 150px;" styleClass="imagendatagrid"/>
 		       <f:param name="idmascota" value="#{mascota.idmascota}"></f:param>
 		      </h:link>   
 		    </td>

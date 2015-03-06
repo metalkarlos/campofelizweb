@@ -13,7 +13,6 @@ import org.primefaces.model.SortOrder;
 
 import com.web.cementerio.bo.PetservicioBO;
 import com.web.cementerio.pojo.annotations.Petservicio;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -24,7 +23,6 @@ public class ServiciosBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 3898128216790895916L;
-	private String rutaImagenes;
 	private LazyDataModel<Petservicio> lisPetservicio;
 	private String tituloParam;
 	private String descripcionParam;
@@ -38,17 +36,7 @@ public class ServiciosBean implements Serializable {
 		setColumnsGrid(2);
 		setRowsGrid(3);
 		
-		cargarRutaImagenes();
 		consultarServicios();
-	}
-	
-	private void cargarRutaImagenes(){
-		try {
-			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
-		} catch (Exception e) {
-			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-		}
 	}
 	
 	@SuppressWarnings("serial")
@@ -89,14 +77,6 @@ public class ServiciosBean implements Serializable {
 		}catch(Exception re){
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
-	}
-
-	public String getRutaImagenes() {
-		return rutaImagenes;
-	}
-
-	public void setRutaImagenes(String rutaImagenes) {
-		this.rutaImagenes = rutaImagenes;
 	}
 
 	public LazyDataModel<Petservicio> getLisPetservicio() {

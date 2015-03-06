@@ -347,7 +347,7 @@ public class PetnoticiaBO {
 		Calendar fecha = Calendar.getInstance();
 		
 		String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
-		String rutaNoticias =  "/noticia/" + fecha.get(Calendar.YEAR);
+		String rutaNoticias =  fileUtil.getPropertyValue("repositorio-noticia") + fecha.get(Calendar.YEAR);
 		String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petnoticia.getIdnoticia() + "-" + cantFotosPorNoticia + "." + fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
 		
 		String rutaCompleta = rutaImagenes + rutaNoticias;

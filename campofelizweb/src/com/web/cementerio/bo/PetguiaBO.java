@@ -266,7 +266,7 @@ PetguiaDAO petguiaDAO;
 			Calendar fecha = Calendar.getInstance();
 			
 			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
-			String rutaMascota =  "/guia/" + fecha.get(Calendar.YEAR);
+			String rutaMascota =  fileUtil.getPropertyValue("repositorio-guia") + fecha.get(Calendar.YEAR);
 			String nombreArchivo = fecha.get(Calendar.DAY_OF_MONTH) + "-" +(fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.YEAR) + "-" + petguia.getIdguia() + "-" + petfotoguia.getIdfotoguia() +"-"+ cantfotosxguia + "." + fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
 					
 			String rutaCompleta = rutaImagenes + rutaMascota;

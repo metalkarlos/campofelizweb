@@ -107,7 +107,7 @@ public class PetfotoinstalacionBO {
 				
 					
 			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
-			String rutaMascota =  "/instalaciones/" + fecha.get(Calendar.YEAR);
+			String rutaMascota =  fileUtil.getPropertyValue("repositorio-instalaciones") + fecha.get(Calendar.YEAR);
 			String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petfotoinstalacion.getIdfotoinstalacion() + "." +fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
 					
 			String rutaCompleta = rutaImagenes + rutaMascota;

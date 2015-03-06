@@ -23,7 +23,6 @@ import com.web.cementerio.pojo.annotations.Petfotoinstalacion;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -31,7 +30,6 @@ import com.web.util.MessageUtil;
 public class CementerioVirtualAdminBean implements Serializable{
 
 	private static final long serialVersionUID = -3312876102105882061L;
-	private String rutaImagenes;
 	private boolean ingreso;
 	private boolean modificacion;
 	private boolean fotosubida;
@@ -52,7 +50,6 @@ public class CementerioVirtualAdminBean implements Serializable{
 		fotosubida = false;
 		descripcionParam = "buscar";
 		texto="buscar";
-		cargarRutaImagenes();
 	}
 	
 	
@@ -234,26 +231,6 @@ public class CementerioVirtualAdminBean implements Serializable{
 			}
 			return ok;
 		}
-
-		
-	private void cargarRutaImagenes(){
-	try {
-			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
-		} catch (Exception e) {
-		e.printStackTrace();
-		new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-      }
-	}
-
-	public String getRutaImagenes() {
-		return rutaImagenes;
-	}
-
-
-	public void setRutaImagenes(String rutaImagenes) {
-		this.rutaImagenes = rutaImagenes;
-	}
-
 
 	public boolean isIngreso() {
 		return ingreso;

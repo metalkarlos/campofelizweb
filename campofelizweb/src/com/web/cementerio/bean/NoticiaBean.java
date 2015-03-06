@@ -12,7 +12,6 @@ import com.web.cementerio.bo.PetnoticiaBO;
 import com.web.cementerio.pojo.annotations.Petfotonoticia;
 import com.web.cementerio.pojo.annotations.Petnoticia;
 import com.web.util.FacesUtil;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -25,24 +24,13 @@ public class NoticiaBean implements Serializable {
 	private static final long serialVersionUID = -4154729518983967192L;
 	private int idnoticia;
 	private Petnoticia petnoticia;
-	private String rutaImagenes;
 	private List<Petfotonoticia> lisPetfotonoticia;
 	
 	public NoticiaBean() {
 		petnoticia = new Petnoticia();
 		lisPetfotonoticia = new ArrayList<Petfotonoticia>();
-		cargarRutaImagenes();
 	}
 
-	private void cargarRutaImagenes(){
-		try {
-			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
-		} catch (Exception e) {
-			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-		}
-	}
-	
 	@PostConstruct
 	public void initNoticiaBean() {
 		FacesUtil facesUtil = new FacesUtil();
@@ -83,14 +71,6 @@ public class NoticiaBean implements Serializable {
 
 	public void setPetnoticia(Petnoticia petnoticia) {
 		this.petnoticia = petnoticia;
-	}
-
-	public String getRutaImagenes() {
-		return rutaImagenes;
-	}
-
-	public void setRutaImagenes(String rutaImagenes) {
-		this.rutaImagenes = rutaImagenes;
 	}
 
 	public List<Petfotonoticia> getLisPetfotonoticia() {

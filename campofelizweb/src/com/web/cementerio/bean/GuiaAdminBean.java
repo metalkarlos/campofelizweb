@@ -23,7 +23,6 @@ import com.web.cementerio.pojo.annotations.Petguia;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -34,7 +33,6 @@ public class GuiaAdminBean  implements Serializable{
 	private int idguia;
 	private Petguia petguia;
 	private Petguia petguiaClon;
-	private String rutaImagenes;
 	private List<Petfotoguia> lisPetfotoguia;
 	private List<Petfotoguia> lisPetfotoguiaClon;
 	private Petfotoguia petfotoguiaSeleccionada;
@@ -52,9 +50,7 @@ public class GuiaAdminBean  implements Serializable{
 		petfotoguiaSeleccionada =  new Petfotoguia(0, new Setestado(), new Setusuario(), new Petguia(), null, null, null, null, null, null, null);
 		fotoSubida =false;
 		descripcionFoto="";
-		rutaImagenes="";
 		idguia=0;
-		cargarRutaImagenes();
 	}
 	
 	 
@@ -65,15 +61,6 @@ public class GuiaAdminBean  implements Serializable{
 		if(idguia > 0){
 			consultaGuia();
 			
-		}
-	}
-	
-	private void cargarRutaImagenes(){
-		try {
-			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
-		} catch (Exception e) {
-			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 	}
 	
@@ -232,14 +219,6 @@ public class GuiaAdminBean  implements Serializable{
 
 	public void setPetguiaClon(Petguia petguiaClon) {
 		this.petguiaClon = petguiaClon;
-	}
-
-	public String getRutaImagenes() {
-		return rutaImagenes;
-	}
-
-	public void setRutaImagenes(String rutaImagenes) {
-		this.rutaImagenes = rutaImagenes;
 	}
 
 	public List<Petfotoguia> getLisPetfotoguia() {

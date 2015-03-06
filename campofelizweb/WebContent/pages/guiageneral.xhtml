@@ -58,7 +58,7 @@
 			    <h:link  value="" outcome="guia" styleClass="link2" style="float: center;" >
 			        <p>   #{imagen.titulo} </p> 
 					<f:param name="idguia" value="#{imagen.idguia}"></f:param>
-					<p:graphicImage id="playerImage" value="#{guiaGeneralBean.rutaImagenes}#{imagen.rutafoto}?w=300" style="max-width:300px; max-height: 300px;"/>
+					<p:graphicImage id="playerImage" value="#{parametro.servletImagenes}#{imagen.rutafoto}?w=300" style="max-width:300px; max-height: 300px;"/>
 				</h:link>
 				</p:galleria>
 			  </h:panelGroup>
@@ -69,7 +69,7 @@
 				emptyMessage="No se encontraron registros" paginatorPosition="bottom">
 				<p:column>
 				  <div class="inner-content">
-				       <p:graphicImage id="Imagen" value="#{guiaGeneralBean.rutaImagenes}#{item.rutafoto}?w=35" style="max-width:45px; max-height: 35px;"/>
+				       <p:graphicImage id="Imagen" value="#{parametro.servletImagenes}#{item.rutafoto}?w=35" style="max-width:45px; max-height: 35px;"/>
 						 <h:link  styleClass="titulo3" style="height:40px" value="#{item.titulo}" outcome="guia">
 						     <f:param name="idguia" value="#{item.idguia}"></f:param>
 						 </h:link>

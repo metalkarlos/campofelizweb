@@ -12,7 +12,6 @@ import com.web.cementerio.bo.PetservicioBO;
 import com.web.cementerio.pojo.annotations.Petfotoservicio;
 import com.web.cementerio.pojo.annotations.Petservicio;
 import com.web.util.FacesUtil;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -25,24 +24,13 @@ public class ServicioBean implements Serializable {
 	private static final long serialVersionUID = 2778897181870142036L;
 	private int idservicio;
 	private Petservicio petservicio;
-	private String rutaImagenes;
 	private List<Petfotoservicio> lisPetfotoservicio;
 	
 	public ServicioBean() {
 		petservicio = new Petservicio();
 		lisPetfotoservicio = new ArrayList<Petfotoservicio>();
-		cargarRutaImagenes();
 	}
 
-	private void cargarRutaImagenes(){
-		try {
-			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
-		} catch (Exception e) {
-			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-		}
-	}
-	
 	@PostConstruct
 	public void initServicioBean() {
 		FacesUtil facesUtil = new FacesUtil();
@@ -69,14 +57,6 @@ public class ServicioBean implements Serializable {
 		}
 	}
 	
-	public String getRutaImagenes() {
-		return rutaImagenes;
-	}
-
-	public void setRutaImagenes(String rutaImagenes) {
-		this.rutaImagenes = rutaImagenes;
-	}
-
 	public int getIdservicio() {
 		return idservicio;
 	}

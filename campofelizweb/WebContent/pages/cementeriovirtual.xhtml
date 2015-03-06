@@ -80,8 +80,8 @@
 					<div class="es-carousel">
 						<ul>
 							<ui:repeat value="#{cementerioVirtualBean.lisPetfotoinstalacion}" var="foto">
-								<li><a href="#" ><h:graphicImage value="#{cementerioVirtualBean.rutaImagenes}#{foto.ruta}?w=70" alt="#{foto.ruta}" height="65" >
-									<f:passThroughAttribute name="data-large" value="#{request.contextPath}#{cementerioVirtualBean.rutaImagenes}#{foto.ruta}"/>
+								<li><a href="#" ><h:graphicImage value="#{parametro.servletImagenes}#{foto.ruta}?w=70" alt="#{foto.ruta}" height="65" >
+									<f:passThroughAttribute name="data-large" value="#{request.contextPath}#{parametro.servletImagenes}#{foto.ruta}"/>
 									<f:passThroughAttribute name="data-description" value="#{foto.descripcion}" />
 								</h:graphicImage>
 								</a>

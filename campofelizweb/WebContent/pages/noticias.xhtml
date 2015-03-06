@@ -60,7 +60,7 @@
 						<div class="titulo3">#{noticia.titulo}</div>
 						<div class="imagen centrar">
 							<h:link outcome="/pages/noticia" >
-								<h:graphicImage alt="foto-noticia" value="#{noticiasBean.rutaImagenes}#{noticia.rutafoto}?w=140" style="max-height: 140px; max-width: 150px;" />
+								<h:graphicImage alt="foto-noticia" value="#{parametro.servletImagenes}#{noticia.rutafoto}?w=140" style="max-height: 140px; max-width: 150px;" />
 								<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
 							</h:link>
 						</div>

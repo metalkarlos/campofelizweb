@@ -36,10 +36,10 @@
 				</div>
 				<center>
 				<p:galleria id="idgalleria" value="#{servicioBean.lisPetfotoservicio}" var="item" panelWidth="500" panelHeight="320">
-			        <p:graphicImage value="#{servicioBean.rutaImagenes}#{item.ruta}?w=60" style="max-height: 58px" />
+			        <p:graphicImage value="#{parametro.servletImagenes}#{item.ruta}?w=60" style="max-height: 58px" />
 			        <p:galleriaContent>  
-			            <h:outputLink styleClass="grupo1" value="#{request.contextPath}#{servicioBean.rutaImagenes}#{item.ruta}" title="#{item.descripcion}">
-				            <p:graphicImage value="#{servicioBean.rutaImagenes}#{item.ruta}?w=400" style="max-width: 480px; height: 300px; padding-top: 10px" />
+			            <h:outputLink styleClass="grupo1" value="#{request.contextPath}#{parametro.servletImagenes}#{item.ruta}" title="#{item.descripcion}">
+				            <p:graphicImage value="#{parametro.servletImagenes}#{item.ruta}?w=400" style="max-width: 480px; height: 300px; padding-top: 10px" />
 					    </h:outputLink>
 					</p:galleriaContent>
 				</p:galleria>

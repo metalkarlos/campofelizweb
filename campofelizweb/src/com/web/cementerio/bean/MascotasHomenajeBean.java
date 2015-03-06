@@ -1,8 +1,5 @@
 package com.web.cementerio.bean;
 
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +12,6 @@ import org.primefaces.model.SortOrder;
 
 import com.web.cementerio.bo.PetmascotahomenajeBO;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -23,29 +19,17 @@ import com.web.util.MessageUtil;
 public class MascotasHomenajeBean  {
 private LazyDataModel<Petmascotahomenaje>  listpetmascotahomenaje; 
 private int idespecie;
-private String rutaImagenes;
 private String descripcionParam;
 private String texto;
 
 
 	public MascotasHomenajeBean(){
 		idespecie=0;
-		rutaImagenes = "";
 		descripcionParam = "buscar por nombre de mascota";
 		texto="buscar por nombre de mascota";
-		cargarRutaImagenes();
 		consultar();
 	}
 		
-	private void cargarRutaImagenes(){
-		try {
-			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
-		} catch (Exception e) {
-			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-		}
-	}
-	
 	@SuppressWarnings("serial")
 	public void consultar(){
 		try
@@ -113,14 +97,6 @@ private String texto;
 	
 	public void setIdespecie(int idespecie) {
 		this.idespecie = idespecie;
-	}
-
-	public String getRutaImagenes() {
-		return rutaImagenes;
-	}
-
-	public void setRutaImagenes(String rutaImagenes) {
-		this.rutaImagenes = rutaImagenes;
 	}
 
 	public String getDescripcionParam() {

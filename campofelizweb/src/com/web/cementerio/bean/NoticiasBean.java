@@ -13,7 +13,6 @@ import org.primefaces.model.SortOrder;
 
 import com.web.cementerio.bo.PetnoticiaBO;
 import com.web.cementerio.pojo.annotations.Petnoticia;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -24,7 +23,6 @@ public class NoticiasBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 2425720865157253886L;
-	private String rutaImagenes;
 	private LazyDataModel<Petnoticia> lisPetnoticia;
 	private String tituloParam;
 	private String descripcionParam;
@@ -32,17 +30,7 @@ public class NoticiasBean implements Serializable {
 	public NoticiasBean() {
 		tituloParam = "";
 		descripcionParam = "buscar";
-		cargarRutaImagenes();
 		consultarNoticias();
-	}
-	
-	private void cargarRutaImagenes(){
-		try {
-			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
-		} catch (Exception e) {
-			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-		}
 	}
 	
 	@SuppressWarnings("serial")
@@ -84,14 +72,6 @@ public class NoticiasBean implements Serializable {
 		}catch(Exception re){
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
-	}
-
-	public String getRutaImagenes() {
-		return rutaImagenes;
-	}
-
-	public void setRutaImagenes(String rutaImagenes) {
-		this.rutaImagenes = rutaImagenes;
 	}
 
 	public LazyDataModel<Petnoticia> getLisPetnoticia() {

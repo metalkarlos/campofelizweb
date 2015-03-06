@@ -63,11 +63,11 @@
 				</h:panelGroup>
 				<h:panelGroup id="idpanelgaleria" styleClass="centrar">
 			    	<p:galleria id="idgalleria" value="#{guiaAdminBean.lisPetfotoguia}" var="item" transitionInterval="0" panelWidth="500" panelHeight="400" rendered="#{guiaAdminBean.lisPetfotoguia.size() > 0}">
-				       <p:graphicImage id="idfotos" value="#{guiaAdminBean.rutaImagenes}#{item.ruta}?w=70" style="max-height: 70px;" />
+				       <p:graphicImage id="idfotos" value="#{parametro.servletImagenes}#{item.ruta}?w=70" style="max-height: 70px;" />
 				       <p:galleriaContent>  
 				           <h:panelGrid columns="1" style="background-color: #eaeaea;height: 100%; width: 100%;" >  
 				   		        <f:facet name="header">
-					           	<p:graphicImage id="idfoto" value="#{guiaAdminBean.rutaImagenes}#{item.ruta}?w=300" style="max-width:300px; max-height: 300px; padding-top: 10px" />
+					           	<p:graphicImage id="idfoto" value="#{parametro.servletImagenes}#{item.ruta}?w=300" style="max-width:300px; max-height: 300px; padding-top: 10px" />
 						        </f:facet>
 						        <h:outputLabel value="Descripción de la Foto" for ="txtObservacionFotoItem"/>
 					            <p:inputTextarea id="txtObservacionFotoItem" value="#{item.descripcion}" maxlength="500" style="width: 400px;max-width:400px;min-width: 400px;max-height: 45px;height: 45px;min-height: 45px;"/>
@@ -148,7 +148,7 @@
 			
 			<p:dialog id="iddialogprincipal" header="Foto Principal" closable="true" widgetVar="vardialogprincipal" modal="true" style="min-height: 80px; width: 450px">
 				<h:panelGrid id="idpanelprincipal" columns="2" width="100%">
-					<p:graphicImage value="#{guiaAdminBean.rutaImagenes}#{guiaAdminBean.petfotoguiaSeleccionada.ruta}" style="max-height: 50px" />
+					<p:graphicImage value="#{parametro.servletImagenes}#{guiaAdminBean.petfotoguiaSeleccionada.ruta}" style="max-height: 50px" />
 					<h:outputText id="idlabelprincipal" value="¿Seleccionar imágen como foto principal?" />
 					<h:outputText value="" />
 					<p:panelGrid id="idpanel2principal" style="width: 100%; text-align: right;">
@@ -164,7 +164,7 @@
 			
 			<p:dialog id="iddialogdelete"  header="Eliminar Foto" closable="true" widgetVar="vardialogdelete" modal="true" style="min-height: 80px; width: 450px">
 				<h:panelGrid id="idpaneldelete" columns="2" width="100%">
-					<p:graphicImage value="#{guiaAdminBean.rutaImagenes}#{guiaAdminBean.petfotoguiaSeleccionada.ruta}" style="max-height: 50px" />
+					<p:graphicImage value="#{parametro.servletImagenes}#{guiaAdminBean.petfotoguiaSeleccionada.ruta}" style="max-height: 50px" />
 					<h:outputText id="idlabeldelete" value="¿Quitar foto?" />
 					<h:outputText value="" />
 					<p:panelGrid id="idpanel2delete" style="width: 100%; text-align: right;">

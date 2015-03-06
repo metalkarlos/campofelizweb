@@ -21,7 +21,6 @@ import com.web.cementerio.pojo.annotations.Petnoticia;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -35,7 +34,6 @@ public class NoticiaAdminBean implements Serializable {
 	private int idnoticia;
 	private Petnoticia petnoticia;
 	private Petnoticia petnoticiaClon;
-	private String rutaImagenes;
 	private List<Petfotonoticia> lisPetfotonoticia;
 	private List<Petfotonoticia> lisPetfotonoticiaClon;
 	private Petfotonoticia petfotonoticiaSeleccionada;
@@ -54,8 +52,6 @@ public class NoticiaAdminBean implements Serializable {
 		descripcionFoto = "";
 		fotoSubida = false;
 		maxfilesize = Parametro.TAMAÑO_IMAGEN;
-		
-		cargarRutaImagenes();
 	}
 	
 	@PostConstruct
@@ -72,15 +68,6 @@ public class NoticiaAdminBean implements Serializable {
 				petnoticia.setOrden(orden + 1);
 			}
 		} catch(Exception e) {
-			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-		}
-	}
-	
-	private void cargarRutaImagenes(){
-		try {
-			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
-		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
@@ -205,14 +192,6 @@ public class NoticiaAdminBean implements Serializable {
 
 	public void setPetnoticia(Petnoticia petnoticia) {
 		this.petnoticia = petnoticia;
-	}
-
-	public String getRutaImagenes() {
-		return rutaImagenes;
-	}
-
-	public void setRutaImagenes(String rutaImagenes) {
-		this.rutaImagenes = rutaImagenes;
 	}
 
 	public List<Petfotonoticia> getLisPetfotonoticia() {

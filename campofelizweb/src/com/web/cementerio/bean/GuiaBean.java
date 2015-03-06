@@ -12,7 +12,6 @@ import com.web.cementerio.bo.PetguiaBO;
 import com.web.cementerio.pojo.annotations.Petfotoguia;
 import com.web.cementerio.pojo.annotations.Petguia;
 import com.web.util.FacesUtil;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 
@@ -26,22 +25,10 @@ public class GuiaBean implements Serializable{
 	private int idguia;
 	private Petguia petguia;
 	private List<Petfotoguia> lispetfotoguia;
-	private String rutaImagenes;
-
 	
 	public GuiaBean(){
-		cargarRutaImagenes();
 	}
 
-	private void cargarRutaImagenes(){
-		try {
-			rutaImagenes = new FileUtil().getPropertyValue("rutaImagen");
-		} catch (Exception e) {
-			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-		}
-	}
-	
 	@PostConstruct
 	public void initGuiaBean() {
 		FacesUtil facesUtil = new FacesUtil();
@@ -94,14 +81,6 @@ public class GuiaBean implements Serializable{
 
 	public void setPetguia(Petguia petguia) {
 		this.petguia = petguia;
-	}
-
-	public String getRutaImagenes() {
-		return rutaImagenes;
-	}
-
-	public void setRutaImagenes(String rutaImagenes) {
-		this.rutaImagenes = rutaImagenes;
 	}
 
 }

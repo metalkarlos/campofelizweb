@@ -52,10 +52,10 @@
 				<p:column>
 				 <center>
 				  <p:galleria id="idgalleria" value="#{quienesSomosAdminBean.listpetfotoinformacion}" var="item" panelWidth="500" transitionInterval="0"  panelHeight="400"  styleClass="ui-widget-content ui-corner-all">
-				  <p:graphicImage  id="idfotos" value="#{quienesSomosAdminBean.rutaImagenes}#{item.ruta}?w=70" style="max-height: 70px;"/>
+				  <p:graphicImage  id="idfotos" value="#{parametro.servletImagenes}#{item.ruta}?w=70" style="max-height: 70px;"/>
 				  <p:galleriaContent>  
 				   <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">  
-				     <p:graphicImage styleClass="imagenprincipal" id="idfoto"  value="#{quienesSomosAdminBean.rutaImagenes}#{item.ruta}?w=420" style="max-height: 260px;" />
+				     <p:graphicImage styleClass="imagenprincipal" id="idfoto"  value="#{parametro.servletImagenes}#{item.ruta}?w=420" style="max-height: 260px;" />
 				     <h:outputLabel value="Descripción de la Foto" for ="txtObservacionFotoItem"/>
 					 <p:inputTextarea id="txtObservacionFotoItem" value="#{item.descripcion}" maxlength="500" style="width: 400px;max-width:400px;min-width: 400px;max-height: 45px;height: 45px;min-height: 45px;"/>
 				     <p:commandButton id="idbuttondelete"  title="Eliminar foto permanentemente" icon="ui-icon ui-icon-trash" onclick="vardialogdelete.show()" style="position:absolute;right:40px;top:20px;" update=":form-contentpage:idpaneldelete">
@@ -134,7 +134,7 @@
 			
 			<p:dialog id="iddialogdelete"  header="Eliminar Foto" closable="true" widgetVar="vardialogdelete" modal="true" style="min-height: 80px; width: 450px">
 				<h:panelGrid id="idpaneldelete" columns="2" width="100%">
-					<p:graphicImage value="#{quienesSomosAdminBean.rutaImagenes}#{quienesSomosAdminBean.petfotoinformacionselected.ruta}" style="max-height: 50px" />
+					<p:graphicImage value="#{parametro.servletImagenes}#{quienesSomosAdminBean.petfotoinformacionselected.ruta}" style="max-height: 50px" />
 					<h:outputText id="idlabeldelete" value="¿Quitar foto?" />
 					<h:outputText value="" />
 					<p:panelGrid id="idpanel2delete" style="width: 100%; text-align: right;">

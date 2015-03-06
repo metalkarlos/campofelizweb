@@ -65,7 +65,7 @@
 		<p:panel>
 	 		<p:commandLink update=":form-contentpage:paneleditar" action="#{cementerioVirtualAdminBean.clonar()}">
 				<f:setPropertyActionListener value="#{imagen}"	target="#{cementerioVirtualAdminBean.petfotoinstalacion}"/>
-				<p:graphicImage alt="foto-instalaciones" id="idfoto" value="#{cementerioVirtualAdminBean.rutaImagenes}#{imagen.ruta}?w=190"  style="max-height: 100px;" styleClass="imagendatagrid"/>
+				<p:graphicImage alt="foto-instalaciones" id="idfoto" value="#{parametro.servletImagenes}#{imagen.ruta}?w=190"  style="max-height: 100px;" styleClass="imagendatagrid"/>
 			</p:commandLink>
 		</p:panel>
 		</p:column>
@@ -76,7 +76,7 @@
          <p:column styleClass="alto-columna">
          <h:outputLabel for="imageneditar" value="Foto:" />
          <br></br>
-		 <p:graphicImage alt="foto-instalaciones" id="imageneditar" value="#{cementerioVirtualAdminBean.rutaImagenes}#{cementerioVirtualAdminBean.petfotoinstalacion.ruta}?w=190"  style="max-height: 100px;"/>
+		 <p:graphicImage alt="foto-instalaciones" id="imageneditar" value="#{parametro.servletImagenes}#{cementerioVirtualAdminBean.petfotoinstalacion.ruta}?w=190"  style="max-height: 100px;"/>
 		 </p:column>
 	     </p:row>
          <p:row>

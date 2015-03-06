@@ -111,11 +111,11 @@
 
 					<center>
 						<p:galleria id="idgalleria"	value="#{mascotaHomenajeBean.listpetfotomascota}" var="item" panelWidth="500" panelHeight="380"	styleClass="ui-widget-content ui-corner-all">
-							<p:graphicImage id="idfotos" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}?w=70" style="max-height: 70px; max-width: 90px;" />
+							<p:graphicImage id="idfotos" value="#{parametro.servletImagenes}#{item.ruta}?w=70" style="max-height: 70px; max-width: 90px;" />
 							<p:galleriaContent>
 								<h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">
-									<h:outputLink styleClass="grupo1" value="#{request.contextPath}#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}"	title="#{item.descripcion}">
-										<p:graphicImage styleClass="imagenprincipal" id="idfoto" value="#{mascotaHomenajeBean.rutaImagenes}#{item.ruta}?w=380" style="max-width:480px;height: 360px;padding-top: 10px" />
+									<h:outputLink styleClass="grupo1" value="#{request.contextPath}#{parametro.servletImagenes}#{item.ruta}"	title="#{item.descripcion}">
+										<p:graphicImage styleClass="imagenprincipal" id="idfoto" value="#{parametro.servletImagenes}#{item.ruta}?w=380" style="max-width:480px;height: 360px;padding-top: 10px" />
 									</h:outputLink>
 								</h:panelGrid>
 							</p:galleriaContent>

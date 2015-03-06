@@ -35,10 +35,10 @@
 				</div>
 				<center>
 				<p:galleria id="idgalleria" value="#{guiaBean.lispetfotoguia}" var="item" panelWidth="400" panelHeight="320">
-			        <p:graphicImage id="idfotos" value="#{guiaBean.rutaImagenes}#{item.ruta}?w=70" style="max-height: 70px;" />
+			        <p:graphicImage id="idfotos" value="#{parametro.servletImagenes}#{item.ruta}?w=70" style="max-height: 70px;" />
 			        <p:galleriaContent>  
-			            <h:outputLink styleClass="grupo1" value="#{request.contextPath}#{guiaBean.rutaImagenes}#{item.ruta}"	title="#{item.descripcion}">
-			        	 <p:graphicImage id="idfoto" value="#{guiaBean.rutaImagenes}#{item.ruta}?w=350" style="max-width:350px; max-height: 300px; padding-top: 10px" />
+			            <h:outputLink styleClass="grupo1" value="#{request.contextPath}#{parametro.servletImagenes}#{item.ruta}"	title="#{item.descripcion}">
+			        	 <p:graphicImage id="idfoto" value="#{parametro.servletImagenes}#{item.ruta}?w=350" style="max-width:350px; max-height: 300px; padding-top: 10px" />
 				        </h:outputLink>
 					</p:galleriaContent>
 				</p:galleria>

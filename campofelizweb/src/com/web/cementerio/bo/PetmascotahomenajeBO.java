@@ -216,7 +216,7 @@ public class PetmascotahomenajeBO {
 			secuencia = petfotomascotaDAO.getCantFotosPorMascota(session, petmascotahomenaje.getIdmascota());
 					
 			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
-			String rutaMascota =  "/mascota/" + fecha.get(Calendar.YEAR);
+			String rutaMascota =  fileUtil.getPropertyValue("repositorio-mascota") + fecha.get(Calendar.YEAR);
 			String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petmascotahomenaje.getIdmascota() + "-" + secuencia + "." +fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
 					
 			String rutaCompleta = rutaImagenes + rutaMascota;
