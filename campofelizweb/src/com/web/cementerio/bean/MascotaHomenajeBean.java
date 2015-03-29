@@ -1,6 +1,7 @@
 package com.web.cementerio.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -58,8 +59,7 @@ public class MascotaHomenajeBean implements Serializable {
 	}
 	
 	public void inicializarobjetos(){
-		
-		petmascotahomenaje = new Petmascotahomenaje(0, new Setestado(), new Setusuario(), new Petespecie(), null, null, null, null, null, null, null, null, null, null, null, null );
+		petmascotahomenaje = new Petmascotahomenaje(0,new Setestado(),new Setusuario(),new Petespecie(),null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,new BigDecimal(0),null,false,false,null);
 		Petespecie petespecie = new Petespecie();
 		petmascotahomenaje.setPetespecie(petespecie);
 		idmascota =0;

@@ -64,18 +64,6 @@
              <div class="inner-content">
 		     <p:panelGrid id="idgridcontenido" >	   
 				<p:row>
-				  <p:column styleClass="alto-columna">
-				  <h:outputLabel value="Código" for="txtCodigo" />
-				  </p:column>
-				</p:row>
-				
-				<p:row>
-				  <p:column styleClass="alto-columna">
-				  <h:outputText id="txtCodigo" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascota}" style="width: 100px;"/>
-				  </p:column>
-				</p:row>
-					
-				<p:row>
 					<p:column styleClass="centrar">
 				
 					<p:galleria id="idgalleria" value="#{mascotaHomenajeAdminBean.listpetfotomascota}" var="item" transitionInterval="0" panelWidth="500" panelHeight="400"  styleClass="ui-widget-content ui-corner-all">
@@ -119,6 +107,30 @@
 					uploadLabel="Subir Foto" label="Elegir Foto" showButtons="false"
 					update="mensajes, pnlPrevia,idpaneltextdescfoto"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
 					</p:column>
+				</p:row>
+				
+				<p:row>
+				  <p:column styleClass="alto-columna">
+				  <h:outputLabel value="Código" for="txtCodigo" />
+				  </p:column>
+				</p:row>
+				
+				<p:row>
+				  <p:column styleClass="alto-columna">
+				  <h:outputText id="txtCodigo" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascota}" style="width: 100px;"/>
+				  </p:column>
+				</p:row>
+				
+				<p:row>
+				  <p:column styleClass="alto-columna">
+				  <h:outputLabel value="Código Veterinaria" for="txtCodigoVeterinaria" />
+				  </p:column>
+				</p:row>
+				
+				<p:row>
+				  <p:column styleClass="alto-columna">
+				  <p:inputText id="txtCodigoVeterinaria" maxlength="10"  value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascotaveterinaria}" style="width: 600px;"/>
+				  </p:column>
 				</p:row>
 				
 				<p:row>
