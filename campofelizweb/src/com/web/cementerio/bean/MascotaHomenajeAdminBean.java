@@ -65,7 +65,7 @@ import com.web.util.MessageUtil;
 			petmascotahomenaje = new Petmascotahomenaje(0,new Setestado(),new Setusuario(),new Petespecie(),null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,new BigDecimal(0),null,false,false,null);
 			petmascotahomenaje.setPetespecie(new Petespecie());
 			petmascotahomenaje.setFechapublicacion(new Date());
-			petmascotahomenaje.setIdmascotaveterinaria(0);
+			petmascotahomenaje.setIdmascotaveterinaria(null);
 			petfotomascotaselected = new Petfotomascota(0,new Setestado(),new Petmascotahomenaje(),new Setusuario(),null,null,null,0,null,null,null);
 			listpetfotomascota = new  ArrayList<Petfotomascota>();
 			listpetfotomascotaclone = new  ArrayList<Petfotomascota>();

@@ -53,7 +53,7 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 	private boolean pedigree;
 	private boolean microchip;
 	private String numeroidentificacion;
-	private int idmascotaveterinaria;
+	private String idmascotaveterinaria;
 	private Set<Petfotomascota> petfotomascotas = new HashSet<Petfotomascota>(0);
 	private Set<Petmascotacolor> petmascotacolors = new HashSet<Petmascotacolor>(0);
 
@@ -368,11 +368,11 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 	}
 
 	@Column(name = "idmascotaveterinaria")
-	public int getIdmascotaveterinaria() {
+	public String getIdmascotaveterinaria() {
 		return idmascotaveterinaria;
 	}
 
-	public void setIdmascotaveterinaria(int idmascotaveterinaria) {
+	public void setIdmascotaveterinaria(String idmascotaveterinaria) {
 		this.idmascotaveterinaria = idmascotaveterinaria;
 	}
 
@@ -407,7 +407,7 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 		result = prime * result
 				+ ((fecharegistro == null) ? 0 : fecharegistro.hashCode());
 		result = prime * result + idmascota;
-		result = prime * result + idmascotaveterinaria;
+		result = prime * result + ((idmascotaveterinaria == null) ? 0 : idmascotaveterinaria.hashCode());
 		result = prime * result + ((iplog == null) ? 0 : iplog.hashCode());
 		result = prime * result + (microchip ? 1231 : 1237);
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
@@ -492,7 +492,10 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 			return false;
 		if (idmascota != other.idmascota)
 			return false;
-		if (idmascotaveterinaria != other.idmascotaveterinaria)
+		if (idmascotaveterinaria == null) {
+			if (other.idmascotaveterinaria != null)
+				return false;
+		} else if (!idmascotaveterinaria.equals(other.idmascotaveterinaria))
 			return false;
 		if (iplog == null) {
 			if (other.iplog != null)
