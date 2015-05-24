@@ -658,7 +658,9 @@ footer {
 	overflow:hidden;
 }
 footer a {
-	color:#a7a7a7;
+	/*color:#a7a7a7;*/
+	color: #EC8F23;
+	font-weight: bold;
 }
 .copyright {
 	padding:0;
