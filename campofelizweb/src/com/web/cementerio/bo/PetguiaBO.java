@@ -267,7 +267,7 @@ PetguiaDAO petguiaDAO;
 			
 			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 			String rutaMascota =  fileUtil.getPropertyValue("repositorio-guia") + fecha.get(Calendar.YEAR);
-			String nombreArchivo = fecha.get(Calendar.DAY_OF_MONTH) + "-" +(fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.YEAR) + "-" + petguia.getIdguia() + "-" + petfotoguia.getIdfotoguia() +"-"+ cantfotosxguia + "." + fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
+			String nombreArchivo = fecha.get(Calendar.YEAR) + "-" +(fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petguia.getIdguia() + "-" + petfotoguia.getIdfotoguia() +"-"+ cantfotosxguia + "." + fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
 					
 			String rutaCompleta = rutaImagenes + rutaMascota;
 			//asignar ruta y nombre de archivo en objeto

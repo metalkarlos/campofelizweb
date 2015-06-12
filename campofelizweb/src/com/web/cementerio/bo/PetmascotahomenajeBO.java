@@ -192,6 +192,10 @@ public class PetmascotahomenajeBO {
 					
 		    petfotomascota.setIdfotomascota(petfotomascotaDAO.getMaxidpetfotomascota(session));
 				    
+		    //Auditoria
+			petfotomascota.setFecharegistro(fecharegistro);
+			petfotomascota.setIplog(usuarioBean.getIp());
+			
 		    Setestado setestado = new Setestado();
 			setestado.setIdestado(idestado);
 			petfotomascota.setSetestado(setestado);
@@ -200,12 +204,8 @@ public class PetmascotahomenajeBO {
 			setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
 			petfotomascota.setSetusuario(setusuario);
 					
-			//Auditoria
-			petfotomascota.setFecharegistro(fecharegistro);
-			petfotomascota.setIplog(usuarioBean.getIp());
-					
-			if(descripcionFoto ==null || descripcionFoto.length()>0){
-			  petfotomascota.setDescripcion(descripcionFoto);	
+			if(descripcionFoto != null && descripcionFoto.length()>0){
+				petfotomascota.setDescripcion(descripcionFoto);	
 			}
 					
 			//foto en disco
@@ -217,7 +217,7 @@ public class PetmascotahomenajeBO {
 					
 			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 			String rutaMascota =  fileUtil.getPropertyValue("repositorio-mascota") + fecha.get(Calendar.YEAR);
-			String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petmascotahomenaje.getIdmascota() + "-" + secuencia + "." +fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
+			String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petmascotahomenaje.getPetespecie().getIdespecie() + "-" + petmascotahomenaje.getIdmascota() + "-" + secuencia + "." +fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
 					
 			String rutaCompleta = rutaImagenes + rutaMascota;
 			//asignar ruta y nombre de archivo en objeto
