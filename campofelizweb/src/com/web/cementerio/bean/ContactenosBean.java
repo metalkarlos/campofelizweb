@@ -11,6 +11,7 @@ import com.web.cementerio.pojo.annotations.Petempresa;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
+import com.web.util.FileUtil;
 import com.web.util.MailUtil;
 import com.web.util.MessageUtil;
 
@@ -27,7 +28,7 @@ public class ContactenosBean implements Serializable {
 	private String apellidos;
 	private String correo;
 	private String mensaje;
-	
+	private String respuesta;
 	
 	public  ContactenosBean(){
 	  inicializar();
@@ -41,6 +42,7 @@ public class ContactenosBean implements Serializable {
 		apellidos = null;
 		correo = null;
 		mensaje = null;
+		respuesta = "Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!";
 	}
 	public void consultar(){
 		try {
@@ -54,10 +56,11 @@ public class ContactenosBean implements Serializable {
 		
 	}
 	
-	public void enviar(){
+	public String enviar(){
+		String url = null;
+		
 		try{
 			MailUtil mailUtil = new MailUtil();
-			FacesUtil facesUtil = new FacesUtil();
 			
 			//formatear el contenido para el remitente de correo
 			String contenido2 = contenido("Campo Feliz Cementerio de Mascotas", "Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!");
@@ -71,7 +74,7 @@ public class ContactenosBean implements Serializable {
 			//enviar al administrador de correo
 			mailUtil.enviarMail(null, "Información - Campo Feliz", contenido);
 			
-			facesUtil.redirect("home.jsf");
+			url = "mensaje.jsf";
 		}catch(AddressException e) {
 			e.printStackTrace();
 			new MessageUtil().showErrorMessage("Error!", "Ingrese una cuenta de correo válida e intente nuevamente.");
@@ -79,12 +82,17 @@ public class ContactenosBean implements Serializable {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
+		
+		return url;
 	}
 	
-	private String contenido(String titulo, String textoIntroductorio) {
+	private String contenido(String titulo, String textoIntroductorio) throws Exception {
 		String contenido = "";
 		FacesUtil facesUtil = new FacesUtil();
 		String logo = facesUtil.getHostDomain() + "/resources/images/logo.jpg";
+		
+		FileUtil fileUtil = new FileUtil();
+		String email = fileUtil.getMailPropertyValue("mail.user");
 		
 		contenido += "<html>";
 		contenido += "<body style='font: 12px/18px Arial, Helvetica, sans-serif;'>";
@@ -119,7 +127,18 @@ public class ContactenosBean implements Serializable {
 		contenido += "<tr>";
 		contenido += "<td colspan='2' style='text-align: justify;'><span style='padding: 10px 0 0 0'>" + mensaje + "</span></td>";
 		contenido += "</tr>";
-		contenido += "<tr><td style='height: 20px;'>&nbsp;</td></tr>";
+		contenido += "<tr>";
+		contenido += "<td colspan='2'><span>&nbsp;</span></td>";
+		contenido += "</tr>";
+		contenido += "<tr>";
+		contenido += "<td colspan='2'><span>&nbsp;</span></td>";
+		contenido += "</tr>";
+		contenido += "<tr>";
+		contenido += "<td colspan='2'><a href='mailto:"+email+"'>Desuscribir</a></td>";
+		contenido += "</tr>";
+		contenido += "<tr>";
+		contenido += "<td colspan='2' style='height: 20px;'>&nbsp;</td>";
+		contenido += "</tr>";
 		contenido += "</table>";
 		
 		contenido += "</td>";
@@ -177,6 +196,14 @@ public class ContactenosBean implements Serializable {
 
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
+	}
+
+	public String getRespuesta() {
+		return respuesta;
+	}
+
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
 	}
 	
 	

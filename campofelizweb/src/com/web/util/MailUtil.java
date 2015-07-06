@@ -1,5 +1,6 @@
 package com.web.util;
 
+import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -56,6 +57,8 @@ public class MailUtil {
 		message.addRecipient(Message.RecipientType.TO, internetAddressDestinatario);
 		message.setSubject(asunto, "utf-8");
 		message.setContent(contenido, "text/html; charset=utf-8");
+		message.setHeader("X-Mailer", "Javax Mail 1.5");
+		message.setSentDate(new Date());
 		
 		Transport.send(message);
 		//Transport tr = mailSession.getTransport("smtp");

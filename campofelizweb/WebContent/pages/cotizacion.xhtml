@@ -71,7 +71,9 @@
 				</div>
 				
 				<div class="btns">
-                    <p:commandLink id="lnkEnviar" styleClass="link" value="Enviar" action="#{cotizacionBean.enviar()}" update=":form-contentpage:mensajes,:form-contentpage:txtNombres,:form-contentpage:txtApellidos,:form-contentpage:txtEmail,:form-contentpage:idcaptcha" oncomplete="Recaptcha.reload();" ></p:commandLink>
+                    <p:commandLink id="lnkEnviar" styleClass="link" value="Enviar" action="#{cotizacionBean.enviar()}" update=":form-contentpage:mensajes,:form-contentpage:txtNombres,:form-contentpage:txtApellidos,:form-contentpage:txtEmail,:form-contentpage:idcaptcha" oncomplete="Recaptcha.reload();" >
+                    	<f:param name="mensaje" value="#{cotizacionBean.respuesta}" />
+                    </p:commandLink>
                 </div>
 			</div>
 		</h:form>

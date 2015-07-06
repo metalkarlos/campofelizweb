@@ -11,6 +11,7 @@ import javax.mail.internet.AddressException;
 import com.web.cementerio.bo.PetservicioBO;
 import com.web.cementerio.pojo.annotations.Petservicio;
 import com.web.util.FacesUtil;
+import com.web.util.FileUtil;
 import com.web.util.MailUtil;
 import com.web.util.MessageUtil;
 
@@ -28,6 +29,7 @@ public class CotizacionBean implements Serializable {
 	private String apellidos;
 	private String correo;
 	private String otrosServicios;
+	private String respuesta;
 	
 	public CotizacionBean() {
 		lisPetservicio = new ArrayList<String>();
@@ -35,6 +37,7 @@ public class CotizacionBean implements Serializable {
 		apellidos = null;
 		correo = null;
 		otrosServicios = "";
+		respuesta = "Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!";
 		
 		consultarServicios();
 	}
@@ -52,11 +55,12 @@ public class CotizacionBean implements Serializable {
 		}
 	}
 	
-	public void enviar(){
+	public String enviar(){
+		String url = null;
+		
 		if(validacionOk()){
 			try{
 				MailUtil mailUtil = new MailUtil();
-				FacesUtil facesUtil = new FacesUtil();
 				
 				//formatear el contenido para el remitente de correo
 				String contenido2 = contenido("Campo Feliz Cementerio de Mascotas", "Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!");
@@ -70,7 +74,7 @@ public class CotizacionBean implements Serializable {
 				//enviar al administrador de correo
 				mailUtil.enviarMail(null, "Cotización - Campo Feliz", contenido);
 				
-				facesUtil.redirect("home.jsf");
+				url = "mensaje.jsf";
 			}catch(AddressException e) {
 				e.printStackTrace();
 				new MessageUtil().showErrorMessage("Error!", "Ingrese una cuenta de correo válida e intente nuevamente.");
@@ -79,12 +83,17 @@ public class CotizacionBean implements Serializable {
 				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 			}
 		}
+		
+		return url;
 	}
 	
-	private String contenido(String titulo, String textoIntroductorio) {
+	private String contenido(String titulo, String textoIntroductorio) throws Exception {
 		String contenido = "";
 		FacesUtil facesUtil = new FacesUtil();
 		String logo = facesUtil.getHostDomain() + "/resources/images/logo.jpg";
+		
+		FileUtil fileUtil = new FileUtil();
+		String email = fileUtil.getMailPropertyValue("mail.user");
 		
 		contenido += "<html>";
 		contenido += "<body style='font: 12px/18px Arial, Helvetica, sans-serif;'>";
@@ -139,6 +148,15 @@ public class CotizacionBean implements Serializable {
 			contenido += "</tr>";
 			contenido += "<tr><td style='height: 20px;'>&nbsp;</td></tr>";
 		}
+		contenido += "<tr>";
+		contenido += "<td colspan='2'><span>&nbsp;</span></td>";
+		contenido += "</tr>";
+		contenido += "<tr>";
+		contenido += "<td colspan='2'><a href='mailto:"+email+"'>Desuscribir</a></td>";
+		contenido += "</tr>";
+		contenido += "<tr>";
+		contenido += "<td colspan='2' style='height: 20px;'>&nbsp;</td>";
+		contenido += "</tr>";
 		contenido += "</table>";
 		
 		contenido += "</td>";
@@ -220,6 +238,14 @@ public class CotizacionBean implements Serializable {
 
 	public void setLisPetservicioSeleccionados(String[] lisPetservicioSeleccionados) {
 		this.lisPetservicioSeleccionados = lisPetservicioSeleccionados;
+	}
+	
+	public String getRespuesta() {
+		return respuesta;
+	}
+
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
 	}
 
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	template="/WEB-INF/templates/default_others.xhtml">
+
+	<ui:define name="head">
+		<title>Mensaje - Campo Feliz</title>
+		<meta name="robots" content="noindex" />
+	</ui:define>
+	
+	<ui:define name="post-menu">
+		
+	</ui:define>
+	
+	<ui:define name="contenido">
+		<p:messages id="mensajes" showDetail="true"></p:messages>
+		<div id="centrar" style="width: 100%; background-color: white; box-shadow: 1px 0px 5px #BBB; border-radius: 7px; height: 310px;" >
+			<center>
+			<table cellpadding="0" cellspacing="0" style="width: 450px; height: 200px;">
+				<tr>
+					<td style="height: 45px;">
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<div style="border: 1px solid #66AD23;border-radius: 7px;box-shadow: 1px 0px 5px #48DE1A;background-color: white;">
+						<table cellpadding="0" cellspacing="0">
+							<tr>
+								<td>
+									<center>
+										<h:link title="Campo Feliz" outcome="home" >
+											<h:graphicImage alt="Campo Feliz" library="images" name="logo.jpg" />
+										</h:link>
+									</center>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div style="padding: 10px;">
+										<span>#{mensajeBean.mensaje}</span>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td><span>&nbsp;</span></td>
+							</tr>
+						</table>
+					</div>
+					</td>
+				</tr>
+			</table>
+			</center>
+		</div>
+	</ui:define>
+
+</ui:composition>

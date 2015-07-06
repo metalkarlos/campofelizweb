@@ -84,6 +84,15 @@ public class FileUtil {
 		return value;
 	}
 	
+	public String getMailPropertyValue(String key) throws Exception {
+		String value = null;
+		
+		Properties properties = getPropertiesFile(Parametro.PROPERTIES_MAIL);
+		value = properties.getProperty(key);
+		
+		return value;
+	}
+	
 	public String getFileExtention(String fileName){
 		String fileExtention = "";
 		
