@@ -358,7 +358,7 @@ a:hover {text-decoration: none;}
 /*********************************header*************************************/
 header{
 	position:relative;
-	z-index:2;	
+	/*z-index:2;*/	
 	padding: 0 0 30px 0;
 }
 header .innerheader {

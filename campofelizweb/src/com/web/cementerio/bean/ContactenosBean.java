@@ -42,7 +42,7 @@ public class ContactenosBean implements Serializable {
 		apellidos = null;
 		correo = null;
 		mensaje = null;
-		respuesta = "Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!";
+		respuesta = "Gracias por comunicarte con nosotros! En breve te estaremos respondiendo! ";
 	}
 	public void consultar(){
 		try {
