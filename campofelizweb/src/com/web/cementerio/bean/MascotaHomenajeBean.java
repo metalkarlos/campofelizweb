@@ -37,14 +37,24 @@ public class MascotaHomenajeBean implements Serializable {
 	@PostConstruct
 	public void initMascotaHomenajeBean() {
 		FacesUtil facesUtil = new FacesUtil();
-		idmascota = Integer.parseInt(facesUtil.getParametroUrl("idmascota").toString());
 		
-		if(idmascota > 0){
-			consultarMascotaHomenaje();
+		try{
+			Object par = facesUtil.getParametroUrl("idmascota");
+			if(par != null){
+				idmascota = Integer.parseInt(par.toString());
+				consultarMascotaHomenaje();
+			}else{
+				facesUtil.redirect("home.jsf");
+			}
+		} catch(NumberFormatException ne){
+			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
+		} catch(Exception e) {
+			e.printStackTrace();
+			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
 		}
 	}
 	
-	public void consultarMascotaHomenaje(){
+	private void consultarMascotaHomenaje(){
 		try {
 			PetmascotahomenajeBO mascotaHomenajeBO= new PetmascotahomenajeBO();
 			petmascotahomenaje = mascotaHomenajeBO.getPetmascotahomenajebyId(idmascota, 1,false);

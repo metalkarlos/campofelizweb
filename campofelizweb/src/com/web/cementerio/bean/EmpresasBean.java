@@ -9,8 +9,9 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.event.SelectEvent;
 
-import com.web.cementerio.bo.PetempresaBO;
-import com.web.cementerio.pojo.annotations.Petempresa;
+import com.web.cementerio.bo.CotoficinaBO;
+import com.web.cementerio.pojo.annotations.Cotempresa;
+import com.web.cementerio.pojo.annotations.Cotoficina;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
@@ -21,21 +22,20 @@ import com.web.util.MessageUtil;
 public class EmpresasBean implements Serializable{
 
 	private static final long serialVersionUID = 5406982578731779952L;
-    private List<Petempresa> listpetemepresas;
-    private Petempresa petempresaseleccionada;
+    private List<Cotoficina> lisCotoficina;
+    private Cotoficina cotoficinaseleccionada;
 	
 	
 	public EmpresasBean(){
-		petempresaseleccionada = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
+		cotoficinaseleccionada = new Cotoficina(0, new Setestado(), new Setusuario(),new Cotempresa(),null,null,null,null,null,null,null,null,null,0);
 		consultar();
 	}
 	
 	public void consultar(){
-		PetempresaBO petempresaBO  = new PetempresaBO();
+		CotoficinaBO cotoficinaBO  = new CotoficinaBO();
 		try {
-			listpetemepresas = new ArrayList<Petempresa>();
-			listpetemepresas = petempresaBO.listPetempresa(1);
-			
+			lisCotoficina = new ArrayList<Cotoficina>();
+			lisCotoficina = cotoficinaBO.lisCotoficina(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
@@ -44,25 +44,24 @@ public class EmpresasBean implements Serializable{
 
 	public void onUserRowSelect(SelectEvent event) throws Exception{
 		FacesUtil facesUtil = new FacesUtil();
-		facesUtil.redirect("../admin/empresa-admin.jsf?faces-redirect=true&idempresa="+petempresaseleccionada.getIdempresa());
-	}
-	
-	public List<Petempresa> getListpetemepresas() {
-		return listpetemepresas;
+		facesUtil.redirect("../admin/empresa-admin.jsf?faces-redirect=true&idoficina="+cotoficinaseleccionada.getIdoficina());
 	}
 
-	public void setListpetemepresas(List<Petempresa> listpetemepresas) {
-		this.listpetemepresas = listpetemepresas;
+	public List<Cotoficina> getLisCotoficina() {
+		return lisCotoficina;
 	}
 
-	public Petempresa getPetempresaseleccionada() {
-		return petempresaseleccionada;
+	public void setLisCotoficina(List<Cotoficina> lisCotoficina) {
+		this.lisCotoficina = lisCotoficina;
 	}
 
-	public void setPetempresaseleccionada(Petempresa petempresaseleccionada) {
-		this.petempresaseleccionada = petempresaseleccionada;
+	public Cotoficina getCotoficinaseleccionada() {
+		return cotoficinaseleccionada;
 	}
 
+	public void setCotoficinaseleccionada(Cotoficina cotoficinaseleccionada) {
+		this.cotoficinaseleccionada = cotoficinaseleccionada;
+	}
 	
 
 }

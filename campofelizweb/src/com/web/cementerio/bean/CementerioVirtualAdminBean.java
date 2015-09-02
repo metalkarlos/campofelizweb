@@ -54,7 +54,7 @@ public class CementerioVirtualAdminBean implements Serializable{
 	
 	
 	@SuppressWarnings("serial")
-	public void consultar(){
+	private void consultar(){
 	   try {
 		   
 		   listpetfotoinstalacion = new LazyDataModel<Petfotoinstalacion>() {
@@ -100,17 +100,31 @@ public class CementerioVirtualAdminBean implements Serializable{
 
 	
 	@PostConstruct
-	public void initCementerioVirtualAdminBean() {
+	public void PostCementerioVirtualAdminBean() {
 		FacesUtil facesUtil = new FacesUtil();
-		idfoto = Integer.parseInt(facesUtil.getParametroUrl("idfoto").toString());
 		
-		if(idfoto > 0){
-			ingreso = true;
-			modificacion=false;
-			consultar();
-		}else{
-			ingreso = false;
-			modificacion = true;
+		try{
+			Object par = facesUtil.getParametroUrl("idfoto");
+			
+			if(par != null){
+				idfoto = Integer.parseInt(par.toString());
+				
+				if(idfoto > 0){
+					ingreso = true;
+					modificacion=false;
+					consultar();
+				}else{
+					ingreso = false;
+					modificacion = true;
+				}
+			}else{
+				facesUtil.redirect("home.jsf");
+			}
+		} catch(NumberFormatException ne){
+			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
+		} catch(Exception e) {
+			e.printStackTrace();
+			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
 		}
 	}
 	

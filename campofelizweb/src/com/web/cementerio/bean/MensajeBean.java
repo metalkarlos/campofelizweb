@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
 import com.web.util.FacesUtil;
@@ -19,7 +18,6 @@ public class MensajeBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1069184869581844243L;
 	
-	@ManagedProperty(value = "#{param.mensaje}")
 	private String mensaje;
 	
 	public MensajeBean() {
@@ -30,10 +28,17 @@ public class MensajeBean implements Serializable {
 		try{
 			//FacesContext context = FacesContext.getCurrentInstance();
 			//mensaje = context.getExternalContext().getRequestParameterMap().get("mensaje");
-			if(mensaje == null || mensaje.trim().length() == 0){
+			/*if(mensaje == null || mensaje.trim().length() == 0){
 				FacesUtil facesUtil = new FacesUtil();
 				facesUtil.redirect("home.jsf");
-			}
+			}*/
+			FacesUtil facesUtil = new FacesUtil();
+			UsuarioBean usuarioBean = (UsuarioBean)facesUtil.getSessionBean("usuarioBean");
+			
+			mensaje = usuarioBean.getMensaje();
+			
+			usuarioBean.setMensaje("");
+			facesUtil.setSessionBean("usuarioBean", usuarioBean);
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");

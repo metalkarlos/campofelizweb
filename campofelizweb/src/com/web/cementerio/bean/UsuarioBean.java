@@ -36,6 +36,7 @@ public class UsuarioBean implements Serializable{
 	private boolean autenticado;
 	private StreamedContent streamedContent;
 	private Petempresa petempresa;
+	private String mensaje;
 	
 	public UsuarioBean(){
 		FacesUtil facesUtil = new FacesUtil();  
@@ -43,6 +44,7 @@ public class UsuarioBean implements Serializable{
 		sid = facesUtil.getSid();
 		setUsuario = new Setusuario();
 		petempresa = new Petempresa();
+		mensaje = "";
 		
 		consultarEmpresa();
 	}
@@ -289,6 +291,14 @@ public class UsuarioBean implements Serializable{
 
 	public void setPetempresa(Petempresa petempresa) {
 		this.petempresa = petempresa;
+	}
+
+	public String getMensaje() {
+		return mensaje;
+	}
+
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
 	}
 
 }

@@ -33,14 +33,13 @@ public class CambiarClaveBean implements Serializable {
 	}
 	
 	@PostConstruct
-	public void initCambiarClaveBean() {
+	public void PostCambiarClaveBean() {
 		FacesUtil facesUtil = new FacesUtil();
 		
 		try{
-			String param = facesUtil.getParametroUrl("uid").toString();
-			
-			if(param != null && param.trim().length() > 0){
-				uid = UUID.fromString(param);
+			Object par = facesUtil.getParametroUrl("uid");
+			if(par != null){
+				uid = UUID.fromString(par.toString());
 				
 				SetpeticionclaveBO setpeticionclaveBO = new SetpeticionclaveBO();
 				setpeticionclave = setpeticionclaveBO.getSetpeticionclaveByUid(uid);
@@ -48,6 +47,8 @@ public class CambiarClaveBean implements Serializable {
 				if(setpeticionclave == null || setpeticionclave.getIdpeticionclave() == 0){
 					redireccionar("home");
 				}
+			}else{
+				redireccionar("home");
 			}
 		}catch(Exception e){
 			e.printStackTrace();

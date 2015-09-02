@@ -29,7 +29,6 @@ public class CotizacionBean implements Serializable {
 	private String apellidos;
 	private String correo;
 	private String otrosServicios;
-	private String respuesta;
 	
 	public CotizacionBean() {
 		lisPetservicio = new ArrayList<String>();
@@ -37,7 +36,6 @@ public class CotizacionBean implements Serializable {
 		apellidos = null;
 		correo = null;
 		otrosServicios = "";
-		respuesta = "Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!";
 		
 		consultarServicios();
 	}
@@ -74,7 +72,7 @@ public class CotizacionBean implements Serializable {
 				//enviar al administrador de correo
 				mailUtil.enviarMail(null, "Cotización - Campo Feliz", contenido);
 				
-				url = "mensaje.jsf";
+				mostrarPaginaMensaje("Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!");
 			}catch(AddressException e) {
 				e.printStackTrace();
 				new MessageUtil().showErrorMessage("Error!", "Ingrese una cuenta de correo válida e intente nuevamente.");
@@ -85,6 +83,14 @@ public class CotizacionBean implements Serializable {
 		}
 		
 		return url;
+	}
+	
+	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+		usuarioBean.setMensaje(mensaje);
+		
+		FacesUtil facesUtil = new FacesUtil();
+		facesUtil.redirect("mensaje.jsf");	 
 	}
 	
 	private String contenido(String titulo, String textoIntroductorio) throws Exception {
@@ -240,12 +246,4 @@ public class CotizacionBean implements Serializable {
 		this.lisPetservicioSeleccionados = lisPetservicioSeleccionados;
 	}
 	
-	public String getRespuesta() {
-		return respuesta;
-	}
-
-	public void setRespuesta(String respuesta) {
-		this.respuesta = respuesta;
-	}
-
 }

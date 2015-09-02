@@ -40,23 +40,28 @@ public class EnunciadoAdminBean implements Serializable {
 	}
 
 	@PostConstruct
-	public void initEnunciadoBean() {
-		try{
-			FacesUtil facesUtil = new FacesUtil();
-			idenunciado = Integer.parseInt(facesUtil.getParametroUrl("idenunciado").toString());
+	public void PostEnunciadoBean() {
+		FacesUtil facesUtil = new FacesUtil();
 		
-			if(idenunciado > 0){
+		try{
+			Object par = facesUtil.getParametroUrl("idenunciado");
+			
+			if(par != null){
+				idenunciado = Integer.parseInt(par.toString());
 				consultar();
 				clonar();
-				
+			}else{
+				facesUtil.redirect("home.jsf");
 			}
-		} catch (Exception e) {
+		} catch(NumberFormatException ne){
+			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
+		} catch(Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
 		}
 	}
 
-	public void consultar(){
+	private void consultar(){
 		listpetvenunciado = new ArrayList<Petvenunciado>();
 		PetenunciadoBO petenunciadoBO = new PetenunciadoBO();
 		try {

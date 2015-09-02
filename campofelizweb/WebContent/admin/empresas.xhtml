@@ -18,8 +18,8 @@
 			
 		   .ui-datatable table {
 			    border-collapse: collapse;
-			    width: 95%;
-			    margin-left: 20px;
+			    width: 100%;
+			    /*margin-left: 20px;*/
 			    }
 		   .ui-datatable .ui-datatable-data td{
 		       border-color: #D3D3D3;
@@ -42,39 +42,44 @@
         <h1 class="title ui-widget-header">Oficinas</h1>
         <span class="clear" />
         <br/>
+        <div style="text-align: right;">
+			<h:link value="[Nueva Oficina]" outcome="empresa-admin" styleClass="link2" rendered="#{usuarioBean.autenticado}" >
+				<f:param name="idoficina" value="0"></f:param>
+			</h:link>
+		</div>
         <div>
-		   <p:dataTable id="idTablaEmpresas" value="#{empresasBean.listpetemepresas}" var="empresa" rowKey="#{empresa.idempresa}"  
+		   <p:dataTable id="idTablaOficinas" value="#{empresasBean.lisCotoficina}" var="oficina" rowKey="#{oficina.idoficina}"  
 				paginator="false" 
-				selection="#{empresasBean.petempresaseleccionada}" selectionMode="single"  emptyMessage="No se encontraron registros"  paginatorPosition="bottom">
+				selection="#{empresasBean.cotoficinaseleccionada}" selectionMode="single"  emptyMessage="No se encontraron registros"  paginatorPosition="bottom">
 
-			   <p:ajax event="rowSelect" listener="#{empresasBean.onUserRowSelect}"  process="@this" update=":form-contentpage:idTablaEmpresas" />
+			   <p:ajax event="rowSelect" listener="#{empresasBean.onUserRowSelect}"  process="@this" update=":form-contentpage:idTablaOficinas" />
 			  	       
 		       <p:column >
 			       <f:facet name="header">  
 		            <h:outputText value="Código" />
 		           </f:facet>
-		           <h:outputText value="#{empresa.idempresa}" />
+		           <h:outputText value="#{oficina.idoficina}" />
 		       </p:column>
 	
 	           <p:column >
 			       <f:facet name="header">  
 		            <h:outputText value="Nombre" />
 		           </f:facet>
-		           <h:outputText value="#{empresa.nombre}" />
+		           <h:outputText value="#{oficina.nombre}" />
 		       </p:column>				      
 					        
 			   <p:column >
 			       <f:facet name="header">  
 		            <h:outputText value="Dirección" />
 		           </f:facet>
-		           <h:outputText value="#{empresa.direccion}" />
+		           <h:outputText value="#{oficina.direccion}" />
 		       </p:column>	
 		       
 		        <p:column >
 			       <f:facet name="header">  
 		            <h:outputText value="Teléfono" />
 		           </f:facet>
-		           <h:outputText value="#{empresa.telefono}" />
+		           <h:outputText value="#{oficina.telefono}" />
 		       </p:column>	
 	       
 		   </p:dataTable>

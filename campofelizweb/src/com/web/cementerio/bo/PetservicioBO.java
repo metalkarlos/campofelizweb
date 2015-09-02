@@ -74,13 +74,13 @@ public class PetservicioBO {
 		return lisPetservicio;
 	}
 	
-	public List<Petservicio> lisPetservicioBusquedaByPage(String[] texto, int pageSize, int pageNumber, int args[]) throws RuntimeException {
+	public List<Petservicio> lisPetservicioBusquedaByPage(String[] texto, int idempresa, int pageSize, int pageNumber, int args[]) throws RuntimeException {
 		List<Petservicio> lisPetservicio = null;
 		Session session = null;
 		
 		try{
             session = HibernateUtil.getSessionFactory().openSession();
-            lisPetservicio = petservicioDAO.lisPetservicioBusquedaByPage(session, texto, pageSize, pageNumber, args);
+            lisPetservicio = petservicioDAO.lisPetservicioBusquedaByPage(session, texto, idempresa, pageSize, pageNumber, args);
         }
         catch(Exception ex){
             throw new RuntimeException(ex);
@@ -167,6 +167,7 @@ public class PetservicioBO {
 			
 			ok = true;
 		}catch(Exception e){
+			petservicio.setIdservicio(0);
 			session.getTransaction().rollback();
 			throw new Exception(e); 
 		}finally{

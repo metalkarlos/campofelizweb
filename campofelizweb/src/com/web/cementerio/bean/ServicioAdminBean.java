@@ -14,8 +14,12 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
+import com.web.cementerio.bo.CotempresaBO;
+import com.web.cementerio.bo.CotoficinaBO;
 import com.web.cementerio.bo.PetservicioBO;
 import com.web.cementerio.global.Parametro;
+import com.web.cementerio.pojo.annotations.Cotempresa;
+import com.web.cementerio.pojo.annotations.Cotoficina;
 import com.web.cementerio.pojo.annotations.Petfotoservicio;
 import com.web.cementerio.pojo.annotations.Petservicio;
 import com.web.cementerio.pojo.annotations.Setestado;
@@ -36,44 +40,61 @@ public class ServicioAdminBean implements Serializable {
 	private Petservicio petservicioClon;
 	private List<Petfotoservicio> lisPetfotoservicio;
 	private List<Petfotoservicio> lisPetfotoservicioClon;
+	private List<Cotoficina> lisCotoficina;
+	private List<Cotempresa> lisCotempresa;
 	private Petfotoservicio petfotoservicioSeleccionado;
 	private StreamedContent streamedContent;
 	private UploadedFile uploadedFile;
 	private String descripcionFoto;
 	private boolean fotoSubida;
 	private long maxfilesize;
+	private int idempresa;
+	
 	
 	public ServicioAdminBean() {
-		petservicio = new Petservicio(0, new Setestado(), new Setusuario(), null, null, null, null, null, false, new Date(), null, 0);
-		petservicioClon = new Petservicio(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, false, new Date(), null, 0);
+		petservicio = new Petservicio(0, new Setestado(), null, new Setusuario(), null, null, new Cotoficina(), null, null, null, false, new Date(), null, 0);
+		petservicioClon = new Petservicio(0, new Setestado(), null, new Setusuario(), null, null, new Cotoficina(), null, null, null, false, new Date(), null, 0);
 		lisPetfotoservicio = new ArrayList<Petfotoservicio>();
 		lisPetfotoservicioClon = new ArrayList<Petfotoservicio>();
+		lisCotoficina = new ArrayList<Cotoficina>();
+		lisCotempresa = new ArrayList<Cotempresa>();
 		petfotoservicioSeleccionado = new Petfotoservicio();
 		descripcionFoto = "";
 		fotoSubida = false;
 		maxfilesize = Parametro.TAMAÑO_IMAGEN;
+		idempresa = 0;
+		
+		llenarListaEmpresa();
 	}
 	
 	@PostConstruct
-	public void initServicioAdminBean() {
+	public void PostServicioAdminBean() {
+		FacesUtil facesUtil = new FacesUtil();
+		
 		try{
-			FacesUtil facesUtil = new FacesUtil();
-			idservicio = Integer.parseInt(facesUtil.getParametroUrl("idservicio").toString());
-			
-			if(idservicio > 0){
-				consultaServicio();
+			Object par = facesUtil.getParametroUrl("idservicio");
+			if(par != null){
+				idservicio = Integer.parseInt(par.toString());
+				
+				if(idservicio > 0){
+					consultaServicio();
+				}else{
+					PetservicioBO petservicioBO = new PetservicioBO();
+					int orden = petservicioBO.getMaxOrden();
+					petservicio.setOrden(orden + 1);
+				}
 			}else{
-				PetservicioBO petservicioBO = new PetservicioBO();
-				int orden = petservicioBO.getMaxOrden();
-				petservicio.setOrden(orden + 1);
+				facesUtil.redirect("home.jsf");
 			}
+		} catch(NumberFormatException ne){
+			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
 		} catch(Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
 		}
 	}
 	
-	public void consultaServicio(){
+	private void consultaServicio(){
 		if(this.idservicio > 0){
 			try {
 				PetservicioBO petservicioBO = new PetservicioBO();
@@ -94,6 +115,26 @@ public class ServicioAdminBean implements Serializable {
 				e.printStackTrace();
 				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 			}
+		}
+	}
+	
+	public void llenarListaOficina(){
+		try {
+			CotoficinaBO cotoficinaBO = new CotoficinaBO();
+			lisCotoficina = cotoficinaBO.lisCotoficina(idempresa);
+		} catch (Exception e) {
+			e.printStackTrace();
+		    new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
+	}
+	
+	private void llenarListaEmpresa(){
+		try {
+			CotempresaBO cotempresaBO = new CotempresaBO();
+			lisCotempresa = cotempresaBO.lisCotempresa();
+		} catch (Exception e) {
+			e.printStackTrace();
+		    new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 	}
 
@@ -241,5 +282,29 @@ public class ServicioAdminBean implements Serializable {
 
 	public void setMaxfilesize(long maxfilesize) {
 		this.maxfilesize = maxfilesize;
+	}
+
+	public List<Cotoficina> getLisCotoficina() {
+		return lisCotoficina;
+	}
+
+	public void setLisCotoficina(List<Cotoficina> lisCotoficina) {
+		this.lisCotoficina = lisCotoficina;
+	}
+
+	public int getIdempresa() {
+		return idempresa;
+	}
+
+	public void setIdempresa(int idempresa) {
+		this.idempresa = idempresa;
+	}
+
+	public List<Cotempresa> getLisCotempresa() {
+		return lisCotempresa;
+	}
+
+	public void setLisCotempresa(List<Cotempresa> lisCotempresa) {
+		this.lisCotempresa = lisCotempresa;
 	}
 }

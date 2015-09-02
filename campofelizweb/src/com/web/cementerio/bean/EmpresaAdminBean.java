@@ -1,6 +1,9 @@
 package com.web.cementerio.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -8,8 +11,10 @@ import javax.faces.bean.ViewScoped;
 
 
 
-import com.web.cementerio.bo.PetempresaBO;
-import com.web.cementerio.pojo.annotations.Petempresa;
+import com.web.cementerio.bo.CotempresaBO;
+import com.web.cementerio.bo.CotoficinaBO;
+import com.web.cementerio.pojo.annotations.Cotempresa;
+import com.web.cementerio.pojo.annotations.Cotoficina;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
@@ -21,62 +26,79 @@ public class EmpresaAdminBean implements Serializable {
 
 	private static final long serialVersionUID = 590415272909549553L;
 
-	private Petempresa petempresa;
-	private Petempresa petempresaclone;
-	private int idempresa;
+	private Cotoficina cotoficina;
+	private Cotoficina cotoficinaclone;
+	private List<Cotempresa> lisCotempresa;
+	private int idoficina;
 	
 	public EmpresaAdminBean(){
-		petempresa = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
+		cotoficina = new Cotoficina(0, new Setestado(), new Setusuario(),new Cotempresa(),null,null,null,null,null,null,null,null,null,0);
+		cotoficinaclone = new Cotoficina(0, new Setestado(), new Setusuario(),new Cotempresa(),null,null,null,null,null,null,null,null,null,0);
+		lisCotempresa = new ArrayList<Cotempresa>();
 		
+		llenarListaEmpresa();
 	}
 
-
-	public void consultar(){
-		PetempresaBO petempresaBO  = new PetempresaBO();
-		try {
-			petempresa = petempresaBO.getPetempresabyId(1, idempresa);
+	@PostConstruct
+	public void PostEmpresaAdminBean() {
+		
+		FacesUtil facesUtil = new FacesUtil();
 			
+		try{
+			Object par = facesUtil.getParametroUrl("idoficina");
+			if(par != null){
+				idoficina = Integer.parseInt(par.toString());
+			
+				if(idoficina > 0){
+					consultar();
+					cotoficinaclone = cotoficina.clonar();
+				}
+			}else{
+				facesUtil.redirect("home.jsf");
+			}
+		} catch(NumberFormatException ne){
+			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
+		} catch(Exception e) {
+			e.printStackTrace();
+			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
+		}
+	}
+	
+	private void llenarListaEmpresa(){
+		try {
+			CotempresaBO cotempresaBO = new CotempresaBO();
+			lisCotempresa = cotempresaBO.lisCotempresa();
+		} catch (Exception e) {
+			e.printStackTrace();
+		    new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
+	}
+	
+	private void consultar(){
+		CotoficinaBO cotoficinaBO  = new CotoficinaBO();
+		try {
+			cotoficina = cotoficinaBO.getCotoficinabyId(idoficina);
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 	}
-
-	@PostConstruct
-	public void initEmpresaAdminBean() {
-		try{
-			FacesUtil facesUtil = new FacesUtil();
-			idempresa = Integer.parseInt(facesUtil.getParametroUrl("idempresa").toString());
-		
-			if(idempresa > 0){
-				consultar();
-				petempresaclone = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
-				petempresaclone = petempresa.clonar();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-		}
-	}
 	
 	public void grabar(){
-		PetempresaBO petempresaBO = new PetempresaBO();
 		try {
 			if(validarcampos()){
-				if(petempresa.getIdempresa()==0){
-					petempresaBO.grabar(petempresa, 1);
-					petempresa = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
- 
-				}else if(petempresa.getIdempresa() >0){
-					if(petempresaBO.modificar(petempresa, petempresaclone, 1)){
-						petempresa = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
-						petempresaclone = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
-						
-						
+				CotoficinaBO cotoficinaBO = new CotoficinaBO();
+				if(cotoficina.getIdoficina() > 0){
+					boolean ok = cotoficinaBO.modificar(cotoficina, cotoficinaclone);
+					if(ok){
+						mostrarPaginaMensaje("Oficina modificada con exito!!");
+					}else{
+						mostrarPaginaMensaje("No existen cambios que guardar.");
 					}
+				}else{
+					cotoficinaBO.grabar(cotoficina);
+					mostrarPaginaMensaje("Oficina creada con exito!!");
 				}
-				FacesUtil facesUtil = new FacesUtil();
-				facesUtil.redirect("empresas.jsf");	 
 			}	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,17 +107,20 @@ public class EmpresaAdminBean implements Serializable {
 		
 	}
 	
-	
+	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+		usuarioBean.setMensaje(mensaje);
+		
+		FacesUtil facesUtil = new FacesUtil();
+		facesUtil.redirect("../pages/mensaje.jsf");	 
+	}
 	
 	public void eliminar(){
-		PetempresaBO petempresaBO = new PetempresaBO();
 		try {
-			if(petempresa.getIdempresa() >0){
-				petempresaBO.eliminar(petempresa, 2);
-				new MessageUtil().showInfoMessage("Exito", "Registro eliminado");
-				petempresa = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
-				FacesUtil facesUtil = new FacesUtil();
-				facesUtil.redirect("empresas.jsf");	 
+			if(cotoficina.getIdoficina() > 0){
+				CotoficinaBO cotoficinaBO = new CotoficinaBO();
+				cotoficinaBO.eliminar(cotoficina);
+				mostrarPaginaMensaje("Registro eliminado con exito!!");
 			}
 		}
 		catch (Exception e) {
@@ -105,55 +130,63 @@ public class EmpresaAdminBean implements Serializable {
 		
 	}
 	
-	
 	public boolean validarcampos(){
 	   boolean ok = true;
-	   String textohorario= (petempresa.getDescripcion()!=null ? petempresa.getDescripcion().replaceAll("\\<.*?\\>", "") : "" );
-	   if(petempresa.getTipoempresa()==0){
-		   ok = false;
-		   new MessageUtil().showInfoMessage("Info", "Es necesario seleccionar el tipo de la empresa");
-	   }
-	   else  if(textohorario.equals("")){
-		    ok = false;
-			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el horario de atención");
+	   String textohorario = (cotoficina.getDescripcion()!=null ? cotoficina.getDescripcion().replaceAll("\\<.*?\\>", "") : "" );
+
+		if (cotoficina.getTipooficina() == 0) {
+			ok = false;
+			new MessageUtil().showWarnMessage("Info",
+					"Es necesario seleccionar el tipo de oficina");
+		} else if (textohorario.equals("")) {
+			ok = false;
+			new MessageUtil().showWarnMessage("Info",
+					"Es necesario ingresar el horario de atención");
+		} else if (cotoficina.getNombre() == null
+				|| cotoficina.getNombre().length() == 0) {
+			ok = false;
+			new MessageUtil().showWarnMessage("Info",
+					"Es necesario ingresar el Nombre de la oficina");
+		} else if (cotoficina.getDireccion() == null
+				|| cotoficina.getDireccion().length() == 0) {
+			ok = false;
+			new MessageUtil().showWarnMessage("Info",
+					"Es necesario ingresar la dirección de la oficina");
 		}
-	   else if(petempresa.getNombre()==null|| petempresa.getNombre().length()==0){
-		   ok = false;
-		   new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el Nombre de la empresa");
-	    }else if(petempresa.getDireccion()==null|| petempresa.getDireccion().length()==0){
-	       ok = false;
-		   new MessageUtil().showInfoMessage("Info", "Es necesario ingresar la dirección de la empresa");
-	    }
+	   
 	    return ok;
 	 }
-	
-	public Petempresa getPetempresa() {
-		return petempresa;
+
+	public Cotoficina getCotoficina() {
+		return cotoficina;
 	}
 
-
-	public void setPetempresa(Petempresa petempresa) {
-		this.petempresa = petempresa;
+	public void setCotoficina(Cotoficina cotoficina) {
+		this.cotoficina = cotoficina;
 	}
 
-
-	public int getIdempresa() {
-		return idempresa;
+	public Cotoficina getCotoficinaclone() {
+		return cotoficinaclone;
 	}
 
-
-	public void setIdempresa(int idempresa) {
-		this.idempresa = idempresa;
+	public void setCotoficinaclone(Cotoficina cotoficinaclone) {
+		this.cotoficinaclone = cotoficinaclone;
 	}
 
-
-	public Petempresa getPetempresaclone() {
-		return petempresaclone;
+	public int getIdoficina() {
+		return idoficina;
 	}
 
+	public void setIdoficina(int idoficina) {
+		this.idoficina = idoficina;
+	}
 
-	public void setPetempresaclone(Petempresa petempresaclone) {
-		this.petempresaclone = petempresaclone;
+	public List<Cotempresa> getLisCotempresa() {
+		return lisCotempresa;
+	}
+
+	public void setLisCotempresa(List<Cotempresa> lisCotempresa) {
+		this.lisCotempresa = lisCotempresa;
 	}
 	
 	

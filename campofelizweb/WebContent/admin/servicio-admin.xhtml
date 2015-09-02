@@ -19,14 +19,14 @@
 			.inner-content {
 				padding: 30px 0;
 			}
-			label {
+			.label {
 				font-weight: bold;
 				font-size: 15px;
 				line-height: 300%;
 			}
 			.ui-panelgrid tr, .ui-panelgrid td {
 				border: none;
-				/*padding: 0 10px;*/
+				padding: 0px;
 			}
 			.ui-panelgrid .alto-columna {
 				padding-bottom: 15px;
@@ -42,30 +42,57 @@
 				min-width: 400px;
 				margin-top: 10px;
 			}
+			.col1 {
+				
+			}
+			.col2 {
+				width: 20px
+			}
 		</style>
 	</ui:define>
 	
 	<ui:define name="content_page">
 		<div class="content-page">
 		<h:form id="form-contentpage" enctype="multipart/form-data">
-			<p:growl id="mensajes" showDetail="true" />
+			<!-- <p:growl id="mensajes" showDetail="true" /> -->
+			<p:messages id="mensajes" autoUpdate="true"/>
+			
 			<p:focus for="txtNombre"></p:focus>
 			<h1 class="title ui-widget-header">Administración - Servicios</h1>
 			
 			<div class="inner-content">
-				<p:panelGrid id="idgridcontenido" >
+				<p:panelGrid id="idgridcontenido" columnClasses="col1,col2">
 					<p:row>
 					<p:column>
-					<h:outputLabel value="Nombre del Servicio" for="txtNombre" /><br />
-					<p:inputText id="txtNombre" value="#{servicioAdminBean.petservicio.nombre}" style="width: 600px;"></p:inputText>
+					<h:outputLabel value="Nombre del Servicio" for="txtNombre" styleClass="label" />
+					</p:column>
+					<p:column>
+					<h:outputText value="" />
+					</p:column>
+					</p:row>
+					
+					<p:row>
+					<p:column>
+					<p:inputText id="txtNombre" value="#{servicioAdminBean.petservicio.nombre}" style="width: 550px;" required="true" requiredMessage="Ingrese el Nombre del Servicio" />
+					</p:column>
+					<p:column>
+					<p:message id="msgTxtNombre" for="txtNombre" display="icon" />
 					</p:column>
 					</p:row>
 					
 					<p:row>
 					<p:column>
 					<h:panelGroup id="idpanellabelgaleria">
-					<h:outputLabel id="lblFotos" value="Fotos" for="idgalleria" rendered="#{servicioAdminBean.lisPetfotoservicio.size() > 0}" />
+					<h:outputLabel id="lblFotos" value="Fotos" for="idgalleria" styleClass="label" rendered="#{servicioAdminBean.lisPetfotoservicio.size() > 0}" />
 					</h:panelGroup>
+					</p:column>
+					<p:column>
+					<h:outputText value="" />
+					</p:column>
+					</p:row>
+					
+					<p:row>
+					<p:column>
 					<h:panelGroup id="idpanelgaleria" >
 					<center>
 					<p:galleria id="idgalleria" value="#{servicioAdminBean.lisPetfotoservicio}" var="item" transitionInterval="0" panelWidth="500" panelHeight="400" rendered="#{servicioAdminBean.lisPetfotoservicio.size() > 0}">
@@ -89,46 +116,155 @@
 					</center>
 					</h:panelGroup>
 					</p:column>
+					<p:column>
+					<h:outputText value="" />
+					</p:column>
 					</p:row>
 					
 					<p:row>
 					<p:column>
-					<h:outputLabel value="Agregar Foto" for="idSubeFotos" /><br />
+					<h:outputLabel value="Agregar Foto" for="idSubeFotos" styleClass="label" />
+					</p:column>
+					<p:column>
+					<h:outputText value="" />
+					</p:column>
+					</p:row>
+					
+					<p:row>
+					<p:column>
 					<p:panel id="pnlPrevia" styleClass="panel-previa">
 					<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}" rendered="#{servicioAdminBean.fotoSubida}" />
 					<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{servicioAdminBean.borrarFotoSubida()}" update="pnlPrevia" rendered="#{servicioAdminBean.fotoSubida}" />
 					</p:panel>
-					<p:fileUpload id="idSubeFotos" fileUploadListener="#{servicioAdminBean.handleFileUpload}" mode="advanced" 
-					cancelLabel="Cancelar" uploadLabel="Subir Foto" label="Elegir Foto" sizeLimit="#{servicioAdminBean.maxfilesize}" showButtons="false"
-					update="mensajes, pnlPrevia" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
+					</p:column>
+					<p:column>
+					<h:outputText value="" />
 					</p:column>
 					</p:row>
 				
 					<p:row>
 					<p:column>
-					<h:outputLabel value="Descripción del Servicio" for="txtDescripcion" /><br />
-					<p:editor id="txtDescripcion" value="#{servicioAdminBean.petservicio.descripcion}" width="600" controls="bold italic underline bullets numbering center undo redo link unlink cut copy paste source removeformat"/>
+					<p:fileUpload id="idSubeFotos" fileUploadListener="#{servicioAdminBean.handleFileUpload}" mode="advanced" 
+					cancelLabel="Cancelar" uploadLabel="Subir Foto" label="Elegir Foto" sizeLimit="#{servicioAdminBean.maxfilesize}" showButtons="false"
+					update="pnlPrevia" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
+					</p:column>
+					<p:column>
+					<h:outputText value="" />
+					</p:column>
+					</p:row>
+				
+					<p:row>
+					<p:column>
+					<h:outputLabel value="Descripción del Servicio" for="txtDescripcion" styleClass="label" />
+					</p:column>
+					<p:column>
+					<p:message id="msgtxtDescripcion" for="txtDescripcion" display="icon" />
 					</p:column>
 					</p:row>
 					
 					<p:row>
 					<p:column>
-					<h:outputLabel value="Tags" for="txtTags" /><br />
-					<p:inputText id="txtTags" value="#{servicioAdminBean.petservicio.tag}" style="width: 600px;"></p:inputText>
+					<p:editor id="txtDescripcion" value="#{servicioAdminBean.petservicio.descripcion}" width="550" controls="bold italic underline bullets numbering center undo redo link unlink cut copy paste source removeformat" required="true" requiredMessage="Ingrese la descripción del Servicio"/>
+					</p:column>
+					<p:column>
+					<h:outputText value="" />
 					</p:column>
 					</p:row>
 					
 					<p:row>
 					<p:column>
-					<h:outputLabel value="Orden" for="txtOrden" /><br />
-					<p:spinner id="txtOrden" value="#{servicioAdminBean.petservicio.orden}" min="1"></p:spinner>
+					<h:outputLabel value="Empresa" for="cmbEmpresa" styleClass="label" />
+					</p:column>
+					<p:column>
+					<h:outputText value="" />
 					</p:column>
 					</p:row>
 					
 					<p:row>
 					<p:column>
-					<h:outputLabel value="¿Aparece en la página principal?" for="txtprincipal" /><br />
-					<p:selectBooleanCheckbox id="txtprincipal" itemLabel="Sí" value="#{servicioAdminBean.petservicio.principal}"></p:selectBooleanCheckbox>
+					<p:selectOneMenu id="cmbEmpresa" value="#{servicioAdminBean.idempresa}" required="true" requiredMessage="Seleccione Empresa" >
+					<f:selectItem itemLabel="Seleccione" itemValue=""/>
+					<f:selectItems value="#{servicioAdminBean.lisCotempresa}" var="cotempresa" itemLabel="#{cotempresa.nombre}" itemValue="#{cotempresa.idempresa}"></f:selectItems>
+					<p:ajax listener="#{servicioAdminBean.llenarListaOficina()}" update="cmbOficina" />
+					</p:selectOneMenu>
+					</p:column>
+					<p:column>
+					<p:message id="msgcmbEmpresa" for="cmbEmpresa" display="icon" />
+					</p:column>
+					</p:row>
+					
+					<p:row>
+					<p:column>
+					<h:outputLabel value="Oficina" for="cmbOficina" styleClass="label" />
+					</p:column>
+					<p:column>
+					<h:outputText value="" />
+					</p:column>
+					</p:row>
+					
+					<p:row>
+					<p:column>
+					<p:selectOneMenu id="cmbOficina" value="#{servicioAdminBean.petservicio.cotoficina.idoficina}" required="true" requiredMessage="Seleccione Oficina" >
+					<f:selectItem itemLabel="Seleccione" itemValue=""/>
+					<f:selectItems value="#{servicioAdminBean.lisCotoficina}" var="cotoficina" itemLabel="#{cotoficina.nombre}" itemValue="#{cotoficina.idoficina}"></f:selectItems>
+					</p:selectOneMenu>
+					</p:column>
+					<p:column>
+					<p:message id="msgcmbOficina" for="cmbOficina" display="icon" />
+					</p:column>
+					</p:row>
+					
+					<p:row>
+					<p:column>
+					<h:outputLabel value="Tags" for="txtTags" styleClass="label" />
+					</p:column>
+					<p:column>
+					<h:outputText value="" />
+					</p:column>
+					</p:row>
+					
+					<p:row>
+					<p:column>
+					<p:inputText id="txtTags" value="#{servicioAdminBean.petservicio.tag}" style="width: 550px;"></p:inputText>
+					</p:column>
+					<p:column>
+					<p:message id="msgtxtTags" for="txtTags" display="icon" />
+					</p:column>
+					</p:row>
+					
+					<p:row>
+					<p:column>
+					<h:outputLabel value="Orden" for="txtOrden" styleClass="label" />
+					</p:column>
+					<p:column>
+					<h:outputText value="" />
+					</p:column>
+					</p:row>
+					
+					<p:row>
+					<p:column>
+					<p:spinner id="txtOrden" value="#{servicioAdminBean.petservicio.orden}" min="1" required="true" requiredMessage="Seleccione el Orden" ></p:spinner>
+					</p:column>
+					<p:column>
+					<p:message id="msgtxtOrden" for="txtOrden" display="icon" />
+					</p:column>
+					</p:row>
+					
+					<p:row>
+					<p:column>
+					<h:outputLabel value="¿Aparece en la página principal?" styleClass="label" for="txtprincipal" />
+					</p:column>
+					<p:column>
+					<h:outputText value="" />
+					</p:column>
+					</p:row>
+					
+					<p:row>
+					<p:column>
+					<p:selectBooleanCheckbox id="txtprincipal" itemLabel="Sí" value="#{servicioAdminBean.petservicio.principal}" ></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column>
+					<p:message id="msgtxtprincipal" for="txtprincipal" display="icon" />
 					</p:column>
 					</p:row>
 				</p:panelGrid>
@@ -147,7 +283,7 @@
 					<p:panelGrid id="idpanel2principal" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmarprincipal" value="Confirmar" action="#{servicioAdminBean.ponerFotoPrincipal()}" onclick="vardialogprincipal.hide()" update=":form-contentpage:mensajes" />
+						<p:commandButton id="idconfirmarprincipal" value="Confirmar" action="#{servicioAdminBean.ponerFotoPrincipal()}" onclick="vardialogprincipal.hide()"  />
 						<p:commandButton id="idcancelarprincipal" value="Cancelar" onclick="vardialogprincipal.hide()" />
 						</p:column>
 						</p:row>
@@ -162,7 +298,7 @@
 					<p:panelGrid id="idpanel2delete" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{servicioAdminBean.quitarFotoGaleria()}" onclick="vardialogdelete.hide()" update=":form-contentpage:mensajes, :form-contentpage:idpanellabelgaleria, :form-contentpage:idpanelgaleria" />
+						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{servicioAdminBean.quitarFotoGaleria()}" onclick="vardialogdelete.hide()" update=":form-contentpage:idpanellabelgaleria, :form-contentpage:idpanelgaleria" />
 						<p:commandButton id="idcancelardelete" value="Cancelar" onclick="vardialogdelete.hide()" />
 						</p:column>
 						</p:row>
@@ -177,7 +313,7 @@
 					<p:panelGrid id="idpanel2grabar" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{servicioAdminBean.grabar()}" onclick="vardialoggrabar.hide()" update=":form-contentpage:mensajes" />
+						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{servicioAdminBean.grabar()}" onclick="vardialoggrabar.hide()" update="txtNombre,msgTxtNombre,txtDescripcion,msgtxtDescripcion,cmbEmpresa,msgcmbEmpresa,cmbOficina,msgcmbOficina,txtOrden,msgtxtOrden,txtprincipal,msgtxtprincipal" />
 						<p:commandButton id="idcancelargrabar" value="Cancelar" onclick="vardialoggrabar.hide()" />
 						</p:column>
 						</p:row>
@@ -192,7 +328,7 @@
 					<p:panelGrid id="idpanel2deleteservicio" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmardeleteservicio" value="Confirmar" action="#{servicioAdminBean.eliminar()}" onclick="vardialogdeleteservicio.hide()" update=":form-contentpage:mensajes" />
+						<p:commandButton id="idconfirmardeleteservicio" value="Confirmar" action="#{servicioAdminBean.eliminar()}" onclick="vardialogdeleteservicio.hide()" />
 						<p:commandButton id="idcancelardeleteservicio" value="Cancelar" onclick="vardialogdeleteservicio.hide()" />
 						</p:column>
 						</p:row>

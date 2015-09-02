@@ -55,16 +55,26 @@ public class GuiaAdminBean  implements Serializable{
 	
 	 
 	@PostConstruct
-	public void initGuiaAdminBean() {
+	public void PostGuiaAdminBean() {
 		FacesUtil facesUtil = new FacesUtil();
-		idguia= (facesUtil.getParametroUrl("idguia")==null?0:Integer.parseInt(facesUtil.getParametroUrl("idguia").toString()));
-		if(idguia > 0){
-			consultaGuia();
-			
+		
+		try{
+			Object par = facesUtil.getParametroUrl("idguia");
+			if(par!=null){
+				idguia= (Integer.parseInt(par.toString()));
+				consultaGuia();
+			}else{
+				facesUtil.redirect("home.jsf");
+			}
+		} catch(NumberFormatException ne){
+			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
+		} catch(Exception e) {
+			e.printStackTrace();
+			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
 		}
 	}
 	
-	public void consultaGuia(){
+	private void consultaGuia(){
 		if(this.idguia > 0){
 			try {
 				petguiaClon = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, null, null,false, null);

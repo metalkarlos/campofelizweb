@@ -55,25 +55,33 @@ public class NoticiaAdminBean implements Serializable {
 	}
 	
 	@PostConstruct
-	public void initNoticiaAdminBean() {
+	public void PostNoticiaAdminBean() {
+		FacesUtil facesUtil = new FacesUtil();
+		
 		try {
-			FacesUtil facesUtil = new FacesUtil();
-			idnoticia = Integer.parseInt(facesUtil.getParametroUrl("idnoticia").toString());
-			
-			if(idnoticia > 0){
-				consultaNoticia();
+			Object par = facesUtil.getParametroUrl("idnoticia");
+			if(par != null){
+				idnoticia = Integer.parseInt(par.toString());
+				
+				if(idnoticia > 0){
+					consultaNoticia();
+				}else{
+					PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
+					int orden = petnoticiaBO.getMaxOrden();
+					petnoticia.setOrden(orden + 1);
+				}
 			}else{
-				PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
-				int orden = petnoticiaBO.getMaxOrden();
-				petnoticia.setOrden(orden + 1);
+				facesUtil.redirect("home.jsf");
 			}
+		} catch(NumberFormatException ne){
+			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
 		} catch(Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
 		}
 	}
 	
-	public void consultaNoticia(){
+	private void consultaNoticia(){
 		if(this.idnoticia > 0){
 			try {
 				PetnoticiaBO petnoticiaBO = new PetnoticiaBO();

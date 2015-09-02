@@ -32,16 +32,26 @@ public class NoticiaBean implements Serializable {
 	}
 
 	@PostConstruct
-	public void initNoticiaBean() {
+	public void PostNoticiaBean() {
 		FacesUtil facesUtil = new FacesUtil();
-		idnoticia = Integer.parseInt(facesUtil.getParametroUrl("idnoticia").toString());
 		
-		if(idnoticia > 0){
-			consultarNoticias();
+		try{
+			Object par = facesUtil.getParametroUrl("idnoticia");
+			if(par != null){
+				idnoticia = Integer.parseInt(par.toString());
+				consultarNoticias();
+			}else{
+				facesUtil.redirect("home.jsf");
+			}
+		} catch(NumberFormatException ne){
+			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
+		} catch(Exception e) {
+			e.printStackTrace();
+			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
 		}
 	}
 	
-	public void consultarNoticias(){
+	private void consultarNoticias(){
 		if(this.idnoticia > 0){
 			try {
 				PetnoticiaBO petnoticiaBO = new PetnoticiaBO();

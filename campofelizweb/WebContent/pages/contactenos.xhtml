@@ -41,6 +41,9 @@
 		        
 			<div class="wrapper">
 	        	<article class="grid_7 suffix_1">
+	        		<div style="text-align: left;">
+						<h:link value="[Editar]" styleClass="link2" outcome="/admin/empresas" rendered="#{usuarioBean.autenticado}"/>
+					</div>
 	            	<h2>Campo Feliz - Oficina:</h2>
 	                <div class="map-container img-box">
 	                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d866.6472923997682!2d-79.92230999999995!3d-2.1431379999999978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d72830168ac29%3A0x9466d07e18e5ed9c!2sVeterinaria+Burgos!5e1!3m2!1ses!2sus!4v1400711704528" width="400" height="300" frameborder="0" style="border:0"></iframe>
@@ -56,9 +59,6 @@
 	            </article>
 	            <article class="grid_16">
 	            	<h2>Contáctenos - Campo Feliz:</h2>
-	            	<div style="text-align: right;">
-						<h:link value="[Editar]" styleClass="link2" outcome="/admin/empresas" rendered="#{usuarioBean.autenticado}"/>
-					</div>
 	                <div id="form-mail" class="contact-form" >
 	                	<p:focus for="txtNombres"></p:focus>
 						
@@ -91,6 +91,9 @@
 	        <br />
 	        <div class="wrapper">
 	        	<article class="grid_7 suffix_1">
+	        		<div style="text-align: left;">
+						<h:link value="[Editar]" styleClass="link2" outcome="/admin/empresas" rendered="#{usuarioBean.autenticado}"/>
+					</div>
 	            	<h2>Campo Feliz - Campo Santo:</h2>
 	                <div class="map-container img-box">
 	                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d805.0151998310921!2d-79.96522458132559!3d-2.0362027932313422!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d0c2ac13fff07%3A0x9d1b016dd4a497f5!2sCampo+Feliz+Cementerio+de+Mascotas!5e1!3m2!1ses-419!2s!4v1401652722863" width="400" height="300" frameborder="0" style="border:0"></iframe>
@@ -117,9 +120,7 @@
 					<p:panelGrid style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandLink id="idconfirmar" style="color: #EC8F23;" value="Confirmar" action="#{contactenosBean.enviar()}" update="mensajes" onclick="vardialogconfirm.hide()" oncomplete="Recaptcha.reload();">
-							<f:param name="mensaje" value="#{contactenosBean.respuesta}" />
-						</p:commandLink>
+						<p:commandLink id="idconfirmar" style="color: #EC8F23;" value="Confirmar" action="#{contactenosBean.enviar()}" update="mensajes" onclick="vardialogconfirm.hide()" oncomplete="Recaptcha.reload();" />
 						<h:outputText value="  " />
 						<p:commandLink id="idcancelar" style="color: #EC8F23;" value="Cancelar" immediate="true" onclick="vardialogconfirm.hide()" oncomplete="Recaptcha.reload();" />
 						</p:column>

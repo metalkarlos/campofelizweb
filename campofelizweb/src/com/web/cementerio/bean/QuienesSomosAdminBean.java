@@ -59,13 +59,23 @@ public class QuienesSomosAdminBean implements Serializable {
 	}
 	
 	@PostConstruct
-	public void initQuienesSomosAdminBean() {
+	public void PostQuienesSomosAdminBean() {
 		FacesUtil facesUtil = new FacesUtil();
-		idinformacion= Integer.parseInt(facesUtil.getParametroUrl("idinformacion").toString());
-		
-		if(idinformacion > 0){
-			consultar();
-			clonarobjetos();
+		try{
+			Object par = facesUtil.getParametroUrl("idinformacion");
+			if(par != null){
+				idinformacion= Integer.parseInt(par.toString());
+				
+				consultar();
+				clonarobjetos();
+			}else{
+				facesUtil.redirect("home.jsf");
+			}
+		} catch(NumberFormatException ne){
+			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
+		} catch(Exception e) {
+			e.printStackTrace();
+			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
 		}
 	}
 	
@@ -91,7 +101,7 @@ public class QuienesSomosAdminBean implements Serializable {
 	
 	
 	
-	public void consultar(){
+	private void consultar(){
 		try {
 			PetinformacionBO petinformacionBO= new PetinformacionBO();
 			petinformacion = new Petinformacion();

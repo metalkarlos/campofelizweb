@@ -48,13 +48,23 @@ import com.web.util.MessageUtil;
 		}
 		
 		@PostConstruct
-		public void initMascotaHomenajeAdminBean() {
+		public void PostMascotaHomenajeAdminBean() {
 			FacesUtil facesUtil = new FacesUtil();
-			idmascota = Integer.parseInt(facesUtil.getParametroUrl("idmascota").toString());
 			
-			if(idmascota > 0){
-				consultar();
-				clonarobjetos();
+			try{
+				Object par = facesUtil.getParametroUrl("idmascota");
+				if(par != null){
+					idmascota = Integer.parseInt(par.toString());
+					consultar();
+					clonarobjetos();
+				}else{
+					facesUtil.redirect("home.jsf");
+				}
+			} catch(NumberFormatException ne){
+				try{facesUtil.redirect("home.jsf");}catch(Exception e){}
+			} catch(Exception e) {
+				e.printStackTrace();
+				try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
 			}
 		}
 		
@@ -229,7 +239,7 @@ import com.web.util.MessageUtil;
 		return verifica;
 		}
 
-		public void consultar(){
+		private void consultar(){
 			try {
 				PetmascotahomenajeBO mascotaHomenajeBO= new PetmascotahomenajeBO();
 				petmascotahomenaje = mascotaHomenajeBO.getPetmascotahomenajebyId(idmascota, 1,true);

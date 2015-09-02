@@ -32,16 +32,27 @@ public class ServicioBean implements Serializable {
 	}
 
 	@PostConstruct
-	public void initServicioBean() {
+	public void PostServicioBean() {
 		FacesUtil facesUtil = new FacesUtil();
-		idservicio = Integer.parseInt(facesUtil.getParametroUrl("idservicio").toString());
 		
-		if(idservicio > 0){
-			consultarServicio();
+		try{
+			Object par = facesUtil.getParametroUrl("idservicio");
+			if(par != null){
+				idservicio = Integer.parseInt(par.toString());
+				
+				consultarServicio();
+			}else{
+				facesUtil.redirect("home.jsf");
+			}
+		} catch(NumberFormatException ne){
+			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
+		} catch(Exception e) {
+			e.printStackTrace();
+			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
 		}
 	}
 	
-	public void consultarServicio(){
+	private void consultarServicio(){
 		if(this.idservicio > 0){
 			try {
 				PetservicioBO petservicioBO = new PetservicioBO();

@@ -30,15 +30,26 @@ public class GuiaBean implements Serializable{
 	}
 
 	@PostConstruct
-	public void initGuiaBean() {
+	public void PostGuiaBean() {
 		FacesUtil facesUtil = new FacesUtil();
-		idguia = Integer.parseInt(facesUtil.getParametroUrl("idguia").toString());
-		if(idguia > 0){
-			consultarNoticias();
+		
+		try{
+			Object par = facesUtil.getParametroUrl("idguia");
+			if(par != null){
+				idguia = Integer.parseInt(par.toString());
+				consultarNoticias();
+			}else{
+				facesUtil.redirect("home.jsf");
+			}
+		} catch(NumberFormatException ne){
+			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
+		} catch(Exception e) {
+			e.printStackTrace();
+			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
 		}
 	}
 	
-	public void consultarNoticias(){
+	private void consultarNoticias(){
 		if(this.idguia > 0){
 			try {
 				PetguiaBO petguiaBO = new PetguiaBO();

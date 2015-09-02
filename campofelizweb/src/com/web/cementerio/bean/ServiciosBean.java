@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -13,6 +14,7 @@ import org.primefaces.model.SortOrder;
 
 import com.web.cementerio.bo.PetservicioBO;
 import com.web.cementerio.pojo.annotations.Petservicio;
+import com.web.util.FacesUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -28,6 +30,7 @@ public class ServiciosBean implements Serializable {
 	private String descripcionParam;
 	private int columnsGrid;
 	private int rowsGrid;
+	private int idempresa;
 
 	public ServiciosBean() {
 		tituloParam = "";
@@ -36,7 +39,29 @@ public class ServiciosBean implements Serializable {
 		setColumnsGrid(2);
 		setRowsGrid(3);
 		
-		consultarServicios();
+		//consultarServicios();
+	}
+	
+	@PostConstruct
+	public void PostServiciosBean() {
+		
+		FacesUtil facesUtil = new FacesUtil();
+		
+		try{
+			Object par = facesUtil.getParametroUrl("idempresa");
+			if(par != null){
+				idempresa = Integer.parseInt(par.toString());
+				
+				consultarServicios();
+			}else{
+				facesUtil.redirect("home.jsf");
+			}
+		} catch(NumberFormatException ne){
+			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
+		} catch(Exception e) {
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
 	}
 	
 	@SuppressWarnings("serial")
@@ -54,7 +79,7 @@ public class ServiciosBean implements Serializable {
 						textoBusqueda = descripcionParam.split(" ");
 					}
 					
-					data = petservicioBO.lisPetservicioBusquedaByPage(textoBusqueda, pageSize, first, args);
+					data = petservicioBO.lisPetservicioBusquedaByPage(textoBusqueda, idempresa, pageSize, first, args);
 					this.setRowCount(args[0]);
 	
 			        return data;
@@ -117,6 +142,14 @@ public class ServiciosBean implements Serializable {
 
 	public void setRowsGrid(int rowsGrid) {
 		this.rowsGrid = rowsGrid;
+	}
+
+	public int getIdempresa() {
+		return idempresa;
+	}
+
+	public void setIdempresa(int idempresa) {
+		this.idempresa = idempresa;
 	}
 	
 }

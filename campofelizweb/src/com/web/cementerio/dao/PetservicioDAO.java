@@ -69,11 +69,13 @@ public class PetservicioDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Petservicio> lisPetservicioBusquedaByPage(Session session, String[] texto, int pageSize, int pageNumber, int args[]) throws Exception {
+	public List<Petservicio> lisPetservicioBusquedaByPage(Session session, String[] texto, int idempresa, int pageSize, int pageNumber, int args[]) throws Exception {
 		List<Petservicio> lisPetservicio = null;
 		
 		Criteria criteria = session.createCriteria(Petservicio.class)
-		.add( Restrictions.eq("setestado.idestado", 1));
+				.createAlias("cotoficina", "ofi")
+				.add( Restrictions.eq("ofi.cotempresa.idempresa", idempresa))
+				.add( Restrictions.eq("setestado.idestado", 1));
 		
 		if(texto != null && texto.length > 0){
 			String query = "(";
@@ -98,6 +100,8 @@ public class PetservicioDAO {
 		if(lisPetservicio != null && lisPetservicio.size() > 0)
 		{
 			Criteria criteriaCount = session.createCriteria(Petservicio.class)
+					.createAlias("cotoficina", "ofi")
+					.add( Restrictions.eq("ofi.cotempresa.idempresa", idempresa))
 					.add( Restrictions.eq("setestado.idestado", 1))
                     .setProjection( Projections.rowCount());
 

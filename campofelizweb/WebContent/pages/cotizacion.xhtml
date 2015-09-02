@@ -89,9 +89,7 @@
 					<p:panelGrid style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandLink id="idconfirmar" style="color: #EC8F23;" value="Confirmar" action="#{cotizacionBean.enviar()}" update="mensajes" onclick="vardialogconfirm.hide()" oncomplete="Recaptcha.reload();">
-							<f:param name="mensaje" value="#{cotizacionBean.respuesta}" />
-						</p:commandLink>
+						<p:commandLink id="idconfirmar" style="color: #EC8F23;" value="Confirmar" action="#{cotizacionBean.enviar()}" update="mensajes" onclick="vardialogconfirm.hide()" oncomplete="Recaptcha.reload();" />
 						<h:outputText value="  " />
 						<p:commandLink id="idcancelar" style="color: #EC8F23;" value="Cancelar" immediate="true" onclick="vardialogconfirm.hide()" oncomplete="Recaptcha.reload();" />
 						</p:column>

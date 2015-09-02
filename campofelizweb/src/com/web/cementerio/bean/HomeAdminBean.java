@@ -32,25 +32,34 @@ public class HomeAdminBean implements Serializable {
 	}
 	
 	@PostConstruct
-	public void initHomeAdminBean() {
+	public void PostHomeAdminBean() {
+		FacesUtil facesUtil = new FacesUtil();
+		
 		try {
-			FacesUtil facesUtil = new FacesUtil();
-			idhome = Integer.parseInt(facesUtil.getParametroUrl("idhome").toString());
+			Object par = facesUtil.getParametroUrl("idhome");
 			
-			if(idhome > 0){
-				consultaHome();
+			if(par != null){
+				idhome = Integer.parseInt(par.toString());
+				
+				if(idhome > 0){
+					consultaHome();
+				}else{
+					PethomeBO pethomeBO = new PethomeBO();
+					int orden = pethomeBO.getMaxOrden();
+					pethome.setOrden(orden + 1);
+				}
 			}else{
-				PethomeBO pethomeBO = new PethomeBO();
-				int orden = pethomeBO.getMaxOrden();
-				pethome.setOrden(orden + 1);
+				facesUtil.redirect("home.jsf");
 			}
+		} catch(NumberFormatException ne){
+			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
 		} catch(Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
 		}
 	}
 	
-	public void consultaHome(){
+	private void consultaHome(){
 		try {
 			PethomeBO pethomeBO = new PethomeBO();
 			pethome = pethomeBO.getPethomebyId(idhome);

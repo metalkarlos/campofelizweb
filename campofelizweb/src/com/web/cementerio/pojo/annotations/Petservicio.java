@@ -30,6 +30,7 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 	private static final long serialVersionUID = 6603831901779043690L;
 	private int idservicio;
 	private Setestado setestado;
+	private Cotoficina cotoficina;
 	private Setusuario setusuario;
 	private String nombre;
 	private String descripcion;
@@ -45,17 +46,21 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 	public Petservicio() {
 	}
 
-	public Petservicio(int idservicio, Date fecharegistro) {
+	public Petservicio(int idservicio, Date fecharegistro, boolean principal,
+			int orden) {
 		this.idservicio = idservicio;
 		this.fecharegistro = fecharegistro;
+		this.principal = principal;
+		this.orden = orden;
 	}
 
-	public Petservicio(int idservicio, Setestado setestado,
-			Setusuario setusuario, String nombre, String descripcion,
+	public Petservicio(int idservicio, Setestado setestado, String rutafoto, 
+			Setusuario setusuario, String nombre, String descripcion, Cotoficina cotoficina, 
 			String tag, Date fecharegistro, String iplog, boolean principal,
 			Date fechamodificacion, Set<Petfotoservicio> petfotoservicios, int orden) {
 		this.idservicio = idservicio;
 		this.setestado = setestado;
+		this.cotoficina = cotoficina;
 		this.setusuario = setusuario;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -64,6 +69,7 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 		this.iplog = iplog;
 		this.principal = principal;
 		this.fechamodificacion = fechamodificacion;
+		this.rutafoto = rutafoto;
 		this.petfotoservicios = petfotoservicios;
 		this.orden = orden;
 	}
@@ -86,6 +92,16 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 
 	public void setSetestado(Setestado setestado) {
 		this.setestado = setestado;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idoficina")
+	public Cotoficina getCotoficina() {
+		return this.cotoficina;
+	}
+
+	public void setCotoficina(Cotoficina cotoficina) {
+		this.cotoficina = cotoficina;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
