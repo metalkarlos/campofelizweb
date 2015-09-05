@@ -34,7 +34,7 @@ public class CotoficinaDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Cotoficina> lisCotoficina(Session session, int idempresa) throws Exception {
+	public List<Cotoficina> lisCotoficinaByIdempresa(Session session, int idempresa) throws Exception {
 		List<Cotoficina> lisCotoficina = null;
 		
 		String hql = " from Cotoficina ";
@@ -43,6 +43,23 @@ public class CotoficinaDAO {
 		if(idempresa > 0){
 			hql += " and cotempresa.idempresa = " + idempresa;
 		}
+		
+		hql += " order by nombre asc ";
+		
+		Query query = session.createQuery(hql);
+		
+		lisCotoficina = (List<Cotoficina>) query.list();
+		
+		return lisCotoficina;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Cotoficina> lisCotoficinaByIdoficina(Session session, int idoficina) throws Exception {
+		List<Cotoficina> lisCotoficina = null;
+		
+		String hql = " from Cotoficina ";
+		hql += " where setestado.idestado = " + 1;
+		hql += " and cotempresa.idempresa = (select ofi2.cotempresa.idempresa from Cotoficina ofi2 where ofi2.idoficina = "+idoficina+")";
 		
 		hql += " order by nombre asc ";
 		

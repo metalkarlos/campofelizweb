@@ -14,7 +14,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
-import com.web.cementerio.bo.CotempresaBO;
+//import com.web.cementerio.bo.CotempresaBO;
 import com.web.cementerio.bo.CotoficinaBO;
 import com.web.cementerio.bo.PetservicioBO;
 import com.web.cementerio.global.Parametro;
@@ -36,35 +36,33 @@ public class ServicioAdminBean implements Serializable {
 	 */
 	private static final long serialVersionUID = -4748535305651371565L;
 	private int idservicio;
+	private int idempresa;
 	private Petservicio petservicio;
 	private Petservicio petservicioClon;
 	private List<Petfotoservicio> lisPetfotoservicio;
 	private List<Petfotoservicio> lisPetfotoservicioClon;
 	private List<Cotoficina> lisCotoficina;
-	private List<Cotempresa> lisCotempresa;
+	//private List<Cotempresa> lisCotempresa;
 	private Petfotoservicio petfotoservicioSeleccionado;
 	private StreamedContent streamedContent;
 	private UploadedFile uploadedFile;
 	private String descripcionFoto;
 	private boolean fotoSubida;
 	private long maxfilesize;
-	private int idempresa;
-	
 	
 	public ServicioAdminBean() {
-		petservicio = new Petservicio(0, new Setestado(), null, new Setusuario(), null, null, new Cotoficina(), null, null, null, false, new Date(), null, 0);
-		petservicioClon = new Petservicio(0, new Setestado(), null, new Setusuario(), null, null, new Cotoficina(), null, null, null, false, new Date(), null, 0);
+		petservicio = new Petservicio(0, new Setestado(), null, new Setusuario(), null, null, new Cotoficina(), new Cotempresa(), null, null, null, false, new Date(), null, 0);
+		petservicioClon = new Petservicio(0, new Setestado(), null, new Setusuario(), null, null, new Cotoficina(), new Cotempresa(), null, null, null, false, new Date(), null, 0);
 		lisPetfotoservicio = new ArrayList<Petfotoservicio>();
 		lisPetfotoservicioClon = new ArrayList<Petfotoservicio>();
 		lisCotoficina = new ArrayList<Cotoficina>();
-		lisCotempresa = new ArrayList<Cotempresa>();
+		//lisCotempresa = new ArrayList<Cotempresa>();
 		petfotoservicioSeleccionado = new Petfotoservicio();
 		descripcionFoto = "";
 		fotoSubida = false;
 		maxfilesize = Parametro.TAMAÑO_IMAGEN;
-		idempresa = 0;
 		
-		llenarListaEmpresa();
+		//llenarListaEmpresa();
 	}
 	
 	@PostConstruct
@@ -73,8 +71,12 @@ public class ServicioAdminBean implements Serializable {
 		
 		try{
 			Object par = facesUtil.getParametroUrl("idservicio");
-			if(par != null){
+			Object par2 = facesUtil.getParametroUrl("idempresa");
+			if(par != null && par2 != null){
 				idservicio = Integer.parseInt(par.toString());
+				idempresa = Integer.parseInt(par2.toString());
+				
+				llenarListaOficina();
 				
 				if(idservicio > 0){
 					consultaServicio();
@@ -84,10 +86,10 @@ public class ServicioAdminBean implements Serializable {
 					petservicio.setOrden(orden + 1);
 				}
 			}else{
-				facesUtil.redirect("home.jsf");
+				facesUtil.redirect("../pages/home.jsf");
 			}
 		} catch(NumberFormatException ne){
-			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
+			try{facesUtil.redirect("../pages/home.jsf");}catch(Exception e){}
 		} catch(Exception e) {
 			e.printStackTrace();
 			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
@@ -98,10 +100,15 @@ public class ServicioAdminBean implements Serializable {
 		if(this.idservicio > 0){
 			try {
 				PetservicioBO petservicioBO = new PetservicioBO();
-				petservicio = petservicioBO.getPetservicioConObjetosById(idservicio);
+				petservicio = petservicioBO.getPetservicioConObjetosById(idservicio,idempresa);
 				
 				if(petservicio != null && petservicio.getIdservicio() > 0){
 					petservicioClon = petservicio.clonar();
+					
+					if(petservicio.getCotempresa() != null && petservicio.getCotempresa().getIdempresa() > 0){
+						CotoficinaBO cotoficinaBO = new CotoficinaBO();
+						lisCotoficina = cotoficinaBO.lisCotoficinaByIdempresa(petservicio.getCotempresa().getIdempresa());
+					}
 					
 					if(petservicio.getPetfotoservicios() != null && petservicio.getPetfotoservicios().size() > 0){
 						lisPetfotoservicio = new ArrayList<Petfotoservicio>(petservicio.getPetfotoservicios());
@@ -118,17 +125,17 @@ public class ServicioAdminBean implements Serializable {
 		}
 	}
 	
-	public void llenarListaOficina(){
+	private void llenarListaOficina(){
 		try {
 			CotoficinaBO cotoficinaBO = new CotoficinaBO();
-			lisCotoficina = cotoficinaBO.lisCotoficina(idempresa);
+			lisCotoficina = cotoficinaBO.lisCotoficinaByIdempresa(idempresa);
 		} catch (Exception e) {
 			e.printStackTrace();
 		    new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 	}
 	
-	private void llenarListaEmpresa(){
+	/*private void llenarListaEmpresa(){
 		try {
 			CotempresaBO cotempresaBO = new CotempresaBO();
 			lisCotempresa = cotempresaBO.lisCotempresa();
@@ -136,7 +143,7 @@ public class ServicioAdminBean implements Serializable {
 			e.printStackTrace();
 		    new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
-	}
+	}*/
 
 	public void handleFileUpload(FileUploadEvent event) {
 		try{
@@ -186,20 +193,27 @@ public class ServicioAdminBean implements Serializable {
 			
 			if(idservicio == 0){
 				ok = petservicioBO.ingresar(petservicio, petfotoservicio, uploadedFile);
+				mostrarPaginaMensaje("Servicio creado con exito!!");
 			}else{
 				ok = petservicioBO.modificar(petservicio, petservicioClon, lisPetfotoservicio, lisPetfotoservicioClon, petfotoservicio, uploadedFile);
-			}
-			
-			if(ok){
-				FacesUtil facesUtil = new FacesUtil();
-				facesUtil.redirect("../pages/servicios.jsf");
-			}else{
-				new MessageUtil().showInfoMessage("Aviso", "No existen cambios que guardar");
+				if(ok){
+					mostrarPaginaMensaje("Servicio modificado con exito!!");
+				}else{
+					mostrarPaginaMensaje("No existen cambios que guardar.");
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
+	}
+	
+	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+		usuarioBean.setMensaje(mensaje);
+		
+		FacesUtil facesUtil = new FacesUtil();
+		facesUtil.redirect("../pages/mensaje.jsf");	 
 	}
 	
 	public String eliminar(){
@@ -292,19 +306,19 @@ public class ServicioAdminBean implements Serializable {
 		this.lisCotoficina = lisCotoficina;
 	}
 
+	/*public List<Cotempresa> getLisCotempresa() {
+		return lisCotempresa;
+	}
+
+	public void setLisCotempresa(List<Cotempresa> lisCotempresa) {
+		this.lisCotempresa = lisCotempresa;
+	}*/
+
 	public int getIdempresa() {
 		return idempresa;
 	}
 
 	public void setIdempresa(int idempresa) {
 		this.idempresa = idempresa;
-	}
-
-	public List<Cotempresa> getLisCotempresa() {
-		return lisCotempresa;
-	}
-
-	public void setLisCotempresa(List<Cotempresa> lisCotempresa) {
-		this.lisCotempresa = lisCotempresa;
 	}
 }

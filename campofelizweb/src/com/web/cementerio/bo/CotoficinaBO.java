@@ -31,14 +31,32 @@ public class CotoficinaBO {
 		return cotoficina;
 	}
 	
-	public List<Cotoficina> lisCotoficina(int idempresa) throws Exception{
+	public List<Cotoficina> lisCotoficinaByIdempresa(int idempresa) throws Exception{
 		List<Cotoficina> lisCotoficina = null;
 		Session session = null;
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			CotoficinaDAO cotoficinaDAO = new CotoficinaDAO();
-			lisCotoficina = (List<Cotoficina>) cotoficinaDAO.lisCotoficina(session, idempresa);
+			lisCotoficina = (List<Cotoficina>) cotoficinaDAO.lisCotoficinaByIdempresa(session, idempresa);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+		finally{
+			 session.close();
+		}
+		
+		return lisCotoficina; 
+	}
+	
+	public List<Cotoficina> lisCotoficinaByIdoficina(int idoficina) throws Exception{
+		List<Cotoficina> lisCotoficina = null;
+		Session session = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			CotoficinaDAO cotoficinaDAO = new CotoficinaDAO();
+			lisCotoficina = (List<Cotoficina>) cotoficinaDAO.lisCotoficinaByIdoficina(session, idoficina);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}

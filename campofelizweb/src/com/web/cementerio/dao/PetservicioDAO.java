@@ -91,7 +91,7 @@ public class PetservicioDAO {
 			criteria.add(Restrictions.sqlRestriction(query));
 		}
 		
-        criteria.addOrder(Order.desc("orden"))
+        criteria.addOrder(Order.asc("orden"))
 		.setMaxResults(pageSize)
 		.setFirstResult(pageNumber);
         
@@ -131,17 +131,20 @@ public class PetservicioDAO {
 		return lisPetservicio;
 	}
 	
-	public Petservicio getPetservicioConObjetosById(Session session, int idservicio) throws Exception {
+	public Petservicio getPetservicioConObjetosById(Session session, int idservicio, int idempresa) throws Exception {
 		Petservicio petservicio = null;
 		
 		Criteria criteria = session.createCriteria(Petservicio.class, "serv")
 				.add( Restrictions.eq("serv.idservicio", idservicio))
 				.add( Restrictions.eq("serv.setestado.idestado", 1))
+				.createAlias("cotempresa", "emp")
+				.add(Restrictions.eq("emp.idempresa", idempresa))
+				.createAlias("cotoficina", "ofi")
 				.createAlias("serv.petfotoservicios", "foto", Criteria.LEFT_JOIN);
 		
 		petservicio = (Petservicio) criteria.uniqueResult();
 		
-		if(petservicio.getPetfotoservicios() != null && petservicio.getPetfotoservicios().size() > 0){
+		if(petservicio != null && petservicio.getPetfotoservicios() != null && petservicio.getPetfotoservicios().size() > 0){
 			
 			Set<Petfotoservicio> tmp = new HashSet<Petfotoservicio>();
 			for(Petfotoservicio foto : petservicio.getPetfotoservicios()){

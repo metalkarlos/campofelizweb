@@ -63,7 +63,7 @@
 	    emptyMessage="No se encontraron registros">  
 		<p:column>
 		<p:panel>
-	 		<p:commandLink update=":form-contentpage:paneleditar" action="#{cementerioVirtualAdminBean.clonar()}">
+	 		<p:commandLink update=":form-contentpage:paneleditar,:form-contentpage:btnBotones" action="#{cementerioVirtualAdminBean.clonar()}">
 				<f:setPropertyActionListener value="#{imagen}"	target="#{cementerioVirtualAdminBean.petfotoinstalacion}"/>
 				<p:graphicImage alt="foto-instalaciones" id="idfoto" value="#{parametro.servletImagenes}#{imagen.ruta}?w=190"  style="max-height: 100px;" styleClass="imagendatagrid"/>
 			</p:commandLink>
@@ -94,11 +94,12 @@
 	     </p:row>	
 	 </p:panelGrid>
      
-     
+     <p:outputPanel id="btnBotones" >
      <my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
-			renderedButtonEliminar="true"  labelButtonEliminar="Eliminar" onclickButtonEliminar="vardialogdeletefoto.show()" 
+			renderedButtonEliminar="#{cementerioVirtualAdminBean.petfotoinstalacion.idfotoinstalacion > 0}"  labelButtonEliminar="Eliminar" onclickButtonEliminar="vardialogdeletefoto.show()" 
 			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('../pages/cementeriovirtual.jsf');" 
 			renderedButtonNewItem="false" />
+	</p:outputPanel>
 	
 	<p:dialog id="iddialogdeletefoto"  header="Eliminar Foto" closable="true" widgetVar="vardialogdeletefoto" modal="true" style="min-height: 80px; width: 450px">
 	 <h:panelGrid id="idpaneldeletefoto" columns="2" width="100%">

@@ -516,8 +516,8 @@ section#content {
 	text-align: -moz-center;
 }
 .inner-content textarea {
-	max-width: 600px; 
-	min-width: 600px; 
+	max-width: 550px; 
+	min-width: 550px; 
 	overflow-y: visible; 
 	min-height: 50px;
 }

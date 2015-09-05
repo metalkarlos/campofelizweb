@@ -31,6 +31,7 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 	private int idservicio;
 	private Setestado setestado;
 	private Cotoficina cotoficina;
+	private Cotempresa cotempresa;
 	private Setusuario setusuario;
 	private String nombre;
 	private String descripcion;
@@ -56,11 +57,12 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 
 	public Petservicio(int idservicio, Setestado setestado, String rutafoto, 
 			Setusuario setusuario, String nombre, String descripcion, Cotoficina cotoficina, 
-			String tag, Date fecharegistro, String iplog, boolean principal,
+			Cotempresa cotempresa, String tag, Date fecharegistro, String iplog, boolean principal,
 			Date fechamodificacion, Set<Petfotoservicio> petfotoservicios, int orden) {
 		this.idservicio = idservicio;
 		this.setestado = setestado;
 		this.cotoficina = cotoficina;
+		this.cotempresa = cotempresa;
 		this.setusuario = setusuario;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -105,6 +107,16 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idempresa")
+	public Cotempresa getCotempresa() {
+		return cotempresa;
+	}
+
+	public void setCotempresa(Cotempresa cotempresa) {
+		this.cotempresa = cotempresa;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idusuario")
 	public Setusuario getSetusuario() {
 		return this.setusuario;
@@ -134,7 +146,11 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 	
 	@Transient
 	public String getDescripcionNoTags() {
-		return this.descripcion.replaceAll("\\<.*?\\>", "");
+		if(this.descripcion != null){
+			return this.descripcion.replaceAll("\\<.*?\\>", "");
+		}else{
+			return this.descripcion;
+		}
 	}
 
 	@Column(name = "tag", length = 200)
@@ -226,6 +242,10 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
+				+ ((cotempresa == null) ? 0 : cotempresa.getIdempresa());
+		result = prime * result
+				+ ((cotoficina == null) ? 0 : cotoficina.getIdoficina());
+		result = prime * result
 				+ ((descripcion == null) ? 0 : descripcion.hashCode());
 		result = prime
 				* result
@@ -236,11 +256,15 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 		result = prime * result + idservicio;
 		result = prime * result + ((iplog == null) ? 0 : iplog.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + orden;
 		result = prime * result + (principal ? 1231 : 1237);
 		result = prime * result
 				+ ((rutafoto == null) ? 0 : rutafoto.hashCode());
+		result = prime * result
+				+ ((setestado == null) ? 0 : setestado.getIdestado());
+		result = prime * result
+				+ ((setusuario == null) ? 0 : setusuario.getIdusuario());
 		result = prime * result + ((tag == null) ? 0 : tag.hashCode());
-		result = prime * result + orden;
 		return result;
 	}
 
@@ -253,6 +277,16 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 		if (getClass() != obj.getClass())
 			return false;
 		Petservicio other = (Petservicio) obj;
+		if (cotempresa == null) {
+			if (other.cotempresa != null)
+				return false;
+		} else if (cotempresa.getIdempresa() != other.cotempresa.getIdempresa())
+			return false;
+		if (cotoficina == null) {
+			if (other.cotoficina != null)
+				return false;
+		} else if (cotoficina.getIdoficina() != other.cotoficina.getIdoficina())
+			return false;
 		if (descripcion == null) {
 			if (other.descripcion != null)
 				return false;
@@ -280,6 +314,8 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
+		if (orden != other.orden)
+			return false;
 		if (principal != other.principal)
 			return false;
 		if (rutafoto == null) {
@@ -287,16 +323,25 @@ public class Petservicio implements java.io.Serializable, Cloneable {
 				return false;
 		} else if (!rutafoto.equals(other.rutafoto))
 			return false;
+		if (setestado == null) {
+			if (other.setestado != null)
+				return false;
+		} else if (setestado.getIdestado() != other.setestado.getIdestado())
+			return false;
+		if (setusuario == null) {
+			if (other.setusuario != null)
+				return false;
+		} else if (setusuario.getIdusuario() != other.setusuario.getIdusuario())
+			return false;
 		if (tag == null) {
 			if (other.tag != null)
 				return false;
 		} else if (!tag.equals(other.tag))
 			return false;
-		if (orden != other.orden)
-			return false;
 		return true;
-		
 	}
+
+	
 	
 	
 

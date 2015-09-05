@@ -32,6 +32,7 @@
 				<div style="text-align: right;">
 					<h:link value="[Editar]" styleClass="link2" outcome="/admin/servicio-admin" rendered="#{usuarioBean.autenticado}" >
 						<f:param name="idservicio" value="#{servicioBean.idservicio}"></f:param>
+						<f:param name="idempresa" value="#{servicioBean.petservicio.cotempresa.idempresa}"></f:param>
 					</h:link>
 				</div>
 				<center>

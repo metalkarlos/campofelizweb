@@ -29,24 +29,41 @@ public class SecurityPhaseListener implements PhaseListener {
 			FacesContext facesContext = phaseEvent.getFacesContext();
 			UsuarioBean usuarioBean = (UsuarioBean) new FacesUtil().getSessionBean("usuarioBean");
 			FacesUtil facesUtil = new FacesUtil();
+			HttpServletRequest request = (HttpServletRequest)facesContext.getExternalContext().getRequest();
+			String vista = request.getRequestURI();
 			
-			//limpia espacio usado por foto vista previa del upload
+			//                LIMPIA ESPACIO USADO POR FOTO VISTA PREVIA DEL UPLOAD
 			if(usuarioBean != null && usuarioBean.getStreamedContent() != null){
 				usuarioBean.setStreamedContent(null);
 				facesUtil.setSessionBean("usuarioBean", usuarioBean);
 			}
 			
+			//               VALIDACIONES EN PAGINA ADMIN
 			//si ingresa a login y ya esta logoneado redirecciona a home
-			String vista = facesContext.getViewRoot().getViewId();
-			boolean loginPage = vista != null && vista.equals("/pages/adminweb.xhtml");
-			if(loginPage && usuarioBean != null && usuarioBean.isAutenticado()){
+			//String vista = facesContext.getViewRoot().getViewId();
+			//boolean loginPage = vista != null && vista.equals("/pages/adminweb.xhtml");
+			/*if(loginPage && usuarioBean != null && usuarioBean.isAutenticado()){
+				try{
+					facesContext.getExternalContext().redirect("home.jsf");
+					return;
+				}catch(Exception e){}
+			}*/
+			if(facesContext.getViewRoot() != null){
+				boolean loginPage = vista != null && vista.contains("pages/adminweb.jsf");
+				if(loginPage && usuarioBean != null && usuarioBean.isAutenticado()){
+					try{
+						facesContext.getExternalContext().redirect("home.jsf");
+						return;
+					}catch(Exception e){}
+				}
+			}else{
 				try{
 					facesContext.getExternalContext().redirect("home.jsf");
 					return;
 				}catch(Exception e){}
 			}
-			
-			//arma la navegacion de paginas visitadas
+
+			//               ARMA LA NAVEGACION DE PAGINAS VISITADAS 
 			BreadCrumbBean breadCrumbBean = (BreadCrumbBean) facesUtil.getSessionBean("breadCrumbBean");
 			
 			if(breadCrumbBean == null){
@@ -54,8 +71,10 @@ public class SecurityPhaseListener implements PhaseListener {
 				facesUtil.setSessionBean("breadCrumbBean", breadCrumbBean);
 			}
 			
-			HttpServletRequest request = (HttpServletRequest)facesContext.getExternalContext().getRequest();
-			String[] urlarray = request.getRequestURI().split("/");
+			//HttpServletRequest request = (HttpServletRequest)facesContext.getExternalContext().getRequest();
+			//String[] urlarray = request.getRequestURI().split("/");
+			String[] urlarray = vista.split("/");
+			
 			int x=-1;
 			for(int i=0;i<urlarray.length;i++){
 				if(urlarray[i].endsWith(".jsf")){

@@ -35,7 +35,7 @@ public class EmpresasBean implements Serializable{
 		CotoficinaBO cotoficinaBO  = new CotoficinaBO();
 		try {
 			lisCotoficina = new ArrayList<Cotoficina>();
-			lisCotoficina = cotoficinaBO.lisCotoficina(0);
+			lisCotoficina = cotoficinaBO.lisCotoficinaByIdempresa(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");

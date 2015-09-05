@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.net.URLDecoder;
 import java.util.UUID;
 
+import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -110,13 +111,16 @@ public class ImageServlet extends HttpServlet implements Serializable{
 			UUID uid = UUID.randomUUID();
 			String ext = FilenameUtils.getExtension(image.getName());
 			String rutaDestino = imagePathTmp + File.separator + uid.toString() + "." + ext;
-			
-			BufferedImage img = ImageIO.read(image);
-	        BufferedImage scaledImg = Scalr.resize(img, width);
-	        File destFile = new File(rutaDestino);
-	        ImageIO.write(scaledImg, ext, destFile);
-	        
-	        image = destFile;
+
+			try{
+				BufferedImage img = ImageIO.read(image);
+				BufferedImage scaledImg = Scalr.resize(img, width);
+				File destFile = new File(rutaDestino);
+		        ImageIO.write(scaledImg, ext, destFile);
+		        image = destFile;
+			}catch(IIOException e){
+				
+			}
         }
 
         // Init servlet response.

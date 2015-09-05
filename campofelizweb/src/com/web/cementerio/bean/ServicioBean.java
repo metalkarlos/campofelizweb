@@ -23,6 +23,7 @@ public class ServicioBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 2778897181870142036L;
 	private int idservicio;
+	private int idempresa;
 	private Petservicio petservicio;
 	private List<Petfotoservicio> lisPetfotoservicio;
 	
@@ -37,8 +38,10 @@ public class ServicioBean implements Serializable {
 		
 		try{
 			Object par = facesUtil.getParametroUrl("idservicio");
-			if(par != null){
+			Object par2 = facesUtil.getParametroUrl("idempresa");
+			if(par != null && par2 != null){
 				idservicio = Integer.parseInt(par.toString());
+				idempresa = Integer.parseInt(par2.toString());
 				
 				consultarServicio();
 			}else{
@@ -56,7 +59,7 @@ public class ServicioBean implements Serializable {
 		if(this.idservicio > 0){
 			try {
 				PetservicioBO petservicioBO = new PetservicioBO();
-				petservicio = petservicioBO.getPetservicioConObjetosById(idservicio);
+				petservicio = petservicioBO.getPetservicioConObjetosById(idservicio, idempresa);
 				
 				if(petservicio != null && petservicio.getPetfotoservicios() != null && petservicio.getPetfotoservicios().size() > 0){
 					lisPetfotoservicio = new ArrayList<Petfotoservicio>(petservicio.getPetfotoservicios());
@@ -90,6 +93,14 @@ public class ServicioBean implements Serializable {
 
 	public void setLisPetfotoservicio(List<Petfotoservicio> lisPetfotoservicio) {
 		this.lisPetfotoservicio = lisPetfotoservicio;
+	}
+
+	public int getIdempresa() {
+		return idempresa;
+	}
+
+	public void setIdempresa(int idempresa) {
+		this.idempresa = idempresa;
 	}
 
 }

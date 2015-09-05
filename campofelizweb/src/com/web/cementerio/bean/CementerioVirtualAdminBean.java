@@ -118,13 +118,13 @@ public class CementerioVirtualAdminBean implements Serializable{
 					modificacion = true;
 				}
 			}else{
-				facesUtil.redirect("home.jsf");
+				facesUtil.redirect("../pages/home.jsf");
 			}
 		} catch(NumberFormatException ne){
-			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
+			try{facesUtil.redirect("../pages/home.jsf");}catch(Exception e){}
 		} catch(Exception e) {
 			e.printStackTrace();
-			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
+			try{facesUtil.redirect("../pages/home.jsf");}catch(Exception e2){}
 		}
 	}
 	
