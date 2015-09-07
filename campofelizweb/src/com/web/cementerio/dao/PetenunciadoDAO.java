@@ -19,6 +19,15 @@ public class PetenunciadoDAO {
 		
 	}
 	
+	public int maxOrden(Session session) throws Exception {
+		int max=0;
+		
+		Object object = session.createQuery("select count(e.orden) as cant from Petenunciado as e where e.setestado.idestado = 1").uniqueResult();
+		max = (object==null?0:Integer.parseInt(object.toString()));
+		
+		return max;
+	}
+	
 	public Petenunciado getPetenunciadobyId(Session session, int idestado)throws Exception{
 		Petenunciado petenunciado=null;
 		Criteria criteria =session.createCriteria(Petenunciado.class)

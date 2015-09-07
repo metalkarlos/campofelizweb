@@ -44,7 +44,7 @@ public class PetinformacionBO {
 	
 	
 
-	public  void modificarPetinformacion(Petinformacion petinformacion,Petinformacion petinformacionclone,List<Petfotoinformacion> listPetfotoinformacion,List<Petfotoinformacion> listPetfotoinformacionclone,
+	public  boolean modificarPetinformacion(Petinformacion petinformacion,Petinformacion petinformacionclone,List<Petfotoinformacion> listPetfotoinformacion,List<Petfotoinformacion> listPetfotoinformacionclone,
 										 UploadedFile uploadedFile,int idestado, String descripcionimagen) throws Exception{
 		Session session = null;
 		boolean ok = false;
@@ -71,6 +71,7 @@ public class PetinformacionBO {
 				petinformacion.setIplog(usuarioBean.getIp());
 				 
 				petinformacionDAO.actualizarPetinformacion(session, petinformacion);
+				
 				ok = true;
 			}	
 			
@@ -101,6 +102,8 @@ public class PetinformacionBO {
 		}finally{
 			session.close();
 		}
+		
+		return ok;
 		
 	}
 	

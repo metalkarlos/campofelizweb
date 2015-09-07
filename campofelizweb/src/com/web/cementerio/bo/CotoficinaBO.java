@@ -67,8 +67,10 @@ public class CotoficinaBO {
 		return lisCotoficina; 
 	}
 	
-	public void grabar(Cotoficina cotoficina)throws Exception{
+	public boolean grabar(Cotoficina cotoficina)throws Exception{
 		Session session = null;
+		boolean ok = false;
+		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -96,6 +98,7 @@ public class CotoficinaBO {
 			cotoficinaDAO.grabar(session, cotoficina);
 			session.beginTransaction().commit();
 			
+			ok = true;
 		} catch (Exception e) {
 			cotoficina.setIdoficina(0);
 			session.getTransaction().rollback();
@@ -103,10 +106,14 @@ public class CotoficinaBO {
 		}finally{
 			session.close();
 		}
+		
+		return ok;
 	}
 	
-	public void eliminar(Cotoficina cotoficina)throws Exception{
+	public boolean eliminar(Cotoficina cotoficina)throws Exception{
 		Session session = null;
+		boolean ok = false;
+		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -130,12 +137,16 @@ public class CotoficinaBO {
 			cotoficinaDAO.modificar(session, cotoficina);
 			session.beginTransaction().commit();
 			
+			ok = true;
+			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new Exception(e);
 		}finally{
 			session.close();
 		}
+		
+		return ok;
 	}
 	
 	public boolean modificar(Cotoficina cotoficina,Cotoficina cotoficinaclone)throws Exception{

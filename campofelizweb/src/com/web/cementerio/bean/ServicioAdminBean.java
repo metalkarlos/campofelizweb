@@ -76,7 +76,8 @@ public class ServicioAdminBean implements Serializable {
 				idservicio = Integer.parseInt(par.toString());
 				idempresa = Integer.parseInt(par2.toString());
 				
-				llenarListaOficina();
+				CotoficinaBO cotoficinaBO = new CotoficinaBO();
+				lisCotoficina = cotoficinaBO.lisCotoficinaByIdempresa(idempresa);
 				
 				if(idservicio > 0){
 					consultaServicio();
@@ -84,6 +85,7 @@ public class ServicioAdminBean implements Serializable {
 					PetservicioBO petservicioBO = new PetservicioBO();
 					int orden = petservicioBO.getMaxOrden();
 					petservicio.setOrden(orden + 1);
+					petservicio.setCotempresa(new Cotempresa(idempresa, null));
 				}
 			}else{
 				facesUtil.redirect("../pages/home.jsf");
@@ -122,16 +124,6 @@ public class ServicioAdminBean implements Serializable {
 				e.printStackTrace();
 				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 			}
-		}
-	}
-	
-	private void llenarListaOficina(){
-		try {
-			CotoficinaBO cotoficinaBO = new CotoficinaBO();
-			lisCotoficina = cotoficinaBO.lisCotoficinaByIdempresa(idempresa);
-		} catch (Exception e) {
-			e.printStackTrace();
-		    new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 	}
 	
@@ -193,7 +185,11 @@ public class ServicioAdminBean implements Serializable {
 			
 			if(idservicio == 0){
 				ok = petservicioBO.ingresar(petservicio, petfotoservicio, uploadedFile);
-				mostrarPaginaMensaje("Servicio creado con exito!!");
+				if(ok){
+					mostrarPaginaMensaje("Servicio creado con exito!!");
+				}else{
+					mostrarPaginaMensaje("No existen cambios que guardar.");
+				}
 			}else{
 				ok = petservicioBO.modificar(petservicio, petservicioClon, lisPetfotoservicio, lisPetfotoservicioClon, petfotoservicio, uploadedFile);
 				if(ok){
@@ -216,21 +212,20 @@ public class ServicioAdminBean implements Serializable {
 		facesUtil.redirect("../pages/mensaje.jsf");	 
 	}
 	
-	public String eliminar(){
-		String paginaRetorno = null;
-		
+	public void eliminar(){
 		try{
 			PetservicioBO petservicioBO = new PetservicioBO();
 			
-			petservicioBO.eliminar(petservicio);
-
-			paginaRetorno = "../pages/servicios?faces-redirect=true";
+			boolean ok = petservicioBO.eliminar(petservicio);
+			if(ok){
+				mostrarPaginaMensaje("Servicio eliminado con exito!!");
+			}else{
+				mostrarPaginaMensaje("No se ha podido eliminar el Servicio. Comunicar al Webmaster.");
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
-		
-		return paginaRetorno;
 	}
 	
 	public Petservicio getPetservicio() {

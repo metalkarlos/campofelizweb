@@ -151,22 +151,24 @@ public class GuiaAdminBean  implements Serializable{
 	 try{
 		if(validarcampos()){
 			PetguiaBO petguiaBO = new PetguiaBO();
+			boolean ok = false;
+			
 			if(idguia == 0){
-				petguiaBO.ingresarPetguiaBO(petguia,1,  uploadedFile,descripcionFoto);
-				petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
-				lisPetfotoguia = new ArrayList<Petfotoguia>();
-				petguiaClon= new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
-				lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
+				ok = petguiaBO.ingresarPetguiaBO(petguia,1,  uploadedFile,descripcionFoto);
+				if(ok){
+					mostrarPaginaMensaje("Guía creada con éxito!!");
+				}else{
+					new MessageUtil().showWarnMessage("Aviso", "No se ha podido crear la Guía. Comunicar al Webmaster.");
+				}
 			}else{
-				petguiaBO.modificar(petguia, petguiaClon, lisPetfotoguia, lisPetfotoguiaClon,2,uploadedFile,descripcionFoto);
-				petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
-				lisPetfotoguia = new ArrayList<Petfotoguia>();
-				petguiaClon= new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
-				lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
-			}
 				
-			FacesUtil facesUtil = new FacesUtil();
-			facesUtil.redirect("../pages/guiageneral.jsf");	 
+				ok = petguiaBO.modificar(petguia, petguiaClon, lisPetfotoguia, lisPetfotoguiaClon,2,uploadedFile,descripcionFoto);
+				if(ok){
+					mostrarPaginaMensaje("Guía modificada con éxito!!");
+				}else{
+					new MessageUtil().showWarnMessage("Aviso", "No existen cambios que guardar.");
+				}
+			}
 		}
 	}catch(Exception e){
 		e.printStackTrace();
@@ -174,6 +176,13 @@ public class GuiaAdminBean  implements Serializable{
 	  }
 	}
 	
+	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+		usuarioBean.setMensaje(mensaje);
+		
+		FacesUtil facesUtil = new FacesUtil();
+		facesUtil.redirect("../pages/mensaje.jsf");	 
+	}
 	
 	public boolean validarcampos(){
 		boolean ok = true;
@@ -201,18 +210,17 @@ public class GuiaAdminBean  implements Serializable{
 		
 		try{
 			PetguiaBO petguiaBO = new PetguiaBO();
-			petguiaBO.eliminarBO(petguia, lisPetfotoguiaClon,2);
-			petguia = new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
-			petguiaClon= new Petguia(0, new Setestado(), new Setusuario(), null, null, null, null,null,null, new Date(), null,false, null);
-			lisPetfotoguiaClon = new ArrayList<Petfotoguia>();
-			FacesUtil facesUtil = new FacesUtil();
-			facesUtil.redirect("../pages/guiageneral.jsf");	 
+			boolean ok = petguiaBO.eliminarBO(petguia, lisPetfotoguiaClon,2);
+			
+			if(ok){
+				mostrarPaginaMensaje("Guía eliminada con éxito!!");
+			}else{
+				new MessageUtil().showWarnMessage("Aviso", "No se ha podido eliminar la Guía. Comunicar al Webmaster.");
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
-		
-		
 	}
 
 	public Petguia getPetguia() {

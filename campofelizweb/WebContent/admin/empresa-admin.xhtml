@@ -17,7 +17,6 @@
 		<style type="text/css">
 			.inner-content {
 				padding: 30px 0;
-				/*line-height: 300%;*/
 			}
 			.label {
 				font-weight: bold;
@@ -47,8 +46,10 @@
 		<div class="content-page">
 			<h:form id="form-contentpage" enctype="multipart/form-data">
 				<!-- <p:growl id="mensajes" showDetail="true" /> -->
-				<p:messages id="mensajes" autoUpdate="true" />
+				<p:messages id="mensajes" showDetail="true" autoUpdate="true" />
+				
 				<h1 class="title ui-widget-header">Administración - Oficina</h1>
+				
 				<div class="inner-content">
 					<p:panelGrid id="idgridcontenido" columnClasses="col1,col2">
 					
@@ -251,8 +252,11 @@
 					<my:buttons renderedButtonAceptar="true"
 						labelButtonAceptar="Grabar"
 						onclickButtonAceptar="vardialoggrabar.show()"
-						renderedButtonEliminar="false" renderedButtonCancelar="true"
-						labelButtonCancelar="Cancelar"
+						immediateButtonAceptar="true"
+						renderedButtonEliminar="#{empresaAdminBean.idoficina > 0 }" 
+						onclickButtonEliminar="vardialogdeleteempresa.show()" 
+						immediateButtonEliminar="true"
+						renderedButtonCancelar="true"	labelButtonCancelar="Cancelar"
 						onclickButtonCancelar="redirect('empresas.jsf');"
 						renderedButtonNewItem="false" />
 				</div>
@@ -272,7 +276,7 @@
 									<p:commandButton id="idconfirmargrabar" value="Confirmar"
 										action="#{empresaAdminBean.grabar()}"
 										onclick="vardialoggrabar.hide()" update="mensajes,cmbEmpresa,msgcmbEmpresa,cmbtipo,msgcmbtipo,nombre,msgnombre,direccion,msgdireccion,descripcion,msgdescripcion,telefono,msgtelefono,celular,msgcelular,email,msgemail" />
-									<p:commandButton id="idcancelargrabar" value="Cancelar"
+									<p:commandButton id="idcancelargrabar" value="Cancelar" immediate="true"
 										onclick="vardialoggrabar.hide()" />
 								</p:column>
 							</p:row>
@@ -294,7 +298,7 @@
 									<p:commandButton id="idconfirmardeleteempresa"
 										value="Confirmar" action="#{empresaAdminBean.eliminar()}"
 										onclick="vardialogdeleteempresa.hide()" update="mensajes" />
-									<p:commandButton id="idcancelardeleteempresa" value="Cancelar"
+									<p:commandButton id="idcancelardeleteempresa" value="Cancelar" immediate="true"
 										onclick="vardialogdeleteempresa.hide()" />
 								</p:column>
 							</p:row>

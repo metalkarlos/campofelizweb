@@ -48,8 +48,17 @@ public class EnunciadoAdminBean implements Serializable {
 			
 			if(par != null){
 				idenunciado = Integer.parseInt(par.toString());
-				consultar();
-				clonar();
+				if(idenunciado > 0){
+					consultar();
+					clonar();
+				}else{
+					PetenunciadoBO petenunciadoBO = new PetenunciadoBO();
+					int orden = petenunciadoBO.getMaxOrden();
+					if(orden > 0){
+						orden = orden/2;
+					}
+					petenunciadopregunta.setOrden(orden + 1);
+				}
 			}else{
 				facesUtil.redirect("../pages/home.jsf");
 			}
@@ -79,13 +88,18 @@ public class EnunciadoAdminBean implements Serializable {
 		
 		try {
 			if(validarcampos()){
+				boolean ok = false;
+				
 				if(idenunciado ==0){
 				   listpetenunciado.add(0,petenunciadopregunta);
 				   petenunciadorespuesta.setOrden(petenunciadopregunta.getOrden());
 				   listpetenunciado.add(1,petenunciadorespuesta);
-				   petenunciadoBO.grabar(listpetenunciado, 1);	
-				   //new MessageUtil().showInfoMessage("Exito", "Información registrada");
-				   
+				   ok = petenunciadoBO.grabar(listpetenunciado, 1);	
+				   if(ok){
+						mostrarPaginaMensaje("Pregunta ingresada con exito!!");
+					}else{
+						new MessageUtil().showWarnMessage("Aviso", "No se ha podido ingresar la Pregunta. Comunicar al Webmaster.");
+					}
 				}else if(idenunciado >0){
 				  for(Petenunciado petenunciadoclone: listpetenunciadoclone){
 					  int indice = 0;
@@ -105,15 +119,15 @@ public class EnunciadoAdminBean implements Serializable {
 					  indice++;
 					}
 				   if((listpetenunciado.size()>0) && (!listpetenunciado.isEmpty())){	
-					   if (petenunciadoBO.modificar(listpetenunciado, 1)){
-						  listpetenunciadoclone = new ArrayList<Petenunciado>();	  
-					   }
+					   ok = petenunciadoBO.modificar(listpetenunciado, 1);
+				   }
+				   
+				   if(ok){
+					   mostrarPaginaMensaje("Pregunta modificada con exito!!");
+				   }else{
+					   new MessageUtil().showWarnMessage("Aviso", "No se ha podido modificar la Pregunta. Comunicar al Webmaster.");
 				   }
 				}
-				petenunciadopregunta = new Petenunciado(0, new Setestado(),new Setusuario(), 'P', null, 0, 0,null, null,null, null);
-				petenunciadorespuesta = new Petenunciado(0, new Setestado(),new Setusuario(), 'R', null, 0,0, null, null,null, null);
-				FacesUtil facesUtil = new FacesUtil();
-				facesUtil.redirect("../pages/preguntas.jsf");	   	 
 			}	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,21 +136,26 @@ public class EnunciadoAdminBean implements Serializable {
 		
 	}
 	
+	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+		usuarioBean.setMensaje(mensaje);
+		
+		FacesUtil facesUtil = new FacesUtil();
+		facesUtil.redirect("../pages/mensaje.jsf");	 
+	}
+	
 	public void eliminar(){
 		PetenunciadoBO petenunciadoBO = new PetenunciadoBO();
 		List<Petenunciado> listpetenunciado = new ArrayList<Petenunciado>();
 		try {
-			if(idenunciado > 0){
-				listpetenunciado.add(0,petenunciadopregunta);
-				listpetenunciado.add(1,petenunciadorespuesta);
-				petenunciadoBO.eliminar(listpetenunciado, 2);
-				petenunciadopregunta = new Petenunciado(0, new Setestado(),new Setusuario(), 'P', null, 0,0, null, null,null, null);
-				petenunciadorespuesta = new Petenunciado(0, new Setestado(),new Setusuario(), 'R', null, 0,0, null, null,null, null);
-				listpetenunciadoclone = new ArrayList<Petenunciado>();
-				FacesUtil facesUtil = new FacesUtil();
-				facesUtil.redirect("../pages/preguntas.jsf");	  
-			}	
-		
+			listpetenunciado.add(0,petenunciadopregunta);
+			listpetenunciado.add(1,petenunciadorespuesta);
+			boolean ok = petenunciadoBO.eliminar(listpetenunciado, 2);
+			if(ok){
+			   mostrarPaginaMensaje("Pregunta eliminada con exito!!");
+		   }else{
+			   new MessageUtil().showWarnMessage("Aviso", "No se ha podido eliminar la Pregunta. Comunicar al Webmaster.");
+		   }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

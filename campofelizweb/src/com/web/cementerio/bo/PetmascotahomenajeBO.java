@@ -76,8 +76,10 @@ public class PetmascotahomenajeBO {
 	}
 	
 	
-	public void ingresarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,int idestado, UploadedFile uploadedFile, String descripcionFoto) throws Exception{
+	public boolean  ingresarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,int idestado, UploadedFile uploadedFile, String descripcionFoto) throws Exception{
 		Session session = null;
+		boolean ok = false;
+		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -112,6 +114,8 @@ public class PetmascotahomenajeBO {
 			
 			session.getTransaction().commit();
 			
+			ok = true;
+			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new Exception(e);
@@ -119,11 +123,13 @@ public class PetmascotahomenajeBO {
 			session.close();
 		}
 
+		return ok;
 	}
 	
-	public void modificarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,Petmascotahomenaje petmascotahomenajeclone, List<Petfotomascota>listpetfotomascota,List<Petfotomascota>listpetfotomascotaclone,UploadedFile uploadedFile,String descripcionFoto) throws Exception{
+	public boolean modificarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,Petmascotahomenaje petmascotahomenajeclone, List<Petfotomascota>listpetfotomascota,List<Petfotomascota>listpetfotomascotaclone,UploadedFile uploadedFile,String descripcionFoto) throws Exception{
 		Session session = null;
 		boolean ok = false;
+		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -175,6 +181,8 @@ public class PetmascotahomenajeBO {
 		}finally {
 			session.close();
 		}
+		
+		return ok;
 	}
 	
 	
@@ -297,12 +305,13 @@ public class PetmascotahomenajeBO {
 	
 	
 	
-	public void eliminarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,List<Petfotomascota> listpetfotomascotaclone, int idestado)throws Exception{
+	public boolean  eliminarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,List<Petfotomascota> listpetfotomascotaclone, int idestado)throws Exception{
 		Session session = null;
+		boolean ok = false;
+		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			
 			
 			Date fechamodificacion = new Date();
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
@@ -329,6 +338,8 @@ public class PetmascotahomenajeBO {
 				}
 			}
 			session.getTransaction().commit();
+			
+			ok = true;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new Exception();
@@ -336,6 +347,7 @@ public class PetmascotahomenajeBO {
 			session.close();
 		}
 		
+		return ok;
 	}
 	
 	/***

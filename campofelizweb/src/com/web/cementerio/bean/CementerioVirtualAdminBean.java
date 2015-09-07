@@ -2,7 +2,6 @@ package com.web.cementerio.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,8 +19,6 @@ import org.primefaces.model.UploadedFile;
 import com.web.cementerio.bo.PetfotoinstalacionBO;
 import com.web.cementerio.global.Parametro;
 import com.web.cementerio.pojo.annotations.Petfotoinstalacion;
-import com.web.cementerio.pojo.annotations.Setestado;
-import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
 import com.web.util.MessageUtil;
 
@@ -171,47 +168,58 @@ public class CementerioVirtualAdminBean implements Serializable{
 	}
 	
 	public void grabar(){
-	 try{
-		if(validarcampos()){
-			PetfotoinstalacionBO petfotoinstalacionBO = new PetfotoinstalacionBO();
-			//ingreso
-			if(petfotoinstalacion.getIdfotoinstalacion()==0){
-			  petfotoinstalacionBO.ingresarPetfotoinstalacion(1, petfotoinstalacion, uploadedFile);
-			}
-			else if(petfotoinstalacion.getIdfotoinstalacion()>0){
-			  petfotoinstalacionBO.modificarPetfotoinstalacion(petfotoinstalacion, petfotoinstalacionclone);
-			}
-			petfotoinstalacion = new Petfotoinstalacion(0,new Setestado(), new Setusuario() ,null, null, null, new Date(), new Date(), 0, null);
-			FacesUtil facesUtil = new FacesUtil();
-			facesUtil.redirect("../pages/cementeriovirtual.jsf");	 
-		}
-	  }catch(Exception e){
-		e.printStackTrace();
-		new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-	  }
-	}
-		
-	
-	public void eliminar(){
-	  try{
-		  if(validarcampos()){
+		try{
+			if(validarcampos()){
 				PetfotoinstalacionBO petfotoinstalacionBO = new PetfotoinstalacionBO();
-				//eliminacion
-				if(petfotoinstalacion.getIdfotoinstalacion()>0){
-				  petfotoinstalacionBO.eliminarPetfotoinstalacion(petfotoinstalacion, petfotoinstalacionclone, 2);
-				}
+				boolean ok = false;
 				
-				petfotoinstalacion = new Petfotoinstalacion(0,new Setestado(), new Setusuario() ,null, null, null, new Date(), new Date(), 0, null);
-				petfotoinstalacionclone = new Petfotoinstalacion(0,new Setestado(), new Setusuario() ,null, null, null, new Date(), new Date(), 0, null);
-				FacesUtil facesUtil = new FacesUtil();
-				facesUtil.redirect("../pages/cementeriovirtual.jsf");	 
-			
+				//ingreso
+				if(petfotoinstalacion.getIdfotoinstalacion()==0){
+					ok = petfotoinstalacionBO.ingresarPetfotoinstalacion(1, petfotoinstalacion, uploadedFile);
+					if(ok){
+						mostrarPaginaMensaje("Instalación ingresada con exito!!");
+					}else{
+						new MessageUtil().showWarnMessage("Aviso", "No se ha podido ingresar la instalación. Comunicar al Webmaster.");
+					}
+				}else if(petfotoinstalacion.getIdfotoinstalacion()>0){
+					ok = petfotoinstalacionBO.modificarPetfotoinstalacion(petfotoinstalacion, petfotoinstalacionclone);
+					if(ok){
+						mostrarPaginaMensaje("Instalación modificada con exito!!");
+					}else{
+						new MessageUtil().showWarnMessage("Aviso", "No existen cambios que guardar.");
+					}
+				}
 			}
-	      }catch(Exception e){
+		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-		  }
 		}
+	}
+		
+	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+		usuarioBean.setMensaje(mensaje);
+		
+		FacesUtil facesUtil = new FacesUtil();
+		facesUtil.redirect("../pages/mensaje.jsf");	 
+	}
+	
+	public void eliminar(){
+		try{
+			PetfotoinstalacionBO petfotoinstalacionBO = new PetfotoinstalacionBO();
+			boolean ok = false;
+				
+			ok = petfotoinstalacionBO.eliminarPetfotoinstalacion(petfotoinstalacion, petfotoinstalacionclone, 2);
+			if(ok){
+				mostrarPaginaMensaje("Instalación eliminada con exito!!");
+			}else{
+				new MessageUtil().showWarnMessage("Aviso", "No se ha podido eliminar la instalación. Comunicar al Webmaster.");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		}
+	}
 	
 		public boolean validarcampos(){
 			boolean ok = true;

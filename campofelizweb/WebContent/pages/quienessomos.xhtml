@@ -46,9 +46,9 @@
 		 	   <p:galleria id="idgalleria" value="#{quienesSomosBean.listpetfotoinformacion}" var="item" panelWidth="480" panelHeight="365" >
 			   <p:graphicImage  id="idfotos" value="#{parametro.servletImagenes}#{item.ruta}?w=70" style="max-height: 70px;"/>
 			      <p:galleriaContent>  
-			         <h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">  
-				       <p:graphicImage styleClass="imagenprincipal" id="idfoto" alt="#{item.descripcion}" title="#{item.descripcion}" value="#{parametro.servletImagenes}#{item.ruta}?w=500" style="max-height: 360px;" />
-				    </h:panelGrid>
+			         <h:outputLink styleClass="grupo1" value="#{request.contextPath}#{parametro.servletImagenes}#{item.ruta}" title="#{item.descripcion}">  
+					       <p:graphicImage styleClass="imagenprincipal" id="idfoto" alt="#{item.descripcion}" title="#{item.descripcion}" value="#{parametro.servletImagenes}#{item.ruta}?w=500" style="max-height: 360px;" />
+					    </h:outputLink>
 				</p:galleriaContent>
 	   		   </p:galleria>
 			   </center>

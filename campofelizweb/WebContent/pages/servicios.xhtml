@@ -18,31 +18,31 @@
 		<meta name="keywords" content="servicios" />
 
 		<style type="text/css">
-.inner-content h1 {
-	color: #66ad23;
-}
-
-.gridServicios {
-	padding: 10px 0;
-}
-
-.str-1 {
-	font-weight: bold;
-}
-
-.inner-content {
-	width: 295px;
-	padding: 0px;
-}
-
-.img-indent-1 {
-	margin: 0 10px 10px 0;
-}
-
-.p2,.p1 {
-	font-size: 13px;
-}
-</style>
+			.inner-content h1 {
+				color: #66ad23;
+			}
+			
+			.gridServicios {
+				padding: 10px 0;
+			}
+			
+			.str-1 {
+				font-weight: bold;
+			}
+			
+			.inner-content {
+				width: 295px;
+				padding: 0px;
+			}
+			
+			.img-indent-1 {
+				margin: 0 10px 10px 0;
+			}
+			
+			.p2,.p1 {
+				font-size: 13px;
+			}
+		</style>
 	</ui:define>
 
 	<ui:define name="content_page">
@@ -67,6 +67,7 @@
 					styleClass="link2" style="float: right;margin: 0 20px 20px 0;"
 					rendered="#{usuarioBean.autenticado}">
 					<f:param name="idservicio" value="0"></f:param>
+					<f:param name="idempresa" value="#{serviciosBean.idempresa}"></f:param>
 				</h:link>
 				<p:dataGrid styleClass="gridServicios" id="gridServicios"
 					value="#{serviciosBean.lisPetservicio}" var="servicio"

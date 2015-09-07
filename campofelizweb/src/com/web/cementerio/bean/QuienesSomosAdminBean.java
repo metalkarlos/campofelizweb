@@ -161,20 +161,28 @@ public class QuienesSomosAdminBean implements Serializable {
 				PetinformacionBO petinformacionBO = new PetinformacionBO();
 				
 				if(petinformacion.getIdinformacion()>0){
-				  //objeto petmascotahomenaje se ha modificado
-				  petinformacionBO.modificarPetinformacion(petinformacion, petinformacionclone,listpetfotoinformacion, listpetfotoinformacionclone, uploadedFile, 1, descripcionImagen);
-				  inicializarobjetos();
-				  
-			  } 
-				FacesUtil facesUtil = new FacesUtil();
-				facesUtil.redirect("../pages/quienessomos.jsf");
-			 
+					//objeto petmascotahomenaje se ha modificado
+					boolean ok = petinformacionBO.modificarPetinformacion(petinformacion, petinformacionclone,listpetfotoinformacion, listpetfotoinformacionclone, uploadedFile, 1, descripcionImagen);
+					if(ok){
+						mostrarPaginaMensaje("Información modificada con exito!!");
+					}else{
+						new MessageUtil().showWarnMessage("Aviso", "No se ha podido modificar la información. Comunicar al Webmaster.");
+					}
+				} 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
 		
+	}
+	
+	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+		usuarioBean.setMensaje(mensaje);
+		
+		FacesUtil facesUtil = new FacesUtil();
+		facesUtil.redirect("../pages/mensaje.jsf");	 
 	}
 	
 	public void handleFileUpload(FileUploadEvent event) {

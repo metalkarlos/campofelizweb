@@ -88,16 +88,21 @@ public class EmpresaAdminBean implements Serializable {
 		try {
 			if(validarcampos()){
 				CotoficinaBO cotoficinaBO = new CotoficinaBO();
+				boolean ok = cotoficinaBO.modificar(cotoficina, cotoficinaclone);
+				
 				if(cotoficina.getIdoficina() > 0){
-					boolean ok = cotoficinaBO.modificar(cotoficina, cotoficinaclone);
 					if(ok){
 						mostrarPaginaMensaje("Oficina modificada con exito!!");
 					}else{
-						mostrarPaginaMensaje("No existen cambios que guardar.");
+						new MessageUtil().showWarnMessage("Aviso", "No existen cambios que guardar.");
 					}
 				}else{
-					cotoficinaBO.grabar(cotoficina);
-					mostrarPaginaMensaje("Oficina creada con exito!!");
+					ok = cotoficinaBO.grabar(cotoficina);
+					if(ok){
+						mostrarPaginaMensaje("Oficina creada con exito!!");
+					}else{
+						new MessageUtil().showWarnMessage("Aviso", "No se ha podido ingresar la oficina. Comunicar al Webmaster.");
+					}
 				}
 			}	
 		} catch (Exception e) {
@@ -117,17 +122,17 @@ public class EmpresaAdminBean implements Serializable {
 	
 	public void eliminar(){
 		try {
-			if(cotoficina.getIdoficina() > 0){
-				CotoficinaBO cotoficinaBO = new CotoficinaBO();
-				cotoficinaBO.eliminar(cotoficina);
-				mostrarPaginaMensaje("Registro eliminado con exito!!");
+			CotoficinaBO cotoficinaBO = new CotoficinaBO();
+			boolean ok = cotoficinaBO.eliminar(cotoficina);
+			if(ok){
+				mostrarPaginaMensaje("Oficina eliminada con exito!!");
+			}else{
+				new MessageUtil().showWarnMessage("Aviso", "No se ha podido eliminar la oficina. Comunicar al Webmaster.");
 			}
-		}
-		catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
-		
 	}
 	
 	public boolean validarcampos(){

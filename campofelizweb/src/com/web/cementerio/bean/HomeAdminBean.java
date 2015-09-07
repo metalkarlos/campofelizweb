@@ -81,15 +81,18 @@ public class HomeAdminBean implements Serializable {
 			
 			if(idhome == 0){
 				ok = pethomeBO.grabar(pethome);
+				if(ok){
+					mostrarPaginaMensaje("Video ingresado con exito!!");
+				}else{
+					new MessageUtil().showWarnMessage("Aviso", "No se ha podido guardar el Video. Comunicar al Webmaster.");
+				}
 			}else{
 				ok = pethomeBO.modificar(pethome, pethomeClon);
-			}
-			
-			if(ok){
-				FacesUtil facesUtil = new FacesUtil();
-				facesUtil.redirect("../pages/home.jsf");
-			}else{
-				new MessageUtil().showInfoMessage("Aviso", "No existen cambios que guardar");
+				if(ok){
+					mostrarPaginaMensaje("Video modificada con exito!!");
+				}else{
+					new MessageUtil().showWarnMessage("Aviso", "No existen cambios que guardar.");
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -97,21 +100,27 @@ public class HomeAdminBean implements Serializable {
 		}
 	}
 	
-	public String eliminar(){
-		String paginaRetorno = null;
+	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+		usuarioBean.setMensaje(mensaje);
 		
+		FacesUtil facesUtil = new FacesUtil();
+		facesUtil.redirect("../pages/mensaje.jsf");	 
+	}
+	
+	public void eliminar(){
 		try{
 			PethomeBO pethomeBO = new PethomeBO();
-			
-			pethomeBO.eliminar(pethome);
-
-			paginaRetorno = "../pages/home?faces-redirect=true";
+			boolean ok = pethomeBO.eliminar(pethome);
+			if(ok){
+				mostrarPaginaMensaje("Video modificado con exito!!");
+			}else{
+				new MessageUtil().showWarnMessage("Aviso", "No se ha podido eliminar el Video. Comunicar al Webmaster.");
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
-		
-		return paginaRetorno;
 	}
 	
 	public int getIdhome() {

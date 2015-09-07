@@ -9,128 +9,208 @@
 	xmlns:my="http://java.sun.com/jsf/composite/components/buttons">
 
 	<ui:define name="head">
-		
+
 		<meta name="robots" content="noindex" />
-		
+
 		<title>Administración - Instalaciones Nuevo</title>
-	
+
 		<style type="text/css">
 			.inner-content {
 				padding: 30px 0;
-				/*line-height: 300%;*/
 			}
-			label {
+			
+			.label {
 				font-weight: bold;
 				font-size: 15px;
+				line-height: 300%;
 			}
 			
-			.ui-panelgrid td {
-			border-width: 1px;
-			border-style: none;
-			border-color: inherit;
-			padding: 4px 10px;
+			.ui-panelgrid tr,.ui-panelgrid td {
+				border: none;
+				padding: 0px;
+			}
+			/*.ui-panelgrid td {
+				border-width: 1px;
+				border-style: none;
+				border-color: inherit;
+				padding: 4px 10px;
 			}
 			
-			.ui-panelgrid tr  {
+			.ui-panelgrid tr {
 				padding: 0 10px;
 				border-style: none;
-			}
-			.ui-panelgrid .alto-columna {
-				padding-bottom: 15px;
-			}
+			}*/
+			
 			.area-botones {
-				margin: 0 0 25px 25px;
-			}
-			.panel-previa .ui-panel-content {
-				padding: 0;
+				margin: 0px;
 			}
 			
-		</style>
-		
-	</ui:define>
-	
-	<ui:define name="content_page">
-	  <div class="content-page">
-	  	<h:form id="form-contentpage" enctype="multipart/form-data">
-       		<p:growl id="mensajes"  showDetail="true"  />
-            <h1 class="title ui-widget-header">Administración - Instalaciones Nuevo</h1>
-            <div class="inner-content">
-		    <p:panelGrid id="idgridcontenido" >	   
-			<p:row>
-			<p:column styleClass="alto-columna">
-			<br></br>
-			<h:outputLabel value="Agregar Foto" for="idSubeFotos" rendered="#{cementerioVirtualAdminBean.modificacion}"  />
-			</p:column>
-		    </p:row>
-			<p:row>
-			<p:column styleClass="alto-columna"  rendered="#{cementerioVirtualAdminBean.modificacion}">
-				<p:panel id="pnlPrevia" styleClass="panel-previa">
-				<p:graphicImage id="idfotoseleccionada" value="#{usuarioBean.streamedContent}"   />
-				<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash" action="#{cementerioVirtualAdminBean.borrarFotoSubida()}" rendered="#{cementerioVirtualAdminBean.fotosubida}" update="pnlPrevia,idpaneltextdescfoto,idpaneltextorden" />
-			    </p:panel>
-				<p:fileUpload id="idSubeFotos" fileUploadListener="#{cementerioVirtualAdminBean.handleFileUpload}" mode="advanced"  cancelLabel="Cancelar" 
-					uploadLabel="Subir Foto" label="Elegir Foto" showButtons="false"
-					update="mensajes, pnlPrevia,idpaneltextdescfoto,idpaneltextorden"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar"/>
-			</p:column>
-			</p:row>
+			.panel-previa .ui-panel-content {
+				padding: 0px;
+			}
+			
+			.col1 {
 				
-			<p:row>
-			<p:column>
-			<h:panelGroup id="idpaneltextdescfoto">
-			 <h:outputLabel value="Descripción de la Foto" for="txtObservacionFoto"  />
-			 <p:inputTextarea id="txtObservacionFoto" value="#{cementerioVirtualAdminBean.petfotoinstalacion.descripcion}" maxlength="500" autoResize="false"  />
-			</h:panelGroup>
-			</p:column>
-			</p:row>
-            <p:row>
-            <p:column>
-			<h:panelGroup id="idpaneltextorden">
-			  <br/>
-			  <h:outputLabel value="Orden" for="txtOrden"  /> <br/>
-			  <p:spinner id="txtOrden" value="#{cementerioVirtualAdminBean.petfotoinstalacion.orden}" min="1" />
-			</h:panelGroup>
-			</p:column>
-			</p:row>
-			</p:panelGrid>
-			</div>
-			<div class="area-botones">
-			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
-			renderedButtonEliminar="cementerioVirtualAdminBean.idfoto > 0"  labelButtonEliminar="Eliminar" onclickButtonEliminar="vardialogdeletefoto.show()" 
-			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('../pages/cementeriovirtual.jsf');" 
-			renderedButtonNewItem="false" />
-			</div>	
-			<p:dialog id="iddialogdeletefoto"  header="Eliminar Foto" closable="true" widgetVar="vardialogdeletefoto" modal="true" style="min-height: 80px; width: 450px">
-				<h:panelGrid id="idpaneldeletefoto" columns="2" width="100%">
-					<h:outputText id="idlabeldeletefoto" value="Confirme si desea eliminar el registro" />
-					<h:outputText value="" />
-					<h:outputText value="" />
-					<p:panelGrid id="idpanel2deletefoto" style="width: 100%; text-align: right;">
+			}
+			
+			.col2 {
+				width: 15px
+			}
+		</style>
+
+	</ui:define>
+
+	<ui:define name="content_page">
+		<div class="content-page">
+			<h:form id="form-contentpage" enctype="multipart/form-data">
+				<!-- <p:growl id="mensajes" showDetail="true" /> -->
+				<p:messages id="mensajes" showDetail="true" autoUpdate="true" />
+				
+				<h1 class="title ui-widget-header">Administración - Instalaciones Nuevo</h1>
+				
+				<div class="inner-content">
+					<p:panelGrid id="idgridcontenido" columnClasses="col1,col2">
 						<p:row>
-						<p:column>
-						<p:commandButton id="idconfirmardeletefoto" value="Confirmar" action="#{cementerioVirtualAdminBean.eliminar()}" onclick="vardialogdeletefoto.hide()" update=":form-contentpage:mensajes" />
-						<p:commandButton id="idcancelardeletefoto" value="Cancelar" onclick="vardialogdeletefoto.hide()" />
-						</p:column>
+							<p:column>
+								<h:outputLabel value="Agregar Foto" for="idSubeFotos" styleClass="label"
+									rendered="#{cementerioVirtualAdminBean.modificacion}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column rendered="#{cementerioVirtualAdminBean.modificacion}">
+								<p:panel id="pnlPrevia" styleClass="panel-previa">
+									<p:graphicImage id="idfotoseleccionada"
+										value="#{usuarioBean.streamedContent}" />
+									<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash"
+										action="#{cementerioVirtualAdminBean.borrarFotoSubida()}"
+										rendered="#{cementerioVirtualAdminBean.fotosubida}"
+										update="pnlPrevia,pnlObservacionFoto,pnlObservacionFoto2,pnltxtOrden,pnltxtOrden2" />
+								</p:panel>
+								<p:fileUpload id="idSubeFotos"
+									fileUploadListener="#{cementerioVirtualAdminBean.handleFileUpload}"
+									mode="advanced" cancelLabel="Cancelar" uploadLabel="Subir Foto"
+									label="Elegir Foto" showButtons="false"
+									update="mensajes, pnlPrevia,pnlObservacionFoto,pnlObservacionFoto2,pnltxtOrden,pnltxtOrden2"
+									allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:panelGroup id="pnlObservacionFoto">
+									<h:outputLabel value="Descripción de la Foto" for="txtObservacionFoto" styleClass="label" /><span class="label" style="color: red;">*</span>
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+										
+						<p:row>
+							<p:column>
+								<h:panelGroup id="pnlObservacionFoto2">
+									<p:inputTextarea id="txtObservacionFoto" required="true" requiredMessage="Descripción de la Foto"
+										value="#{cementerioVirtualAdminBean.petfotoinstalacion.descripcion}"
+										maxlength="500" autoResize="false" />
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<h:panelGroup id="pnltxtOrden">
+									<h:outputLabel value="Orden" for="txtOrden" styleClass="label" /><span class="label" style="color: red;">*</span>
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+									
+						<p:row>
+							<p:column>
+								<h:panelGroup id="pnltxtOrden2">
+									<p:spinner id="txtOrden"
+										value="#{cementerioVirtualAdminBean.petfotoinstalacion.orden}"
+										min="1" />
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtOrden" for="txtOrden" display="icon" />
+							</p:column>
 						</p:row>
 					</p:panelGrid>
-				</h:panelGrid>
-			</p:dialog>
-			
-			<p:dialog id="iddialoggrabar" header="Grabar" closable="true" widgetVar="vardialoggrabar" modal="true" style="min-height: 80px; width: 450px">
-			<h:panelGrid id="idpanelgrabar" columns="2" width="100%">
-			<h:outputText id="idlabelgrabar" value="Confirme si desea grabar" />
-			<h:outputText value="" />
-			<h:outputText value="" />
-			<p:panelGrid id="idpanel2grabar" style="width: 100%; text-align: right;">
-			<p:row>
-			<p:column>
-			 <p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{cementerioVirtualAdminBean.grabar()}" onclick="vardialoggrabar.hide()" update=":form-contentpage:mensajes" />
-			 <p:commandButton id="idcancelargrabar" value="Cancelar" onclick="vardialoggrabar.hide()" />
-			</p:column>
-			</p:row>
-			</p:panelGrid>
-			</h:panelGrid>
-			</p:dialog>
-         </h:form>
-      </div>		  
-  </ui:define>
-  </ui:composition>
+				</div>
+				<div class="area-botones">
+					<my:buttons renderedButtonAceptar="true"
+						labelButtonAceptar="Grabar"
+						onclickButtonAceptar="vardialoggrabar.show()"
+						immediateButtonAceptar="true"
+						renderedButtonEliminar="#{cementerioVirtualAdminBean.idfoto > 0}"
+						labelButtonEliminar="Eliminar"
+						onclickButtonEliminar="vardialogdeletefoto.show()"
+						immediateButtonEliminar="true" renderedButtonCancelar="true"
+						labelButtonCancelar="Cancelar"
+						onclickButtonCancelar="redirect('../pages/cementeriovirtual.jsf');"
+						renderedButtonNewItem="false" />
+				</div>
+				<p:dialog id="iddialogdeletefoto" header="Eliminar Foto"
+					closable="true" widgetVar="vardialogdeletefoto" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpaneldeletefoto" columns="2" width="100%">
+						<h:outputText id="idlabeldeletefoto"
+							value="Confirme si desea eliminar el registro" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2deletefoto"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmardeletefoto" value="Confirmar"
+										action="#{cementerioVirtualAdminBean.eliminar()}"
+										onclick="vardialogdeletefoto.hide()"
+										update=":form-contentpage:mensajes" />
+									<p:commandButton id="idcancelardeletefoto" value="Cancelar"
+										onclick="vardialogdeletefoto.hide()" immediate="true" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+
+				<p:dialog id="iddialoggrabar" header="Grabar" closable="true"
+					widgetVar="vardialoggrabar" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpanelgrabar" columns="2" width="100%">
+						<h:outputText id="idlabelgrabar" value="Confirme si desea grabar" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2grabar"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmargrabar" value="Confirmar"
+										action="#{cementerioVirtualAdminBean.grabar()}"
+										onclick="vardialoggrabar.hide()"
+										update=":form-contentpage:mensajes" />
+									<p:commandButton id="idcancelargrabar" value="Cancelar"
+										onclick="vardialoggrabar.hide()" immediate="true" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

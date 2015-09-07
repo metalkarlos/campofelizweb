@@ -79,9 +79,9 @@ PetguiaDAO petguiaDAO;
 	
 	
 	
-	public void ingresarPetguiaBO(Petguia petguia,int idestado, UploadedFile uploadedFile, String descripcionFoto) throws Exception{
+	public boolean ingresarPetguiaBO(Petguia petguia,int idestado, UploadedFile uploadedFile, String descripcionFoto) throws Exception{
 		Session session = null;
-		
+		boolean ok = false;
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
@@ -115,18 +115,21 @@ PetguiaDAO petguiaDAO;
 			
 			session.getTransaction().commit();
 			
+			ok = true;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new Exception(e);
 		}finally {
 			session.close();
 		}
-
+		
+		return ok;
 	}
 	
-	public void modificar(Petguia petguia,Petguia petguiaclone,List<Petfotoguia> listPetfotoguia, List<Petfotoguia> listPetfotoguiaclone,int idestado,UploadedFile uploadedFile, String descripcionFoto) throws Exception{
+	public boolean modificar(Petguia petguia,Petguia petguiaclone,List<Petfotoguia> listPetfotoguia, List<Petfotoguia> listPetfotoguiaclone,int idestado,UploadedFile uploadedFile, String descripcionFoto) throws Exception{
 		Session session = null;
 		boolean ok = false;
+		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -168,23 +171,27 @@ PetguiaDAO petguiaDAO;
 			}
 			
 		} catch (Exception e) {
+			ok = false;
 			session.getTransaction().rollback();
 			throw new Exception(e);
 		}finally {
 			session.close();
 		}
+		
+		return ok;
 	}
 	
-	public void eliminarBO(Petguia petguia,List<Petfotoguia> listpetfotoguiaclone, int idestado)throws Exception{
+	public boolean eliminarBO(Petguia petguia,List<Petfotoguia> listpetfotoguiaclone, int idestado)throws Exception{
 		Session session = null;
-		PetfotoguiaDAO petfotoguiaDAO = new PetfotoguiaDAO(); 
-		FacesUtil facesUtil = new FacesUtil();
-		FileUtil fileUtil = new FileUtil();
+		boolean ok = false;
+		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			
-			
+		
+			PetfotoguiaDAO petfotoguiaDAO = new PetfotoguiaDAO(); 
+			FacesUtil facesUtil = new FacesUtil();
+			FileUtil fileUtil = new FileUtil();
 			Date fechamodificacion = new Date();
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 			
@@ -222,6 +229,8 @@ PetguiaDAO petguiaDAO;
 				}
 			}
 			session.getTransaction().commit();
+			
+			ok = true;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new Exception();
@@ -229,6 +238,7 @@ PetguiaDAO petguiaDAO;
 			session.close();
 		}
 		
+		return ok;
 	}
 
 	public void ingresarPetfotoguia(Session session, int idestado, Petguia petguia,  UploadedFile uploadedFile, String descripcionFoto)throws Exception{

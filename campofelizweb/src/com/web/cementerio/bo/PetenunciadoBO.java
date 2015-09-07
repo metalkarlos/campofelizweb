@@ -37,6 +37,22 @@ public class PetenunciadoBO {
 		}
 		return petenunciado;
 	}
+	
+	public int getMaxOrden() throws Exception{
+		int orden = 0;
+		Session session = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			orden = petenunciadoDAO.maxOrden(session);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}finally{
+			session.close();
+		}
+		
+		return orden;
+	}
 	 
 	public List<Petvenunciado> getListpetvenunaciado() throws Exception{
 		List<Petvenunciado> listpetvenunciado=null;
@@ -69,9 +85,11 @@ public class PetenunciadoBO {
 	   return listpetvPetvenunciado;
 	}
 	
-	public void grabar(List<Petenunciado> listpetenunciado, int idestado) throws Exception{
+	public boolean grabar(List<Petenunciado> listpetenunciado, int idestado) throws Exception{
 		Session session = null;
+		boolean ok = false;
 		int idpadre=0;
+		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -108,6 +126,7 @@ public class PetenunciadoBO {
 			
 			session.beginTransaction().commit();
 			
+			ok = true;
 			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
@@ -116,6 +135,7 @@ public class PetenunciadoBO {
 		   session.close();
 		}
 		
+		return ok;
 	}
 	
 	public boolean modificar(List<Petenunciado> listpetenunciado, int idestado)throws Exception{
@@ -159,8 +179,10 @@ public class PetenunciadoBO {
 		return ok;
 	}
 	
-	public void eliminar (List<Petenunciado> listpetenunciado, int idestado)throws Exception{
+	public boolean eliminar (List<Petenunciado> listpetenunciado, int idestado)throws Exception{
 		Session session = null;
+		boolean ok = false;
+		
 		try {
 			
 			session = HibernateUtil.getSessionFactory().openSession();
@@ -187,12 +209,16 @@ public class PetenunciadoBO {
 			
 			session.getTransaction().commit();
 			
+			ok = true;
+			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new Exception(e);
 		}finally{
 			session.close();
 		}
+		
+		return ok;
 	}
 	
 	public PetenunciadoDAO getPetenunciadoDAO() {

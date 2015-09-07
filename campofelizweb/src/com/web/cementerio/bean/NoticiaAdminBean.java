@@ -153,15 +153,18 @@ public class NoticiaAdminBean implements Serializable {
 			
 			if(idnoticia == 0){
 				ok = petnoticiaBO.ingresar(petnoticia, petfotonoticia, uploadedFile);
+				if(ok){
+					mostrarPaginaMensaje("Noticia creada con exito!!");
+				}else{
+					new MessageUtil().showWarnMessage("Aviso", "No se ha podido ingresar la Noticia. Comunicar al Webmaster.");
+				}
 			}else{
 				ok = petnoticiaBO.modificar(petnoticia, petnoticiaClon, lisPetfotonoticia, lisPetfotonoticiaClon, petfotonoticia, uploadedFile);
-			}
-			
-			if(ok){
-				FacesUtil facesUtil = new FacesUtil();
-				facesUtil.redirect("../pages/noticias.jsf");
-			}else{
-				new MessageUtil().showInfoMessage("Aviso", "No existen cambios que guardar");
+				if(ok){
+					mostrarPaginaMensaje("Noticia modificada con exito!!");
+				}else{
+					new MessageUtil().showWarnMessage("Aviso", "No se ha podido modificar la Noticia. Comunicar al Webmaster.");
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -169,21 +172,27 @@ public class NoticiaAdminBean implements Serializable {
 		}
 	}
 	
-	public String eliminar(){
-		String paginaRetorno = null;
+	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+		usuarioBean.setMensaje(mensaje);
 		
+		FacesUtil facesUtil = new FacesUtil();
+		facesUtil.redirect("../pages/mensaje.jsf");	 
+	}
+	
+	public void eliminar(){
 		try{
 			PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
-			
-			petnoticiaBO.eliminar(petnoticia);
-
-			paginaRetorno = "../pages/noticias?faces-redirect=true";
+			boolean ok = petnoticiaBO.eliminar(petnoticia);
+			if(ok){
+				mostrarPaginaMensaje("Noticia eliminada con exito!!");
+			}else{
+				new MessageUtil().showWarnMessage("Aviso", "No se ha podido eliminar la Noticia. Comunicar al Webmaster.");
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
-		
-		return paginaRetorno;
 	}
 
 	public int getIdnoticia() {

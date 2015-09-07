@@ -17,24 +17,27 @@
 		<style type="text/css">
 			.inner-content {
 				padding: 30px 0;
-				/*line-height: 300%;*/
 			}
-			label {
+			.label {
 				font-weight: bold;
 				font-size: 15px;
+				line-height: 300%;
 			}
 			.ui-panelgrid tr, .ui-panelgrid td {
 				border: none;
-				padding: 0 10px;
-			}
-			.ui-panelgrid .alto-columna {
-				padding-bottom: 15px;
+				padding: 0px;
 			}
 			.area-botones {
-				margin: 0 0 25px 25px;
+				margin: 0px;
 			}
 			.panel-previa .ui-panel-content {
-				padding: 0;
+				padding: 0px;
+			}
+			.col1 {
+				
+			}
+			.col2 {
+				width: 15px
 			}
 		</style>
 	</ui:define>
@@ -43,66 +46,106 @@
    <ui:define name="content_page">
 	<div  class="content-page">
 	 <h:form id="form-contentpage" enctype="multipart/form-data">
-        <p:growl id="mensajes" showDetail="true"  />
+        <!-- <p:growl id="mensajes" showDetail="true"  /> -->
+        <p:messages id="mensajes" showDetail="true" autoUpdate="true" />
         <h1 class="title ui-widget-header">Administración - Preguntas Frecuentes</h1>
+        
         <div class="inner-content">
 		     <p:panelGrid id="idgridcontenido"  >
 		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Orden" for="orden" />
+		          <p:column  >
+		            <h:outputLabel value="Orden" for="orden" styleClass="label" /><span class="label" style="color: red;">*</span>
 		          </p:column>
-		        </p:row>  
+		          <p:column>
+								<h:outputText value="" />
+							</p:column>
+		        </p:row>
+		          
 		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		            <p:inputText   id="orden" maxlength="2" value="#{enunciadoAdminBean.petenunciadopregunta.orden}" style="width:30px;" required="true" requiredMessage="Ingresar Orden" />
+		          <p:column  >
+		            <p:spinner id="txtOrden" value="#{enunciadoAdminBean.petenunciadopregunta.orden}" min="1" required="true" requiredMessage="Seleccione el Orden" ></p:spinner>
 		          </p:column>
+		          <p:column>
+								<p:message id="msgtxtOrden" for="txtOrden" display="icon" />
+							</p:column>
 		        </p:row>   
+		        
 		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Pregunta" for="pregunta" />
+		          <p:column  >
+		            <h:outputLabel value="Pregunta" for="txtpregunta" styleClass="label" /><span class="label" style="color: red;">*</span>
 		          </p:column>
+		          <p:column>
+								<h:outputText value="" />
+							</p:column>
 		        </p:row>   
+		        
 		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		            <p:inputTextarea   id="pregunta" autoResize="true" maxlength="1000" value="#{enunciadoAdminBean.petenunciadopregunta.descripcion}" style="width: 600px; font-weight:bold; height:38px;" required="true" requiredMessage="Es necesario ingresar Pregunta" />
+		          <p:column  >
+		            <p:inputTextarea id="txtpregunta" autoResize="true" maxlength="1000" value="#{enunciadoAdminBean.petenunciadopregunta.descripcion}" style="width: 550px; font-weight:bold; height:38px;" required="true" requiredMessage="Ingrese la Pregunta" />
 		          </p:column>
+		          <p:column>
+								<p:message id="msgtxtpregunta" for="txtpregunta" display="icon" />
+							</p:column>
 		        </p:row>   	
+		        
 		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Tag" for="tagpregunta" />
+		          <p:column  >
+		            <h:outputLabel value="Tag" for="tagpregunta" styleClass="label" />
 		          </p:column>
+		          <p:column>
+								<h:outputText value="" />
+							</p:column>
 		        </p:row>   
+		        
 		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		            <p:inputText  id="tagpregunta" value="#{enunciadoAdminBean.petenunciadopregunta.tag}" style="width: 600px;"/>
+		          <p:column  >
+		            <p:inputText  id="tagpregunta" value="#{enunciadoAdminBean.petenunciadopregunta.tag}" style="width: 550px;"/>
 		          </p:column>
+		          <p:column>
+								<p:message id="msgtagpregunta" for="tagpregunta" display="icon" />
+							</p:column>
 		        </p:row>   	
 		
 		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Respuesta" for="respuesta" />
+		          <p:column  >
+		            <h:outputLabel value="Respuesta" for="txtrespuesta" styleClass="label" /><span class="label" style="color: red;">*</span>
 		          </p:column>
+		          <p:column>
+								<h:outputText value="" />
+							</p:column>
 		        </p:row>   
+		        
 		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		            <p:editor  id="respuesta" autoResize="true" value="#{enunciadoAdminBean.petenunciadorespuesta.descripcion}" maxlength="2000" width="600" required="true" requiredMessage="Es necesario ingresar Respuesta" controls="bold italic underline bullets numbering  undo redo link unlink cut copy paste source removeformat"/>
+		          <p:column  >
+		            <p:editor  id="txtrespuesta" autoResize="true" value="#{enunciadoAdminBean.petenunciadorespuesta.descripcion}" maxlength="2000" width="550" controls="bold italic underline bullets numbering  undo redo link unlink cut copy paste source removeformat" required="true" requiredMessage="Ingresar la Respuesta" />
 		          </p:column>
+		          <p:column>
+								<p:message id="msgtxtrespuesta" for="txtrespuesta" display="icon" />
+							</p:column>
 		        </p:row>  
+		        
 		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		            <h:outputLabel value="Tag" for="tagrespuesta" />
+		          <p:column  >
+		            <h:outputLabel value="Tag" for="tagrespuesta" styleClass="label" />
 		          </p:column>
-		        </p:row>    	
+		          <p:column>
+								<h:outputText value="" />
+							</p:column>
+		        </p:row>   
+		         	
 		        <p:row>
-		          <p:column  styleClass="alto-columna">
-		            <p:inputText id="tagrespuesta" value="#{enunciadoAdminBean.petenunciadorespuesta.tag}" style="width: 600px;" />
+		          <p:column  >
+		            <p:inputText id="tagrespuesta" value="#{enunciadoAdminBean.petenunciadorespuesta.tag}" style="width: 550px;" />
 		          </p:column>
+		          <p:column>
+								<p:message id="msgtagrespuesta" for="tagrespuesta" display="icon" />
+							</p:column>
 		        </p:row>   
 		     </p:panelGrid>
 		</div>   
 		 <div class="area-botones">
-			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
-			renderedButtonEliminar="#{enunciadoAdminBean.idenunciado > 0}" onclickButtonEliminar="vardialogdelete.show()" 
+			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" immediateButtonAceptar="true"
+			renderedButtonEliminar="#{enunciadoAdminBean.idenunciado > 0}" onclickButtonEliminar="vardialogdelete.show()" immediateButtonEliminar="true"
 			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('../pages/preguntas.jsf');" 
 			renderedButtonNewItem="false" />
 		</div>  
@@ -115,8 +158,8 @@
 					<p:panelGrid id="idpanel2grabar" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{enunciadoAdminBean.grabar()}" onclick="vardialoggrabar.hide()" update="mensajes,idgridcontenido" />
-						<p:commandButton id="idcancelargrabar" value="Cancelar" onclick="vardialoggrabar.hide()" />
+						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{enunciadoAdminBean.grabar()}" onclick="vardialoggrabar.hide()" update="mensajes,txtOrden,msgtxtOrden,txtpregunta,txtpregunta,msgtxtpregunta,tagpregunta,msgtagpregunta,txtrespuesta,msgtxtrespuesta" />
+						<p:commandButton id="idcancelargrabar" value="Cancelar" onclick="vardialoggrabar.hide()" immediate="true" />
 						</p:column>
 						</p:row>
 					</p:panelGrid>
@@ -131,7 +174,7 @@
 						<p:row>
 						<p:column>
 						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{enunciadoAdminBean.eliminar()}" onclick="vardialogdelete.hide()" update="mensajes" />
-						<p:commandButton id="idcancelardelete" value="Cancelar" onclick="vardialogdelete.hide()" />
+						<p:commandButton id="idcancelardelete" value="Cancelar" onclick="vardialogdelete.hide()" immediate="true" />
 						</p:column>
 						</p:row>
 					</p:panelGrid>

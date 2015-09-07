@@ -76,8 +76,10 @@ public class PetfotoinstalacionBO {
 	}
 	
 	
-	public void ingresarPetfotoinstalacion (int idestado,Petfotoinstalacion petfotoinstalacion,  UploadedFile uploadedFile)throws Exception{
+	public boolean ingresarPetfotoinstalacion (int idestado,Petfotoinstalacion petfotoinstalacion,  UploadedFile uploadedFile)throws Exception{
 		Session session = null;
+		boolean ok = false;
+		
 		try {
 		
 			session = HibernateUtil.getSessionFactory().openSession();
@@ -124,7 +126,7 @@ public class PetfotoinstalacionBO {
 			}
 				
 			session.getTransaction().commit();
-			
+			ok = true;
 			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
@@ -132,18 +134,21 @@ public class PetfotoinstalacionBO {
 		}finally {
 			session.close();
 		}	
+		
+		return ok;
 	}
 	
 	
-	public void modificarPetfotoinstalacion(Petfotoinstalacion petfotoinstalacion ,Petfotoinstalacion petfotoinstalacionclone) throws Exception{
+	public boolean modificarPetfotoinstalacion(Petfotoinstalacion petfotoinstalacion ,Petfotoinstalacion petfotoinstalacionclone) throws Exception{
 		Session session = null;
+		boolean ok = false;
+		
 		try{
 			
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			
-			if(petfotoinstalacion!=null && petfotoinstalacionclone !=null){
-			  if(!petfotoinstalacion.equals(petfotoinstalacionclone)){
+			if(petfotoinstalacion!=null && petfotoinstalacionclone !=null && !petfotoinstalacion.equals(petfotoinstalacionclone)){
 				//auditoria
 				Date fechamodificacion= new Date();
 				UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
@@ -157,28 +162,27 @@ public class PetfotoinstalacionBO {
 				petfotoinstalacionDAO.updatePetfotoinstalacion(session, petfotoinstalacion);
 				
 				session.getTransaction().commit();
-				
-			 }
-						
-		  }	
-		}
-		catch (Exception e) {
+				ok = true;
+			}	
+		}catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new Exception(e);
 		}finally {
 			session.close();
 		}	
 		
+		return ok;
 	}
 	
-	public void eliminarPetfotoinstalacion(Petfotoinstalacion petfotoinstalacion ,Petfotoinstalacion petfotoinstalacionclone, int idestado) throws Exception{
+	public boolean eliminarPetfotoinstalacion(Petfotoinstalacion petfotoinstalacion ,Petfotoinstalacion petfotoinstalacionclone, int idestado) throws Exception{
 		Session session = null;
+		boolean ok = false;
+		
 		try{
 			
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			FacesUtil facesUtil = new FacesUtil();
-			FileUtil fileUtil = new FileUtil();
+			
 			if(petfotoinstalacion!=null && petfotoinstalacionclone !=null){
 			 
 				//auditoria
@@ -201,22 +205,22 @@ public class PetfotoinstalacionBO {
 				session.getTransaction().commit();
 				
 				//eliminar foto del disco
+				FacesUtil facesUtil = new FacesUtil();
+				FileUtil fileUtil = new FileUtil();
 				String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
-				
 				String rutaArchivo = rutaImagenes + petfotoinstalacion.getRuta();
-				
 				fileUtil.deleteFile(rutaArchivo);
 			
-						
-		  }	
-		}
-		catch (Exception e) {
+				ok = true;
+			}	
+		}catch (Exception e) {
 			session.getTransaction().rollback();
 			throw new Exception(e);
 		}finally {
 			session.close();
 		}	
 		
+		return ok;
 	}
 	
 }
