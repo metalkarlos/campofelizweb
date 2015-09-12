@@ -49,7 +49,7 @@
 		}
 		.box_content{
 			text-align: justify;
-			padding: 0px 0px 20px 0px;
+			padding: 0px;
 		}
 		.otrocontainer_24 {
 			margin-left:auto;
@@ -83,6 +83,9 @@
 		.inner-content ul {
 			padding-left: 30px;
 			list-style:inherit; 
+		}
+		.indent-bot-1 .leftcontent {
+	    min-height: 1060px;
 		}
     </style>
 	<!-- Configuración del Calendario de la Agenda -->
@@ -232,7 +235,10 @@
 				<div class="label_text"><p>Nuestro Homenaje Póstumo</p></div>
 			</li>
 			<li>
-				<h:link outcome="servicios"><h:graphicImage alt="Nuestros Servicios" value="/resources/images/slide2.jpg" class="fade" /></h:link>
+				<h:link outcome="servicios">
+					<h:graphicImage alt="Nuestros Servicios" value="/resources/images/slide2.jpg" class="fade" />
+					<f:param name="idempresa" value="1"></f:param>
+				</h:link>
 				<div class="label_text"><p>Nuestros Servicios</p></div>
 			</li>
 			<li>
@@ -244,12 +250,22 @@
 				<div class="label_text"><p>Nuestro Homenaje Póstumo</p></div>
 			</li>
 			<li>
-				<h:link outcome="servicios"><h:graphicImage alt="Nuestros Servicios" value="/resources/images/slide5.jpg" class="fade" /></h:link>
+				<h:link outcome="servicios">
+					<h:graphicImage alt="Nuestros Servicios" value="/resources/images/slide5.jpg" class="fade" />
+					<f:param name="idempresa" value="1"></f:param>
+				</h:link>
 				<div class="label_text"><p>Nuestros Servicios</p></div>
 			</li>
 			<li>
 				<h:link outcome="cementeriovirtual"><h:graphicImage alt="Nuestras Instalaciones" value="/resources/images/slide6.jpg" class="fade" /></h:link>
 				<div class="label_text"><p>Nuestras Instalaciones</p></div>
+			</li>
+			<li>
+				<h:link outcome="servicios">
+					<h:graphicImage alt="Veterinaria Burgos" value="/resources/images/slide7.jpg" class="fade" />
+					<f:param name="idempresa" value="2"></f:param>
+				</h:link>
+				<div class="label_text"><p>Veterinaria Burgos</p></div>
 			</li>
 		</ul>
 	</div>
@@ -277,18 +293,29 @@
 				</ui:insert>
 			</div>
 			<div class="right">
-				<div class="inner-box" style="height: 339px;">
+				<div class="inner-box" style="height: 330px;">
 					<div class="inner-box-title">
 						<h2>Homenaje</h2>
 					</div>
 					<ui:include src="/WEB-INF/includes/mascotas-principales.xhtml" />
 				</div>
-				<div class="inner-box" >
+				<div class="inner-box" style="height: 495px;">
 					<div class="inner-box-title">
 						<h2>Facebook</h2>
 					</div>
+					<div class="box_content" >
+						<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FCampo-Feliz-Cementerio-de-Mascotas%2F257959247667793&amp;width=270&amp;height=490&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=true&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:270px; height:440px;" allowTransparency="true"></iframe>
+					</div>
+				</div>
+				<div class="inner-box" style="height: 215px;">
+					<div class="inner-box-title">
+						<h2>Veterinaria Burgos</h2>
+					</div>
 					<div class="box_content">
-						<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FCampo-Feliz-Cementerio-de-Mascotas%2F257959247667793&amp;width=270&amp;height=500&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=true&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:270px; height:560px;" allowTransparency="true"></iframe>
+						<h:link outcome="servicios">
+							<h:graphicImage alt="Veterinaria Burgos" title="Veterinaria Burgos" width="270px" value="/resources/images/Logo_veterinaria.png"/>
+							<f:param name="idempresa" value="2"></f:param>
+						</h:link>
 					</div>
 				</div>
 			</div>
