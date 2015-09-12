@@ -30,40 +30,73 @@ public class BreadCrumbBean {
 			"preguntas.jsf",
 			"contactenos.jsf");
 	
-	private String[][] ruta = {{"Home;Quienes Somos","home.jsf;#"},
-			{"Home;Servicios","home.jsf;#"},
-			{"Home;Servicios;Servicio","home.jsf;servicios.jsf;#"},
-			{"Home;Encuesta","home.jsf;#"},
-			{"Home;Cotización","home.jsf;#"},
-			{"Home;Instalaciones","home.jsf;#"},
-			{"Home;Homenaje Póstumo","home.jsf;#"},
-			{"Home;Homenaje Póstumo;Homenaje Póstumo","home.jsf;mascotashomenaje.jsf;#"},
-			{"Home;Noticias","home.jsf;#"},
-			{"Home;Noticias;Noticia","home.jsf;noticias.jsf;#"},
-			{"Home;Guía General","home.jsf;#"},
-			{"Home;Guía General;Cómo Decir Adiós","home.jsf;guiageneral.jsf;#"},
-			{"Home;Preguntas Frecuentes","home.jsf;#"},
-			{"Home;Contáctenos","home.jsf;contactenos.jsf"}};
+	private String[][] rutas = {{"Home;Quienes Somos","home.jsf;quienessomos.jsf",";"},
+			{"Home;Servicios","home.jsf;servicios.jsf",";idempresa"},
+			{"Home;Servicios;Servicio","home.jsf;servicios.jsf;servicio.jsf",";idempresa;idservicio,idempresa"},
+			{"Home;Encuesta","home.jsf;encuesta.jsf",";"},
+			{"Home;Cotización","home.jsf;cotizacion.jsf",";"},
+			{"Home;Instalaciones","home.jsf;cementeriovirtual.jsf",";"},
+			{"Home;Homenaje Póstumo","home.jsf;mascotashomenaje.jsf",";"},
+			{"Home;Homenaje Póstumo;Mascota","home.jsf;mascotashomenaje.jsf;mascotahomenaje.jsf",";;idmascota"},
+			{"Home;Noticias","home.jsf;noticias.jsf",";"},
+			{"Home;Noticias;Noticia","home.jsf;noticias.jsf;noticia.jsf",";;idnoticia"},
+			{"Home;Guía General","home.jsf;guiageneral.jsf",";"},
+			{"Home;Guía General;Cómo Decir Adiós","home.jsf;guiageneral.jsf;guia.jsf",";;idguia"},
+			{"Home;Preguntas Frecuentes","home.jsf;preguntas.jsf",";"},
+			{"Home;Contáctenos","home.jsf;contactenos.jsf",";"}};
 	
 	public BreadCrumbBean() {
 		breadCrumb = new DefaultMenuModel();
 	}
 	
-	public void armarBreadCrumb(String opcion){
+	public void armarBreadCrumb(String opcion,String param){
 		int index = opciones.indexOf(opcion);
 		breadCrumb = new DefaultMenuModel();
 		
 		if(index >= 0){
-			String txtnom = ruta[index][0];
-			String[] nom = txtnom.split(";");
+			String rutaTitulos = rutas[index][0];
+			String[] arrTitulos = rutaTitulos.split(";");
 			
-			String txtop = ruta[index][1];
-			String[] op = txtop.split(";");
+			String rutaOpciones = rutas[index][1];
+			String[] arrOpciones = rutaOpciones.split(";");
+			String url = null;
+			
+			String rutaParametros = rutas[index][2];//";idempresa;idservicio,idempresa"
+			String[] arrParametros = rutaParametros.split(";");//idservicio,idempresa
 
-			for(int i = 0 ; i<op.length ; i++){
+			String[] arrParametrosUrl = param.split("&");//idservicio=6&idempresa=2
+			
+			for(int i = 0 ; i<arrOpciones.length ; i++){
 				MenuItem item = new MenuItem();
-				item.setValue(nom[i]);
-				item.setUrl(op[i]);
+				item.setValue(arrTitulos[i]);
+
+				String par = "";
+						
+				if(arrParametros != null && arrParametros[i] != null && arrParametros[i].trim().length() > 0 ){
+					String tmp = arrParametros[i].toString();
+					String[] arr = tmp.split(",");//idservicio,idempresa
+					
+					for(String strparam : arr){//idservicio <= idservicio,idempresa
+						for(String strurl : arrParametrosUrl){//idservicio=6 <= idservicio=6&idempresa=2
+							int idx = strurl.indexOf(strparam);
+							if(idx > -1){
+								if(par != null && par.trim().length() > 0){
+									par += "&";
+								}
+								par += strurl;
+							}
+						}
+					}
+					
+				}
+				
+				if(par != null && par.trim().length() > 0){
+					url = arrOpciones[i]+"?"+par;
+				}else{
+					url = arrOpciones[i];
+				}
+				
+				item.setUrl(url);
 				breadCrumb.addMenuItem(item);
 			}
 		}

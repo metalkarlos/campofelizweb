@@ -31,6 +31,7 @@ public class SecurityPhaseListener implements PhaseListener {
 			FacesUtil facesUtil = new FacesUtil();
 			HttpServletRequest request = (HttpServletRequest)facesContext.getExternalContext().getRequest();
 			String vista = request.getRequestURI();
+			String param = request.getQueryString();
 			
 			//                LIMPIA ESPACIO USADO POR FOTO VISTA PREVIA DEL UPLOAD
 			if(usuarioBean != null && usuarioBean.getStreamedContent() != null){
@@ -83,7 +84,7 @@ public class SecurityPhaseListener implements PhaseListener {
 				}
 			}
 			String pagina = urlarray[x];
-			breadCrumbBean.armarBreadCrumb(pagina);
+			breadCrumbBean.armarBreadCrumb(pagina,param);
 		}
 	}
 

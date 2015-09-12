@@ -57,7 +57,9 @@
 		.nombremascota {
 			font-weight: normal;
 			/*font-family: 'Open Sans', sans-serif;*/
-			font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+			/*font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
+			font-family: Times New Roman, Arial, Helvetica;
+			font-style: oblique;
 			text-shadow: 1px 1px #fbfbfb;
 			letter-spacing: -1px;
 			font-size: 30px;
@@ -69,16 +71,19 @@
 			font-style: oblique;
 			font-family: Times New Roman, Arial, Helvetica;
 			font-size: 18px;
-			font-weight: bold;
+			/*font-weight: bold;*/
 			padding-bottom: 12px;
 			letter-spacing: 0.4px;
 			line-height: 150%;
-			color: #7b7b7b;
+			color: #222;
 			text-shadow: 0px 0px 0.6px #BBB;
 		}
 		
 		.textolabel {
-			text-align: right;
+			/*text-align: right;*/
+			font-style: oblique;
+			font-family: Times New Roman,Arial,Helvetica;
+			color: #222;
 			font-size: 13px;
 			font-weight: bold;
 			text-shadow: 0.6px 0px #BBB;
@@ -88,6 +93,7 @@
 		.textocontenido {
 			font-size: 13px;
 			letter-spacing: 0px;
+			font-style: oblique;
 		}
 		</style>
 
@@ -131,43 +137,44 @@
 										<h:outputText styleClass="texto-dedicatoria" style="text-align:justify;" id="txtdedicatoria" value="#{mascotaHomenajeBean.petmascotahomenaje.dedicatoria}" escape="false" />
 									</p:column>
 								</p:row>
-
-								<p:row>
-									<p:column styleClass="alto-columna ancho" style="text-align:right; width: 270px;">
-										<h:outputLabel styleClass="textolabel" value="Familia:"	for="txtFamilia" rendered="#{mascotaHomenajeBean.petmascotahomenaje.familia.toString()!=''}" />
-									</p:column>
-									<p:column styleClass="alto-columna" style="width: 270px;">
-										<h:outputText styleClass="textocontenido" id="txtFamilia" value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
-									</p:column>
-								</p:row>
-
-								<p:row>
-									<p:column styleClass="alto-columna" style="text-align:right;">
-										<h:outputLabel styleClass="textolabel" value="Fecha nacimiento:" for="calFechanacimiento" />
-									</p:column>
-									<p:column>
-										<p:graphicImage id="idfotonacimiento" value="../resources/images/estrella.png" styleClass="imagenrecordatorio" />
-										<h:outputText styleClass="textocontenido" id="calFechanacimiento" value="#{mascotaHomenajeBean.petmascotahomenaje.fechanacimiento}">
-											<f:convertDateTime pattern="dd/MM/yyyy" />
-										</h:outputText>
-									</p:column>
-								</p:row>
-
-								<p:row>
-									<p:column styleClass="alto-columna" style="text-align:right;">
-										<h:outputLabel styleClass="textolabel" value="Fecha fallecimiento:" for="calFechafallecimiento" />
-									</p:column>
-									<p:column>
-										<p:graphicImage id="idfotofalecimiento" value="../resources/images/cruz.png" styleClass="imagenrecordatorio" />
-										<h:outputText styleClass="textocontenido" id="calFechafallecimiento" value="#{mascotaHomenajeBean.petmascotahomenaje.fechafallecimiento}">
-											<f:convertDateTime pattern="dd/MM/yyyy" />
-										</h:outputText>
-									</p:column>
-								</p:row>
 							</p:panelGrid>
 						</div>
 					</center>
-					<br />
+					
+					<center>
+					<table style="width: 200px; text-align: center;" >
+					<tr>
+					<td><p:graphicImage value="../resources/images/estrella.png" styleClass="imagenrecordatorio" /></td>
+					<td></td>
+					<td><p:graphicImage value="../resources/images/cruz.png" styleClass="imagenrecordatorio" /></td>
+					</tr>
+					<tr>
+					<td>
+					<h:outputText styleClass="textocontenido" value="#{mascotaHomenajeBean.petmascotahomenaje.fechanacimiento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+					</td>
+					<td>-</td>
+					<td>
+					<h:outputText styleClass="textocontenido" value="#{mascotaHomenajeBean.petmascotahomenaje.fechafallecimiento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+					</td>
+					</tr>
+					<tr><td style="height: 15px;"></td></tr>
+					<tr>
+					<td colspan="3">
+					<h:outputLabel styleClass="texto-dedicatoria" value="FAMILIA"	for="txtFamilia" />
+					</td>
+					</tr>
+					<tr>
+					<td colspan="3">
+					<h:outputText styleClass="textocontenido" id="txtFamilia" value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
+					</td>
+					</tr>
+					</table>
+					</center>
+					<br /><br />
 					
 					<!-- Botones Redes Sociales -->
 					<ui:include src="/WEB-INF/includes/botones-sociales.xhtml" />
