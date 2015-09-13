@@ -64,7 +64,10 @@ public class BreadCrumbBean {
 			String rutaParametros = rutas[index][2];//";idempresa;idservicio,idempresa"
 			String[] arrParametros = rutaParametros.split(";");//idservicio,idempresa
 
-			String[] arrParametrosUrl = param.split("&");//idservicio=6&idempresa=2
+			String[] arrParametrosUrl = null;
+			if(param != null && param.trim().length() > 0){
+				arrParametrosUrl = param.split("&");
+			}
 			
 			for(int i = 0 ; i<arrOpciones.length ; i++){
 				MenuItem item = new MenuItem();
@@ -72,7 +75,8 @@ public class BreadCrumbBean {
 
 				String par = "";
 						
-				if(arrParametros != null && arrParametros[i] != null && arrParametros[i].trim().length() > 0 ){
+				if(arrParametros != null && arrParametros.length > 0 && arrParametros[i] != null && arrParametros[i].trim().length() > 0 && 
+				   arrParametrosUrl != null){
 					String tmp = arrParametros[i].toString();
 					String[] arr = tmp.split(",");//idservicio,idempresa
 					
