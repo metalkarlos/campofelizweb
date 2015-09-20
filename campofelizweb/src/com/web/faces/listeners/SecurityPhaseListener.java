@@ -83,8 +83,10 @@ public class SecurityPhaseListener implements PhaseListener {
 					break;
 				}
 			}
-			String pagina = urlarray[x];
-			breadCrumbBean.armarBreadCrumb(pagina,param);
+			if(x > -1){
+				String pagina = urlarray[x];
+				breadCrumbBean.armarBreadCrumb(pagina,param);
+			}
 		}
 	}
 

@@ -179,6 +179,8 @@
 				<h:outputText value="" />
 			</f:facet>
 		</p:ajaxStatus>
+		<p:idleMonitor timeout="#{session.maxInactiveInterval * 1000}"
+		onidle="redirect(window.location);" />
 		</h:form>
 	</h:body>
 
