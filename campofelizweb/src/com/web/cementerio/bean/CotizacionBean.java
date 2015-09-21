@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.mail.internet.AddressException;
 
 import com.web.cementerio.bo.PetservicioBO;
+import com.web.cementerio.global.Parametro;
 import com.web.cementerio.pojo.annotations.Petservicio;
 import com.web.util.FacesUtil;
 import com.web.util.FileUtil;
@@ -23,29 +24,46 @@ public class CotizacionBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4833526764348322717L;
-	private List<String> lisPetservicio;
-	private String[] lisPetservicioSeleccionados;
+	private List<String> lisPetservicioCampo;
+	private List<String> lisPetservicioVete;
+	private String[] lisPetservicioCampoSeleccionado;
+	private String[] lisPetservicioVeteSeleccionado;
 	private String nombres;
 	private String apellidos;
 	private String correo;
 	private String otrosServicios;
 	
 	public CotizacionBean() {
-		lisPetservicio = new ArrayList<String>();
+		lisPetservicioCampo = new ArrayList<String>();
+		lisPetservicioVete = new ArrayList<String>();
 		nombres = null;
 		apellidos = null;
 		correo = null;
 		otrosServicios = "";
 		
-		consultarServicios();
+		consultarServiciosCampo();
+		consultarServiciosVete();
 	}
 	
-	private void consultarServicios(){
+	private void consultarServiciosCampo(){
 		try{
 			PetservicioBO petservicioBO = new PetservicioBO(); 
-			List<Petservicio> tmp = petservicioBO.lisPetservicio();
+			List<Petservicio> tmp = petservicioBO.lisPetservicio(Parametro.EMPRESA_CAMPOFELIZ, 0);
 			for(Petservicio petservicio : tmp){
-				lisPetservicio.add(petservicio.getNombre());
+				lisPetservicioCampo.add(petservicio.getNombre());
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!", null);
+		}
+	}
+	
+	private void consultarServiciosVete(){
+		try{
+			PetservicioBO petservicioBO = new PetservicioBO(); 
+			List<Petservicio> tmp = petservicioBO.lisPetservicio(Parametro.EMPRESA_VETERINARIABURGOS, 0);
+			for(Petservicio petservicio : tmp){
+				lisPetservicioVete.add(petservicio.getNombre());
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -137,7 +155,28 @@ public class CotizacionBean implements Serializable {
 		contenido += "<tr>";	
 		contenido += "<td colspan='2'><strong>Servicios que solicita: </strong></td>";
 		contenido += "</tr>";
-		for(String petservicio : lisPetservicioSeleccionados){
+		if(lisPetservicioCampoSeleccionado != null && lisPetservicioCampoSeleccionado.length > 0){
+			contenido += "<tr style='height: 20px;'>";	
+			contenido += "<td></td><td></td>";
+			contenido += "</tr>";
+			contenido += "<tr>";	
+			contenido += "<td colspan='2'><strong>Servicios de Campo Feliz que solicita: </strong></td>";
+			contenido += "</tr>";
+		}
+		for(String petservicio : lisPetservicioCampoSeleccionado){
+			contenido += "<tr>";	
+			contenido += "<td colspan='2'>" + petservicio + "</td>";
+			contenido += "</tr>";
+		}
+		if(lisPetservicioVeteSeleccionado != null && lisPetservicioVeteSeleccionado.length > 0){
+			contenido += "<tr style='height: 20px;'>";	
+			contenido += "<td></td><td></td>";
+			contenido += "</tr>";
+			contenido += "<tr>";	
+			contenido += "<td colspan='2'><strong>Servicios de Veterinaria Burgos que solicita: </strong></td>";
+			contenido += "</tr>";
+		}
+		for(String petservicio : lisPetservicioVeteSeleccionado){
 			contenido += "<tr>";	
 			contenido += "<td colspan='2'>" + petservicio + "</td>";
 			contenido += "</tr>";
@@ -180,7 +219,8 @@ public class CotizacionBean implements Serializable {
 		if(nombres != null && nombres.trim().length() > 0){
 			if(apellidos != null && apellidos.trim().length() > 0){
 				if(correo != null && correo.trim().length() > 0){
-					if(lisPetservicioSeleccionados != null && lisPetservicioSeleccionados.length > 0){
+					if( (lisPetservicioCampoSeleccionado != null && lisPetservicioCampoSeleccionado.length > 0 ) || 
+						(lisPetservicioVeteSeleccionado != null && lisPetservicioVeteSeleccionado.length > 0) ){
 						ok = true;
 					}else{
 						new MessageUtil().showWarnMessage("*Servicios", null);
@@ -230,20 +270,38 @@ public class CotizacionBean implements Serializable {
 		this.correo = correo;
 	}
 
-	public List<String> getLisPetservicio() {
-		return lisPetservicio;
+	public String[] getLisPetservicioCampoSeleccionado() {
+		return lisPetservicioCampoSeleccionado;
 	}
 
-	public void setLisPetservicio(List<String> lisPetservicio) {
-		this.lisPetservicio = lisPetservicio;
+	public void setLisPetservicioCampoSeleccionado(
+			String[] lisPetservicioCampoSeleccionado) {
+		this.lisPetservicioCampoSeleccionado = lisPetservicioCampoSeleccionado;
 	}
 
-	public String[] getLisPetservicioSeleccionados() {
-		return lisPetservicioSeleccionados;
+	public String[] getLisPetservicioVeteSeleccionado() {
+		return lisPetservicioVeteSeleccionado;
 	}
 
-	public void setLisPetservicioSeleccionados(String[] lisPetservicioSeleccionados) {
-		this.lisPetservicioSeleccionados = lisPetservicioSeleccionados;
+	public void setLisPetservicioVeteSeleccionado(
+			String[] lisPetservicioVeteSeleccionado) {
+		this.lisPetservicioVeteSeleccionado = lisPetservicioVeteSeleccionado;
+	}
+
+	public List<String> getLisPetservicioCampo() {
+		return lisPetservicioCampo;
+	}
+
+	public void setLisPetservicioCampo(List<String> lisPetservicioCampo) {
+		this.lisPetservicioCampo = lisPetservicioCampo;
+	}
+
+	public List<String> getLisPetservicioVete() {
+		return lisPetservicioVete;
+	}
+
+	public void setLisPetservicioVete(List<String> lisPetservicioVete) {
+		this.lisPetservicioVete = lisPetservicioVete;
 	}
 	
 }

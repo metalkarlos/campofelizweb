@@ -16,6 +16,7 @@ public class MailUtil {
 
 	private String usuario;
 	private String clave;
+	private String debug;
 	
 	public MailUtil() {
 	}
@@ -32,6 +33,7 @@ public class MailUtil {
 				.getPropertiesFile(Parametro.PROPERTIES_MAIL);
 		usuario = properties.getProperty("mail.user");
 		clave = properties.getProperty("mail.password");
+		debug = properties.getProperty("mail.debug");
 
 		destinatario = destinatario == null ? usuario : destinatario;
 		
@@ -50,7 +52,7 @@ public class MailUtil {
 			        }
 			});
 
-		mailSession.setDebug(true);
+		mailSession.setDebug(debug.equalsIgnoreCase("true"));
 		
 		MimeMessage message = new MimeMessage(mailSession);
 		message.setFrom(internetAddressUsuario);

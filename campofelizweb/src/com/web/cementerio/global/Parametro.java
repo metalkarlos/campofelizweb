@@ -16,6 +16,15 @@ public class Parametro {
 	public static final long TAMAÑO_IMAGEN = 716800;
 	private String servletImagenes;
 	
+	/*EMPRESAS*/
+	public static final int EMPRESA_CAMPOFELIZ = 1;
+	public static final int EMPRESA_VETERINARIABURGOS = 2;
+	
+	/*OFICINAS*/
+	public static final int OFICINA_CAMPOFELIZ_LAROCA = 1;
+	public static final int OFICINA_CAMPOFELIZ_LAMARTHA = 2;
+	public static final int OFICINA_VETERINARIABURGOS_LAMARTHA = 3;
+	
 	public Parametro() {
 		cargarRutaImagenes();
 	}

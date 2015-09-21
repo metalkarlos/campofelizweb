@@ -53,11 +53,20 @@ public class PetservicioDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Petservicio> lisPetservicio(Session session) throws Exception {
+	public List<Petservicio> lisPetservicio(Session session, int idempresa, int idoficina) throws Exception {
 		List<Petservicio> lisPetservicio = null;
 		
 		String hql = " from Petservicio ";
 		hql += " where setestado.idestado = :idestado ";
+		
+		if(idempresa > 0){
+			hql += " and cotempresa.idempresa = " + idempresa;
+		}
+		
+		if(idoficina > 0){
+			hql += " and cotoficina.idoficina = " + idoficina;
+		}
+		
 		hql += " order by nombre ";
 		
 		Query query = session.createQuery(hql)

@@ -64,12 +64,20 @@
 						</fieldset>
 					</div>
 					<br />
-					<label>Servicios:</label>
-			        <h:selectManyCheckbox value="#{cotizacionBean.lisPetservicioSeleccionados}" layout="pageDirection" style="margin-left: 15px;">
-			        	<f:selectItems value="#{cotizacionBean.lisPetservicio}" var="servicio" itemLabel="#{servicio}" itemValue="#{servicio}" />
-			        </h:selectManyCheckbox>
-			        <br />
-			        <label>Otros Servicios:</label>
+					
+					<label>Servicios Campo Feliz:</label>
+	        <h:selectManyCheckbox value="#{cotizacionBean.lisPetservicioCampoSeleccionado}" layout="pageDirection" style="margin-left: 15px;">
+	        	<f:selectItems value="#{cotizacionBean.lisPetservicioCampo}" var="serviciocampo" itemLabel="#{serviciocampo}" itemValue="#{serviciocampo}" />
+	        </h:selectManyCheckbox>
+			    <br />
+			    
+			    <label>Servicios Veterinaria Burgos:</label>
+	        <h:selectManyCheckbox value="#{cotizacionBean.lisPetservicioVeteSeleccionado}" layout="pageDirection" style="margin-left: 15px;">
+	        	<f:selectItems value="#{cotizacionBean.lisPetservicioVete}" var="serviciovete" itemLabel="#{serviciovete}" itemValue="#{serviciovete}" />
+	        </h:selectManyCheckbox>
+			    <br />
+			    
+			    <label>Otros Servicios:</label>
 					<p:inputTextarea id="txtOtrosServicios" value="#{cotizacionBean.otrosServicios}" maxlength="1000" autoResize="false" />
 					
 					<div align="right" style="padding:15px 0 0 0;">
