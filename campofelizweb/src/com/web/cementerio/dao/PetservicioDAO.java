@@ -38,10 +38,10 @@ public class PetservicioDAO {
 	public List<Petservicio> lisPetservicioPrincipales(Session session) throws Exception {
 		List<Petservicio> lisPetservicio = null;
 		
-		String hql = " from Petservicio ";
-		hql += " where principal = :principal ";
-		hql += " and setestado.idestado = :idestado ";
-		hql += " order by orden desc ";
+		String hql = " from Petservicio ser inner join fetch ser.cotempresa emp ";
+		hql += " where ser.principal = :principal ";
+		hql += " and ser.setestado.idestado = :idestado ";
+		hql += " order by ser.orden desc ";
 		
 		Query query = session.createQuery(hql)
 				.setInteger("idestado", 1)
@@ -90,7 +90,8 @@ public class PetservicioDAO {
 			String query = "(";
 			for(int i=0;i<texto.length;i++)
 			{
-				query += "lower({alias}.descripcion) like lower('%"+texto[i]+"%') ";
+				query += "lower({alias}.nombre) like lower('%"+texto[i]+"%') ";
+				query += "or lower({alias}.descripcion) like lower('%"+texto[i]+"%') ";
 				if(i<texto.length-1){
 					query += "or ";
 				}
@@ -118,7 +119,8 @@ public class PetservicioDAO {
 				String query = "(";
 				for(int i=0;i<texto.length;i++)
 				{
-					query += "lower({alias}.descripcion) like lower('%"+texto[i]+"%') ";
+					query += "lower({alias}.nombre) like lower('%"+texto[i]+"%') ";
+					query += "or lower({alias}.descripcion) like lower('%"+texto[i]+"%') ";
 					if(i<texto.length-1){
 						query += "or ";
 					}

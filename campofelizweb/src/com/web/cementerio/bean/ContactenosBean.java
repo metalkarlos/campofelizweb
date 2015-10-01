@@ -6,8 +6,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.mail.internet.AddressException;
 
-import com.web.cementerio.bo.PetempresaBO;
-import com.web.cementerio.pojo.annotations.Petempresa;
+import com.web.cementerio.bo.CotoficinaBO;
+import com.web.cementerio.global.Parametro;
+import com.web.cementerio.pojo.annotations.Cotempresa;
+import com.web.cementerio.pojo.annotations.Cotoficina;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
@@ -22,8 +24,8 @@ public class ContactenosBean implements Serializable {
 
 	
 	private static final long serialVersionUID = 4207311339845311723L;
-	private Petempresa petempresa;
-	private Petempresa petempresaVeterinaria;
+	private Cotoficina cotoficina;
+	private Cotoficina cotoficinaVeterinaria;
 	private String nombres;
 	private String apellidos;
 	private String correo;
@@ -35,8 +37,8 @@ public class ContactenosBean implements Serializable {
 	}
 
 	public void inicializar(){
-		petempresa = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
-		petempresaVeterinaria = new Petempresa(0, new Setestado(), new Setusuario(), null, null, null, null, null, null, null, null, null, null,null);
+		cotoficina = new Cotoficina(0, new Setestado(), new Setusuario(), new Cotempresa(), null, null, null, null);
+		cotoficinaVeterinaria = new Cotoficina(0, new Setestado(), new Setusuario(), new Cotempresa(), null, null, null, null);
 		nombres = null;
 		apellidos = null;
 		correo = null;
@@ -44,9 +46,9 @@ public class ContactenosBean implements Serializable {
 	}
 	public void consultar(){
 		try {
-			PetempresaBO petempresaBO= new PetempresaBO();
-			petempresa = petempresaBO.getPetempresabyTipo(1, 1);
-			petempresaVeterinaria = petempresaBO.getPetempresabyTipo(1, 2);
+			CotoficinaBO cotoficinaBO = new CotoficinaBO();
+			cotoficina = cotoficinaBO.getCotoficinabyId(Parametro.OFICINA_CAMPOFELIZ_LAROCA);
+			cotoficinaVeterinaria = cotoficinaBO.getCotoficinabyId(Parametro.OFICINA_CAMPOFELIZ_LAMARTHA);
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
@@ -156,20 +158,20 @@ public class ContactenosBean implements Serializable {
 		return contenido;
 	}
 
-	public Petempresa getPetempresa() {
-		return petempresa;
+	public Cotoficina getCotoficina() {
+		return cotoficina;
 	}
 
-	public void setPetempresa(Petempresa petempresa) {
-		this.petempresa = petempresa;
+	public void setCotoficina(Cotoficina cotoficina) {
+		this.cotoficina = cotoficina;
 	}
 
-	public Petempresa getPetempresaVeterinaria() {
-		return petempresaVeterinaria;
+	public Cotoficina getCotoficinaVeterinaria() {
+		return cotoficinaVeterinaria;
 	}
 
-	public void setPetempresaVeterinaria(Petempresa petempresaVeterinaria) {
-		this.petempresaVeterinaria = petempresaVeterinaria;
+	public void setCotoficinaVeterinaria(Cotoficina cotoficinaVeterinaria) {
+		this.cotoficinaVeterinaria = cotoficinaVeterinaria;
 	}
 
 	public String getNombres() {

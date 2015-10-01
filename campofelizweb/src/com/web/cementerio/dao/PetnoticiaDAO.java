@@ -131,7 +131,8 @@ public class PetnoticiaDAO {
 			String query = "(";
 			for(int i=0;i<texto.length;i++)
 			{
-				query += "lower({alias}.descripcion) like lower('%"+texto[i]+"%') ";
+				query += "lower({alias}.titulo) like lower('%"+texto[i]+"%') ";
+				query += "or lower({alias}.descripcion) like lower('%"+texto[i]+"%') ";
 				if(i<texto.length-1){
 					query += "or ";
 				}
@@ -157,7 +158,8 @@ public class PetnoticiaDAO {
 				String query = "(";
 				for(int i=0;i<texto.length;i++)
 				{
-					query += "lower({alias}.descripcion) like lower('%"+texto[i]+"%') ";
+					query += "lower({alias}.titulo) like lower('%"+texto[i]+"%') ";
+					query += "or lower({alias}.descripcion) like lower('%"+texto[i]+"%') ";
 					if(i<texto.length-1){
 						query += "or ";
 					}

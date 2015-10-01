@@ -8,10 +8,11 @@ import javax.faces.bean.SessionScoped;
 
 import org.primefaces.model.StreamedContent;
 
-import com.web.cementerio.bo.PetempresaBO;
+import com.web.cementerio.bo.CotoficinaBO;
 import com.web.cementerio.bo.SetpeticionclaveBO;
 import com.web.cementerio.bo.SetusuarioBO;
-import com.web.cementerio.pojo.annotations.Petempresa;
+import com.web.cementerio.global.Parametro;
+import com.web.cementerio.pojo.annotations.Cotoficina;
 import com.web.cementerio.pojo.annotations.Setpeticionclave;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
@@ -35,7 +36,7 @@ public class UsuarioBean implements Serializable{
 	private String sid;
 	private boolean autenticado;
 	private StreamedContent streamedContent;
-	private Petempresa petempresa;
+	private Cotoficina cotoficina;
 	private String mensaje;
 	
 	public UsuarioBean(){
@@ -43,7 +44,7 @@ public class UsuarioBean implements Serializable{
 		ip = facesUtil.getClientIp();
 		sid = facesUtil.getSid();
 		setUsuario = new Setusuario();
-		petempresa = new Petempresa();
+		cotoficina = new Cotoficina();
 		mensaje = "";
 		
 		consultarEmpresa();
@@ -51,7 +52,7 @@ public class UsuarioBean implements Serializable{
 	
 	private void consultarEmpresa() {
 		try{
-			petempresa = new PetempresaBO().getPetempresabyId(1, 1);
+			cotoficina = new CotoficinaBO().getCotoficinabyId(Parametro.OFICINA_CAMPOFELIZ_LAROCA);
 		}catch(Exception re){
 			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
 		}
@@ -285,12 +286,12 @@ public class UsuarioBean implements Serializable{
 		this.streamedContent = streamedContent;
 	}
 
-	public Petempresa getPetempresa() {
-		return petempresa;
+	public Cotoficina getCotoficina() {
+		return cotoficina;
 	}
 
-	public void setPetempresa(Petempresa petempresa) {
-		this.petempresa = petempresa;
+	public void setCotoficina(Cotoficina cotoficina) {
+		this.cotoficina = cotoficina;
 	}
 
 	public String getMensaje() {
