@@ -73,7 +73,7 @@
 					<p:inputText id="txtNombre" value="#{servicioAdminBean.petservicio.nombre}" style="width: 550px;" required="true" requiredMessage="Ingrese el Nombre del Servicio" />
 					</p:column>
 					<p:column>
-					<p:message id="msgTxtNombre" for="txtNombre" display="icon" />
+					<p:message id="msgtxtNombre" for="txtNombre" display="icon" />
 					</p:column>
 					</p:row>
 					
@@ -268,7 +268,7 @@
 				</p:panelGrid>
 			</div>
 			<div class="area-botones">
-			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" 
+			<my:buttons renderedButtonAceptar="true" labelButtonAceptar="Grabar" onclickButtonAceptar="vardialoggrabar.show()" immediateButtonAceptar="true" 
 			renderedButtonEliminar="#{servicioAdminBean.idservicio > 0}" onclickButtonEliminar="vardialogdeleteservicio.show()" 
 			renderedButtonCancelar="true" labelButtonCancelar="Cancelar" onclickButtonCancelar="redirect('../pages/servicios.jsf');"
 			renderedButtonNewItem="false" />
@@ -282,7 +282,7 @@
 						<p:row>
 						<p:column>
 						<p:commandButton id="idconfirmarprincipal" value="Confirmar" action="#{servicioAdminBean.ponerFotoPrincipal()}" onclick="vardialogprincipal.hide()"  />
-						<p:commandButton id="idcancelarprincipal" value="Cancelar" onclick="vardialogprincipal.hide()" />
+						<p:commandButton id="idcancelarprincipal" value="Cancelar" onclick="vardialogprincipal.hide()" immediate="true" />
 						</p:column>
 						</p:row>
 					</p:panelGrid>
@@ -297,7 +297,7 @@
 						<p:row>
 						<p:column>
 						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{servicioAdminBean.quitarFotoGaleria()}" onclick="vardialogdelete.hide()" update=":form-contentpage:idpanellabelgaleria, :form-contentpage:idpanelgaleria" />
-						<p:commandButton id="idcancelardelete" value="Cancelar" onclick="vardialogdelete.hide()" />
+						<p:commandButton id="idcancelardelete" value="Cancelar" onclick="vardialogdelete.hide()" immediate="true" />
 						</p:column>
 						</p:row>
 					</p:panelGrid>
@@ -311,8 +311,8 @@
 					<p:panelGrid id="idpanel2grabar" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmargrabar" value="Confirmar" action="#{servicioAdminBean.grabar()}" onclick="vardialoggrabar.hide()" />
-						<p:commandButton id="idcancelargrabar" value="Cancelar" onclick="vardialoggrabar.hide()" />
+						<p:commandButton id="idconfirmargrabar" value="Confirmar" update="mensajes,txtNombre,msgtxtNombre,txtDescripcionFoto2,msgtxtDescripcionFoto2,txtDescripcion,msgtxtDescripcion,cmbOficina,msgcmbOficina,txtTags,msgtxtTags,txtOrden,msgtxtOrden,txtprincipal,msgtxtprincipal" action="#{servicioAdminBean.grabar()}" onclick="vardialoggrabar.hide()" />
+						<p:commandButton id="idcancelargrabar" value="Cancelar" onclick="vardialoggrabar.hide()" immediate="true" />
 						</p:column>
 						</p:row>
 					</p:panelGrid>
@@ -327,7 +327,7 @@
 						<p:row>
 						<p:column>
 						<p:commandButton id="idconfirmardeleteservicio" value="Confirmar" action="#{servicioAdminBean.eliminar()}" onclick="vardialogdeleteservicio.hide()" />
-						<p:commandButton id="idcancelardeleteservicio" value="Cancelar" onclick="vardialogdeleteservicio.hide()" />
+						<p:commandButton id="idcancelardeleteservicio" value="Cancelar" onclick="vardialogdeleteservicio.hide()" immediate="true" />
 						</p:column>
 						</p:row>
 					</p:panelGrid>
