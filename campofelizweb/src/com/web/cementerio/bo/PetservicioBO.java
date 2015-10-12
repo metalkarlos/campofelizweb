@@ -252,18 +252,6 @@ public class PetservicioBO {
 			FileUtil fileUtil = new FileUtil();
 			FacesUtil facesUtil = new FacesUtil();
 			
-			//Se graba el servicio si han habido cambios
-			if(!petservicio.equals(petservicioClon)){
-				//auditoria
-				petservicio.setFechamodificacion(fecharegistro);
-				petservicio.setIplog(usuarioBean.getIp());
-				petservicio.setSetusuario(usuarioBean.getSetUsuario());
-		
-				//actualizar
-				petservicioDAO.updatePetservicio(session, petservicio);
-				ok = true;
-			}
-			
 			//Se evalua si han habido cambios en la lista de las fotos
 			for(Petfotoservicio petfotoservicioClon : lisPetfotoservicioClon){
 				boolean encuentra = false;
@@ -316,6 +304,22 @@ public class PetservicioBO {
 			//Si subio foto se crea en disco y en base
 			if(uploadedFile != null){
 				creaFotoDiscoBD(petservicio, petfotoservicio, uploadedFile, session);
+				//si no tiene imagen principal se setea
+				if(petservicio.getRutafoto() == null || petservicio.getRutafoto().trim().length() == 0){
+					petservicio.setRutafoto(petfotoservicio.getRuta());
+				}
+				ok = true;
+			}
+			
+			//Se graba el servicio si han habido cambios
+			if(!petservicio.equals(petservicioClon)){
+				//auditoria
+				petservicio.setFechamodificacion(fecharegistro);
+				petservicio.setIplog(usuarioBean.getIp());
+				petservicio.setSetusuario(usuarioBean.getSetUsuario());
+		
+				//actualizar
+				petservicioDAO.updatePetservicio(session, petservicio);
 				ok = true;
 			}
 			

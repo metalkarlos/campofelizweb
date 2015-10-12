@@ -95,7 +95,7 @@ public class GuiaAdminBean  implements Serializable{
 				}
 			} catch(Exception e) {
 				e.printStackTrace();
-				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+				new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 			}
 		}
 	}
@@ -114,11 +114,11 @@ public class GuiaAdminBean  implements Serializable{
 				fotoSubida = true;
 				new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 			}else{
-				new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 700KB");
+				new MessageUtil().showErrorMessage("Tamaño de la imagen no puede ser mayor a 700KB","");
 			}	
 		}catch(Exception x){
 			x.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
@@ -136,7 +136,7 @@ public class GuiaAdminBean  implements Serializable{
 				new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 			}
 			else {
-				new MessageUtil().showInfoMessage("Info", "No se puede eliminar foto que ha sido seleccionada como foto de perfil, cambie de foto de perfil y vuelva a intentarlo");
+				new MessageUtil().showInfoMessage("No se puede eliminar foto que ha sido seleccionada como foto de perfil, cambie de foto de perfil y vuelva a intentarlo","");
 			}
 		}		
 	}
@@ -158,7 +158,7 @@ public class GuiaAdminBean  implements Serializable{
 				if(ok){
 					mostrarPaginaMensaje("Guía creada con éxito!!");
 				}else{
-					new MessageUtil().showWarnMessage("Aviso", "No se ha podido crear la Guía. Comunicar al Webmaster.");
+					new MessageUtil().showWarnMessage("No se ha podido crear la Guía. Comunicar al Webmaster.","");
 				}
 			}else{
 				
@@ -166,13 +166,13 @@ public class GuiaAdminBean  implements Serializable{
 				if(ok){
 					mostrarPaginaMensaje("Guía modificada con éxito!!");
 				}else{
-					new MessageUtil().showWarnMessage("Aviso", "No existen cambios que guardar.");
+					new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 				}
 			}
 		}
 	}catch(Exception e){
 		e.printStackTrace();
-		new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 	  }
 	}
 	
@@ -190,18 +190,18 @@ public class GuiaAdminBean  implements Serializable{
 		String textodescripcion= (petguia.getDescripcion()!=null ? petguia.getDescripcion().replaceAll("\\<.*?\\>", "") : "" );
 		if(petguia.getTitulo()==null|| petguia.getTitulo().length()==0){
 			ok = false;
-			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el Título del artículo");
+			new MessageUtil().showInfoMessage("Es necesario ingresar el Título del artículo","");
 		}
 		else if(textodescripcion==null|| textodescripcion.length()==0){
 			ok = false;
-			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contendio del artículo");
+			new MessageUtil().showInfoMessage("Es necesario ingresar el contendio del artículo","");
 		}else if (petguia.getFechapublicacion().after(fechaactual)){
 			ok = false;
-			new MessageUtil().showInfoMessage("Info", "Fecha de publicación no pueder ser mayor a la fecha de hoy");
+			new MessageUtil().showInfoMessage("Fecha de publicación no pueder ser mayor a la fecha de hoy","");
 		}	
 		else if((streamedContent!=null || uploadedFile != null) && (descripcionFoto==null || descripcionFoto.length()==0)){
 			ok = false;
-			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar la descripción de la imagen a subir");
+			new MessageUtil().showInfoMessage("Es necesario ingresar la descripción de la imagen a subir","");
 		}
 		return ok;
 	}
@@ -215,11 +215,11 @@ public class GuiaAdminBean  implements Serializable{
 			if(ok){
 				mostrarPaginaMensaje("Guía eliminada con éxito!!");
 			}else{
-				new MessageUtil().showWarnMessage("Aviso", "No se ha podido eliminar la Guía. Comunicar al Webmaster.");
+				new MessageUtil().showWarnMessage("No se ha podido eliminar la Guía. Comunicar al Webmaster.","");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 

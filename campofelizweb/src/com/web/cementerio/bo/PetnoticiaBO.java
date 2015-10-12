@@ -253,18 +253,6 @@ public class PetnoticiaBO {
 			FileUtil fileUtil = new FileUtil();
 			FacesUtil facesUtil = new FacesUtil();
 			
-			//Se graba la noticia si han habido cambios
-			if(!petnoticia.equals(petnoticiaClon)){
-				//auditoria
-				petnoticia.setFechamodificacion(fecharegistro);
-				petnoticia.setIplog(usuarioBean.getIp());
-				petnoticia.setSetusuario(usuarioBean.getSetUsuario());
-		
-				//actualizar
-				petnoticiaDAO.updatePetnoticia(session, petnoticia);
-				ok = true;
-			}
-			
 			//Se evalua si han habido cambios en la lista de las fotos
 			for(Petfotonoticia petfotonoticiaClon : lisPetfotonoticiaClon){
 				boolean encuentra = false;
@@ -317,6 +305,22 @@ public class PetnoticiaBO {
 			//Si subio foto se crea en disco y en base
 			if(uploadedFile != null){
 				creaFotoDiscoBD(petnoticia, petfotonoticia, uploadedFile, session);
+				//si no tiene imagen principal se setea
+				if(petnoticia.getRutafoto() == null || petnoticia.getRutafoto().trim().length() == 0){
+					petnoticia.setRutafoto(petfotonoticia.getRuta());
+				}
+				ok = true;
+			}
+			
+			//Se graba la noticia si han habido cambios
+			if(!petnoticia.equals(petnoticiaClon)){
+				//auditoria
+				petnoticia.setFechamodificacion(fecharegistro);
+				petnoticia.setIplog(usuarioBean.getIp());
+				petnoticia.setSetusuario(usuarioBean.getSetUsuario());
+		
+				//actualizar
+				petnoticiaDAO.updatePetnoticia(session, petnoticia);
 				ok = true;
 			}
 			

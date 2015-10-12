@@ -60,7 +60,7 @@ public class ServiciosBean implements Serializable {
 			try{facesUtil.redirect("home.jsf");}catch(Exception e){}
 		} catch(Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
@@ -100,7 +100,7 @@ public class ServiciosBean implements Serializable {
                 }
 			};
 		}catch(Exception re){
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 

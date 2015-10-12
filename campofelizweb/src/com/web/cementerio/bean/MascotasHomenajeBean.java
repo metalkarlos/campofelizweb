@@ -84,7 +84,7 @@ private String texto;
 			};
 		 
 		}catch(Exception re){
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 		
 	}

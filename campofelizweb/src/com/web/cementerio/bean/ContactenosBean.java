@@ -51,7 +51,7 @@ public class ContactenosBean implements Serializable {
 			cotoficinaVeterinaria = cotoficinaBO.getCotoficinabyId(Parametro.OFICINA_CAMPOFELIZ_LAMARTHA);
 		} catch (Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 		
 	}
@@ -77,10 +77,10 @@ public class ContactenosBean implements Serializable {
 			mostrarPaginaMensaje("Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!");
 		}catch(AddressException e) {
 			e.printStackTrace();
-			new MessageUtil().showErrorMessage("Error!", "Ingrese una cuenta de correo válida e intente nuevamente.");
+			new MessageUtil().showErrorMessage("Ingrese una cuenta de correo válida e intente nuevamente.","");
 		}catch(Exception e){
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 		
 		return url;

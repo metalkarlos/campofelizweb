@@ -39,7 +39,7 @@ public class QuienesSomosBean implements java.io.Serializable {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			new MessageUtil().showErrorMessage("Error", "Lamentamos que tenga inconvenientes");
+			new MessageUtil().showErrorMessage("Lamentamos que tenga inconvenientes","");
 		}
 	}
 	

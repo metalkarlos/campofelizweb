@@ -40,7 +40,7 @@ public class GuiaGeneralBean  implements Serializable{
 			listPetguiaprincipal = petguiaBO.getlistPetguiaPrincipal(true, 1);
 		} catch (Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 		
 	}
@@ -83,7 +83,7 @@ public class GuiaGeneralBean  implements Serializable{
                 }
 			};
 		}catch(Exception re){
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 

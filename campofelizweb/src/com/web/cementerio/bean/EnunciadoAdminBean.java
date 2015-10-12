@@ -77,7 +77,7 @@ public class EnunciadoAdminBean implements Serializable {
 			listpetvenunciado = petenunciadoBO.getListpetvenunciadoidpadre(idenunciado);
 		} catch (Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 		
 	}
@@ -98,7 +98,7 @@ public class EnunciadoAdminBean implements Serializable {
 				   if(ok){
 						mostrarPaginaMensaje("Pregunta ingresada con exito!!");
 					}else{
-						new MessageUtil().showWarnMessage("Aviso", "No se ha podido ingresar la Pregunta. Comunicar al Webmaster.");
+						new MessageUtil().showWarnMessage("No se ha podido ingresar la Pregunta. Comunicar al Webmaster.","");
 					}
 				}else if(idenunciado >0){
 				  for(Petenunciado petenunciadoclone: listpetenunciadoclone){
@@ -125,13 +125,13 @@ public class EnunciadoAdminBean implements Serializable {
 				   if(ok){
 					   mostrarPaginaMensaje("Pregunta modificada con exito!!");
 				   }else{
-					   new MessageUtil().showWarnMessage("Aviso", "No se ha podido modificar la Pregunta. Comunicar al Webmaster.");
+					   new MessageUtil().showWarnMessage("No se ha podido modificar la Pregunta. Comunicar al Webmaster.","");
 				   }
 				}
 			}	
 		} catch (Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 		
 	}
@@ -154,7 +154,7 @@ public class EnunciadoAdminBean implements Serializable {
 			if(ok){
 			   mostrarPaginaMensaje("Pregunta eliminada con exito!!");
 		   }else{
-			   new MessageUtil().showWarnMessage("Aviso", "No se ha podido eliminar la Pregunta. Comunicar al Webmaster.");
+			   new MessageUtil().showWarnMessage("No se ha podido eliminar la Pregunta. Comunicar al Webmaster.","");
 		   }
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -167,15 +167,15 @@ public class EnunciadoAdminBean implements Serializable {
 		String textorespuesta= (petenunciadorespuesta.getDescripcion()!=null ? petenunciadorespuesta.getDescripcion().replaceAll("\\<.*?\\>", "") : "" );
 	    if(petenunciadopregunta.getDescripcion()== null || petenunciadopregunta.getDescripcion().length() ==0){
 	    	ok = false;
-	    	new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contenido de la pregunta");
+	    	new MessageUtil().showInfoMessage("Es necesario ingresar el contenido de la pregunta","");
 	    }
 	    else if(textorespuesta.equals("")){
 		    ok = false;
-			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contenido de la respuesta");
+			new MessageUtil().showInfoMessage("Es necesario ingresar el contenido de la respuesta","");
 		}
 	    else if(petenunciadopregunta.getOrden()<=0){
 	    	ok = false;
-	    	new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el orden de presentación de la pregunta");
+	    	new MessageUtil().showInfoMessage("Es necesario ingresar el orden de presentación de la pregunta","");
 	    }
 		return ok;
 		
@@ -213,7 +213,7 @@ public class EnunciadoAdminBean implements Serializable {
 		}
 		catch (Exception e){
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	public int getIdenunciado() {

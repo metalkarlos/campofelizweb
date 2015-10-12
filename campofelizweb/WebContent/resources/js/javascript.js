@@ -48,3 +48,12 @@ function not_internetexplorer(){
 		return false;
 	}
 }
+
+/*$(function(){
+	  $('form').on('keypress', function(event){
+	    if(event.which === 13 && $(event.target).is(':input')){
+	        event.preventDefault();
+	        return false;
+	    }
+	  });
+	});*/

@@ -70,7 +70,7 @@ public class EmpresaAdminBean implements Serializable {
 			lisCotempresa = cotempresaBO.lisCotempresa();
 		} catch (Exception e) {
 			e.printStackTrace();
-		    new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		    new MessageUtil().showErrorMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
@@ -80,7 +80,7 @@ public class EmpresaAdminBean implements Serializable {
 			cotoficina = cotoficinaBO.getCotoficinabyId(idoficina);
 		} catch (Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
@@ -94,20 +94,20 @@ public class EmpresaAdminBean implements Serializable {
 					if(ok){
 						mostrarPaginaMensaje("Oficina modificada con exito!!");
 					}else{
-						new MessageUtil().showWarnMessage("Aviso", "No existen cambios que guardar.");
+						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
 				}else{
 					ok = cotoficinaBO.grabar(cotoficina);
 					if(ok){
 						mostrarPaginaMensaje("Oficina creada con exito!!");
 					}else{
-						new MessageUtil().showWarnMessage("Aviso", "No se ha podido ingresar la oficina. Comunicar al Webmaster.");
+						new MessageUtil().showWarnMessage("No se ha podido ingresar la oficina. Comunicar al Webmaster.","");
 					}
 				}
 			}	
 		} catch (Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 		
 	}
@@ -127,11 +127,11 @@ public class EmpresaAdminBean implements Serializable {
 			if(ok){
 				mostrarPaginaMensaje("Oficina eliminada con exito!!");
 			}else{
-				new MessageUtil().showWarnMessage("Aviso", "No se ha podido eliminar la oficina. Comunicar al Webmaster.");
+				new MessageUtil().showWarnMessage("No se ha podido eliminar la oficina. Comunicar al Webmaster.","");
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
@@ -141,22 +141,18 @@ public class EmpresaAdminBean implements Serializable {
 
 		if (cotoficina.getTipooficina() == 0) {
 			ok = false;
-			new MessageUtil().showWarnMessage("Info",
-					"Es necesario seleccionar el tipo de oficina");
+			new MessageUtil().showWarnMessage("Es necesario seleccionar el tipo de oficina","");
 		} else if (textohorario.equals("")) {
 			ok = false;
-			new MessageUtil().showWarnMessage("Info",
-					"Es necesario ingresar el horario de atención");
+			new MessageUtil().showWarnMessage("Es necesario ingresar el horario de atención","");
 		} else if (cotoficina.getNombre() == null
 				|| cotoficina.getNombre().length() == 0) {
 			ok = false;
-			new MessageUtil().showWarnMessage("Info",
-					"Es necesario ingresar el Nombre de la oficina");
+			new MessageUtil().showWarnMessage("Es necesario ingresar el Nombre de la oficina","");
 		} else if (cotoficina.getDireccion() == null
 				|| cotoficina.getDireccion().length() == 0) {
 			ok = false;
-			new MessageUtil().showWarnMessage("Info",
-					"Es necesario ingresar la dirección de la oficina");
+			new MessageUtil().showWarnMessage("Es necesario ingresar la dirección de la oficina","");
 		}
 	   
 	    return ok;

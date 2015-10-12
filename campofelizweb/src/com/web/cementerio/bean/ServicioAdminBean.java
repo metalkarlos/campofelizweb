@@ -122,7 +122,7 @@ public class ServicioAdminBean implements Serializable {
 				}
 			} catch(Exception e) {
 				e.printStackTrace();
-				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+				new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 			}
 		}
 	}
@@ -151,7 +151,7 @@ public class ServicioAdminBean implements Serializable {
 			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 		}catch(Exception x){
 			x.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
@@ -162,8 +162,12 @@ public class ServicioAdminBean implements Serializable {
 	}
 	
 	public void quitarFotoGaleria(){
-		lisPetfotoservicio.remove(petfotoservicioSeleccionado);
-		petfotoservicioSeleccionado = new Petfotoservicio();
+		if(petfotoservicioSeleccionado.getRuta().equalsIgnoreCase(petservicio.getRutafoto())){
+			new MessageUtil().showInfoMessage("La foto a eliminar es la foto principal de éste servicio. Seleccione otra foto como principal para poderla eliminar.","");
+		}else{
+			lisPetfotoservicio.remove(petfotoservicioSeleccionado);
+			petfotoservicioSeleccionado = new Petfotoservicio();
+		}
 	}
 	
 	public void borrarFotoSubida(){
@@ -200,7 +204,7 @@ public class ServicioAdminBean implements Serializable {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
@@ -224,7 +228,7 @@ public class ServicioAdminBean implements Serializable {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	

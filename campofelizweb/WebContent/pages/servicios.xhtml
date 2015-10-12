@@ -18,51 +18,54 @@
 		<meta name="keywords" content="servicios" />
 
 		<style type="text/css">
-			.inner-content h1 {
-				color: #66ad23;
-			}
-			
-			.gridServicios {
-				padding: 10px 0;
-			}
-			
-			.str-1 {
-				font-weight: bold;
-			}
-			
-			.inner-content {
-				width: 295px;
-				padding: 0px;
-			}
-			
-			.img-indent-1 {
-				margin: 0 10px 10px 0;
-			}
-			
-			.p2,.p1 {
-				font-size: 13px;
-			}
+		.inner-content h1 {
+			color: #66ad23;
+		}
+		
+		.gridServicios {
+			padding: 10px 0;
+		}
+		
+		.str-1 {
+			font-weight: bold;
+		}
+		
+		.inner-content {
+			width: 295px;
+			padding: 0px;
+		}
+		
+		.img-indent-1 {
+			margin: 0 10px 10px 0;
+		}
+		
+		.p2,.p1 {
+			font-size: 13px;
+		}
 		</style>
 	</ui:define>
 
 	<ui:define name="content_page">
-		<div class="content-page">
-			<h:form id="form-contentpage">
-				<p:growl id="mensajes" showDetail="true" />
+		<h:form id="form-contentpage" prependId="false">
+			<div class="content-page">
+				<p:messages id="mensajes" showDetail="false" autoUpdate="true" />
+				<p:defaultCommand target="lnkbuscar"></p:defaultCommand>
 
 				<div style="float: right; margin: 0px 15px 0 0;">
 					<div id="search-form">
-						<h:inputText id="txtbusqueda"
+						<p:inputText id="txtbusqueda"
 							value="#{serviciosBean.descripcionParam}"
 							onblur="if(this.value==''){this.value='buscar'}"
-							onfocus="if(this.value=='buscar'){this.value=''}" />
-						<h:commandLink styleClass="search-form-submit">
+							onfocus="if(this.value=='buscar'){this.value=''}"
+							validatorMessage="Ingrese sólo letras. Corrija y reintente.">
+							<f:validateRegex pattern="[a-zA-Z ]+" />
+						</p:inputText>
+						<p:commandLink id="lnkbuscar" styleClass="search-form-submit" update="mensajes" >
 							<f:ajax render="gridServicios" execute="txtbusqueda"></f:ajax>
-						</h:commandLink>
+						</p:commandLink>
 					</div>
 				</div>
-				<span class="clear" />
-				<br />
+				<span class="clear" /> <br />
 				<h:link value="[Nuevo Servicio]" outcome="/admin/servicio-admin"
 					styleClass="link2" style="float: right;margin: 0 20px 20px 0;"
 					rendered="#{usuarioBean.autenticado}">
@@ -86,7 +89,8 @@
 											style="max-height: 150px; max-width: 150px;"
 											styleClass="img-indent-1" />
 										<f:param name="idservicio" value="#{servicio.idservicio}"></f:param>
-										<f:param name="idempresa" value="#{servicio.cotempresa.idempresa}"></f:param>
+										<f:param name="idempresa"
+											value="#{servicio.cotempresa.idempresa}"></f:param>
 									</h:link>
 									<p class="p2">
 										<strong class="str-1">#{servicio.nombre}</strong>
@@ -100,15 +104,16 @@
 								<div class="alignright p3">
 									<h:link value="Leer Más" outcome="/pages/servicio">
 										<f:param name="idservicio" value="#{servicio.idservicio}"></f:param>
-										<f:param name="idempresa" value="#{servicio.cotempresa.idempresa}"></f:param>
+										<f:param name="idempresa"
+											value="#{servicio.cotempresa.idempresa}"></f:param>
 									</h:link>
 								</div>
 							</div>
 						</div>
 					</p:column>
 				</p:dataGrid>
-			</h:form>
-		</div>
+			</div>
+		</h:form>
 	</ui:define>
 
 </ui:composition>

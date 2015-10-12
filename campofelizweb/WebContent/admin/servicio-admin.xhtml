@@ -51,8 +51,8 @@
 	<ui:define name="content_page">
 		<div class="content-page">
 		<h:form id="form-contentpage" enctype="multipart/form-data">
-			<!-- <p:growl id="mensajes" showDetail="true" /> -->
-			<p:messages id="mensajes" showDetail="true" autoUpdate="true" />
+			<!-- <p:growl id="mensajes" showDetail="false" /> -->
+			<p:messages id="mensajes" showDetail="false" autoUpdate="true" />
 			
 			<p:focus for="txtNombre"></p:focus>
 			<h1 class="title ui-widget-header">Administración - Servicios</h1>
@@ -296,7 +296,7 @@
 					<p:panelGrid id="idpanel2delete" style="width: 100%; text-align: right;">
 						<p:row>
 						<p:column>
-						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{servicioAdminBean.quitarFotoGaleria()}" onclick="vardialogdelete.hide()" update=":form-contentpage:idpanellabelgaleria, :form-contentpage:idpanelgaleria" />
+						<p:commandButton id="idconfirmardelete" value="Confirmar" action="#{servicioAdminBean.quitarFotoGaleria()}" onclick="vardialogdelete.hide()" update=":form-contentpage:idpanellabelgaleria, :form-contentpage:idpanelgaleria, :form-contentpage:mensajes" />
 						<p:commandButton id="idcancelardelete" value="Cancelar" onclick="vardialogdelete.hide()" immediate="true" />
 						</p:column>
 						</p:row>

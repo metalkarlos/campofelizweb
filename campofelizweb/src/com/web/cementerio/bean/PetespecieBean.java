@@ -34,7 +34,7 @@ public class PetespecieBean implements Serializable{
 				listPetespecie = petespecieBo.Listpetespecie(estado);
 			} catch (Exception e) {
 				e.printStackTrace();
-			    new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			    new MessageUtil().showErrorMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 			}
 				
 			

@@ -100,7 +100,7 @@ public class NoticiaAdminBean implements Serializable {
 				}
 			} catch(Exception e) {
 				e.printStackTrace();
-				new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+				new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 			}
 		}
 	}
@@ -119,7 +119,7 @@ public class NoticiaAdminBean implements Serializable {
 			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 		}catch(Exception x){
 			x.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
@@ -130,8 +130,12 @@ public class NoticiaAdminBean implements Serializable {
 	}
 	
 	public void quitarFotoGaleria(){
-		lisPetfotonoticia.remove(petfotonoticiaSeleccionada);
-		petfotonoticiaSeleccionada = new Petfotonoticia();
+		if(petfotonoticiaSeleccionada.getRuta().equalsIgnoreCase(petnoticia.getRutafoto())){
+			new MessageUtil().showInfoMessage("La foto a eliminar es la foto principal de ésta noticia. Seleccione otra foto como principal para poderla eliminar.","");
+		}else{
+			lisPetfotonoticia.remove(petfotonoticiaSeleccionada);
+			petfotonoticiaSeleccionada = new Petfotonoticia();
+		}
 	}
 	
 	public void borrarFotoSubida(){
@@ -156,19 +160,19 @@ public class NoticiaAdminBean implements Serializable {
 				if(ok){
 					mostrarPaginaMensaje("Noticia creada con exito!!");
 				}else{
-					new MessageUtil().showWarnMessage("Aviso", "No se ha podido ingresar la Noticia. Comunicar al Webmaster.");
+					new MessageUtil().showWarnMessage("No se ha podido ingresar la Noticia. Comunicar al Webmaster.","");
 				}
 			}else{
 				ok = petnoticiaBO.modificar(petnoticia, petnoticiaClon, lisPetfotonoticia, lisPetfotonoticiaClon, petfotonoticia, uploadedFile);
 				if(ok){
 					mostrarPaginaMensaje("Noticia modificada con exito!!");
 				}else{
-					new MessageUtil().showWarnMessage("Aviso", "No se ha podido modificar la Noticia. Comunicar al Webmaster.");
+					new MessageUtil().showWarnMessage("No se ha podido modificar la Noticia. Comunicar al Webmaster.","");
 				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
@@ -187,11 +191,11 @@ public class NoticiaAdminBean implements Serializable {
 			if(ok){
 				mostrarPaginaMensaje("Noticia eliminada con exito!!");
 			}else{
-				new MessageUtil().showWarnMessage("Aviso", "No se ha podido eliminar la Noticia. Comunicar al Webmaster.");
+				new MessageUtil().showWarnMessage("No se ha podido eliminar la Noticia. Comunicar al Webmaster.","");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 

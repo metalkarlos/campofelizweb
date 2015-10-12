@@ -69,7 +69,7 @@ public class HomeAdminBean implements Serializable {
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 
@@ -84,19 +84,19 @@ public class HomeAdminBean implements Serializable {
 				if(ok){
 					mostrarPaginaMensaje("Video ingresado con exito!!");
 				}else{
-					new MessageUtil().showWarnMessage("Aviso", "No se ha podido guardar el Video. Comunicar al Webmaster.");
+					new MessageUtil().showWarnMessage("No se ha podido guardar el Video. Comunicar al Webmaster.","");
 				}
 			}else{
 				ok = pethomeBO.modificar(pethome, pethomeClon);
 				if(ok){
 					mostrarPaginaMensaje("Video modificada con exito!!");
 				}else{
-					new MessageUtil().showWarnMessage("Aviso", "No existen cambios que guardar.");
+					new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
@@ -115,11 +115,11 @@ public class HomeAdminBean implements Serializable {
 			if(ok){
 				mostrarPaginaMensaje("Video modificado con exito!!");
 			}else{
-				new MessageUtil().showWarnMessage("Aviso", "No se ha podido eliminar el Video. Comunicar al Webmaster.");
+				new MessageUtil().showWarnMessage("No se ha podido eliminar el Video. Comunicar al Webmaster.","");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	

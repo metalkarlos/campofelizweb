@@ -89,7 +89,7 @@ public class CementerioVirtualAdminBean implements Serializable{
 		   
 		} catch(Exception e) {
 		  e.printStackTrace();
-		  new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+		  new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		 }
 	  
 	}
@@ -139,11 +139,11 @@ public class CementerioVirtualAdminBean implements Serializable{
 				facesUtil.setSessionBean("usuarioBean", usuarioBean);
 				new MessageUtil().showInfoMessage("Ingrese la descripción y el orden de presentación de la foto a subir.","");
 			}else{
-				new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 700KB");
+				new MessageUtil().showErrorMessage("Tamaño de la imagen no puede ser mayor a 700KB","");
 			}	
 		}catch(Exception x){
 			x.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
@@ -163,7 +163,7 @@ public class CementerioVirtualAdminBean implements Serializable{
 		  }
 		}catch(Exception x){
 			x.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
@@ -179,20 +179,20 @@ public class CementerioVirtualAdminBean implements Serializable{
 					if(ok){
 						mostrarPaginaMensaje("Instalación ingresada con exito!!");
 					}else{
-						new MessageUtil().showWarnMessage("Aviso", "No se ha podido ingresar la instalación. Comunicar al Webmaster.");
+						new MessageUtil().showWarnMessage("No se ha podido ingresar la instalación. Comunicar al Webmaster.","");
 					}
 				}else if(petfotoinstalacion.getIdfotoinstalacion()>0){
 					ok = petfotoinstalacionBO.modificarPetfotoinstalacion(petfotoinstalacion, petfotoinstalacionclone);
 					if(ok){
 						mostrarPaginaMensaje("Instalación modificada con exito!!");
 					}else{
-						new MessageUtil().showWarnMessage("Aviso", "No existen cambios que guardar.");
+						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
 				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 		
@@ -213,11 +213,11 @@ public class CementerioVirtualAdminBean implements Serializable{
 			if(ok){
 				mostrarPaginaMensaje("Instalación eliminada con exito!!");
 			}else{
-				new MessageUtil().showWarnMessage("Aviso", "No se ha podido eliminar la instalación. Comunicar al Webmaster.");
+				new MessageUtil().showWarnMessage("No se ha podido eliminar la instalación. Comunicar al Webmaster.","");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
@@ -225,31 +225,31 @@ public class CementerioVirtualAdminBean implements Serializable{
 			boolean ok = true;
 			if(idfoto ==0 && uploadedFile ==null ){
 			  ok = false;
-			  new MessageUtil().showInfoMessage("Info", "Es necesario seleccionar la foto a subir");
+			  new MessageUtil().showInfoMessage("Es necesario seleccionar la foto a subir","");
 			}
 			else if((idfoto ==0 && (petfotoinstalacion.getDescripcion()==null|| petfotoinstalacion.getDescripcion().length()==0))){
 				ok = false;
-				new MessageUtil().showInfoMessage("Info", "Es necesario ingresar la descripción de la foto a subir");
+				new MessageUtil().showInfoMessage("Es necesario ingresar la descripción de la foto a subir","");
 			}
 			else if(idfoto ==0 &&  petfotoinstalacion.getOrden()<=0 ){
 				ok = false;
-				new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el orden de presentación de la foto a subir");
+				new MessageUtil().showInfoMessage("Es necesario ingresar el orden de presentación de la foto a subir","");
 			}	
 			else if(idfoto >0 && listpetfotoinstalacion==null ){
 				ok = false;
-				new MessageUtil().showInfoMessage("Info", "Es necesario consultar la foto a modificar/eliminar");
+				new MessageUtil().showInfoMessage("Es necesario consultar la foto a modificar/eliminar","");
 			}
 			else if(idfoto >0 && petfotoinstalacion.getRuta()==null ){
 				ok = false;
-				new MessageUtil().showInfoMessage("Info", "Es necesario seleccionar la foto a modificar/eliminar");
+				new MessageUtil().showInfoMessage("Es necesario seleccionar la foto a modificar/eliminar","");
 			}
 			else if((idfoto >0) && (petfotoinstalacion.getDescripcion()==null|| petfotoinstalacion.getDescripcion().length()==0)) {
 				ok = false;
-				new MessageUtil().showInfoMessage("Info", "Es necesario ingresar la descripción de la foto a modificar/eliminar");
+				new MessageUtil().showInfoMessage("Es necesario ingresar la descripción de la foto a modificar/eliminar","");
 			}
 			else if(idfoto >0 && petfotoinstalacion.getOrden()<=0 ){
 				ok = false;
-				new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el orden de presentación de la foto a modificar/eliminar");
+				new MessageUtil().showInfoMessage("Es necesario ingresar el orden de presentación de la foto a modificar/eliminar","");
 			}
 			return ok;
 		}

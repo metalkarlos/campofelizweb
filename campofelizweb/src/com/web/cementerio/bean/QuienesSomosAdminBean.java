@@ -95,7 +95,7 @@ public class QuienesSomosAdminBean implements Serializable {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showErrorMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
@@ -115,7 +115,7 @@ public class QuienesSomosAdminBean implements Serializable {
 			
 		} catch (Exception e) {
 	      e.printStackTrace();
-	      new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+	      new MessageUtil().showErrorMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 		
 	}
@@ -127,29 +127,29 @@ public class QuienesSomosAdminBean implements Serializable {
 		String textovision= (petinformacion.getVision()!=null ? petinformacion.getVision().replaceAll("\\<.*?\\>", "") : "" );
 		if(textoquienessomos.equals("")){
 		    ok = false;
-			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contenido de Quienes Somos");
+			new MessageUtil().showInfoMessage("Es necesario ingresar el contenido de Quienes Somos","");
 		}else if(textomision.equals("")){
 			ok = false;
-			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contenido de Misión");
+			new MessageUtil().showInfoMessage("Es necesario ingresar el contenido de Misión","");
 			
 		}else if(textovision.equals("")){
 			ok = false;
-			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar el contenido de Visión");
+			new MessageUtil().showInfoMessage("Es necesario ingresar el contenido de Visión","");
 		}else if(Integer.valueOf(textoquienessomos.length())>5000){
 			ok = false;
-			new MessageUtil().showInfoMessage("Info", "Contenido de Quienes Somos ha sobrepasado el límite de 5000 caracteres");
+			new MessageUtil().showInfoMessage("Contenido de Quienes Somos ha sobrepasado el límite de 5000 caracteres","");
 		}
 		else if(Integer.valueOf(textomision.length())>2000){
 			ok = false;
-			new MessageUtil().showInfoMessage("Info", "Contenido de Misión ha sobrepasado el límite de 2000 caracteres");
+			new MessageUtil().showInfoMessage("Contenido de Misión ha sobrepasado el límite de 2000 caracteres","");
 		}
 		else if(Integer.valueOf(textovision.length())>2000){
 			ok = false;
-			new MessageUtil().showInfoMessage("Info", "Contenido de Visión Somos ha sobrepasado el límite de 2000 caracteres");
+			new MessageUtil().showInfoMessage("Contenido de Visión Somos ha sobrepasado el límite de 2000 caracteres","");
 		}
 		else if((streamedContent!=null || uploadedFile != null) && (descripcionImagen==null || descripcionImagen.length()==0)){
 			ok = false;
-			new MessageUtil().showInfoMessage("Info", "Es necesario ingresar la descripción de la imagen a subir");
+			new MessageUtil().showInfoMessage("Es necesario ingresar la descripción de la imagen a subir","");
 		}
 		return ok;
 	}	
@@ -166,13 +166,13 @@ public class QuienesSomosAdminBean implements Serializable {
 					if(ok){
 						mostrarPaginaMensaje("Información modificada con exito!!");
 					}else{
-						new MessageUtil().showWarnMessage("Aviso", "No se ha podido modificar la información. Comunicar al Webmaster.");
+						new MessageUtil().showWarnMessage("No se ha podido modificar la información. Comunicar al Webmaster.","");
 					}
 				} 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 		
 	}
@@ -200,13 +200,13 @@ public class QuienesSomosAdminBean implements Serializable {
 				new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 				
 			}else{
-				new MessageUtil().showErrorMessage("Error","Tamaño de la imagen no puede ser mayor a 700KB");
+				new MessageUtil().showErrorMessage("Tamaño de la imagen no puede ser mayor a 700KB","");
 			}
 			
 			
 		}catch(Exception x){
 			x.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	public void borrarFotoSubida(){
@@ -218,7 +218,7 @@ public class QuienesSomosAdminBean implements Serializable {
 	public void quitarFoto(){
 		if (petfotoinformacionselected !=null){
 			listpetfotoinformacion.remove(petfotoinformacionselected);
-			new MessageUtil().showInfoMessage("Info", "Presione grabar para registar los cambios");	
+			new MessageUtil().showInfoMessage("Presione grabar para registar los cambios","");	
 			petfotoinformacionselected= new Petfotoinformacion();
 		}
 		

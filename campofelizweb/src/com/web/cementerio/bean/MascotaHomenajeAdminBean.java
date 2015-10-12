@@ -111,8 +111,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 						mostrarPaginaMensaje("Homenaje creado con exito!!");
 					} else {
 						new MessageUtil()
-								.showWarnMessage("Aviso",
-										"No se ha podido crear el Homenaje. Comunicar al Webmaster.");
+								.showWarnMessage("No se ha podido crear el Homenaje. Comunicar al Webmaster.","");
 					}
 				} else if (petmascotahomenaje.getIdmascota() > 0) {
 					// objeto petmascotahomenaje se ha modificado
@@ -124,15 +123,13 @@ public class MascotaHomenajeAdminBean implements Serializable {
 						mostrarPaginaMensaje("Homenaje modificado con exito!!");
 					} else {
 						new MessageUtil()
-								.showWarnMessage("Aviso",
-										"No se ha podido modificar el Homenaje. Comunicar al Webmaster.");
+								.showWarnMessage("No se ha podido modificar el Homenaje. Comunicar al Webmaster.","");
 					}
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!",
-					"Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 
 	}
@@ -163,14 +160,12 @@ public class MascotaHomenajeAdminBean implements Serializable {
 				new MessageUtil().showInfoMessage(
 						"Presione Grabar para guardar los cambios.", "");
 			} else {
-				new MessageUtil().showErrorMessage("Error",
-						"Tamaño de la imagen no puede ser mayor a 700KB");
+				new MessageUtil().showErrorMessage("Tamaño de la imagen no puede ser mayor a 700KB","");
 			}
 
 		} catch (Exception x) {
 			x.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!",
-					"Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 
@@ -183,8 +178,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 	public void ponerFotoperfil() {
 		if (petfotomascotaselected != null) {
 			petmascotahomenaje.setRutafoto(petfotomascotaselected.getRuta());
-			new MessageUtil().showInfoMessage("Info",
-					"Presione grabar para guardar los cambios");
+			new MessageUtil().showInfoMessage("Presione grabar para guardar los cambios","");
 			petfotomascotaselected = new Petfotomascota();
 		}
 	}
@@ -194,13 +188,11 @@ public class MascotaHomenajeAdminBean implements Serializable {
 			if (!petfotomascotaselected.getRuta().equals(
 					petmascotahomenaje.getRutafoto())) {
 				listpetfotomascota.remove(petfotomascotaselected);
-				new MessageUtil().showInfoMessage("Info",
-						"Presione grabar para guardar los cambios");
+				new MessageUtil().showInfoMessage("Presione grabar para guardar los cambios","");
 			} else {
 				new MessageUtil()
 						.showInfoMessage(
-								"Info",
-								"No se puede eliminar foto que ha sido seleccionada como foto de perfil, cambie de foto de perfil y vuelva a intentarlo");
+								"No se puede eliminar foto que ha sido seleccionada como foto de perfil, cambie de foto de perfil y vuelva a intentarlo","");
 			}
 			petfotomascotaselected = new Petfotomascota();
 		}
@@ -213,84 +205,69 @@ public class MascotaHomenajeAdminBean implements Serializable {
 		if (petmascotahomenaje.getNombre() == null
 				|| petmascotahomenaje.getNombre().length() == 0) {
 			ok = false;
-			new MessageUtil().showInfoMessage("Info",
-					"Es necesario ingresar el Nombre de la mascota");
+			new MessageUtil().showInfoMessage("Es necesario ingresar el Nombre de la mascota","");
 		} else if (petmascotahomenaje.getPetespecie().getIdespecie() == 0) {
 			ok = false;
-			new MessageUtil().showInfoMessage("Info",
-					"Es necesario seleccionar la especie");
+			new MessageUtil().showInfoMessage("Es necesario seleccionar la especie","");
 
 		} else if (petmascotahomenaje.getFechanacimiento() == null) {
 			ok = false;
 			new MessageUtil()
-					.showInfoMessage("Info",
-							"Es necesario seleccionar la fecha de nacimiento de la mascota");
+					.showInfoMessage("Es necesario seleccionar la fecha de nacimiento de la mascota","");
 		} else if (petmascotahomenaje.getFechafallecimiento() == null) {
 			ok = false;
 			new MessageUtil()
-					.showInfoMessage("Info",
-							"Es necesario seleccionar la fecha de fallecimiento de la mascota");
+					.showInfoMessage("Es necesario seleccionar la fecha de fallecimiento de la mascota","");
 		} else if (petmascotahomenaje.getFamilia() == null
 				|| petmascotahomenaje.getFamilia().length() == 0) {
 			ok = false;
-			new MessageUtil().showInfoMessage("Info",
-					"Es necesario ingresar el dueño de la mascota");
+			new MessageUtil().showInfoMessage("Es necesario ingresar el dueño de la mascota","");
 		} else if (petmascotahomenaje.getFechanacimiento() == null
 				&& petmascotahomenaje.getFechanacimiento().after(fechaactual)) {
 			ok = false;
 			new MessageUtil()
-					.showInfoMessage("Info",
-							"Fecha de nacimiento debe ser menor o igual a la fecha actual");
+					.showInfoMessage("Fecha de nacimiento debe ser menor o igual a la fecha actual","");
 		} else if (petmascotahomenaje.getFechafallecimiento() == null
 				&& petmascotahomenaje.getFechafallecimiento()
 						.after(fechaactual)) {
 			ok = false;
 			new MessageUtil()
-					.showInfoMessage("Info",
-							"Fecha de fallecimiento debe ser menor o igual a la fecha actual");
+					.showInfoMessage("Fecha de fallecimiento debe ser menor o igual a la fecha actual","");
 		} else if (petmascotahomenaje.getFechanacimiento().after(
 				petmascotahomenaje.getFechafallecimiento())) {
 			ok = false;
 			new MessageUtil()
-					.showInfoMessage("Info",
-							"Fecha de nacimiento debe ser menor o igual a la fecha de fallecimiento");
+					.showInfoMessage("Fecha de nacimiento debe ser menor o igual a la fecha de fallecimiento","");
 		} else if (petmascotahomenaje.getFechafallecimiento().before(
 				petmascotahomenaje.getFechanacimiento())) {
 			ok = false;
 			new MessageUtil()
-					.showInfoMessage("Info",
-							"Fecha de fallecimiento debe ser mayor o igual a la fecha de nacimiento");
+					.showInfoMessage("Fecha de fallecimiento debe ser mayor o igual a la fecha de nacimiento","");
 		} else if (petmascotahomenaje.getFechapublicacion().before(
 				petmascotahomenaje.getFechanacimiento())) {
 			ok = false;
 			new MessageUtil()
-					.showInfoMessage("Info",
-							"Fecha de publicación debe ser mayor o igual a la fecha de fallecimiento");
+					.showInfoMessage("Fecha de publicación debe ser mayor o igual a la fecha de fallecimiento","");
 		} else if (petmascotahomenaje.getFechapublicacion().before(
 				petmascotahomenaje.getFechafallecimiento())) {
 			ok = false;
 			new MessageUtil()
-					.showInfoMessage("Info",
-							"Fecha de publicación debe ser mayor o igual a la fecha de fallecimiento");
+					.showInfoMessage("Fecha de publicación debe ser mayor o igual a la fecha de fallecimiento","");
 		} else if (petmascotahomenaje.getFechapublicacion().after(fechaactual)) {
 			ok = false;
 			new MessageUtil()
-					.showInfoMessage("Info",
-							"Fecha de publicación no pueder ser mayor a la fecha de hoy");
+					.showInfoMessage("Fecha de publicación no pueder ser mayor a la fecha de hoy","");
 		} else if (uploadedFile != null && !fotoSubida) {
 			ok = false;
-			new MessageUtil().showInfoMessage("Info",
-					"Para subir la foto de click en el boton de la flecha");
+			new MessageUtil().showInfoMessage("Para subir la foto de click en el boton de la flecha","");
 		} else if (uploadedFile != null && fotoSubida
 				&& descripcionFoto.length() == 0) {
 			ok = false;
-			new MessageUtil().showInfoMessage("Info",
-					"Es necesario ingresar la descripción de la foto a subir");
+			new MessageUtil().showInfoMessage("Es necesario ingresar la descripción de la foto a subir","");
 		} else if (verificaDescripcionFotoNoVacia()) {
 			ok = false;
 			new MessageUtil()
-					.showInfoMessage("Info",
-							"Es necesario ingresar la descripción en fotos de la galería");
+					.showInfoMessage("Es necesario ingresar la descripción en fotos de la galería","");
 		}
 		return ok;
 
@@ -325,8 +302,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showErrorMessage("Error",
-					"Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showErrorMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 
 	}
@@ -343,8 +319,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showErrorMessage("Error",
-					"Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showErrorMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 
 	}
@@ -359,13 +334,11 @@ public class MascotaHomenajeAdminBean implements Serializable {
 				mostrarPaginaMensaje("Homenaje eliminado con exito!!");
 			} else {
 				new MessageUtil()
-						.showWarnMessage("Aviso",
-								"No se ha podido eliminar el Homenaje. Comunicar al Webmaster.");
+						.showWarnMessage("No se ha podido eliminar el Homenaje. Comunicar al Webmaster.","");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Error!",
-					"Ha ocurrido un error inesperado. Comunicar al Webmaster!");
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 
