@@ -121,7 +121,7 @@ public class Petnoticia implements java.io.Serializable, Cloneable {
 	
 	@Transient
 	public String getDescripcionNoTags() {
-		return this.descripcion.replaceAll("\\<.*?\\>", "");
+		return this.descripcion == null ? this.descripcion : this.descripcion.replaceAll("\\<.*?\\>", "");
 	}
 
 	@Column(name = "tag", length = 200)
