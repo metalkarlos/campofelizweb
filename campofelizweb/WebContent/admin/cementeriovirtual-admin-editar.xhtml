@@ -65,7 +65,7 @@
 								onblur="if(this.value==''){this.value='buscar'}"
 								onfocus="if(this.value=='buscar'){this.value=''}"
 								validatorMessage="Ingrese sólo letras. Corrija y reintente.">
-								<f:validateRegex pattern="[a-zA-Z ]+" />
+								<f:validateRegex pattern="[a-zA-Z ]*" />
 							</p:inputText>
 							<h:commandLink id="lnkbuscar" styleClass="search-form-submit" >
 								<f:ajax render="gridimagen mensajes" execute="txtbusqueda" ></f:ajax>

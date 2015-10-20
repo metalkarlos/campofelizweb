@@ -66,7 +66,7 @@
 							onblur="if(this.value==''){this.value='buscar por nombre de mascota'}"
 							onfocus="if(this.value=='buscar por nombre de mascota'){this.value=''}"
 							validatorMessage="Ingrese sólo letras. Corrija y reintente.">
-							<f:validateRegex pattern="[a-zA-Z ]+" />
+							<f:validateRegex pattern="[a-zA-Z ]*" />
 						</p:inputText>
 						<p:commandLink id="lnkbuscar" styleClass="search-form-submit" update="mensajes" >
 							<f:ajax render="resultadomascota" execute="txtbusqueda"></f:ajax>
