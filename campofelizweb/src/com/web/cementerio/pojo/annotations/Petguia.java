@@ -121,7 +121,7 @@ public class Petguia implements java.io.Serializable, Cloneable {
 	
 	@Transient
 	public String getDescripcionNoTags() {
-		return this.descripcion.replaceAll("\\<.*?\\>", "");
+		return this.descripcion != null ? this.descripcion.replaceAll("\\<.*?\\>", "") : this.descripcion;
 	}
 
 	@Column(name = "rutafoto", length = 100)

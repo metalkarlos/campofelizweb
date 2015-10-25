@@ -200,7 +200,7 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 	
 	@Transient
 	public String getDedicatoriaNoTags() {
-		return this.dedicatoria.replaceAll("\\<.*?\\>", "");
+		return this.dedicatoria != null ? this.dedicatoria.replaceAll("\\<.*?\\>", "") : this.dedicatoria;
 	}
 
 	@Column(name = "tag", length = 200)

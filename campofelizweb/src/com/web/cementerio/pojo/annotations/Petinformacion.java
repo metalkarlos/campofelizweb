@@ -111,7 +111,7 @@ public class Petinformacion implements java.io.Serializable, Cloneable {
 	
 	@Transient
 	public String getQuienessomosNoTags() {
-		return this.quienessomos.replaceAll("\\<.*?\\>", "");
+		return this.quienessomos != null ? this.quienessomos.replaceAll("\\<.*?\\>", "") : this.quienessomos;
 	}
 	
 	@Column(name = "mision", length = 2000)
