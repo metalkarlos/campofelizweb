@@ -120,7 +120,7 @@
 							<p:graphicImage id="idfotos" value="#{parametro.servletImagenes}#{item.ruta}?w=70" style="max-height: 70px; max-width: 90px;" />
 							<p:galleriaContent>
 								<h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">
-									<h:outputLink styleClass="grupo1" value="#{request.contextPath}#{parametro.servletImagenes}#{item.ruta}"	title="#{item.descripcion}">
+									<h:outputLink styleClass="grupo1" value="#{request.contextPath}#{parametro.servletImagenes}#{item.ruta}"	title="#{mascotaHomenajeBean.petmascotahomenaje.nombre}">
 										<p:graphicImage styleClass="imagenprincipal" id="idfoto" value="#{parametro.servletImagenes}#{item.ruta}?w=380" style="max-width:480px;height: 360px;padding-top: 10px" />
 									</h:outputLink>
 								</h:panelGrid>
