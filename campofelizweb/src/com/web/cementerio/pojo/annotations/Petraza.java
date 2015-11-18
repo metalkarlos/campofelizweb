@@ -33,6 +33,7 @@ public class Petraza implements java.io.Serializable {
 	private String iplog;
 	private byte[] objeto;
 	private String ruta;
+	private Petespecie petespecie;
 //	private Set<Petmascota> petmascotas = new HashSet<Petmascota>(0);
 
 	public Petraza() {
@@ -46,7 +47,7 @@ public class Petraza implements java.io.Serializable {
 
 	public Petraza(int idraza, Setestado setestado, Setusuario setusuario,
 			String nombre, String descripcion, Date fecharegistro,
-			String iplog, byte[] objeto, String ruta/*, Set<Petmascota> petmascotas*/) {
+			String iplog, byte[] objeto, String ruta,Petespecie petespecie/*, Set<Petmascota> petmascotas*/) {
 		this.idraza = idraza;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -56,6 +57,7 @@ public class Petraza implements java.io.Serializable {
 		this.iplog = iplog;
 		this.objeto = objeto;
 		this.ruta = ruta;
+		this.petespecie = petespecie;
 //		this.petmascotas = petmascotas;
 	}
 
@@ -153,4 +155,14 @@ public class Petraza implements java.io.Serializable {
 		this.petmascotas = petmascotas;
 	}
 */
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idespecie")
+	public Petespecie getPetespecie() {
+		return petespecie;
+	}
+
+	public void setPetespecie(Petespecie petespecie) {
+		this.petespecie = petespecie;
+	}
 }

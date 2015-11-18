@@ -195,9 +195,6 @@ public class PetnoticiaBO {
 			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 			
 			for(Petfotonoticia tmp : petnoticia.getPetfotonoticias()){
-				String rutaArchivo = rutaImagenes + tmp.getRuta();
-				fileUtil.deleteFile(rutaArchivo);
-				
 				//se inactivan todas las fotos asociadas a la noticia
 				Setestado setestado = new Setestado();
 				setestado.setIdestado(2);
@@ -211,6 +208,10 @@ public class PetnoticiaBO {
 				
 				//actualizar
 				petfotonoticiaDAO.updatePetfotonoticia(session, tmp);
+				
+				//se elimina el archivo de imagen
+				String rutaArchivo = rutaImagenes + tmp.getRuta();
+				fileUtil.deleteFile(rutaArchivo);
 			}			 
 			
 			//se inactiva el registro

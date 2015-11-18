@@ -194,9 +194,6 @@ public class PetservicioBO {
 			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 			
 			for(Petfotoservicio tmp : petservicio.getPetfotoservicios()){
-				String rutaArchivo = rutaImagenes + tmp.getRuta();
-				fileUtil.deleteFile(rutaArchivo);
-				
 				//se inactivan todas las fotos asociadas al servicio
 				Setestado setestado = new Setestado();
 				setestado.setIdestado(2);
@@ -210,6 +207,10 @@ public class PetservicioBO {
 				
 				//actualizar
 				petfotoservicioDAO.updatePetfotoservicio(session, tmp);
+				
+				//se elimina el archivo de imagen
+				String rutaArchivo = rutaImagenes + tmp.getRuta();
+				fileUtil.deleteFile(rutaArchivo);
 			}			 
 			
 			//se inactiva el registro

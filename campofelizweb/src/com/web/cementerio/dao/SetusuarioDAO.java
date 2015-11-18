@@ -14,6 +14,7 @@ public class SetusuarioDAO {
 		Criteria criteria = session.createCriteria(Setusuario.class);
 		criteria.add( Restrictions.eq("nombre", nombre) );
 		criteria.add( Restrictions.eq("clave", clave) );
+		criteria.add( Restrictions.eq("setestado.idestado", 1) );
 		
 		setusuario = (Setusuario) criteria.uniqueResult();
 		
@@ -25,6 +26,7 @@ public class SetusuarioDAO {
 		
 		Criteria criteria = session.createCriteria(Setusuario.class);
 		criteria.add( Restrictions.eq("nombre", usuario) );
+		criteria.add( Restrictions.eq("setestado.idestado", 1) );
 		
 		setusuario = (Setusuario) criteria.uniqueResult();
 		
